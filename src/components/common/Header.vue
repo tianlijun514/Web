@@ -210,7 +210,5 @@ export default {
 .el-dropdown-menu__item {
     text-align: center;
 }
-.tags-li {
-  background: red !important
-}
+
 </style>
