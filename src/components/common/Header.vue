@@ -129,7 +129,7 @@ export default {
     height: 60px;
     font-size: 22px;
     color: #fff;
-    background: #324157;
+    background: #333;
 
 }
 .collapse-btn {
@@ -209,5 +209,8 @@ export default {
 }
 .el-dropdown-menu__item {
     text-align: center;
+}
+.tags-li {
+  background: red !important
 }
 </style>

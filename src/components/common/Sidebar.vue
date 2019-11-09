@@ -1,18 +1,19 @@
+
 <template>
   <div class="sidebar">
-    <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157" text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
+    <el-menu  class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse"  text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
       <template v-for="item in items">
         <template v-if="item.subs">
-          <el-submenu :index="item.index" :key="item.index">
+          <el-submenu popper-class :index="item.index" :key="item.index">
             <template slot="title">
               <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
+              <span slot="title" class='spanmun'>{{ item.title }}</span>
             </template>
             <template v-for="subItem in item.subs" class="pages">
-              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+              <el-submenu  v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
                 <template slot="title">{{ subItem.title }}</template>
-                <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index">{{ threeItem.title }}</el-menu-item>
-              </el-submenu>
+                <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index" class="mens">{{ threeItem.title }}</el-menu-item>
+              </el-submenu >
               <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}</el-menu-item>
             </template>
           </el-submenu>
@@ -405,53 +406,53 @@ export default {
 
 
 
-        {
-          icon: 'el-icon-lx-cascades',
-          index: 'table',
-          title: '基础表格'
-        },
-        {
-          icon: 'el-icon-lx-copy',
-          index: 'tabs',
-          title: 'tab选项卡'
-        },
+        // {
+        //   icon: 'el-icon-lx-cascades',
+        //   index: 'table',
+        //   title: '基础表格'
+        // },
+        // {
+        //   icon: 'el-icon-lx-copy',
+        //   index: 'tabs',
+        //   title: 'tab选项卡'
+        // },
 
-        {
-          icon: 'el-icon-lx-emoji',
-          index: 'icon',
-          title: '自定义图标'
-        },
-        {
-          icon: 'el-icon-pie-chart',
-          index: 'charts',
-          title: 'schart图表'
-        },
+        // {
+        //   icon: 'el-icon-lx-emoji',
+        //   index: 'icon',
+        //   title: '自定义图标'
+        // },
+        // {
+        //   icon: 'el-icon-pie-chart',
+        //   index: 'charts',
+        //   title: 'schart图表'
+        // },
 
-        {
-          icon: 'el-icon-lx-global',
-          index: 'i18n',
-          title: '国际化功能'
-        },
-        {
-          icon: 'el-icon-lx-warn',
-          index: '7',
-          title: '错误处理',
-          subs: [
-            {
-              index: 'permission',
-              title: '权限测试'
-            },
-            {
-              index: '404',
-              title: '404页面'
-            }
-          ]
-        },
-        {
-          icon: 'el-icon-lx-redpacket_fill',
-          index: '/donate',
-          title: '支持作者'
-        }
+        // {
+        //   icon: 'el-icon-lx-global',
+        //   index: 'i18n',
+        //   title: '国际化功能'
+        // },
+        // {
+        //   icon: 'el-icon-lx-warn',
+        //   index: '7',
+        //   title: '错误处理',
+        //   subs: [
+        //     {
+        //       index: 'permission',
+        //       title: '权限测试'
+        //     },
+        //     {
+        //       index: '404',
+        //       title: '404页面'
+        //     }
+        //   ]
+        // },
+        // {
+        //   icon: 'el-icon-lx-redpacket_fill',
+        //   index: '/donate',
+        //   title: '支持作者'
+        // }
       ]
     };
   },
@@ -470,7 +471,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  scope>
 
 .sidebar {
     display: block;
@@ -488,5 +489,15 @@ export default {
 }
 .sidebar > ul {
     height: 100%;
+}
+/* .el-menu-item{
+
+} */
+
+.sidebar>ul{
+     background: #333; 
+}
+.el-submenu>ul>li{
+  color: #333 !important;
 }
 </style>

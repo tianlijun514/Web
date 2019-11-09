@@ -1,7 +1,7 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">奇門连锁健身房管理系统登录</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
                     <el-input v-model="param.username" placeholder="username">
@@ -21,7 +21,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
             </el-form>
         </div>
     </div>
@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+button{
+  background: #333;
+}
+
 .login-wrap {
     position: relative;
     width: 100%;
@@ -72,7 +76,7 @@ export default {
     line-height: 50px;
     text-align: center;
     font-size: 20px;
-    color: #fff;
+    /* color: #fff; */
     border-bottom: 1px solid #ddd;
 }
 .ms-login {
@@ -100,5 +104,8 @@ export default {
     font-size: 12px;
     line-height: 30px;
     color: #fff;
+}
+.el-button--primary{
+  border: none;
 }
 </style>
