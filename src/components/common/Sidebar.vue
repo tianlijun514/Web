@@ -500,4 +500,30 @@ export default {
 .el-submenu>ul>li{
   color: #333 !important;
 }
+.el-submenu__title:hover {
+    background-color: #606266!important;
+}
+.el-menu-item:hover{
+  background-color: #606266!important;
+}
+.el-menu {
+    background-color: #f0e9e5ef;
+}
+.el-button--primary {
+    color: #FFF;
+    background-color: #303133;
+    border-color: #303133;
+}
+.el-button--primary:focus, .el-button--primary:hover{
+    color: #FFF;
+    background-color: #606266!important;
+    border-color: #606266!important;
+}
+.el-menu-item.is-active {
+        color: rgb(191, 203, 217)!important;
+}
+.el-menu-item:focus, .el-menu-item:hover {
+    outline: 0;
+    background-color: #606266;
+}
 </style>
