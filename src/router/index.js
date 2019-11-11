@@ -36,6 +36,13 @@ export default new Router({
           }
         },
         {
+          path: '/hymesg',
+          component: () => import('../components/huibox/hymesg.vue'),
+          meta: {
+            title: '会员信息'
+          }
+        },
+        {
           path: '/dialog',
           component: () => import('../components/page/DragDialog.vue'),
           meta: {

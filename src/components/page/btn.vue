@@ -1,8 +1,9 @@
 <!-- vue快捷创建组件 -->
 <template>
-<div class='app'>
-  <button :class="btnclss"> {{btntext}}</button>
-</div>
+  <div class='app'>
+    <!-- <button :class="btnclss"> {{btntext}}</button> -->
+    <el-button size="mini" type="primary" @click="handleLook(scope.$index, scope.row)"> {{btntext}}</el-button>
+  </div>
 </template>
 
 
@@ -11,51 +12,51 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-name:'mybutton',
-props: {
-btntext:{
-  
-},
-btnclss:{}
+  name: 'mybutton',
+  props: {
+    btntext: {
 
-},
-// import引入的组件需要注入到对象中才能使用
-components: {
+    },
+    btnclss: {}
 
-},
-data() {
-// 这里存放数据
-return {
+  },
+  // import引入的组件需要注入到对象中才能使用
+  components: {
 
-}
-},
-// 监听属性 类似于data概念
-computed: {},
-// 监控data中的数据变化
-watch: {},
-// 方法集合
-methods: {
+  },
+  data () {
+    // 这里存放数据
+    return {
 
-},
-// 生命周期 - 创建完成（可以访问当前this实例）
-created() {
+    }
+  },
+  // 监听属性 类似于data概念
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
+  methods: {
 
-},
-// 生命周期 - 挂载完成（可以访问DOM元素）
-mounted() {
+  },
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created () {
 
-},
-beforeCreate() {}, // 生命周期 - 创建之前
-beforeMount() {}, // 生命周期 - 挂载之前
-beforeUpdate() {}, // 生命周期 - 更新之前
-updated() {}, // 生命周期 - 更新之后
-beforeDestroy() {}, // 生命周期 - 销毁之前
-destroyed() {}, // 生命周期 - 销毁完成
-activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+  },
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+
+  },
+  beforeCreate () { }, // 生命周期 - 创建之前
+  beforeMount () { }, // 生命周期 - 挂载之前
+  beforeUpdate () { }, // 生命周期 - 更新之前
+  updated () { }, // 生命周期 - 更新之后
+  beforeDestroy () { }, // 生命周期 - 销毁之前
+  destroyed () { }, // 生命周期 - 销毁完成
+  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
 <style  scoped>
-.btnblack{
+.btnblack {
     width: 70px;
     height: 40px;
     line-height: 40px;
@@ -63,9 +64,8 @@ activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
     border: none;
     color: white;
     background: #333;
-  }
-  .yellow{
+}
+.yellow {
     background: #996e12;
-  }
-
+}
 </style>
