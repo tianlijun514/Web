@@ -24,7 +24,7 @@
   color: #20a0ff;
 }
 .collapse-btn:hover{
-  background: rgb(40,52,70);
+  background: rgb(66, 79, 99);
 }
 .el-submenu__title{
   background: #333;
@@ -38,3 +38,5 @@
   background-color: #606266!important;
   border-color: #606266!important;
 }
+
+

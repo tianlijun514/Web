@@ -1,25 +1,27 @@
 <!-- vue快捷创建组件 -->
 <template>
 <div class='app'>
-  <div>11</div>
-  <mybtn btntext='查看' btnclss='btnblack'></mybtn>
-  <mybtn btntext='删除' btnclss='yellow'></mybtn>
+  <button :class="btnclss"> {{btntext}}</button>
 </div>
 </template>
 
+
 <script>
-import mybtn from '../page/btn'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-name:'boxli',
+name:'mybutton',
 props: {
+btntext:{
+  
+},
+btnclss:{}
 
 },
 // import引入的组件需要注入到对象中才能使用
 components: {
-mybtn:mybtn
+
 },
 data() {
 // 这里存放数据
@@ -53,6 +55,17 @@ activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
 <style  scoped>
-
+.btnblack{
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    color: white;
+    background: #333;
+  }
+  .yellow{
+    background: #996e12;
+  }
 
 </style>
