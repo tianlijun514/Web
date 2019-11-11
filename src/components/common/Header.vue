@@ -144,7 +144,7 @@ export default {
     line-height: 60px;
     font-size: 16px;
     /* left: 7px; */
-    margin-left: 20px;
+    margin-left: 5px;
 }
 .boxs{
       float: left;

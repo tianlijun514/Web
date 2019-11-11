@@ -94,6 +94,7 @@ export default {
           title: '会籍',
           subs: [
             {
+                // icon: 'el-icon-burger',
               index: '3-2',
               title: '会籍查询',
               subs: [
@@ -895,7 +896,7 @@ export default {
     background-color: #606266!important;
 }
 .el-menu-item:hover{
-  background-color: #606266!important;
+  background-color: rgba(96, 98, 102, 0.65)!important;
 }
 .el-menu {
     background-color: #f0e9e5ef;
@@ -907,16 +908,21 @@ export default {
 }
 .el-button--primary:focus, .el-button--primary:hover{
     color: #FFF;
-    background-color: #606266!important;
-    border-color: #606266!important;
+    background-color: rgba(96, 98, 102, 0.65)!important;
+    border-color: rgba(96, 98, 102, 0.65) !important;
 }
 .el-menu-item.is-active {
         color: rgb(191, 203, 217)!important;
 }
 .el-menu-item:focus, .el-menu-item:hover {
     outline: 0;
-    background-color: #606266;
+    background-color: rgba(96, 98, 102, 0.65);
 }
-
+.el-submenu .el-menu-item {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 45px;
+    min-width: 200px;
+}
 
 </style>
