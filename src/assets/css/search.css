@@ -1,0 +1,27 @@
+.card {
+  display: flex;
+  padding: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  background: #fff;
+}
+.card > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 20%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.card span {
+  width: 50px;
+  font-size: 14px;
+  color: #333;
+}
+.card input {
+  margin-right: 15px;
+}
+.card select {
+  margin-right: 15px;
+  width: auto;
+}
