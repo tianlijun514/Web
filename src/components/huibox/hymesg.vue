@@ -76,6 +76,16 @@
     <el-table-column prop="date" label="序号" width="180"></el-table-column>
     <el-table-column prop="name" label="门店名称" width="180"></el-table-column>
     <el-table-column prop="address" label="定金编码"></el-table-column>
+    <el-table-column prop="address" label="定金类型"></el-table-column>
+    <el-table-column prop="address" label="定金金额"></el-table-column>
+    <el-table-column prop="address" label="销售日期"></el-table-column>
+    <el-table-column prop="address" label="过期日期"></el-table-column>
+    <el-table-column prop="address" label="使用日期"></el-table-column>
+    <el-table-column prop="address" label="状态"></el-table-column>
+    <el-table-column prop="address" label="签名"></el-table-column>
+    <el-table-column prop="address" label="销售员"></el-table-column>
+
+
   </el-table>
 </template>
         
@@ -137,21 +147,9 @@ export default {
 
       }],
   jiaoseData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
+          date: '1',
+          name: '培训测试店',
+          address: '001'
         }]
     }
     
