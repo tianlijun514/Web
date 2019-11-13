@@ -202,8 +202,17 @@ export default new Router({
           path: '/index2',
           component: () => import('../components/huiindex/indexxs.vue'),
           meta: {
-            title: '会籍销售'
+            title: '会籍合同销售'
           }
+        },
+
+        // 弹框组件
+        {
+          path: '/zjding',
+          component: () => import('../components/huiindex/zjding.vue'),
+          // meta: {
+          //   title: '会籍合同销售'
+          // }
         },
         {
           path: '/index3',
