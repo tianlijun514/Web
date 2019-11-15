@@ -35,11 +35,20 @@ export default new Router({
             title: '会员信息综合查询'
           }
         },
+
+  // 内容跳转组件
         {
           path: '/hymesg',
           component: () => import('../components/huibox/hymesg.vue'),
           meta: {
             title: '会员信息'
+          }
+        },
+        {
+          path: '/zuboss',
+          component: () => import('../components/huiindex/zuboss.vue'),
+          meta: {
+            title: '租箱租用'
           }
         },
         {
@@ -207,13 +216,13 @@ export default new Router({
         },
 
         // 弹框组件
-        {
-          path: '/zjding',
-          component: () => import('../components/huiindex/zjding.vue'),
-          // meta: {
-          //   title: '会籍合同销售'
-          // }
-        },
+        // {
+        //   path: '/zjding',
+        //   component: () => import('../components/huiindex/zjding.vue'),
+        //   // meta: {
+        //   //   title: '会籍合同销售'
+        //   // }
+        // },
         {
           path: '/index3',
           component: () => import('../components/huiindex/indexzhuanbu.vue'),
@@ -225,7 +234,7 @@ export default new Router({
           path: '/index4',
           component: () => import('../components/huiindex/indexzuji.vue'),
           meta: {
-            title: '会籍租箱办理'
+            title: '租箱管理'
           }
         },
         {
@@ -295,7 +304,14 @@ export default new Router({
           path: '/editor4',
           component: () => import('../components/editor/editor4.vue'),
           meta: {
-            title: '访客录入'
+            title: '访客记录'
+          }
+        },
+        {
+          path: '/fang',
+          component: () => import('../components/editor/fang.vue'),
+          meta: {
+            title: '新增访客'
           }
         },
         {
@@ -331,6 +347,13 @@ export default new Router({
           component: () => import('../components/editor/editor9.vue'),
           meta: {
             title: '黑名单设置'
+          }
+        },
+        {
+          path: '/ming',
+          component: () => import('../components/editor/ming.vue'),
+          meta: {
+            title: '新增黑名单'
           }
         },
         {

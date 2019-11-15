@@ -83,32 +83,7 @@ return {
   user: '',
   region: ''
 },
-  pickerOptions: {
-    shortcuts: [{
-    onClick(picker) {
-        const end = new Date();
-        const start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-        picker.$emit('pick', [start, end]);
-    }
-    }, {
-        onClick(picker) {
-        const end = new Date();
-        const start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-        picker.$emit('pick', [start, end]);
-    }
-    }, {
-        onClick(picker) {
-        const end = new Date();
-        const start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-        picker.$emit('pick', [start, end]);
-    }
-    }]
-   },
 value1: '',
-value2: '',
  tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
@@ -170,7 +145,7 @@ destroyed() {}, // 生命周期 - 销毁完成
 activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style>
+<style scoped>
 .el-form-item__content{
   width: 100px !important;
 }

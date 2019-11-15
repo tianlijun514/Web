@@ -11,21 +11,21 @@
       </el-form-item>
     </el-form>
     <div class="hetong">
-      <span>合同门店：</span>
-      <span>00006红牌楼</span>
+      <span class="titec">合同门店：</span>
+      <span class="biv">00006红牌楼</span>
     </div>
     <div class="hetong">
-      <span>会籍类型：</span>
-      <span>M80028-奇門连锁赠送2年卡</span>
+      <span class="titec">会籍类型：</span>
+      <span class="biv">M80028-奇門连锁赠送2年卡</span>
     </div>
-    <span>指定使用门店</span>
+    <span class="titec">指定使用门店</span>
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="date" label="序号" width="50"></el-table-column>
       <el-table-column prop="name" label="门店编号" width="150"></el-table-column>
       <el-table-column prop="address" label="门店名称"  width="200"></el-table-column>
     </el-table>
 
-    <span>指定区域: 100001-全城门店</span>
+    <span class="titec">指定区域: 100001-全城门店</span>
     <el-table :data="quandata" border style="width: 100%">
       <el-table-column prop="date" label="序号" width="50"></el-table-column>
       <el-table-column prop="name" label="门店编号" width="150"></el-table-column>
@@ -57,32 +57,7 @@ export default {
         user: '',
         region: ''
       },
-      pickerOptions: {
-        shortcuts: [{
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
       value1: '',
-      value2: '',
       tableData: [{
         date: '1',
         name: '王小虎',
@@ -165,4 +140,10 @@ export default {
 .el-table__expanded-cell {
     background-color: rgb(240, 240, 240);
 }
+ .titec{
+   font-size: 15px;
+ }
+  .biv{
+    font-size: 14px;
+  }
 </style>

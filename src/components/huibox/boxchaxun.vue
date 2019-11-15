@@ -1,6 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app'>
+  <div class='aapp'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
@@ -33,7 +33,7 @@
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
-    <div class="block">
+    <div class="aom">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
       </el-pagination>
     </div>
@@ -66,32 +66,9 @@ export default {
         user: '',
         region: ''
       },
-      pickerOptions: {
-        shortcuts: [{
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
+
       value1: '',
-      value2: '',
+
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
@@ -155,12 +132,12 @@ export default {
   activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style>
+<style scoped>
 .el-form-item__content {
     width: 100px !important;
 }
 @import './../../assets/css/table.css';
-.block {
+.aom {
     width: 50%;
     margin: auto;
 }
@@ -173,5 +150,8 @@ export default {
     padding: 0 12px 0 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+}
+.aapp {
+    width: 100%;
 }
 </style>

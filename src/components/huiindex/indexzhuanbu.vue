@@ -7,120 +7,67 @@
         <el-select v-model="form.region" class="sex">
           <el-option label="停卡" value="shanghai"></el-option>
           <el-option label="补卡" value="beijing"></el-option>
-            <el-option label="转店" value="za11"></el-option>
+          <el-option label="转店" value="za11"></el-option>
         </el-select>
       </el-form-item>
-      <!-- <div class='divbin'> -->
-        <el-form-item label="合同编号">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <!-- <el-form-item label="性别">
-          <el-select v-model="form.regions" class="sex">
-            <el-option label="男" value="man"></el-option>
-            <el-option label="女" value="woman"></el-option>
-          </el-select>
-        </el-form-item> -->
-      <!-- </div> -->
-       <div class="shenfen">
+
+      <el-form-item label="合同编号">
+        <input type="text" class="input_box">
+      </el-form-item>
+      <div class="shenfen">
         <el-form-item label="会员姓名">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="会员编号">
+        <el-form-item label="会员编号" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
-      <el-form-item label="原会籍类型">
-          <input type="text" class="input_box">
-        </el-form-item>
+      <div style="margin-bottom: 15px;">
+        <span class="yut">原会籍类型</span>
+        <input type="text" class="input_box">
+      </div>
 
- <div class="block">
-            <span class="demonstration">合同日期范围</span>
-            <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
-            <input type="date"  placeholder='1'>
-          </div>
-          <div class="shenfen">
+      <div class="block">
+        <span class="demonstration">合同日期范围</span>
+        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        </el-date-picker>
+      </div>
+      <div class="shenfen">
         <el-form-item label="合同价值">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="剩余价值">
+        <el-form-item label="剩余价值" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div class="shenfen">
-        <el-form-item label="证件号">
-          <el-select v-model="form.region1" class="sex">
-            <el-option label="身份证" value="shanghai"></el-option>
-            <el-option label="护照" value="beijing"></el-option>
-            <el-option label="回乡证" value="beijing"></el-option>
-          </el-select>
+      <div class="minx">
+        <el-form-item label="定金编号" class="phone">
+          <input type="text" class="input_box">
         </el-form-item>
-        <el-input v-model="form.name" class="sinxex"></el-input>
-      </div>
-      <el-form-item label="手机号码" class="phone">
-        <input type="text" class="input_box">
-      </el-form-item>
-      <div class="dinglei">
-        <el-form-item label="定金类型">
-          <el-select v-model="form.region2" class="sex">
-            <el-option label="会籍定金" value="hux"></el-option>
-            <el-option label="私教定金" value="sijao"></el-option>
-            <el-option label="停转补定金" value="tibox"></el-option>
-            <el-option label="转让定金" value="zrj"></el-option>
-            <el-option label="租箱定金" value="ding"></el-option>
-            <el-option label="商品定金" value="shopng"></el-option>
-          </el-select>
-        </el-form-item>
+        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
+        <button type="primary" @click="alerts()" class="btnte">...</button>
         <el-form-item label="定金金额" class="phone">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
-      <div class="conmeny">
-        <el-form-item label="营销活动">
-          <el-select v-model="form.region3">
-            <el-option label="不参加营销活动" value="yin"></el-option>
-            <el-option label="参加营销活动" value="yxbj"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="卡种类型">
-          <el-select v-model="form.region3">
-            <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
-            <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
-            <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
-            <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
-            <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
-            <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
-            <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
-            <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
-            <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
-            <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
-          </el-select>
-        </el-form-item>
-      </div>
-      <el-form-item label="卡种价格" class="phone">
+
+      <el-form-item label="停卡月数" class="phone">
         <input type="text" class="input_box">
       </el-form-item>
+      <div class="block">
+        <span class="demonstration">停卡日期范围</span>
+        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        </el-date-picker>
+      </div>
+      <div class="shenfen">
+        <el-form-item label="手续费">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label="应收金额" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
+      </div>
+
 
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.desc"></el-input>
@@ -134,6 +81,7 @@
 </template>
 
 <script>
+import alertip from './zjding'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -144,12 +92,14 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-
+    alertip
   },
   data () {
     // 这里存放数据
     return {
-           value1: '',  
+      value1: '',
+      alertipShow: false,
+      alertText: '',
       form: {
         name: '',
         region: '',
@@ -170,7 +120,10 @@ export default {
   methods: {
     onSubmit () {
       console.log('submit!');
-    }
+    },
+    alerts () {
+      this.alertipShow = true;
+    },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -189,7 +142,7 @@ export default {
   activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style >
+<style scoped>
 .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -238,11 +191,45 @@ export default {
     outline: 0;
     padding: 0 15px;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 203px !important;
 }
 .dinglei {
     display: flex;
 }
 .conmeny {
     display: flex;
+}
+.yut {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.block {
+    margin-left: -15px !important;
+    margin-bottom: 15px !important;
+}
+.el-date-range-picker {
+    width: 510px !important;
+    z-index: 500;
+}
+.minx {
+    display: flex;
+}
+.btnte {
+    width: 25px !important;
+    height: 28px !important;
+    margin-left: 2px;
+    text-align: center;
+    background: #333;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 2px;
 }
 </style>

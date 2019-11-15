@@ -1,6 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
-<div class='app'>
+<div class='app1'>
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>

@@ -1,8 +1,51 @@
 <!-- vue快捷创建组件 -->
 <template>
-<div class='app'>
-  <div>15315</div>
-</div>
+  <div class='app1'>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="租箱号">
+        <el-input v-model="formInline.user"></el-input>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="formInline.regions">
+          <el-option label="全部" value="xiaoshou"></el-option>
+          <el-option label="空闲" value="shi"></el-option>
+          <el-option label="已租" value="buka"></el-option>
+
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="类型">
+        <el-select v-model="formInline.region">
+          <el-option label="男" value="mian"></el-option>
+          <el-option label="女" value="nvs"></el-option>
+          <el-option label="公共" value="gu"></el-option>
+          <el-option label="男下柜" value="xiqs"></el-option>
+          <el-option label="女下柜" value="nus"></el-option>
+          <el-option label="男鞋柜" value="xwu"></el-option>
+          <el-option label="女鞋柜" value="xtu"></el-option>
+        </el-select>
+      </el-form-item>
+      <span class="demonstration">归还日期</span>
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      </el-date-picker>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    
+      <el-table :data="tableData" border style="width: 100%;text-align:center">
+      <template v-for="(item,index) in tableTitle">
+        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
+      </template>
+      <el-table-column scope label="详细">
+        <!-- <button @click="handleLook(scope.$index, scope.row)" class="btns">查看</button> -->
+        <el-button size="mini" type="primary" @click="Look">租借</el-button>
+      </el-table-column>
+    </el-table>
+
+  </div>
+
 </template>
 
 <script>
@@ -10,46 +53,130 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-name:'app',
-props: {
+  name: 'boxhy',
+  props: {
 
-},
-// import引入的组件需要注入到对象中才能使用
-components: {
+  },
+  // import引入的组件需要注入到对象中才能使用
+  components: {
 
-},
-data() {
-// 这里存放数据
-return {
+  },
+  data () {
+    // 这里存放数据
+    return {
+      currentPage1: 5,
+      currentPage2: 5,
+      currentPage3: 5,
+      currentPage4: 4,
+      formInline: {
+        user: '',
+        region: ''
+      },
+      pickerOptions: {
+        shortcuts: [{
+          onClick (picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          onClick (picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          onClick (picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
+      },
+      value1: '',
+      value2: '',
+      tableTitle: [
+        { title: '箱号', data: 'num' },
+        { title: '名称', data: 'storeName' },
+        { title: '押金', data: 'telNo' },
+        { title: '年租金', data: 'userName' },
+        { title: '月租金', data: 'userNo' },
+        { title: '类型', data: 'userCardNo' },
+        { title: '状态', data: 'sex' },
+        { title: '会员', data: 'cardClass' },
+        { title: '开始日期', data: 'cardNo' },
+        { title: '结束日期', data: 'photo' },
+        { title: '支付押金', data: 'yax' },
+        { title: '支付租金', data: 'zhu' },
+        { title: '操作', data: 'cau' },
 
-}
-},
-// 监听属性 类似于data概念
-computed: {},
-// 监控data中的数据变化
-watch: {},
-// 方法集合
-methods: {
+      ],
+      tableData: [{
+        num: '00012',
+        storeName: '天府四街分店',
+        userNo: '0001242',
+        userCardNo: '刘小军',
+        userName: '2018-12-10',
+        sex: '空闲',
+        cardClass: '普通',
+        cardNo: '2018-12-12',
+        telNo: '2019-12-12',
+        photo: '2018-12-01',
+        yax: '2018-12-23',
+        zhu: '备注',
+        cau: '10'
 
-},
-// 生命周期 - 创建完成（可以访问当前this实例）
-created() {
+      },]
+    }
+  },
+  // 监听属性 类似于data概念
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
+  methods: {
+    onSubmit () {
+      console.log('submit!');
+    },
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`);
+    },
+    Look () {
+      this.$router.push('./zuboss')
+      console.log(1111)
+    },
 
-},
-// 生命周期 - 挂载完成（可以访问DOM元素）
-mounted() {
+  },
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created () {
 
-},
-beforeCreate() {}, // 生命周期 - 创建之前
-beforeMount() {}, // 生命周期 - 挂载之前
-beforeUpdate() {}, // 生命周期 - 更新之前
-updated() {}, // 生命周期 - 更新之后
-beforeDestroy() {}, // 生命周期 - 销毁之前
-destroyed() {}, // 生命周期 - 销毁完成
-activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+  },
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+
+  },
+  beforeCreate () { }, // 生命周期 - 创建之前
+  beforeMount () { }, // 生命周期 - 挂载之前
+  beforeUpdate () { }, // 生命周期 - 更新之前
+  updated () { }, // 生命周期 - 更新之后
+  beforeDestroy () { }, // 生命周期 - 销毁之前
+  destroyed () { }, // 生命周期 - 销毁完成
+  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style  scoped>
-
-
+<style scoped>
+.el-form-item__content {
+    width: 100px !important;
+}
+@import './../../assets/css/table.css';
+.block {
+    width: 50%;
+    margin: auto;
+}
 </style>

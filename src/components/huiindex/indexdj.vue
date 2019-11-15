@@ -1,28 +1,28 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app'>
+  <div class='boxs'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="会员类型">
-        <el-select v-model="form.region" class="sex">
+      <el-form-item label="会员类型" style="width:50%!important">
+        <el-select v-model="form.region">
           <el-option label="1-新会员" value="shanghai"></el-option>
           <el-option label="2-老会员" value="beijing"></el-option>
         </el-select>
       </el-form-item>
       <div class='divbin'>
-        <el-form-item label="会员姓名">
+        <el-form-item label="会员姓名" style="width:50%!important">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="性别">
-          <el-select v-model="form.regions" class="sex">
+        <el-form-item label="性别" style="width:50%!important">
+          <el-select v-model="form.regions">
             <el-option label="男" value="man"></el-option>
             <el-option label="女" value="woman"></el-option>
           </el-select>
         </el-form-item>
       </div>
       <div class="shenfen">
-        <el-form-item label="证件号">
-          <el-select v-model="form.region1" class="sex">
+        <el-form-item label="证件号" style="width:50%!important">
+          <el-select v-model="form.region1">
             <el-option label="身份证" value="shanghai"></el-option>
             <el-option label="护照" value="beijing"></el-option>
             <el-option label="回乡证" value="beijing"></el-option>
@@ -30,12 +30,12 @@
         </el-form-item>
         <el-input v-model="form.name" class="sinxex"></el-input>
       </div>
-      <el-form-item label="手机号码" class="phone">
+      <el-form-item label="手机号码" style="width:50%!important">
         <input type="text" class="input_box">
       </el-form-item>
       <div class="dinglei">
-        <el-form-item label="定金类型">
-          <el-select v-model="form.region2" class="sex">
+        <el-form-item label="定金类型" style="width:50%!important">
+          <el-select v-model="form.region2">
             <el-option label="会籍定金" value="hux"></el-option>
             <el-option label="私教定金" value="sijao"></el-option>
             <el-option label="停转补定金" value="tibox"></el-option>
@@ -44,18 +44,18 @@
             <el-option label="商品定金" value="shopng"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="定金金额" class="phone">
+        <el-form-item label="定金金额" style="width:50%!important">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
       <div class="conmeny">
-        <el-form-item label="营销活动">
+        <el-form-item label="营销活动" >
           <el-select v-model="form.region3">
             <el-option label="不参加营销活动" value="yin"></el-option>
             <el-option label="参加营销活动" value="yxbj"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="卡种类型">
+        <el-form-item label="卡种类型" style="width:50%">
           <el-select v-model="form.region3">
             <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
             <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
@@ -70,11 +70,11 @@
           </el-select>
         </el-form-item>
       </div>
-      <el-form-item label="卡种价格" class="phone">
+      <el-form-item label="卡种价格"  style="width:50%">
         <input type="text" class="input_box">
       </el-form-item>
 
-      <el-form-item label="备注">
+      <el-form-item label="备注" style="width:100%">
         <el-input type="textarea" v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item>
@@ -140,15 +140,14 @@ export default {
   activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style >
-.app {
+<style scoped>
+.boxs {
     width: 50% !important;
     background: white;
 }
 .formbox {
-    width: 90%;
     padding: 25px;
-    margin: auto;
+ 
 }
 .hname {
     width: 80% !important;
@@ -185,5 +184,14 @@ export default {
 }
 .conmeny {
     display: flex;
+}
+.demonstration {
+    height: 32px;
+    vertical-align: middle;
+    line-height: 32px !important;
+    font-size: 14px;
+    color: #606266;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
 }
 </style>

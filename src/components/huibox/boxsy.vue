@@ -59,7 +59,6 @@ export default {
         region: ''
       },
       value1: '',
-      value2: '',
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '会员卡号', data: 'storeName' },
@@ -122,7 +121,7 @@ export default {
   activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style>
+<style scoped>
 .el-form-item__content {
     width: 100px !important;
 }

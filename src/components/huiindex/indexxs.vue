@@ -1,6 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app'>
+  <div class='appmm'>
 
     <div class="conments">
       <div class="appx">
@@ -106,11 +106,11 @@
         <span class="titex">您选择的营销活动附带赠品信息</span>
         <el-table :data="bianta" border style="width: 58%">
           <el-table-column prop="biu" label="编号" width="50"></el-table-column>
-          <el-table-column prop="nbm" label="名称" width="320"></el-table-column>
+          <el-table-column prop="nbm" label="名称" width="297"></el-table-column>
         </el-table>
         <span class="titex">可使用门店</span>
         <el-table :data="mendata" border style="width: 58%">
-          <el-table-column prop="menx" label="门店" width="120"></el-table-column>
+          <el-table-column prop="menx" label="门店" width="106"></el-table-column>
           <el-table-column prop="miao" label="描述" width="120"></el-table-column>
           <el-table-column prop="zixuan" label="自选门店" width="120"></el-table-column>
         </el-table>
@@ -259,7 +259,7 @@ export default {
   activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style >
+<style scoped>
 .miet{
   margin-left: 40% !important;
   margin-top: 30px;
@@ -274,7 +274,7 @@ export default {
     width: 48% !important;
 
 }
-.app {
+.appmm {
     width: 100% !important;
     background: white;
 }
@@ -316,6 +316,7 @@ export default {
     outline: 0;
     padding: 0 15px;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 100%
 }
 .dinglei {
     display: flex;
