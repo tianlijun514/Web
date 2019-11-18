@@ -214,15 +214,6 @@ export default new Router({
             title: '会籍合同销售'
           }
         },
-
-        // 弹框组件
-        // {
-        //   path: '/zjding',
-        //   component: () => import('../components/huiindex/zjding.vue'),
-        //   // meta: {
-        //   //   title: '会籍合同销售'
-        //   // }
-        // },
         {
           path: '/index3',
           component: () => import('../components/huiindex/indexzhuanbu.vue'),

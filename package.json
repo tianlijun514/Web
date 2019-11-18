@@ -8,8 +8,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+
     "@spectrum-web-components/iconset": "^0.1.5",
     "axios": "^0.18.0",
+    "Print":"",
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.11.0",
     "less": "^3.10.3",
