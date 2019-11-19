@@ -2,36 +2,15 @@
 <template>
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
-      <div class="shenfen">
-        <el-form-item label="会员卡号">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <el-form-item label="会员编号" style="margin-left: 28px">
-          <input type="text" class="input_box">
-        </el-form-item>
-      </div>
+
+      <el-form-item label="会员卡号" label-width='82px'>
+        <input type="text" class="input_box">
+      </el-form-item>
       <div class="shenfen">
         <el-form-item label="会员姓名">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="合同终止日" style="margin-left: 28px" label-width='82px'>
-          <input type="text" class="input_box">
-        </el-form-item>
-      </div>
-
-      <el-form-item label="销售类型">
-        <el-select v-model="form.region" class="sex">
-          <el-option label="1-新合同" value="shanghai"></el-option>
-          <el-option label="6-升级" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
-      <div class="minx">
-        <el-form-item label="定金编号" class="phone">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
-        <button type="primary" @click="alerts()" class="btnte">...</button>
-        <el-form-item label="定金金额" class="phone">
+        <el-form-item label="手机号" style="margin-left: 28px" label-width='82px'>
           <input type="text" class="input_box">
         </el-form-item>
       </div>
@@ -100,51 +79,32 @@
         <el-form-item label="上课教练" style="margin-left: 28px">
           <el-select v-model="form.region" class="sex">
             <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
-
           </el-select>
         </el-form-item>
-      </div>
 
-      <div class="shenfen">
-        <el-form-item label="购买数量">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <el-form-item label-width='82px' label="指导价范围" style="margin-left: 28px">
-          <input type="text" class="input_box">
-        </el-form-item>
-      </div>
-
-      <div class="block">
-        <span class="demonstration">日期范围</span>
-        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-        </el-date-picker>
       </div>
       <div class="shenfen">
-        <el-form-item label="实际售价" >
-          <input type="text" class="input_box">
-        </el-form-item>
-        <el-form-item label="剩余价值" style="margin-left: 28px">
-          <input type="text" class="input_box">
-        </el-form-item>
+        <div class="block">
+          <span class="demonstration">上课时间</span>
+          <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+          </el-date-picker>
+        </div>
+        <el-time-select v-model="value" :picker-options="{
+    start: '08:30',
+    step: '00:15',
+    end: '18:30'
+  }" placeholder="选择时间">
+        </el-time-select>
+
       </div>
 
-      <el-form-item label="应收金额" class="phone">
-        <input type="text" class="input_box">
-      </el-form-item>
-
-      <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc"></el-input>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
-
 <script>
-// import alertip from './zjding'
-import alertip from '../huiindex/zjding'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -155,14 +115,13 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip
+
   },
   data () {
     // 这里存放数据
     return {
+      value: '',
       value1: '',
-      alertipShow: false,
-      alertText: '',
       form: {
         name: '',
         region: '',
@@ -184,9 +143,6 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-    alerts () {
-      this.alertipShow = true;
-    },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -206,20 +162,11 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__label{
-width:82px !important;
+.pact {
+    width: 670px !important;
+    background: white;
 }
-label {
-display:inline-block;
-width:82px !important;
-text-align:left;
-padding:1px;
-margin:1px;
-color:#000;
-}
-.el-form-item__content{
-  margin-left: 85px !important;
-}
+
 .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -230,29 +177,16 @@ color:#000;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.pact {
-    width: 60% !important;
-    background: white;
-}
+
 .formbox {
     width: 90%;
     padding: 25px;
     margin: auto;
 }
-.hname {
-    width: 82% !important;
-}
-.divbin {
-    display: flex !important;
-}
-
 .shenfen {
     display: flex;
 }
-.sinxex {
-    width: 48.5% !important;
-    margin-left: 5px;
-}
+
 .input_box {
     -webkit-appearance: none;
     background-color: #fff;
@@ -270,43 +204,9 @@ color:#000;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.yut {
-    text-align: right;
-    vertical-align: middle;
-    float: left;
-    font-size: 14px;
-    color: #606266;
-    line-height: 40px;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .block {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
-}
-.el-date-range-picker {
-    width: 510px !important;
-    z-index: 500;
-}
-.minx {
-    display: flex;
-}
-.btnte {
-    width: 25px !important;
-    height: 28px !important;
-    margin-left: 2px;
-    text-align: center;
-    background: #333;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    margin-top: 2px;
 }
 </style>

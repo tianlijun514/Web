@@ -172,6 +172,7 @@ export default new Router({
             title: '合同可入场门店查询'
           }
         },
+
         {
           path: '/box7',
           component: () => import('../components/huibox/boxsy.vue'),
@@ -386,7 +387,7 @@ export default new Router({
           path: '/pact2',
           component: () => import('../components/pact/pact2.vue'),
           meta: {
-            title: '上课核销'
+            title: '私教核销'
           }
         },
         {
@@ -397,10 +398,19 @@ export default new Router({
           }
         },
         {
+          path: '/drillen',
+          component: () => import('../components/pact/drillen.vue'),
+          meta: {
+            title: '私教换教练'
+          }
+        },
+
+
+        {
           path: '/pact4',
           component: () => import('../components/pact/pact4.vue'),
           meta: {
-            title: '私教转店处理'
+            title: '私教转店'
           }
         },
         {
@@ -415,6 +425,20 @@ export default new Router({
           component: () => import('../components/pact/pact6.vue'),
           meta: {
             title: '团操预约和入场'
+          }
+        },
+        {
+          path: '/onetable',
+          component: () => import('../components/pact/onetable.vue'),
+          meta: {
+            title: '团操预约'
+          }
+        },
+        {
+          path: '/alstable',
+          component: () => import('../components/pact/alstable.vue'),
+          meta: {
+            title: '1对多团操预约'
           }
         },
         {

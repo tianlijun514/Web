@@ -2,11 +2,19 @@
 <template>
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
+
+      <el-form-item label="私教合同号" label-width='82px'>
+        <input type="text" class="input_box">
+      </el-form-item>
+
       <div class="shenfen">
-        <el-form-item label="会员卡号">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <el-form-item label="会员编号" style="margin-left: 28px">
+        <div class="block">
+          <span class="demonstration">销售日期</span>
+          <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 201px">
+          </el-date-picker>
+        </div>
+
+        <el-form-item label="销售类别" style="margin-left: 28px" label-width='82px'>
           <input type="text" class="input_box">
         </el-form-item>
       </div>
@@ -14,38 +22,15 @@
         <el-form-item label="会员姓名">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="合同终止日" style="margin-left: 28px" label-width='82px'>
+        <el-form-item label-width='82px' label="会员编号" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
       <div class="shenfen">
-        <el-form-item label="定金编号">
+        <el-form-item label="课程">
           <input type="text" class="input_box">
         </el-form-item>
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
-        <button type="primary" @click="alerts()" class="btnte">...</button>
-        <el-form-item label="定金金额" style="margin-left: 2px">
-          <input type="text" class="input_box">
-        </el-form-item>
-      </div>
-      <div class="shenfen">
-        <el-form-item label="私教礼包">
-          <el-select v-model="form.region" class="sex">
-            <el-option label="SJ001 - 私教送健身包" value="shanghai"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="私教课程" style="margin-left: 28px">
-          <input type="text" class="input_box">
-        </el-form-item>
-      </div>
-
-      <div class="shenfen">
-        <el-form-item label="上课教练">
-          <el-select v-model="form.region" class="sex">
-            <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程数量" style="margin-left: 28px">
+        <el-form-item label-width='82px' label="教练" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
@@ -56,53 +41,56 @@
         </el-date-picker>
       </div>
       <div class="shenfen">
-        <el-form-item label="实际售价">
+        <el-form-item label="合同金额">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="应收金额" style="margin-left: 28px">
+        <el-form-item label-width='82px' label="付款金额" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
+      <div class="shenfen">
+        <el-form-item label="合同课时">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="剩余课时" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
+      </div>
+      <div class="shenfen">
+        <el-form-item label="选择教练">
+          <el-select v-model="form.region" class="sex">
+            <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
 
+          </el-select>
+        </el-form-item>
+      </div>
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.desc"></el-input>
       </el-form-item>
-      <span class="demonstration">礼包包含商品</span>
-      <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="date" label="名称">
-        </el-table-column>
-        <el-table-column prop="name" label="数量" width="180">
-        </el-table-column>
-        <el-table-column prop="address" label="库存" width="180">
-        </el-table-column>
-      </el-table>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" class="btny">确认并提交</el-button>
+        <el-button type="primary" @click="onSubmit">确认并提交</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import alertip from '../huiindex/zjding'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'pact7',
+  name: 'indexdj',
   props: {
 
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip
+
   },
   data () {
     // 这里存放数据
     return {
       value1: '',
-      alertipShow: false,
-      alertText: '',
       form: {
         name: '',
         region: '',
@@ -112,12 +100,7 @@ export default {
         type: [],
         resource: '',
         desc: ''
-      },
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路'
-      }]
+      }
     }
   },
   // 监听属性 类似于data概念
@@ -128,9 +111,6 @@ export default {
   methods: {
     onSubmit () {
       console.log('submit!');
-    },
-    alerts () {
-      this.alertipShow = true;
     },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -151,18 +131,32 @@ export default {
 }
 </script>
 <style scoped>
+.el-form-item__label {
+    width: 82px !important;
+}
+label {
+    display: inline-block;
+    width: 82px !important;
+    text-align: left;
+    padding: 1px;
+    margin: 1px;
+    color: #000;
+}
+.el-form-item__content {
+    margin-left: 85px !important;
+}
 .demonstration {
     height: 32px;
     vertical-align: middle;
     line-height: 32px !important;
     font-size: 14px;
     color: #606266;
-    padding: 0 10px 0 0;
+    padding: 0 12px 0 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 .pact {
-    width: 60% !important;
+    width: 670px !important;
     background: white;
 }
 .formbox {
@@ -170,11 +164,20 @@ export default {
     padding: 25px;
     margin: auto;
 }
+.hname {
+    width: 82% !important;
+}
+.divbin {
+    display: flex !important;
+}
 
 .shenfen {
     display: flex;
 }
-
+.sinxex {
+    width: 48.5% !important;
+    margin-left: 5px;
+}
 .input_box {
     -webkit-appearance: none;
     background-color: #fff;
@@ -192,10 +195,30 @@ export default {
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
-
+.dinglei {
+    display: flex;
+}
+.conmeny {
+    display: flex;
+}
+.yut {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 .block {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
+}
+.el-date-range-picker {
+    width: 510px !important;
+    z-index: 500;
 }
 
 .btnte {
@@ -208,9 +231,5 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
-}
-.btny {
-    margin-top: 20px;
-    margin-left: 180px;
 }
 </style>

@@ -12,9 +12,6 @@
       <el-form-item label="会员编号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
-      <el-form-item label="K-Yoga卡号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
       <el-form-item label="会员姓名/证件号/手机号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>

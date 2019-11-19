@@ -1,7 +1,7 @@
 <!-- vue快捷创建组件 -->
 <template>
-<div class='app1'>
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+  <div class='app1'>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -9,9 +9,6 @@
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
       <el-form-item label="会员编号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
-      <el-form-item label="K-Yoga卡号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
       <el-form-item label="会员姓名/证件号/手机号">
@@ -26,13 +23,12 @@
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
-
-        <el-table :data="tableData" border style="width: 100%;text-align:center">
+    <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
-</div>
+  </div>
 </template>
 
 <script>
@@ -40,22 +36,22 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-name:'boxhj',
-props: {
+  name: 'boxhj',
+  props: {
 
-},
-// import引入的组件需要注入到对象中才能使用
-components: {
+  },
+  // import引入的组件需要注入到对象中才能使用
+  components: {
 
-},
-data() {
-// 这里存放数据
-return {
-  formInline: {
+  },
+  data () {
+    // 这里存放数据
+    return {
+      formInline: {
         user: '',
         region: ''
       },
-       tableTitle: [
+      tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
         { title: '合同编号', data: 'userNo' },
@@ -73,7 +69,7 @@ return {
         { title: '定金金额', data: 'djmoney' },
         { title: '转入金额', data: 'zrmoney' }
       ],
-         tableData: [{
+      tableData: [{
         num: '00012',
         storeName: '天府四街分店',
         userNo: '0001242',
@@ -85,42 +81,41 @@ return {
         telNo: '2019-12-12',
         photo: '2018-12-01',
         cardPhoto: '2018-12-23',
-        caryi:'备注',
-        carcu:'10',
-        carmoney:'2222',
-        djmoney:'100',
-        zrmoney:'5000'
+        caryi: '备注',
+        carcu: '10',
+        carmoney: '2222',
+        djmoney: '100',
+        zrmoney: '5000'
       },]
-}
-},
-// 监听属性 类似于data概念
-computed: {},
-// 监控data中的数据变化
-watch: {},
-// 方法集合
-methods: {
-   onSubmit () {
+    }
+  },
+  // 监听属性 类似于data概念
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
+  methods: {
+    onSubmit () {
       console.log('submit!');
     }
-},
-// 生命周期 - 创建完成（可以访问当前this实例）
-created() {
+  },
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created () {
 
-},
-// 生命周期 - 挂载完成（可以访问DOM元素）
-mounted() {
+  },
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
 
-},
-beforeCreate() {}, // 生命周期 - 创建之前
-beforeMount() {}, // 生命周期 - 挂载之前
-beforeUpdate() {}, // 生命周期 - 更新之前
-updated() {}, // 生命周期 - 更新之后
-beforeDestroy() {}, // 生命周期 - 销毁之前
-destroyed() {}, // 生命周期 - 销毁完成
-activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+  },
+  beforeCreate () { }, // 生命周期 - 创建之前
+  beforeMount () { }, // 生命周期 - 挂载之前
+  beforeUpdate () { }, // 生命周期 - 更新之前
+  updated () { }, // 生命周期 - 更新之后
+  beforeDestroy () { }, // 生命周期 - 销毁之前
+  destroyed () { }, // 生命周期 - 销毁完成
+  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
 <style  scoped>
 @import './../../assets/css/table.css';
-
 </style>
