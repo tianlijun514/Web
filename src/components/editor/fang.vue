@@ -1,64 +1,112 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <section class='appa'>
-    <el-form class="comeny">
-      <div class="conka">
-        <p class="texty">门店：</p>
-        <p class="tiye">培训测试店</p>
+  <div class='pact'>
+    <el-form ref="form" :model="form" label-width="80px" class="formbox">
+      <div class="shenfen">
+        <el-form-item label="教练工号">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="教练姓名" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
       </div>
-      <div class="conka">
-        <p class="texty">姓名：</p>
-        <input type="text" class="inputbox">
-        <p class="texty">手机：</p>
-        <input type="text" class="inputbox">
-      </div>
-
-      <div class="conka">
-        <p class="texty">证件号：</p>
-        <input type="text" class="inputbox">
+      <div class="shenfen">
         <div class="block">
-          <span class="texty">来访日期：</span>
-          <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+          <span class="demonstration">销售日期</span>
+          <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 201px">
           </el-date-picker>
         </div>
-      </div>
 
-      <div class="conka">
-        <el-form-item label="时间：" style="width:50%;margin-left: 43px;display: flex">
-          <el-select v-model="form.regions" style="margin-left:-13px;">
-            <el-option label="上午" value="man"></el-option>
-            <el-option label="下午" value="woman"></el-option>
-            <el-option label="晚上" value="mong"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="访客类型：" style="width:50%;margin-left: -53px;display: flex">
-          <el-select v-model="form.regions" style="margin-left:-13px;">
-            <el-option label="APP SHOW" value="aa"></el-option>
-            <el-option label="WALK IN" value="bb"></el-option>
-            <el-option label="DATE IN" value="cc"></el-option>
-          </el-select>
+        <el-form-item label="销售类别" style="margin-left: 28px" label-width='82px'>
+          <input type="text" class="input_box">
         </el-form-item>
       </div>
 
-      <div class="conka">
-        <p class="texty">销售员：</p>
-        <input type="text" class="inputbox">
+      <el-form-item label="私教合同号" label-width='82px'>
+        <input type="text" class="input_box">
+      </el-form-item>
+
+      <div class="shenfen">
+        <el-form-item label="会员姓名">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="会员编号" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
+      </div>
+      <div class="shenfen">
+        <el-form-item label="课程">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="教练" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
       </div>
 
-      <div class="conka">
-        <p class="texty">备注：</p>
-        <textarea name="" id="" style='width:78%;border-color:#dcdfe6;'></textarea>
+      <div class="block">
+        <span class="demonstration">日期范围</span>
+        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        </el-date-picker>
       </div>
-      <div class="meny">
-        <button type="primary" @click="emint()" class="buns">确认并提交</button>
+      <div class="shenfen">
+        <el-form-item label="合同金额">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="付款金额" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
       </div>
+      <div class="shenfen">
+        <el-form-item label="合同课时">
+          <input type="text" class="input_box">
+        </el-form-item>
+        <el-form-item label-width='82px' label="剩余课时" style="margin-left: 28px">
+          <input type="text" class="input_box">
+        </el-form-item>
+      </div>
+      <div class="shenfen">
+        <el-form-item label="选择门店">
+          <el-select v-model="form.regions" class="sex">
+            <el-option label="A00006 - 红牌楼店" value="01"></el-option>
+            <el-option label="A00007 - 花郡店" value="02"></el-option>
+            <el-option label="A00008 - 万象城店" value="03"></el-option>
+            <el-option label="A00009 - 新城市店" value="04"></el-option>
+            <el-option label="A00014 - 阳光新业店" value="05"></el-option>
+            <el-option label="A00016 - 龙湖店" value="06"></el-option>
+            <el-option label="A00017 - 王府井店" value="07"></el-option>
+            <el-option label="A00023 - 天誉店" value="08"></el-option>
+            <el-option label="A00024 - 伊藤店" value="09"></el-option>
+            <el-option label="A00025 - 金牛店" value="10"></el-option>
+            <el-option label="A00026 - 瑞安店" value="11"></el-option>
+            <el-option label="A00027 - 339店" value="12"></el-option>
+            <el-option label="A00028 - 镏金店" value="13"></el-option>
+            <el-option label="A00029 - 紫荆店" value="14"></el-option>
+            <el-option label="A00030 - 魅力城" value="15"></el-option>
+            <el-option label="A00031 - 二十四城" value="16"></el-option>
+            <el-option label="A00032 - 东城国际店" value="17"></el-option>
+            <el-option label="C001 - 管理中心" value="18"></el-option>
+            <el-option label="test - 培训测试店" value="19"></el-option>
+          </el-select>
+        </el-form-item>
+      </div>
+      <div class="shenfen">
+        <el-form-item label="选择教练">
+          <el-select v-model="form.region" class="sex">
+            <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
+          </el-select>
+        </el-form-item>
+      </div>
+      <el-form-item label="备注">
+        <el-input type="textarea" v-model="form.desc"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">确认并提交</el-button>
+      </el-form-item>
     </el-form>
-
-  </section>
+  </div>
 </template>
 
 <script>
-
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -96,11 +144,6 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-
-    emint () {
-      close.log('1111')
-    }
-
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -120,47 +163,54 @@ export default {
 }
 </script>
 <style scoped>
-.appa {
-    width: 50% !important;
+.el-form-item__label {
+    width: 82px !important;
+}
+label {
+    display: inline-block;
+    width: 82px !important;
+    text-align: left;
+    padding: 1px;
+    margin: 1px;
+    color: #000;
+}
+.el-form-item__content {
+    margin-left: 85px !important;
+}
+.demonstration {
+    height: 32px;
+    vertical-align: middle;
+    line-height: 32px !important;
+    font-size: 14px;
+    color: #606266;
+    padding: 0 10px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.pact {
+    width: 670px !important;
     background: white;
-    height: 400px;
 }
-.comeny {
-    width: 100%;
-    margin: 12px 0px 0px 0px;
-    height: 400px;
-    padding-top: 20px;
+.formbox {
+    width: 90%;
+    padding: 25px;
+    margin: auto;
 }
-.conka {
-    display: flex;
-    height: 45px;
+.hname {
+    width: 82% !important;
 }
-.tiye {
-    font-size: 14px;
-    color: #606266;
-    height: 33px;
-    line-height: 33px;
-    text-align: end;
-}
-.texty {
-    font-size: 14px;
-    color: #606266;
-    height: 33px;
-    line-height: 33px;
-    width: 70px;
-    margin-left: 15px;
-    text-align: end;
+.divbin {
+    display: flex !important;
 }
 
-.yuyuan {
-    font-size: 14px;
-    color: #606266;
-    height: 33px;
-    line-height: 33px;
-    width: 70px;
-    margin-left: 47px;
+.shenfen {
+    display: flex;
 }
-.inputbox {
+.sinxex {
+    width: 48.5% !important;
+    margin-left: 5px;
+}
+.input_box {
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
@@ -177,9 +227,34 @@ export default {
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
+.dinglei {
+    display: flex;
+}
+.conmeny {
+    display: flex;
+}
+.yut {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.block {
+    margin-left: 15px !important;
+    margin-bottom: 15px !important;
+}
+.el-date-range-picker {
+    width: 510px !important;
+    z-index: 500;
+}
 
 .btnte {
-    width: 30px !important;
+    width: 25px !important;
     height: 28px !important;
     margin-left: 2px;
     text-align: center;
@@ -188,24 +263,5 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
-}
-
-.buns {
-    background: black;
-    color: white;
-    border: none;
-    margin: auto;
-    width: 100px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 5px;
-}
-.meny {
-    width: 200px;
-    margin: 20px auto;
-}
-.el-date-editor.el-input,
-.el-date-editor.el-input__inner {
-    width: 203px !important;
 }
 </style>

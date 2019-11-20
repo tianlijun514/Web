@@ -3,28 +3,27 @@
   <div class='APPX'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inoutmen"></el-input>
       </el-form-item>
       <el-form-item label="手机号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inputphone"></el-input>
       </el-form-item>
       <el-form-item label="会员姓名">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inputhui"></el-input>
       </el-form-item>
       <el-form-item label="证件号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inputzheng"></el-input>
       </el-form-item>
 
       <el-form-item label="销售员">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inputxiao"></el-input>
       </el-form-item>
-     
       <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" @change='datas' type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd">
       </el-date-picker>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="xinzheng">新增</el-button>
@@ -33,7 +32,7 @@
         <el-button type="primary" @click="onSubmit">导出</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{total}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
@@ -46,7 +45,7 @@
       </el-table-column>
     </el-table>
     <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -56,8 +55,8 @@
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-// 例如：import 《组件名称》 from '《组件路径》';
-
+import axios from "axios";
+import { url } from '../js/url'
 export default {
   name: 'inexhetong',
   props: {
@@ -70,38 +69,34 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
+      total: 0,
       formInline: {
         user: '',
         region: ''
       },
-
+      size: 10,
       value1: '',
+      inoutmen: '',
+      inputphone: '',
+      inputhui: '',
+      inputzheng: '',
+      inputxiao: '',
+      date_s:'',
+      date_e:'',
       tableTitle: [
-        { title: '序号', data: 'num' },
+        { title: '序号', data: 'id' },
         { title: '门店名称', data: 'storeName' },
         { title: '姓名', data: 'name' },
-        { title: '手机号', data: 'telNo' },
-        { title: '证件号', data: 'userName' },
-        { title: '来访日期', data: 'userNo' },
-        { title: '时段', data: 'userCardNo' },
-        { title: '类型', data: 'sex' },
-        { title: '销售员', data: 'cardClass' },
+        { title: '手机号', data: 'phone' },
+        { title: '证件号', data: 'idCard' },
+        { title: '来访日期', data: 'date' },
+        { title: '时段', data: 'timeHorizon' },
+        { title: '类型', data: 'type' },
+        { title: '销售员', data: 'shellUser' },
       ],
       tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        name: '2019-12-12',
-        telNo: '2019-12-12',
-        userName: '2018-12-10',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        sex: '普通',
-        cardClass: '普通',
-      },]
+      }]
     }
   },
   // 监听属性 类似于data概念
@@ -115,12 +110,56 @@ export default {
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
     },
     xinzheng () {
       this.$router.push('./fang')
+    },
+    datas (even) {
+      console.log(even)
+      console.log(new Date())
+      var mydata =even[0]
+      var y= mydata.getFullYear();
+      var m = mydata.getMonth() + 1;
+      var d = mydata.getDate();
+      this.date_s = y+"-"+m+"-"+d;
+      console.log(this.date_s)
+      var enddata =even[1]
+      var y= enddata.getFullYear();
+      var m = enddata.getMonth() + 1;
+      var d = enddata.getDate();
+      this.date_e = y+"-"+m+"-"+d;
+      console.log(this.date_e)
+    },
+
+    // 查询
+    chaxun () {
+      if(this.inputhui==''){
+        console.log(this.inputhui)
+        return ;
+      }
+      // let _this = this;
+      axios
+        .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
+          params: {
+            storeName: this.inoutmen,
+            phoneNum: this.inputphone,
+            visitorName: this.inputhui,
+            idcard: this.inputzheng,
+            seller: this.inputxiao,
+            date_s:this.date_s,
+            date_e:this.date_e
+          }
+        }).then(res => {
+          console.log(res)
+          this.tableData = res.data.queryResult.list;
+          this.total = res.data.queryResult.total;
+        })
     }
 
   },
