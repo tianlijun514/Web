@@ -54,21 +54,21 @@ export default {
       },
       value1: '',
       size: 10,
-      inoutmen: "天府店",
+      inoutmen: "世豪店",
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
-        { title: '合同编号', data: 'telNo' },
+        { title: '合同编号', data: 'code' },
         { title: '会员卡号', data: 'userName' },
         { title: '会员姓名', data: 'userNo' },
-        { title: '销售日期', data: 'userCardNo' },
-        { title: '会籍类型', data: 'sex' },
+        { title: '销售日期', data: 'shellDate' },
+        { title: '会籍类型', data: 'shellType' },
         { title: '销售类别', data: 'cardClass' },
         { title: '开始日期', data: 'cardNo' },
         { title: '结束日期', data: 'photo' },
-        { title: '储值卡类型', data: 'cebing' },
-        { title: '储值卡号', data: 'cekaing' },
-        { title: '金额', data: 'cemoney' },
+        { title: '储值卡类型', data: 'cardStatus' },
+        { title: '储值卡号', data: 'cardCode' },
+        { title: '金额', data: 'balance' },
 
       ],
       tableData: [{}]
@@ -110,7 +110,7 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
