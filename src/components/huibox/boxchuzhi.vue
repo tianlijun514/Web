@@ -6,16 +6,14 @@
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="intype">
+        <el-select v-model="intype"  @change="choose()" >
           <el-option 
-            v-for="item in options"
-            :key="item.code"
-            :label="item.name"
-            :value="item.code"></el-option>
-          <!-- <el-option label="已支付" value="shi"></el-option>
-          <el-option label="已完成" value="buka"></el-option>
-          <el-option label="超时失效" value="hui"></el-option>
-          <el-option label="余额不足" value="yu"></el-option> -->
+          v-for="item in brandd"
+          :key="item.id"
+          :label="item.remark"
+          :value="item.id"
+          >
+          </el-option>
         </el-select>
       </el-form-item>
 
@@ -61,6 +59,7 @@ export default {
     return {
       currentPage: 1,
       total: 0,
+      brandd:[],
       formInline: {
         user: '',
         region: ''
@@ -99,6 +98,15 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
+
+    choose(){
+      axios
+      .get(base+'/depositCard/getDepositCardStatus').then((res) => {
+        this.brandd = res.data.o
+        console.log(res.data.o)
+      })
+    },
+
     chaxun () {
       axios
         .get(base + '/depositCard/getDepositCardPay/' + this.currentPage + '/' + this.size, {
@@ -121,6 +129,7 @@ export default {
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
     this.chaxun()
+    this.choose()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
