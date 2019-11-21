@@ -29,7 +29,7 @@
         <el-button type="primary" @click="xinzheng">新增</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="exportToExcel">导出</el-button>
+        <el-button type="primary" @click="onSubmit">导出</el-button>
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
@@ -172,22 +172,22 @@ export default {
           this.inoutmen = this.tableData.inoutmen
         })
     },
-   exportToExcel() {
-         //excel数据导出
-        require.ensure([], () => {
-            const {
-               export_json_to_excel
-               } = require('../../assets/js/Export2Excel');
-             const tHeader = ['序号','门店名称', '姓名', '手机号', '证件号','来访日期','时段','类型','销售员'];
-            const filterVal = ['num','storeName', 'name', 'phone', 'idCard','date','timeHorizon','type','shellUser'];
-             const list = this.tableData;
-            const data = this.formatJson(filterVal, list);
-             export_json_to_excel(tHeader, data, '用户列表');
-           })
-         },
-       formatJson(filterVal, jsonData) {
-       return jsonData.map(v => filterVal.map(j => v[j]))
-    }
+   // exportToExcel() {
+   //       //excel数据导出
+   //      require.ensure([], () => {
+   //          const {
+   //             export_json_to_excel
+   //             } = require('../../assets/js/Export2Excel');
+   //           const tHeader = ['序号','门店名称', '姓名', '手机号', '证件号','来访日期','时段','类型','销售员'];
+   //          const filterVal = ['num','storeName', 'name', 'phone', 'idCard','date','timeHorizon','type','shellUser'];
+   //           const list = this.tableData;
+   //          const data = this.formatJson(filterVal, list);
+   //           export_json_to_excel(tHeader, data, '用户列表');
+   //         })
+   //       },
+   //     formatJson(filterVal, jsonData) {
+   //     return jsonData.map(v => filterVal.map(j => v[j]))
+   //  }
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
