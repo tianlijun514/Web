@@ -5,9 +5,9 @@ import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
 import axios from 'axios';
-import Avue from '@smallwei/avue';
-import '@smallwei/avue/lib/index.css';
-Vue.use(Avue);
+// import Avue from '@smallwei/avue';
+// import '@smallwei/avue/lib/index.css';
+// Vue.use(Avue);
 // import Blob from './assets/js/Blob.js';//导出需要
 // import Export2Excel from './assets/js/Export2Excel.js';//导出需要
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
