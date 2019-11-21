@@ -27,7 +27,7 @@
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+   <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
@@ -77,19 +77,17 @@ export default {
       // date_e: '',
       tableTitle: [
         { title: '序号', data: 'num' },
-        { title: '门店名称', data: 'storeName' },
-        { title: '会员姓名', data: 'telNo' },
-        { title: '赠送日期', data: 'userName' },
-        { title: '储值卡号', data: 'userNo' },
-        { title: '储值卡类型', data: 'type' },
-        { title: '赠送金额', data: 'sex' },
+        { title: '门店名称', data: 'shellStoreName' },
+        { title: '会员姓名', data: 'memberName' },
+        { title: '赠送日期', data: 'startDate' },
+        { title: '储值卡号', data: 'cardCode' },
+        { title: '储值卡类型', data: 'cardType' },
+        { title: '赠送金额', data: 'givePrice' },
         { title: '余额', data: 'cardClass' },
         { title: '有效期', data: 'endDate' },
-        { title: '操作员', data: 'photo' },
+        { title: '操作员', data: 'operationUser' },
       ],
-      tableData: [{
-
-      },]
+      tableData: [{}]
     }
   },
   // 监听属性 类似于data概念
@@ -137,6 +135,13 @@ export default {
           }
         }).then(res => {
           console.log(res)
+            for(let i = 0;i<res.data.queryResult.list.length;i++){
+            res.data.queryResult.list[i].num = (this.currentPage-1)*this.size+i+1
+            
+            // if(timeHorizon >=33){
+            //   timeHorizon = '上午'
+            // }
+          }
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total;
           // this.inoutmen = this.tableData.inoutmen

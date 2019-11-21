@@ -3,24 +3,24 @@
   <div class='app'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inoutmen"></el-input>
       </el-form-item>
 
       <span class="demonstration">日期范围</span>
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -44,16 +46,15 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
+       total: 0,
       formInline: {
         user: '',
         region: ''
       },
       value1: '',
-
+      size: 10,
+      inoutmen: "天府店",
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
@@ -70,27 +71,7 @@ export default {
         { title: '金额', data: 'cemoney' },
 
       ],
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '普通',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        photo: '2018-12-01',
-        cardPhoto: '2018-12-23',
-        caryi: '备注',
-        carcu: '10',
-        cebing: 'sss',
-        cekaing: 'wwww',
-        cemoney: 'www'
-
-
-
-      },]
+      tableData: [{}]
     }
   },
   // 监听属性 类似于data概念
@@ -99,14 +80,31 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
-    handleSizeChange (val) {
+     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
+    },
+        chaxun () {
+      axios
+        .get(base + '/depositCard/getGiveDepositCard/' + this.currentPage + '/' + this.size, {
+          params: {
+            storeName:this.inoutmen,
+            // endDate: this.date_s,
+            // startDate: this.date_e
+          }
+        }).then(res => {
+          console.log(res)
+          for (let i = 0; i < res.data.queryResult.list.length; i++) {
+            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
+          }
+          this.tableData = res.data.queryResult.list;
+          this.total = res.data.queryResult.total;
+        })
     }
 
   },

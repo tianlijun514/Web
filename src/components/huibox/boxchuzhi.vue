@@ -3,15 +3,19 @@
   <div class='app'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inoutmen"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="formInline.regions">
-          <el-option label="未支付" value="xiaoshou"></el-option>
-          <el-option label="已支付" value="shi"></el-option>
+        <el-select v-model="intype">
+          <el-option 
+            v-for="item in options"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"></el-option>
+          <!-- <el-option label="已支付" value="shi"></el-option>
           <el-option label="已完成" value="buka"></el-option>
           <el-option label="超时失效" value="hui"></el-option>
-          <el-option label="余额不足" value="yu"></el-option>
+          <el-option label="余额不足" value="yu"></el-option> -->
         </el-select>
       </el-form-item>
 
@@ -19,17 +23,17 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -38,11 +42,13 @@
 </template>
 
 <script>
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'boxhy',
+  name: 'boxchunzhi',
   props: {
 
   },
@@ -53,45 +59,29 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
+      total: 0,
       formInline: {
         user: '',
         region: ''
       },
+      size: 10,
+      inoutmen: "天府店",
       value1: '',
+      intype: '',
+
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
-        { title: '卡号', data: 'telNo' },
-        { title: '销售日期', data: 'userName' },
-        { title: '会籍类型', data: 'userNo' },
-        { title: '有效日期起', data: 'userCardNo' },
-        { title: '状态', data: 'sex' },
-        { title: '制卡日期', data: 'cardClass' },
-        { title: '领卡日期', data: 'cardNo' },
-        { title: '会员编号', data: 'photo' },
-        { title: '会员姓名', data: 'cardPhoto' },
-
+        { title: '时间', data: 'createDate' },
+        { title: '会员姓名', data: 'name' },
+        { title: '支付码', data: 'payCode' },
+        { title: '金额', data: 'amount' },
+        { title: '状态', data: 'type' },
+        { title: '付款时间', data: 'payTime' },
+        { title: '操作员', data: 'operationUser' },
       ],
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '普通',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        photo: '2018-12-01',
-        cardPhoto: '2018-12-23',
-        caryi: '备注',
-        carcu: '10'
-
-      },]
+      tableData: [{}]
     }
   },
   // 监听属性 类似于data概念
@@ -100,20 +90,37 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
+    },
+    chaxun () {
+      axios
+        .get(base + '/depositCard/getDepositCardPay/' + this.currentPage + '/' + this.size, {
+          params: {
+            storeName:this.inoutmen,
+            type: this.intype,
+            // endDate: this.date_s,
+            // startDate: this.date_e
+          }
+        }).then(res => {
+          console.log(res)
+          for (let i = 0; i < res.data.queryResult.list.length; i++) {
+            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
+          }
+          this.tableData = res.data.queryResult.list;
+          this.total = res.data.queryResult.total;
+        })
     }
-
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
