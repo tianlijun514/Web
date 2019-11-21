@@ -1,33 +1,37 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='tip'>
-    <div class="yang">
-      <p class="tites">选择会员卡号</p>
-      <div class="shenfen">
-        <el-form-item label="合同编号" style="width:50%">
-          <input type="text" class="input_box">
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
+    <el-dialog title="选择会员卡号" :visible.sync="ka.show" width="50%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
+      <div class="yang">
+        <div class="shenfen">
+          <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="卡号">
+              <el-input v-model="formInline.user"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+
+          <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column label="日期" width="120">
+              <template slot-scope="scope">{{ scope.row.date }}</template>
+            </el-table-column>
+            <el-table-column prop="name" label="姓名" width="120">
+            </el-table-column>
+            <el-table-column prop="address" label="地址" show-overflow-tooltip>
+            </el-table-column>
+          </el-table>
+
+          </el-form>
+        </div>
       </div>
-      <el-table :data="tableData" border style="width: 100%;text-align:center">
-
-        <el-table-column scope label="选择">
-          <!-- <button @click="handleLook(scope.$index, scope.row)" class="btns">查看</button> -->
-          <el-checkbox v-model="checked"></el-checkbox>
-        </el-table-column>
-        <template v-for="(item,index) in tableTitle">
-          <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
-        </template>
-      </el-table>
-
-      <div class="pack">
-        <button class="btnte">确定</button>
-        <button @click="cumen" class="btnte" style=" margin-left: 5%;">取消</button>
-      </div>
-
-    </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="ka.show = false">取 消</el-button>
+        <el-button type="primary" @click="ka.show = false">确 定</el-button>
+      </span>
+    </el-dialog>
 
   </div>
 </template>
@@ -39,7 +43,9 @@
 export default {
   name: 'ka',
 
-  props: {},//接收传的值
+  props: {
+    ka: Object
+  },//接收传的值
   // import引入的组件需要注入到对象中才能使用
   components: {
 
@@ -47,26 +53,12 @@ export default {
   data () {
     // 这里存放数据
     return {
-      checked: true,
-      tableTitle: [
-        { title: '卡号', data: 'num' },
-        { title: '配卡日期', data: 'storeName' },
-        { title: '状态', data: 'userNo' },
-
-      ],
+      formInline: {},
       tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '0001242313',
-
-      }, {
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '0001242313',
-
-      }]
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },]
     }
   },
   // 监听属性 类似于data概念
@@ -75,9 +67,7 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    cumen () {
-      this.$emit('cumen')//分发事件
-    },
+
     onSubmit () {
       console.log('submit!');
     },
@@ -101,54 +91,5 @@ export default {
 </script>
 <style  scoped>
 @import './../../assets/css/table.css';
-.tip {
-    width: 100%;
-    height: 980px;
-    top: 0;
-    left: 0;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 300;
-}
-.yang {
-    width: 40%;
-    height: 380px;
-    overflow: auto;
 
-    position: fixed;
-    left: 27%;
-    top: 20%;
-    background: #fff;
-    border: 8px solid rgba(177, 174, 174, 0.89);
-    padding: 0px;
-}
-.tites {
-    width: 100% !important;
-    background: #333;
-    color: white;
-    height: 30px;
-    line-height: 30px;
-    text-indent: 15px;
-    font-weight: 600;
-}
-.btnte {
-    width: 60px !important;
-    height: 30px !important;
-    margin-left: 2px;
-    text-align: center;
-    background: #333;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    margin-top: 2px;
-}
-.shenfen {
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-}
-.pack{
-  margin: auto;
-  width: 30%;
-}
 </style>

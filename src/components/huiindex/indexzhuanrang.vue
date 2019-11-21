@@ -39,8 +39,6 @@
         <el-form-item label="定金编号"  style="width:50%">
           <input type="text" class="input_box" style="width:150px !important">
         </el-form-item>
-
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
         <button type="primary" @click="alerts()" class="btnte">...</button>
 
         <el-form-item label="定金金额"  style="width:50%">
@@ -58,7 +56,7 @@
           <input type="text" class="input_box" style="width:150px !important">
         </el-form-item>
 
-      <kabox v-show="kaShow" @cumen="kaShow = false" :alertText="alertText"></kabox>
+ 
         <button type="primary" @click="kamony()" class="btnte">...</button>
     
         <el-form-item label="会员姓名"  style="width:50%">
@@ -110,11 +108,14 @@
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
       </el-form-item>
     </el-form>
+
+    <Dialog :dialog="dialog"></Dialog>
+    <kabox :ka="ka"></kabox>
   </div>
 </template>
 
 <script>
-import alertip from './zjding'
+import Dialog from '../common/Dialog'
 import kabox from './ka'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
@@ -126,17 +127,19 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip,
-    kabox
+    kabox,
+    Dialog
   },
   data () {
     // 这里存放数据
     return {
+      dialog: {
+        show : false
+        },
+        ka: {
+          show :false
+        },
       value1: '',
-      alertipShow: false,
-      kaShow:false,
-
-      alertText: '',
       form: {
         name: '',
         region: '',
@@ -159,10 +162,11 @@ export default {
       console.log('submit!');
     },
     alerts () {
-      this.alertipShow = true;
+      this.dialog.show = true;
+      // this.alertipShow = true;
     },
     kamony(){
-      this.kaShow=true;
+      this.ka.show= true;
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

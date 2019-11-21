@@ -32,13 +32,11 @@
         <el-button type="primary" @click="onSubmit">导出</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{total}}页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
-
         </el-table-column>
-
       </template>
       <el-table-column scope label="操作">
         <!-- <el-button size="mini" type="primary">打印</el-button> -->
@@ -48,9 +46,7 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -82,10 +78,11 @@ export default {
       inputhui: '',
       inputzheng: '',
       inputxiao: '',
-      date_s:'',
-      date_e:'',
+      date_s: '',
+      date_e: '',
+      // list:[],
       tableTitle: [
-        { title: '序号', data: 'id' },
+        { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
         { title: '姓名', data: 'name' },
         { title: '手机号', data: 'phone' },
@@ -123,26 +120,26 @@ export default {
     datas (even) {
       console.log(even)
       console.log(new Date())
-      var mydata =even[0]
-      var y= mydata.getFullYear();
+      var mydata = even[0]
+      var y = mydata.getFullYear();
       var m = mydata.getMonth() + 1;
       var d = mydata.getDate();
-      this.date_s = y+"-"+m+"-"+d;
+      this.date_s = y + "-" + m + "-" + d;
       console.log(this.date_s)
-      var enddata =even[1]
-      var y= enddata.getFullYear();
+      var enddata = even[1]
+      var y = enddata.getFullYear();
       var m = enddata.getMonth() + 1;
       var d = enddata.getDate();
-      this.date_e = y+"-"+m+"-"+d;
+      this.date_e = y + "-" + m + "-" + d;
       console.log(this.date_e)
     },
 
     // 查询
     chaxun () {
-      if(this.inputhui==''){
-        console.log(this.inputhui)
-        return ;
-      }
+      // if (this.inputhui == '') {
+      //   console.log(this.inputhui)
+      //   return;
+      // }
       // let _this = this;
       axios
         .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
@@ -152,20 +149,29 @@ export default {
             visitorName: this.inputhui,
             idcard: this.inputzheng,
             seller: this.inputxiao,
-            date_s:this.date_s,
-            date_e:this.date_e
+            date_s: this.date_s,
+            date_e: this.date_e
           }
         }).then(res => {
           console.log(res)
+          for(let i = 0;i<res.data.queryResult.list.length;i++){
+            res.data.queryResult.list[i].num = (this.currentPage-1)*this.size+i+1
+            
+            // if(timeHorizon >=33){
+            //   timeHorizon = '上午'
+            // }
+          }
           this.tableData = res.data.queryResult.list;
+          console.log(this.tableData)
           this.total = res.data.queryResult.total;
+          this.inoutmen = this.tableData.inoutmen
         })
     }
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

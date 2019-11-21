@@ -3,10 +3,10 @@
   <div class='aapp'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="inoutmen"></el-input>
       </el-form-item>
       <el-form-item label="类型">
-        <el-select v-model="formInline.regions">
+        <el-select v-model="intype">
           <el-option label="全部" value="xiaoshou"></el-option>
           <el-option label="100元储值卡" value="shi"></el-option>
           <el-option label="300元储值卡" value="buka"></el-option>
@@ -15,16 +15,16 @@
         </el-select>
       </el-form-item>
       <el-form-item label="储值卡号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="chuzhi"></el-input>
       </el-form-item>
       <el-form-item label="会员号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="user"></el-input>
       </el-form-item>
       <span class="demonstration">赠送日期</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change='datas'>
       </el-date-picker>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
@@ -33,8 +33,9 @@
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
+
     <div class="aom">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -43,6 +44,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -58,43 +61,34 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
+      total: 0,
       formInline: {
         user: '',
         region: ''
       },
-
+      size: 10,
       value1: '',
-
+      inoutmen: "世豪店",
+      intype: '',
+      chuzhi: '',
+      user: '',
+      // date_s: '',
+      // date_e: '',
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
         { title: '会员姓名', data: 'telNo' },
         { title: '赠送日期', data: 'userName' },
         { title: '储值卡号', data: 'userNo' },
-        { title: '储值卡类型', data: 'userCardNo' },
+        { title: '储值卡类型', data: 'type' },
         { title: '赠送金额', data: 'sex' },
         { title: '余额', data: 'cardClass' },
-        { title: '有效期', data: 'cardNo' },
+        { title: '有效期', data: 'endDate' },
         { title: '操作员', data: 'photo' },
-
       ],
       tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '普通',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        photo: '2018-12-01',
-        cardPhoto: '2018-12-23',
-        caryi: '备注',
+
       },]
     }
   },
@@ -104,20 +98,56 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
+
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
+    },
+    datas (even) {
+      console.log(even)
+      console.log(new Date())
+      var mydata = even[0]
+      var y = mydata.getFullYear();
+      var m = mydata.getMonth() + 1;
+      var d = mydata.getDate();
+      this.date_s = y + "-" + m + "-" + d;
+      console.log(this.date_s)
+      var enddata = even[1]
+      var y = enddata.getFullYear();
+      var m = enddata.getMonth() + 1;
+      var d = enddata.getDate();
+      this.date_e = y + "-" + m + "-" + d;
+      console.log(this.date_e)
+    },
+    chaxun () {
+      axios
+        .get(base + '/depositCard/getDepositCard/' + this.currentPage + '/' + this.size, {
+          params: {
+            cardCode: this.chuzhi,
+            memberCode: this.user,
+            state: this.inputhui,
+            type: this.intype,
+            // endDate: this.date_s,
+            // startDate: this.date_e
+          }
+        }).then(res => {
+          console.log(res)
+          this.tableData = res.data.queryResult.list;
+          this.total = res.data.queryResult.total;
+          // this.inoutmen = this.tableData.inoutmen
+        })
     }
+
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
