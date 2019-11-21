@@ -8,12 +8,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-
+    "@smallwei/avue": "^2.2.2",
     "@spectrum-web-components/iconset": "^0.1.5",
+    "Print": "",
     "axios": "^0.18.0",
-    "Print":"",
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.11.0",
+    "file-saver": "^2.0.2",
     "less": "^3.10.3",
     "mavon-editor": "^2.6.17",
     "vue": "^2.6.10",
@@ -22,11 +23,13 @@
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.3",
     "vue-schart": "^2.0.0",
-    "vuedraggable": "^2.17.0"
+    "vuedraggable": "^2.17.0",
+    "xlsx": "^0.15.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
+    "script-loader": "^0.7.2",
     "vue-template-compiler": "^2.6.10"
   }
 }
