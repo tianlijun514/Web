@@ -14,14 +14,14 @@
       </div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="date" label="授课时间" width="90"></el-table-column>
-        <el-table-column prop="name" label="11/19" width="145"></el-table-column>
-        <el-table-column prop="day" label="11/20" width="145"></el-table-column>
-        <el-table-column prop="muy" label="11/21" width="145"></el-table-column>
-        <el-table-column prop="tau" label="11/22" width="145"></el-table-column>
-        <el-table-column prop="sum" label="11/23" width="145"></el-table-column>
-        <el-table-column prop="sunm" label="11/24" width="145"></el-table-column>
-        <el-table-column prop="address" label="11/25" width="145"></el-table-column>
-        <el-table-column prop="buy" label="11/26" width="145"></el-table-column>
+        <el-table-column prop="name" label="11/19"></el-table-column>
+        <el-table-column prop="day" label="11/20"></el-table-column>
+        <el-table-column prop="muy" label="11/21"></el-table-column>
+        <el-table-column prop="tau" label="11/22"></el-table-column>
+        <el-table-column prop="sum" label="11/23"></el-table-column>
+        <el-table-column prop="sunm" label="11/24"></el-table-column>
+        <el-table-column prop="address" label="11/25"></el-table-column>
+        <el-table-column prop="buy" label="11/26"></el-table-column>
       </el-table>
 
     </el-form>

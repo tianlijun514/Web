@@ -3,57 +3,58 @@
   <div class='app1'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="租箱号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="gemietet"></el-input>
       </el-form-item>
-      <el-form-item label="状态">
-        <el-select v-model="formInline.regions">
-          <el-option label="全部" value="xiaoshou"></el-option>
-          <el-option label="空闲" value="shi"></el-option>
-          <el-option label="已租" value="buka"></el-option>
 
+      <el-form-item label="状态">
+        <el-select v-model="status" @change="choose">
+          <el-option v-for="item in brandd" :key="item.id" :label="item.remark" :value="item.number">
+          </el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.region">
-          <el-option label="男" value="mian"></el-option>
-          <el-option label="女" value="nvs"></el-option>
-          <el-option label="公共" value="gu"></el-option>
-          <el-option label="男下柜" value="xiqs"></el-option>
-          <el-option label="女下柜" value="nus"></el-option>
-          <el-option label="男鞋柜" value="xwu"></el-option>
-          <el-option label="女鞋柜" value="xtu"></el-option>
+        <el-select v-model="type" @change="leibox">
+          <el-option v-for='item in leixing' :key="item.id" :label="item.remark" :value="item.number"></el-option>
         </el-select>
       </el-form-item>
+
       <span class="demonstration">归还日期</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change='datas'>
       </el-date-picker>
+
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="erkundigen">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
-    
-      <el-table :data="tableData" border style="width: 100%;text-align:center">
+
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
+
+    <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
-      <el-table-column scope label="详细">
-        <!-- <button @click="handleLook(scope.$index, scope.row)" class="btns">查看</button> -->
+
+      <el-table-column scope label="操作">
         <el-button size="mini" type="primary" @click="Look">租借</el-button>
       </el-table-column>
     </el-table>
 
+    <div class="block">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
+
   </div>
-
 </template>
-
 <script>
+
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-
 export default {
-  name: 'boxhy',
+  name: 'indexzuji',
   props: {
 
   },
@@ -64,72 +65,39 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      leixing: [],
+      leix: '',
+      brandd: [],
+      total: 0,
+      currentPage: 1,
+      gemietet: '0001',
+      status: null,
+      type: null,
+      size: 10,
+      date_s: '',
+      date_e: '',
+
       formInline: {
         user: '',
         region: ''
       },
-      pickerOptions: {
-        shortcuts: [{
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
       value1: '',
-      value2: '',
       tableTitle: [
-        { title: '箱号', data: 'num' },
-        { title: '名称', data: 'storeName' },
-        { title: '押金', data: 'telNo' },
-        { title: '年租金', data: 'userName' },
-        { title: '月租金', data: 'userNo' },
-        { title: '类型', data: 'userCardNo' },
-        { title: '状态', data: 'sex' },
-        { title: '会员', data: 'cardClass' },
-        { title: '开始日期', data: 'cardNo' },
-        { title: '结束日期', data: 'photo' },
-        { title: '支付押金', data: 'yax' },
-        { title: '支付租金', data: 'zhu' },
+        { title: '箱号', data: 'boxCode' },
+        { title: '名称', data: 'name' },
+        { title: '押金', data: 'cashPledge' },
+        { title: '年租金', data: 'yearRental' },
+        { title: '月租金', data: 'monthRental' },
+        { title: '类型', data: 'typeName' },
+        { title: '状态', data: 'statusName' },
+        { title: '会员', data: 'member' },
+        { title: '开始日期', data: 'startTime' },
+        { title: '结束日期', data: 'endTime' },
+        { title: '支付押金', data: 'payCash' },
+        { title: '支付租金', data: 'payRental' },
         { title: '操作', data: 'cau' },
-
       ],
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '空闲',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        photo: '2018-12-01',
-        yax: '2018-12-23',
-        zhu: '备注',
-        cau: '10'
-
-      },]
+      tableData: [{}]
     }
   },
   // 监听属性 类似于data概念
@@ -138,24 +106,66 @@ export default {
   watch: {},
   // 方法集合
   methods: {
+    datas (e) {
+      this.date_s = e[0].getFullYear() + '-' + Number(e[0].getMonth() + 1) + '-' + e[0].getDate();
+      this.date_e = e[1].getFullYear() + '-' + Number(e[1].getMonth() + 1) + '-' + e[1].getDate();
+    },
     onSubmit () {
       console.log('submit!');
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
     },
     Look () {
       this.$router.push('./zuboss')
-      console.log(1111)
     },
 
+    // 类型
+    leibox (e) {
+      this.staat = e
+    },
+
+    // 状态
+    choose (e) {
+      this.type = e
+    },
+    // 查询
+    erkundigen () {
+      axios
+        .post(base + '/rentBox/getRentBox', {
+          page: this.currentPage,
+          size: this.size,
+          boxCode: this.gemietet,
+          type: this.type,
+          status: this.status,
+          startDate: this.date_s,
+          endDate: this.date_e
+
+        }).then(res => {
+          this.tableData = res.data.queryResult.list;
+          this.total = res.data.queryResult.total;
+        })
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.erkundigen(),//微信
+      axios
+        .get(base + '/rentBox/getRentBoxStatus').then((res) => {
+          console.log(res.data.o)
+          this.brandd = res.data.o
+        })
+    axios
+      .get(base + '/rentBox/getRentBoxType').then((res) => {
+        console.log(res.data.o)
+        this.leixing = res.data.o
+      })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

@@ -1,7 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='app'>
-
     <el-dialog title="定金合同选择" :visible.sync="dialog.show" width="50%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
       <el-table :data="tableData" border style="width: 100%;">
         <el-table-column prop="date" label="选择" width="50"></el-table-column>

@@ -92,13 +92,9 @@ export default {
         { title: '类型', data: 'type' },
         { title: '销售员', data: 'shellUser' },
       ],
-      // tableData: [{
-      // }],
-      tableData: [
-        {'num':'0',"storeName": "沙滩搁浅我们的旧时光", "name": "小明",'phone':'1342343219','idCard':'12232143243','date':'2019-11-20','timeHorizon':'上午','type':'类型','shellUser':'销售员'},
-        {'num':'1',"storeName": "女人天生高贵", "name": "小红",'phone':'1342343219','idCard':'12232143243','date':'2019-11-20','timeHorizon':'上午','type':'类型','shellUser':'销售员'},
-        {'num':'2',"storeName": "海是彩色的灰尘", "name": "小兰",'phone':'1342343219','idCard':'12232143243','date':'2019-11-20','timeHorizon':'上午','type':'类型','shellUser':'销售员'}
-      ]
+      tableData: [{
+      }],
+  
     }
   },
   // 监听属性 类似于data概念
@@ -172,23 +168,6 @@ export default {
           this.inoutmen = this.tableData.inoutmen
         })
     },
-   // exportToExcel() {
-   //       //excel数据导出
-   //      require.ensure([], () => {
-   //          const {
-   //             export_json_to_excel
-   //             } = require('../../assets/js/Export2Excel');
-   //           const tHeader = ['序号','门店名称', '姓名', '手机号', '证件号','来访日期','时段','类型','销售员'];
-   //          const filterVal = ['num','storeName', 'name', 'phone', 'idCard','date','timeHorizon','type','shellUser'];
-   //           const list = this.tableData;
-   //          const data = this.formatJson(filterVal, list);
-   //           export_json_to_excel(tHeader, data, '用户列表');
-   //         })
-   //       },
-   //     formatJson(filterVal, jsonData) {
-   //     return jsonData.map(v => filterVal.map(j => v[j]))
-   //  }
-
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {

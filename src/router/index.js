@@ -434,13 +434,13 @@ export default new Router({
             title: '团操预约'
           }
         },
-        {
-          path: '/alstable',
-          component: () => import('../components/pact/alstable.vue'),
-          meta: {
-            title: '1对多团操预约'
-          }
-        },
+        // {
+        //   path: '/alstable',
+        //   component: () => import('../components/pact/alstable.vue'),
+        //   meta: {
+        //     title: '1对多团操预约'
+        //   }
+        // },
         {
           path: '/pact7',
           component: () => import('../components/pact/pact7.vue'),
@@ -484,8 +484,8 @@ export default new Router({
           }
         },
         {
-          path: '/chat5',
-          component: () => import('../components/chat/chat5.vue'),
+          path: '/alstable',
+          component: () => import('../components/pact/alstable.vue'),
           meta: {
             title: '1对多团操预约'
           }

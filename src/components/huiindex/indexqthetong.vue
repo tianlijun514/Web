@@ -78,39 +78,12 @@ export default {
     // 这里存放数据
     return {
       currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
       formInline: {
         user: '',
         region: ''
       },
-      pickerOptions: {
-        shortcuts: [{
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          onClick (picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
       value1: '',
-      value2: '',
+   
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
@@ -121,8 +94,6 @@ export default {
         { title: '日期', data: 'sex' },
         { title: '状态', data: 'cardClass' },
         { title: '打印时间', data: 'cardNo' },
-    
-
 
       ],
       tableData: [{

@@ -1,13 +1,17 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='tip'>
-    <div class="yang">
-      <p class="tites">收银台</p>
+
+  <div class='app'>
+    <el-dialog title="收银台" :visible.sync="money.show" width="50%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
+
       <div class="conka">
-        <p class="texty">销售员1</p>
-        <input type="text" class="inputbox">
-        <p class="yuyuan">销售员2</p>
-        <input type="text" class="inputbox">
+                <div class="con">
+          <p class="texty_box">销售员1</p>
+          <input type="text" class="inputbox">
+          <p class="yuyuan_box">销售员2</p>
+          <input type="text" class="inputbox">
+        </div>
+
       </div>
 
       <div class="monyq">
@@ -33,14 +37,13 @@
         <p class="zning">22:00</p>
       </div>
 
-      <div class="pack">
-        <button class="btnte">确定</button>
-        <button @click="cumen" class="btnte" style=" margin-left: 5%;">取消</button>
-      </div>
-
-    </div>
-
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="money.show = false">取 消</el-button>
+        <el-button type="primary" @click="money.show = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
@@ -48,9 +51,11 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'money',
+  name: 'Money',
 
-  props: {},//接收传的值
+  props: {
+    money: Object
+  },
   // import引入的组件需要注入到对象中才能使用
   components: {
 
@@ -67,9 +72,9 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    cumen () {
-      this.$emit('cumen')//分发事件
-    }
+    // cumen () {
+    //   this.$emit('cumen')//分发事件
+    // }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -110,15 +115,7 @@ export default {
     border: 8px solid rgba(177, 174, 174, 0.89);
     padding: 0px;
 }
-.tites {
-    width: 100% !important;
-    background: #333;
-    color: white;
-    height: 30px;
-    line-height: 30px;
-    text-indent: 15px;
-    font-weight: 600;
-}
+
 .btnte {
     width: 60px !important;
     height: 30px !important;
@@ -135,6 +132,7 @@ export default {
     margin-left: 40%;
 }
 .conka {
+  display: flex;
     border: 3px solid #7b824c;
     height: 45px;
     margin-top: 17px;
@@ -154,6 +152,13 @@ export default {
     padding: 10px;
     margin-left: 10px;
     width: 565px;
+}
+.texty_box {
+    font-size: 14px;
+    height: 33px;
+    line-height: 33px;
+    width: 50px;
+    margin-left: 3px;
 }
 .texty {
     font-size: 14px;
@@ -179,6 +184,13 @@ export default {
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
+.yuyuan_box {
+    font-size: 14px;
+    height: 33px;
+    line-height: 33px;
+    width: 50px;
+    margin-left: 47px;
+}
 .yuyuan {
     font-size: 14px;
     height: 33px;
@@ -202,8 +214,8 @@ export default {
     line-height: 30px;
     font-size: 19px;
 }
-.zning{
-   width: 210px;
+.zning {
+    width: 210px;
     height: 30px;
     line-height: 30px;
     font-size: 17px;

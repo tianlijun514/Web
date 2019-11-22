@@ -5,13 +5,19 @@
       <el-form-item label="门店">
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
-      <el-form-item label="类型">
+      <!-- <el-form-item label="类型">
         <el-select v-model="intype">
           <el-option label="全部" value="xiaoshou"></el-option>
           <el-option label="100元储值卡" value="shi"></el-option>
           <el-option label="300元储值卡" value="buka"></el-option>
           <el-option label="500元储值卡" value="hui"></el-option>
           <el-option label="1200储值卡" value="yu"></el-option>
+        </el-select>
+      </el-form-item> -->
+      <el-form-item label="类型">
+        <el-select v-model="intype" @change="choose()">
+          <el-option v-for="item in brandd" :key="item.id" :label="item.name" :value="item.id">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="储值卡号">
@@ -27,7 +33,7 @@
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
-   <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
@@ -63,6 +69,7 @@ export default {
     return {
       currentPage: 1,
       total: 0,
+      brandd: [],
       formInline: {
         user: '',
         region: ''
@@ -122,6 +129,16 @@ export default {
       this.date_e = y + "-" + m + "-" + d;
       console.log(this.date_e)
     },
+
+    // 类型遍历
+    choose () {
+      axios
+        .get(base + '/depositCard/getDepositCardType').then((res) => {
+          this.brandd = res.data.o
+          console.log(res.data.o)
+        })
+    },
+    // 条件查询
     chaxun () {
       axios
         .get(base + '/depositCard/getDepositCard/' + this.currentPage + '/' + this.size, {
@@ -135,16 +152,15 @@ export default {
           }
         }).then(res => {
           console.log(res)
-            for(let i = 0;i<res.data.queryResult.list.length;i++){
-            res.data.queryResult.list[i].num = (this.currentPage-1)*this.size+i+1
-            
+          for (let i = 0; i < res.data.queryResult.list.length; i++) {
+            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
+
             // if(timeHorizon >=33){
             //   timeHorizon = '上午'
             // }
           }
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total;
-          // this.inoutmen = this.tableData.inoutmen
         })
     }
 
@@ -153,6 +169,7 @@ export default {
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
     this.chaxun()
+    this.choose()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

@@ -321,7 +321,7 @@ export default {
                   title: '私教合同打印'
                 },
                 {
-                  index: 'chat5',
+                  index: 'alstable',
                   title: '1对多团操预约'
                 },
                 {

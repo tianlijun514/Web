@@ -36,8 +36,8 @@
         </el-form-item>
       </div>
       <div class="minx">
-        <el-form-item label="定金编号"  style="width:50%">
-          <input type="text" class="input_box" style="width:150px !important">
+        <el-form-item label="定金编号"  style="width:46%">
+          <input type="text" class="input_box">
         </el-form-item>
         <button type="primary" @click="alerts()" class="btnte">...</button>
 
@@ -52,8 +52,8 @@
         </el-select>
       </el-form-item>
       <div class="minx">
-        <el-form-item label="会员卡号"  style="width:50%">
-          <input type="text" class="input_box" style="width:150px !important">
+        <el-form-item label="会员卡号"  style="width:46%">
+          <input type="text" class="input_box" >
         </el-form-item>
 
  

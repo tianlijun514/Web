@@ -1,6 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <section class='appa'>
+  <div class='appa'>
     <form class="comeny">
       <div class="conka">
         <p class="texty">会员卡号</p>
@@ -16,7 +16,6 @@
         <p class="texty">定金编号</p>
         <input type="text" class="inputbox">
 
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
         <button type="primary" @click="alerts()" class="btnte">...</button>
         <p class="texty">定金金额</p>
         <input type="text" class="inputbox">
@@ -45,37 +44,43 @@
         <input type="text" class="inputbox">
       </div>
       <div class="meny">
-            <eminy v-show="yume" @cumen="yume= false" :alertText="alertText"></eminy>
+        <!-- <eminy v-show="yume" @cumen="yume= false" :alertText="alertText"></eminy> -->
         <button type="primary" @click="emint()" class="buns">确认并提交</button>
       </div>
     </form>
+    <Dialog :dialog="dialog"></Dialog>
+    <Money :money="money"></Money>
 
-  </section>
+  </div>
 </template>
 
 <script>
-import eminy from './money'
-import alertip from './zjding'
+import Money from '../common/Money'
+import Dialog from '../common/Dialog'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'indexdj',
+  name: 'zuboss',
   props: {
 
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip,
-    eminy
+    Dialog,
+    Money
   },
   data () {
     // 这里存放数据
     return {
       value1: '',
-      alertipShow: false,
-      yume:false,
-      alertText: '',
+      dialog: {
+        show: false
+      },
+      money: {
+        show: false
+      },
+      
       form: {
         name: '',
         region: '',
@@ -98,12 +103,12 @@ export default {
       console.log('submit!');
     },
     alerts () {
-      this.alertipShow = true;
+      this.dialog.show = true;
     },
-    emint(){
-      this.yume =true;
+    emint () {
+      this.money.show = true;
     }
-    
+
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -126,7 +131,7 @@ export default {
 .appa {
     width: 50% !important;
     background: white;
-   
+
     height: 450px;
 }
 .comeny {
@@ -134,7 +139,6 @@ export default {
     margin: 12px 0px 0px 0px;
     height: 500px;
     padding-top: 20px;
-
 }
 .conka {
     display: flex;
@@ -199,8 +203,8 @@ export default {
     line-height: 30px;
     border-radius: 5px;
 }
-.meny{
-  width: 200px;
-  margin: auto;
+.meny {
+    width: 200px;
+    margin: auto;
 }
 </style>

@@ -14,7 +14,6 @@
               <el-form-item label="定金编号" class="phone">
                 <input type="text" class="input_box">
               </el-form-item>
-              <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
               <button type="primary" @click="alerts()" class="btnte">...</button>
             </div>
             <el-form-item label="定金金额" class="phone">
@@ -139,33 +138,36 @@
       </el-form-item>
 
     </el-form>
+    <Dialog :dialog="dialog"></Dialog>
 
   </div>
 </template>
 
 <script>
 
-import alertip from './zjding'
+import Dialog from '../common/Dialog'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
 
-  name: 'indexxs',
+  name: 'indextuanka',
 
   props: {
 
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip
+    Dialog,
+
   },
   data () {
     // 这里存放数据
     return {
+      dialog: {
+        show: false
+      },
       value1: '',
-      alertipShow: false,
-      alertText: '',
       form: {
         name: '',
         region: '',
@@ -214,7 +216,7 @@ export default {
       console.log('submit!');
     },
     alerts () {
-      this.alertipShow = true;
+      this.dialog.show = true;
     },
     handleRemove (file, fileList) {
       console.log(file, fileList);
