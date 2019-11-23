@@ -5,10 +5,10 @@
     <el-dialog title="收银台" :visible.sync="money.show" width="50%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
 
       <div class="conka">
-                <div class="con">
-          <p class="texty_box">销售员1</p>
+        <div class="con">
+          <p class="texty">销售员1</p>
           <input type="text" class="inputbox">
-          <p class="yuyuan_box">销售员2</p>
+          <p class="yuyuan">销售员2</p>
           <input type="text" class="inputbox">
         </div>
 
@@ -132,13 +132,15 @@ export default {
     margin-left: 40%;
 }
 .conka {
-  display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     border: 3px solid #7b824c;
     height: 45px;
-    margin-top: 17px;
     padding: 10px;
-    margin-left: 10px;
-    width: 565px;
+    width: 630px;
+    margin: auto;
+    margin-bottom: 20px;
 }
 .con {
     display: flex;
@@ -150,16 +152,22 @@ export default {
     height: 90px;
     margin-top: 17px;
     padding: 10px;
-    margin-left: 10px;
-    width: 565px;
+    margin: auto;
+    width: 630px;
+      margin-bottom: 20px;
 }
-.texty_box {
-    font-size: 14px;
-    height: 33px;
-    line-height: 33px;
-    width: 50px;
-    margin-left: 3px;
+
+.pacy {
+    display: flex;
+    border: 3px solid #f8a800;
+    background-color: #ffedc5;
+    height: 30px;
+  
+    padding: 10px;
+    margin: auto;
+    width: 630px;
 }
+
 .texty {
     font-size: 14px;
     height: 33px;
@@ -184,13 +192,7 @@ export default {
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
-.yuyuan_box {
-    font-size: 14px;
-    height: 33px;
-    line-height: 33px;
-    width: 50px;
-    margin-left: 47px;
-}
+
 .yuyuan {
     font-size: 14px;
     height: 33px;
@@ -198,16 +200,7 @@ export default {
     width: 70px;
     margin-left: 47px;
 }
-.pacy {
-    display: flex;
-    border: 3px solid #f8a800;
-    background-color: #ffedc5;
-    height: 30px;
-    margin-top: 17px;
-    padding: 10px;
-    margin-left: 10px;
-    width: 565px;
-}
+
 .sy {
     width: 100px;
     height: 30px;
@@ -215,7 +208,7 @@ export default {
     font-size: 19px;
 }
 .zning {
-    width: 210px;
+    width: 235px;
     height: 30px;
     line-height: 30px;
     font-size: 17px;

@@ -1,31 +1,74 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='pact'>
-    <el-form ref="form" :model="form" label-width="80px" class="formbox">
+    <el-form ref="form" :model="form" label-width="80px" class="formbox" >
       <div class="shenfen">
         <el-form-item label="会员卡号">
-          <input type="text" class="input_box">
+          <input type="text" class="input_box" @blur="blurfns" v-model="kahao">
         </el-form-item>
-        <el-form-item label="会员编号" style="margin-left: 28px">
-          <input type="text" class="input_box">
+        <el-form-item label="会员编号" class="lefty">
+          <input type="text" class="input_box" disabled>
         </el-form-item>
       </div>
       <div class="shenfen">
         <el-form-item label="会员姓名">
-          <input type="text" class="input_box">
+          <input type="text" class="input_box" disabled>
         </el-form-item>
-        <el-form-item label="合同终止日" style="margin-left: 28px" label-width='82px'>
-          <input type="text" class="input_box">
+        <el-form-item label="合同终止日" label-width='82px' class="lefty">
+          <input type="text" class="input_box" disabled>
         </el-form-item>
       </div>
 
-      <el-form-item label="销售类型">
-        <el-select v-model="form.region" class="sex">
-          <el-option label="1-新合同" value="shanghai"></el-option>
-          <el-option label="6-升级" value="beijing"></el-option>
+      <el-form-item label="销售类型" v-show="type" >
+        <el-select v-model="form.region" class="input_width" :v-model='form.medicine' @change="xiaoshou"> 
+          <el-option label="1-新合同" value="1" ></el-option>
+          <el-option label="6-升级" value="2"></el-option>
         </el-select>
       </el-form-item>
-      <div class="minx">
+<!-- v-show='conmen'  -->
+      <div class="conment" v-if="conmen=='2'">
+        <div class="shenfen">
+          <el-form-item label="原合同号">
+            <input type="text" class="input_box" disabled>
+          </el-form-item>
+          <div style="margin-left: 40px;">
+            <span class="demonstration">销售日期</span>
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 205px" disabled>
+            </el-date-picker>
+          </div>
+        </div>
+
+        <el-form-item label="课程">
+          <el-input v-model="form.name" class="width_box" disabled></el-input>
+        </el-form-item>
+
+        <div class="block">
+          <span class="demonstration">日期范围</span>
+          <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" class="width_box" disabled>
+          </el-date-picker>
+        </div>
+
+        <div class="shenfen">
+          <el-form-item label="合同课时">
+            <el-input type="text" disabled class="input_width"></el-input>
+          </el-form-item>
+          <el-form-item label="合同金额" class="lefty">
+            <el-input type="text" disabled class="input_width"></el-input>
+          </el-form-item>
+        </div>
+
+        <div class="shenfen">
+          <el-form-item label="剩余课时">
+            <el-input type="text" disabled class="input_width"></el-input>
+          </el-form-item>
+          <el-form-item label="剩余金额" class="lefty">
+            <el-input type="text" disabled class="input_width"></el-input>
+          </el-form-item>
+        </div>
+
+      </div>
+
+      <div class="shenfen">
         <el-form-item label="定金编号" class="phone">
           <input type="text" class="input_box">
         </el-form-item>
@@ -38,7 +81,7 @@
       <div class="shenfen">
 
         <el-form-item label="私教课程">
-          <el-select v-model="form.region" class="sex">
+          <el-select v-model="form.region" class="input_width">
             <el-option label="F00001 - 常规" value="1"></el-option>
             <el-option label="F00002 - 拉伸" value="2"></el-option>
             <el-option label="F00003 - 康复" value="3"></el-option>
@@ -97,8 +140,8 @@
 
           </el-select>
         </el-form-item>
-        <el-form-item label="上课教练" style="margin-left: 28px">
-          <el-select v-model="form.region" class="sex">
+        <el-form-item label="上课教练" label-width='82px' class="lefty">
+          <el-select v-model="form.region" class="input_width">
             <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
 
           </el-select>
@@ -109,31 +152,27 @@
         <el-form-item label="购买数量">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label-width='82px' label="指导价范围" style="margin-left: 28px">
+        <el-form-item label="指导价范围" style="margin-left: 25px" label-width='82px'>
           <input type="text" class="input_box">
         </el-form-item>
       </div>
 
       <div class="block">
         <span class="demonstration">日期范围</span>
-        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" class="width_box" disabled>
         </el-date-picker>
       </div>
       <div class="shenfen">
-        <el-form-item label="实际售价" >
+        <el-form-item label="实际售价">
           <input type="text" class="input_box">
         </el-form-item>
-        <el-form-item label="剩余价值" style="margin-left: 28px">
+        <el-form-item label="应收金额" style="margin-left: 28px">
           <input type="text" class="input_box">
         </el-form-item>
       </div>
 
-      <el-form-item label="应收金额" class="phone">
-        <input type="text" class="input_box">
-      </el-form-item>
-
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="form.desc" class="width_box"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
@@ -160,7 +199,11 @@ export default {
   data () {
     // 这里存放数据
     return {
+      medicine:'',
+      kahao:'',
       value1: '',
+      conmen: false,
+      type: false,
       alertipShow: false,
       alertText: '',
       form: {
@@ -187,6 +230,19 @@ export default {
     alerts () {
       this.alertipShow = true;
     },
+    blurfns () {
+      if(this.kahao !=''){
+         this.type= true;
+
+      }else{
+      this.conmen='1';
+      this.type= false;
+      }
+    },
+    xiaoshou(e){
+      this.conmen=e;
+      console.log(e)
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -206,20 +262,21 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__label{
-width:82px !important;
+.input_width {
+    width: 203px;
 }
-label {
-display:inline-block;
-width:82px !important;
-text-align:left;
-padding:1px;
-margin:1px;
-color:#000;
+.conment {
+    border: 3px solid rgb(255, 239, 206);
+    padding-top: 10px;
+    margin-bottom: 10px;
 }
-.el-form-item__content{
-  margin-left: 85px !important;
+.width_box {
+    width: 515px;
 }
+.lefty {
+    margin-left: 28px !important;
+}
+
 .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -231,19 +288,13 @@ color:#000;
     box-sizing: border-box;
 }
 .pact {
-    width: 60% !important;
+    width: 685px;
     background: white;
 }
 .formbox {
     width: 90%;
     padding: 25px;
     margin: auto;
-}
-.hname {
-    width: 82% !important;
-}
-.divbin {
-    display: flex !important;
 }
 
 .shenfen {
@@ -270,12 +321,7 @@ color:#000;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
+
 .yut {
     text-align: right;
     vertical-align: middle;
@@ -294,9 +340,6 @@ color:#000;
 .el-date-range-picker {
     width: 510px !important;
     z-index: 500;
-}
-.minx {
-    display: flex;
 }
 .btnte {
     width: 25px !important;
