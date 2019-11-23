@@ -10,7 +10,6 @@
   "dependencies": {
     "@smallwei/avue": "^2.2.2",
     "@spectrum-web-components/iconset": "^0.1.5",
-    "Print": "",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.11.0",
