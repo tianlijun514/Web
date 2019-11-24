@@ -1,10 +1,10 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='appa'>
-    <form class="comeny">
+    <el-form class="comeny"  :model="boxJson" :inline="true">
       <div class="conka">
         <p class="texty">会员卡号</p>
-        <input type="text" class="inputbox">
+        <input type="text" class="inputbox" @blur.prevent ="mouseLeave">
       </div>
       <div class="conka">
         <p class="texty">会员姓名</p>
@@ -47,7 +47,8 @@
         <!-- <eminy v-show="yume" @cumen="yume= false" :alertText="alertText"></eminy> -->
         <button type="primary" @click="emint()" class="buns">确认并提交</button>
       </div>
-    </form>
+    </el-form>
+
     <Dialog :dialog="dialog"></Dialog>
     <Money :money="money"></Money>
 
@@ -73,6 +74,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      boxJson:{},
       value1: '',
       dialog: {
         show: false
@@ -99,6 +101,9 @@ export default {
   watch: {},
   // 方法集合
   methods: {
+    mouseLeave() {
+      console.log("12345678")
+    },
     onSubmit () {
       console.log('submit!');
     },
