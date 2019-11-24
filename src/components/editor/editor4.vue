@@ -29,7 +29,8 @@
         <el-button type="primary" @click="xinzheng">新增</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">导出</el-button>
+
+        <el-button type="primary" @click="herleiten">导出</el-button>
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
@@ -47,6 +48,7 @@
       </el-pagination>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -93,8 +95,9 @@ export default {
         { title: '销售员', data: 'shellUser' },
       ],
       tableData: [{
+        
       }],
-  
+
     }
   },
   // 监听属性 类似于data概念
@@ -103,9 +106,6 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
       this.size = val;
@@ -134,6 +134,17 @@ export default {
       this.date_e = y + "-" + m + "-" + d;
       console.log(this.date_e)
     },
+    // 导出
+    herleiten () {
+      axios
+        .get(url + '/visit/excel',{responseType: 'arraybuffer'})
+        .then(res => {
+          let blob = new Blob ([res.data],{type:"application/vnd.ms-excel"});
+          let objectUrl = URL.createObjectURL(blob);
+          window.location.href=objectUrl;
+          console.log(res);
+        })
+    },
 
     // 查询
     chaxun () {
@@ -154,16 +165,16 @@ export default {
             date_e: this.date_e
           }
         }).then(res => {
-          console.log(res)
-          for(let i = 0;i<res.data.queryResult.list.length;i++){
-            res.data.queryResult.list[i].num = (this.currentPage-1)*this.size+i+1
-            
+          // console.log(res)
+          for (let i = 0; i < res.data.queryResult.list.length; i++) {
+            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
+
             // if(timeHorizon >=33){
             //   timeHorizon = '上午'
             // }
           }
           this.tableData = res.data.queryResult.list;
-          console.log(this.tableData)
+          // console.log(this.tableData)
           this.total = res.data.queryResult.total;
           this.inoutmen = this.tableData.inoutmen
         })

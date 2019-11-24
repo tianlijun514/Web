@@ -1,7 +1,7 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='pact'>
-    <el-form ref="form" label-width="80px" class="formbox" :rules="form_rules">
+    <el-form ref="form" label-width="80px" class="formbox" :rules="form_rules" >
       <el-form-item label="门店">
         <input type="text" class="input_box" v-model="storeName">
       </el-form-item>
@@ -24,16 +24,16 @@
 
       <el-form-item label="时间">
         <el-select v-model="timeHorizon" class="sex">
-          <el-option label="上午" value="11"></el-option>
-          <el-option label="下午" value="22"></el-option>
-          <el-option label="晚上" value="33"></el-option>
+          <el-option label="上午" value="1"></el-option>
+          <el-option label="下午" value="2"></el-option>
+          <el-option label="晚上" value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="访客类型">
         <el-select v-model="type" class="sex">
-          <el-option label="APP SHOW" value="11"></el-option>
-          <el-option label="WALK IN" value="22"></el-option>
-          <el-option label="DATE IN" value="33"></el-option>
+          <el-option label="APP SHOW" value="1"></el-option>
+          <el-option label="WALK IN" value="2"></el-option>
+          <el-option label="DATE IN" value="3"></el-option>
         </el-select>
       </el-form-item>
 
@@ -157,6 +157,9 @@ export default {
 .pact {
     width: 450px !important;
     background: white;
+}
+.formbox{
+  padding: 20px;
 }
 
 .input_box {
