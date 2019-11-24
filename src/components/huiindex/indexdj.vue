@@ -3,12 +3,23 @@
   <div class='boxs'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="会员类型" style="width:50%!important">
-        <el-select v-model="form.region">
-          <el-option label="1-新会员" value="shanghai"></el-option>
-          <el-option label="2-老会员" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
+      <div class="shenfen">
+        <el-form-item label="会员类型" style="width:50%!important">
+          <el-select v-model="form.region" @change="typehui">
+            <el-option label="1-新会员" value="1"></el-option>
+            <el-option label="2-老会员" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="会员卡号" style="width:50%!important" v-if="card=='2'">
+          <input type="text" class="input_box">
+        </el-form-item>
+
+      </div>
+
+
+
+
       <div class='divbin'>
         <el-form-item label="会员姓名" style="width:50%!important">
           <input type="text" class="input_box">
@@ -56,7 +67,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="卡种类型" style="width:50%">
-          <el-select v-model="form.region3">
+          <el-select v-model="cardtype">
             <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
             <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
             <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
@@ -101,6 +112,8 @@ export default {
   data () {
     // 这里存放数据
     return {
+      cardtype:'', //下拉框
+      card:false,
       form: {
         name: '',
         region: '',
@@ -121,6 +134,11 @@ export default {
   methods: {
     onSubmit () {
       console.log('submit!');
+    },
+    typehui(e){
+    this.card=e
+    console.log(e)
+
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

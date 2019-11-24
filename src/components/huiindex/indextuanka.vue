@@ -317,7 +317,7 @@ export default {
        console.log(value);
        this.typeHuiOptions = optionType
        this.typeHui = '请选择'
-       this.mendata = []
+       this.mendata = [],
        this.value1 = []
        this.typeHuiList = {}
      }else if(value == '1'){
