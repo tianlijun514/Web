@@ -41,6 +41,16 @@
                 <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
                 <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
                 <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
+                <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
+                <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
+                <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
+                <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
+                <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
+                <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
+                <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
+                <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
+                <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
+                <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
               </el-select>
             </el-form-item>
 
