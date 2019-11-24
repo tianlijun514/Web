@@ -4,27 +4,24 @@
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
       <div class="shenfen">
-        <el-form-item label="会员类型" style="width:50%!important">
+        <el-form-item label="会员类型">
           <el-select v-model="form.region" @change="typehui">
             <el-option label="1-新会员" value="1"></el-option>
             <el-option label="2-老会员" value="2"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="会员卡号" style="width:50%!important" v-if="card=='2'">
-          <input type="text" class="input_box">
+        <el-form-item label="会员卡号" v-if="card=='2'">
+          <el-input v-model="input"></el-input>
         </el-form-item>
 
       </div>
 
-
-
-
-      <div class='divbin'>
-        <el-form-item label="会员姓名" style="width:50%!important">
-          <input type="text" class="input_box">
+      <div class='shenfen'>
+        <el-form-item label="会员姓名">
+          <el-input v-model="input" class="hname"></el-input>
         </el-form-item>
-        <el-form-item label="性别" style="width:50%!important">
+        <el-form-item label="性别">
           <el-select v-model="form.regions">
             <el-option label="男" value="man"></el-option>
             <el-option label="女" value="woman"></el-option>
@@ -32,7 +29,7 @@
         </el-form-item>
       </div>
       <div class="shenfen">
-        <el-form-item label="证件号" style="width:50%!important">
+        <el-form-item label="证件号">
           <el-select v-model="form.region1">
             <el-option label="身份证" value="shanghai"></el-option>
             <el-option label="护照" value="beijing"></el-option>
@@ -41,11 +38,11 @@
         </el-form-item>
         <el-input v-model="form.name" class="sinxex"></el-input>
       </div>
-      <el-form-item label="手机号码" style="width:50%!important">
-        <input type="text" class="input_box">
+      <el-form-item label="手机号码">
+        <el-input v-model="input" class="hname"></el-input>
       </el-form-item>
-      <div class="dinglei">
-        <el-form-item label="定金类型" style="width:50%!important">
+      <div class="shenfen">
+        <el-form-item label="定金类型">
           <el-select v-model="form.region2">
             <el-option label="会籍定金" value="hux"></el-option>
             <el-option label="私教定金" value="sijao"></el-option>
@@ -55,11 +52,11 @@
             <el-option label="商品定金" value="shopng"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="定金金额" style="width:50%!important">
-          <input type="text" class="input_box">
+        <el-form-item label="定金金额">
+          <el-input v-model="input" class="hname"></el-input>
         </el-form-item>
       </div>
-      <div class="conmeny">
+      <div class="shenfen">
         <el-form-item label="营销活动" >
           <el-select v-model="form.region3">
             <el-option label="不参加营销活动" value="yin"></el-option>
@@ -82,11 +79,11 @@
         </el-form-item>
       </div>
       <el-form-item label="卡种价格"  style="width:50%">
-        <input type="text" class="input_box">
+        <el-input v-model="input" class="hname"></el-input>
       </el-form-item>
 
       <el-form-item label="备注" style="width:100%">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="form.desc" style="width: 480px"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
@@ -112,6 +109,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input:'',
       cardtype:'', //下拉框
       card:false,
       form: {
@@ -160,56 +158,22 @@ export default {
 </script>
 <style scoped>
 .boxs {
-    width: 50% !important;
+    width:630px;
     background: white;
 }
 .formbox {
     padding: 25px;
- 
 }
 .hname {
-    width: 80% !important;
+    width: 200px;
 }
-.divbin {
-    display: flex !important;
-}
-
 .shenfen {
     display: flex;
 }
 .sinxex {
-    width: 48.5% !important;
+    width: 280px !important;
     margin-left: 5px;
 }
-.input_box {
-    -webkit-appearance: none;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    line-height: 30px;
-    outline: 0;
-    padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-}
+
+
 </style>

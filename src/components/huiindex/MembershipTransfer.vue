@@ -3,84 +3,89 @@
   <div class='pacuk'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
       <div class="shenfen">
-        <el-form-item label="合同编号" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="合同编号">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label="会员卡号" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="会员卡号">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
       <div class="shenfen">
-        <el-form-item label="会员姓名" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="会员姓名">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label="会员编号" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="会员编号">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
       <div style="margin-bottom: 15px;">
-        <span class="yut">原会籍类型</span>
-        <input type="text" class="input_box" >
+        <el-form-item label="原会籍类型" label-width="82px">
+          <el-input v-model="input" style="width: 449px"></el-input>
+        </el-form-item>
       </div>
       <div class="mday">
         <span class="demonstration">合同日期范围</span>
-        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        <el-date-picker   style="width: 449px" v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
       </div>
       <div class="shenfen">
-        <el-form-item label="合同价值" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="合同价值">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label="剩余价值" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="剩余价值">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
       <div class="minx">
-        <el-form-item label="定金编号"  style="width:46%">
-          <input type="text" class="input_box">
+        <el-form-item label="定金编号"  style="width:237px">
+
+          <el-input v-model="input" style="width: 157px"></el-input>
         </el-form-item>
         <button type="primary" @click="alerts()" class="btnte">...</button>
 
-        <el-form-item label="定金金额"  style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="定金金额">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
+
       <el-form-item label="转入会员">
-        <el-select v-model="form.region" class="sex">
+        <el-select v-model="form.region">
           <el-option label="1-新会员" value="shanghai"></el-option>
           <el-option label="2-老会员" value="beijing"></el-option>
         </el-select>
       </el-form-item>
+
       <div class="minx">
-        <el-form-item label="会员卡号"  style="width:46%">
-          <input type="text" class="input_box" >
+        <el-form-item label="会员卡号" style="width:237px">
+          <el-input v-model="input" style="width: 157px"></el-input>
         </el-form-item>
 
- 
         <button type="primary" @click="kamony()" class="btnte">...</button>
-    
-        <el-form-item label="会员姓名"  style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="会员姓名">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
+
       <div class="shenfen">
         <el-form-item label="证件号">
-          <el-select v-model="form.region" class="sex">
+          <el-select v-model="form.region">
             <el-option label="身份证" value="shanghai"></el-option>
             <el-option label="护照" value="beijing"></el-option>
             <el-option label="回乡证" value="beijing"></el-option>
           </el-select>
         </el-form-item>
-        <input type="text" class="input_box">
+        <el-input v-model="input" style="width: 250px"></el-input>
       </div>
+
       <div class="shenfen">
-        <el-form-item label="性别" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="性别">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label="手机号码" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="手机号码">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
+
       <div class="zhao">
         <div class="zjin">
           <p class="po">照片</p>
@@ -91,17 +96,18 @@
           <button type="primary" class="btnzhao">证件</button>
         </div>
       </div>
+
       <div class="shenfen">
-        <el-form-item label="手续费" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="手续费">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label="应收金额" style="width:50%">
-          <input type="text" class="input_box">
+        <el-form-item label="应收金额">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
 
-      <el-form-item label="备注" style="width:100%;">
-        <el-input type="textarea" v-model="form.desc" style="width:479px;"></el-input>
+      <el-form-item label="备注">
+        <el-input type="textarea" v-model="form.desc" style="width:450px;"></el-input>
       </el-form-item>
 
       <el-form-item class="divbin">
@@ -133,6 +139,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input:'',
       dialog: {
         show : false
         },
@@ -198,16 +205,13 @@ export default {
     box-sizing: border-box;
 }
 .pacuk {
-    width: 50% !important;
+    width: 610px !important;
     background: white;
 }
 .formbox {
     width: 90%;
     padding: 25px;
     margin: auto;
-}
-.hname {
-    width: 80% !important;
 }
 
 .zhao {
@@ -217,7 +221,6 @@ export default {
 .po {
     width: 40px;
     margin-left: 40px;
-    font-size: 15px;
     height: 25px;
     line-height: 26px;
     font-size: 14px;
@@ -250,52 +253,11 @@ export default {
     display: flex;
     width: 100%;
 }
-.sinxex {
-    width: 48.5% !important;
-    margin-left: 5px;
-}
-.input_box {
-    -webkit-appearance: none;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    line-height: 30px;
-    outline: 0;
-    padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 200px !important;
-}
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.yut {
-    text-align: right;
-    vertical-align: middle;
-    float: left;
-    font-size: 14px;
-    color: #606266;
-    line-height: 40px;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .mday {
     margin-left: -15px !important;
     margin-bottom: 15px !important;
 }
-.el-date-range-picker {
-    width: 510px !important;
-    z-index: 500;
-}
+
 .minx {
     display: flex;
 }

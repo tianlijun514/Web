@@ -6,7 +6,7 @@
         <el-row type="flex" class="row-bg" ustify="center">
           <el-col :span="1"></el-col>
           <el-col :span="5">
-            <el-form label-width="105px">
+            <el-form label-width="105px" >
               <el-form-item label="会员编号 :"><span class="p1">123123123123</span></el-form-item>
               <el-form-item label="会员卡号 :"><span class="p1">123123123123 </span></el-form-item>
               <el-form-item label="中文姓名 :"><span class="p1">小小小</span></el-form-item>
@@ -17,9 +17,10 @@
               <el-form-item label="备注 :"><span class="p1">哈哈哈哈哈</span></el-form-item>
             </el-form>
           </el-col>
+
           <el-col :span="6">
-            <el-form label-width="105px">
-              <el-form-item label="."><span class="p1"></span></el-form-item>
+            <el-form label-width="105px" style="margin-top: 31px;">
+              <el-form-item label=""><span class="p1"></span></el-form-item>
               <el-form-item label="通讯地址 :"><span class="p1">剑南大道中段1537号</span></el-form-item>
               <el-form-item label="英文姓名 :"><span class="p1">mededes</span></el-form-item>
               <el-form-item label="证件号码 :"><span class="p1">25154259874815265</span></el-form-item>

@@ -4,7 +4,7 @@
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
       <el-form-item label="选择类型">
-        <el-select v-model="form.region" class="sex">
+        <el-select v-model="form.region"  style="width: 185px">
           <el-option label="停卡" value="shanghai"></el-option>
           <el-option label="补卡" value="beijing"></el-option>
           <el-option label="转店" value="za11"></el-option>
@@ -12,19 +12,20 @@
       </el-form-item>
 
       <el-form-item label="合同编号">
-        <input type="text" class="input_box">
+        <el-input v-model="input" style="width: 185px"></el-input>
       </el-form-item>
       <div class="shenfen">
         <el-form-item label="会员姓名">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
         <el-form-item label="会员编号" style="margin-left: 28px">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
       <div style="margin-bottom: 15px;">
-        <span class="yut">原会籍类型</span>
-        <input type="text" class="input_box">
+        <el-form-item label="原会籍类型" label-width="82px">
+          <el-input v-model="input" style="width: 185px"></el-input>
+        </el-form-item>
       </div>
 
       <div class="block">
@@ -34,25 +35,25 @@
       </div>
       <div class="shenfen">
         <el-form-item label="合同价值">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
         <el-form-item label="剩余价值" style="margin-left: 28px">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
       <div class="minx">
         <el-form-item label="定金编号" class="phone">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
+
         <button type="primary" @click="alerts()" class="btnte">...</button>
         <el-form-item label="定金金额" class="phone">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
 
       <el-form-item label="停卡月数" class="phone">
-        <input type="text" class="input_box">
+        <el-input v-model="input" style="width: 185px"></el-input>
       </el-form-item>
       <div class="block">
         <span class="demonstration">停卡日期范围</span>
@@ -61,16 +62,16 @@
       </div>
       <div class="shenfen">
         <el-form-item label="手续费">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
         <el-form-item label="应收金额" style="margin-left: 28px">
-          <input type="text" class="input_box">
+          <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
 
 
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="form.desc" style="width: 480px"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
@@ -98,12 +99,11 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input:'',
       dialog: {
         show : false
         },
       value1: '',
-      alertipShow: false,
-      alertText: '',
       form: {
         name: '',
         region: '',
@@ -159,7 +159,7 @@ export default {
     box-sizing: border-box;
 }
 .app {
-    width: 60% !important;
+    width: 630px !important;
     background: white;
 }
 .formbox {
@@ -167,62 +167,17 @@ export default {
     padding: 25px;
     margin: auto;
 }
-.hname {
-    width: 80% !important;
-}
-.divbin {
-    display: flex !important;
-}
+
 
 .shenfen {
     display: flex;
 }
-.sinxex {
-    width: 48.5% !important;
-    margin-left: 5px;
-}
-.input_box {
-    -webkit-appearance: none;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    line-height: 30px;
-    outline: 0;
-    padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 203px !important;
-}
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.yut {
-    text-align: right;
-    vertical-align: middle;
-    float: left;
-    font-size: 14px;
-    color: #606266;
-    line-height: 40px;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .block {
     margin-left: -15px !important;
     margin-bottom: 15px !important;
 }
-.el-date-range-picker {
-    width: 510px !important;
-    z-index: 500;
-}
+
 .minx {
     display: flex;
 }

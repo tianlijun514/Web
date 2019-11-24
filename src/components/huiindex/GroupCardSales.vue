@@ -10,27 +10,28 @@
         <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
           <div class="conments">
-            <div class="minx">
-              <el-form-item label="定金编号" class="phone">
-                <input type="text" class="input_box">
+            <div class="conments">
+              <el-form-item label="定金编号" style="width:237px">
+                <el-input v-model="input" style="width: 155px"></el-input>
               </el-form-item>
               <button type="primary" @click="alerts()" class="btnte">...</button>
             </div>
             <el-form-item label="定金金额" class="phone">
-              <input type="text" class="input_box">
+              <el-input v-model="input"></el-input>
             </el-form-item>
           </div>
+
           <div class="conments">
-            <div class="yingbut">
+            <div class="yingbut" >
               <el-form-item label="营销活动">
-                <el-select v-model="form.region">
+                <el-select v-model="form.region" style="width: 185px">
                   <el-option v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value" @click.native="OpenRegion(item.value)">
                   </el-option>
                 </el-select>
               </el-form-item>
             </div>
             <el-form-item label="会籍类型">
-              <el-select v-model="typeHui">
+              <el-select v-model="typeHui" style="width: 187px">
                 <el-option v-for="item in typeHuiOptions" :key="item.value" :label="item.label" :value="item.value" @click.native="OpenType(item.value)">
                 </el-option>
               </el-select>
@@ -38,19 +39,20 @@
           </div>
 
           <el-form-item label="销售类型">
-            <el-select v-model="form.region" class="sex">
+            <el-select v-model="form.region"style="width: 185px">
               <el-option label="1-新合同" value="0" @click.native="OpenRegion(0)"></el-option>
               <el-option label="2-升级" value="1" @click.native="OpenRegion(1)"></el-option>
               <el-option label="3-续会" value="3"></el-option>
             </el-select>
           </el-form-item>
 
-          <div class='divbin'>
+          <div class='conments'>
             <el-form-item label="有效期">
-              <input type="text" class="input_box" v-model="typeHuiList.periodDate">
+              <el-input v-model="typeHuiList.periodDate"></el-input>
             </el-form-item>
+
             <el-form-item label="赠送天数">
-              <input type="text" class="input_box" v-model="typeHuiList.giveDate">
+              <el-input v-model="typeHuiList.giveDate"></el-input>
             </el-form-item>
 
           </div>
@@ -60,25 +62,25 @@
             </el-date-picker>
           </div>
 
-          <div class='divbin'>
+          <div class='conments'>
             <el-form-item label="指导价">
-              <input type="text" class="input_box" v-model="typeHuiList.guidingPrice">
+              <el-input input type="text"  v-model="typeHuiList.guidingPrice"/>
             </el-form-item>
             <el-form-item label="总价">
-              <input type="text" class="input_box" v-model="typeHuiList.totalPrice">
+              <el-input type="text"  v-model="typeHuiList.totalPrice"/>
             </el-form-item>
 
           </div>
-          <div class='divbin'>
+          <div class='conments'>
             <el-form-item label="实际售价">
-              <input type="text" class="input_box">
+              <el-input v-model="input"></el-input>
             </el-form-item>
             <el-form-item label="应收金额">
-              <input type="text" class="input_box">
+              <el-input v-model="input"></el-input>
             </el-form-item>
           </div>
           <el-form-item label="备注">
-            <el-input type="textarea" v-model="form.desc"></el-input>
+            <el-input type="textarea" v-model="form.desc" style="width: 450px"></el-input>
           </el-form-item>
         </el-form>
 
@@ -87,7 +89,7 @@
         <span class="titex">您选择的营销活动附带赠品信息</span>
         <el-table :data="bianta" border style="width: 58%">
           <el-table-column prop="biu" label="编号" width="50"></el-table-column>
-          <el-table-column prop="nbm" label="名称" width="297"></el-table-column>
+          <el-table-column prop="nbm" label="名称"></el-table-column>
         </el-table>
         <span class="titex">可使用门店</span>
         <el-table :data="mendata" border style="width: 58%">
@@ -95,7 +97,7 @@
           </el-table-column>
           <el-table-column prop="menx" label="门店" width="145">
           </el-table-column>
-          <el-table-column prop="miao" label="描述" width="147">
+          <el-table-column prop="miao" label="描述">
           </el-table-column>
 
         </el-table>
@@ -108,7 +110,7 @@
         <input id="upload" type="file" @change="importfxx(this)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
       </a>
       <a href="javascript:;" class="file">上传会员照片(zip文件)
-        <input id="upload" type="file" @change="importfxx(this)" />
+        <input id="upload1" type="file" @change="importfxx(this)" />
       </a>
 
       <!-- </el-upload> -->
@@ -197,6 +199,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input:'',
       checked: true,
       //下拉框
       typeHui: '',
@@ -438,46 +441,7 @@ export default {
     padding: 25px;
     margin: auto;
 }
-.hname {
-    width: 80% !important;
-}
-.divbin {
-    display: flex !important;
-}
 
-.shenfen {
-    display: flex;
-}
-.sinxex {
-    width: 48.5% !important;
-    margin-left: 5px;
-}
-.input_box {
-    -webkit-appearance: none;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    line-height: 30px;
-    outline: 0;
-    padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 100%;
-}
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.minx {
-    display: flex;
-}
 .btnte {
     width: 25px !important;
     height: 28px !important;
@@ -491,6 +455,7 @@ export default {
 }
 .yingbut {
     display: -webkit-box;
+  width: 265px;
 }
 .demonstration {
     height: 32px;
@@ -503,10 +468,7 @@ export default {
     box-sizing: border-box;
     margin-left: 13px;
 }
-.el-date-range-picker {
-    width: 510px !important;
-    z-index: 500;
-}
+
 .block {
     margin-bottom: 15px;
 }
