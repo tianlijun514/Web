@@ -23,11 +23,11 @@
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
 
-      <div class="block">
-        <span class="demonstration">默认</span>
+
+        <span class="demonstration">统计日期</span>
         <el-date-picker v-model="value1" type="date" placeholder="选择日期">
         </el-date-picker>
-      </div>
+
 
       <el-form-item label="教练工号">
         <el-input v-model="formInline.user"></el-input>
@@ -45,20 +45,21 @@
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="yuhao" label="序号" width="80"></el-table-column>
       <el-table-column prop="Mname" label="门店名称" width="100"></el-table-column>
-      <el-table-column prop="Hebian" label="合同编号" width="90"></el-table-column>
       <el-table-column prop="name" label="会员姓名" width="90"></el-table-column>
-      <el-table-column prop="kecheng" label="课程"></el-table-column>
       <el-table-column prop="yutime" label="教练" width="90"></el-table-column>
-      <el-table-column prop="hetime" label="总课时" width="80"></el-table-column>
-      <el-table-column prop="yuyue" label="预约课时" width="100"></el-table-column>
-      <el-table-column prop="keshi" label="核销课时" width="100"></el-table-column>
-      <el-table-column prop="money" label="剩余课时" width="80"></el-table-column>
-      <el-table-column prop="goudata" label="有效期起日" width="100"></el-table-column>
-      <el-table-column prop="jiedata" label="有效期迄日" width="100"></el-table-column>
-      <el-table-column prop="jiaolian" label="合同状态"></el-table-column>
-      <el-table-column prop="yuan" label="销售员" width="80"></el-table-column>
-      <el-table-column prop="xsdata" label="销售日期" width="100"></el-table-column>
-      <el-table-column prop="jmoney" label="金额" width="80"></el-table-column>
+      <el-table-column prop="Hebian" label="合同编号" width="90"></el-table-column>
+      <el-table-column prop="kecheng" label="销售类型"></el-table-column>
+      <el-table-column prop="goudata" label="购买日期" width="100"></el-table-column>
+      <el-table-column prop="jiedata" label="截止日期" width="100"></el-table-column>
+      <el-table-column prop="hetime" label="购买金额" width="80"></el-table-column>
+      <el-table-column prop="yuyue" label="购买课时" width="100"></el-table-column>
+      <el-table-column prop="keshi" label="上月结余" width="100"></el-table-column>
+      <el-table-column prop="money" label="本月新购" width="80"></el-table-column>
+      <el-table-column prop="jiaolian" label="本月消耗"></el-table-column>
+      <el-table-column prop="yuan" label="转出课时" width="80"></el-table-column>
+      <el-table-column prop="xsdata" label="课时单价" width="100"></el-table-column>
+      <el-table-column prop="jmoney" label="合同状态" width="80"></el-table-column>
+      <el-table-column prop="shang" label="上次上课" width="80"></el-table-column>
     </el-table>
     <div class="block">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
@@ -106,8 +107,7 @@ export default {
         yuan: '11111',
         xsdata: '2222',
         jmoney: '333',
-
-
+        shang:'11111'
       }]
     }
   },

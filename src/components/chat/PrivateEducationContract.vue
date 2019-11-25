@@ -6,15 +6,39 @@
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
 
+      <el-form-item label="类型">
+        <el-select v-model="regions">
+          <el-option label="全部" value="01" ></el-option>
+          <el-option label="02 - 私教" value="02" ></el-option>
+          <el-option label="03 - 定金" value="03" ></el-option>
+          <el-option label="04 - 停卡" value="04" ></el-option>
+          <el-option label="05 - 转让" value="05" ></el-option>
+          <el-option label="06 - 转店" value="06" ></el-option>
+          <el-option label="07 - 补卡" value="07" ></el-option>
+          <el-option label="08 - 租箱" value="08" ></el-option>
+          <el-option label="09 - K-Yoga" value="09" ></el-option>
+          <el-option label="10 - 私教预约" value="10" ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="状态">
+        <el-select v-model="regions">
+          <el-option label="未打印" value="1" ></el-option>
+          <el-option label="已打印" value="2" ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="合同号">
+        <el-input v-model="formInline.user"></el-input>
+      </el-form-item>
+
       <span class="demonstration">日期</span>
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-      <el-form-item label="教练工号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
 
-      <el-form-item label="会员卡号">
+
+      <el-form-item label="会员/姓名">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
 
@@ -35,8 +59,8 @@
       <el-table-column prop="timey" label="打印时间"></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="handleClick(scope.row)" type="text" size="small">合同打印</el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -64,6 +88,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      regions:'',
       currentPage: 5,
       formInline: {
         user: '',

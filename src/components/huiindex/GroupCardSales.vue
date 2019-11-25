@@ -411,6 +411,7 @@ export default {
 
 </script>
 <style scoped>
+  @import './../../assets/css/table.css';
 .boxst {
     width: 100px;
     font-size: 17px;

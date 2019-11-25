@@ -4,7 +4,7 @@
     <div class="demit">
       <el-form class="shenfen">
 
-        <el-form-item label="会籍合同编号" label-width="100px" style="width: 70%">
+        <el-form-item label="会籍合同号" label-width="100px" style="width: 60%">
           <el-input v-model="input" ></el-input>
         </el-form-item>
 
@@ -19,53 +19,59 @@
     <div class='pacuk'>
       <el-form ref="form" :model="form" label-width="80px" class="formbox">
         <el-form-item label="合同编号">
-          <el-input v-model="input" class="insin"></el-input>
+          <el-input v-model="input" class="insin" disabled></el-input>
         </el-form-item>
         <div class="shenfen">
+
           <div class="bluck">
-            <span class="demonstration" style="margin-left: 11px;width: 78px">销售日期</span>
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+            <el-form-item label="销售日期">
+              <el-input style="width: 185px" suffix-icon="el-icon-date" v-model="input1" disabled></el-input>
+            </el-form-item>
           </div>
+
           <el-form-item label="销售类别">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
           <el-form-item label="会员姓名">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
           <el-form-item label="会员编号">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
         <el-form-item label="会籍类型">
-          <el-input v-model="input" class="insin"></el-input>
+          <el-input v-model="input" class="insin" disabled></el-input>
         </el-form-item>
+
         <div class="mday">
-          <span class="demonstration">日期范围</span>
-          <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
+          <el-form-item label="合同起日">
+            <el-input style="width: 185px" suffix-icon="el-icon-date" v-model="input1" disabled></el-input>
+          </el-form-item>
+
+          <el-form-item label="合同迄日">
+            <el-input style="width: 185px" suffix-icon="el-icon-date" v-model="input1" disabled></el-input>
+          </el-form-item>
         </div>
+
         <div class="shenfen">
           <el-form-item label="合同金额">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
           <el-form-item label="定金金额">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
           <el-form-item label="转入金额">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
           <el-form-item label="付款金额">
-            <el-input v-model="input"></el-input>
+            <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
         <div class="minx">
-          <el-form-item label="定金编号">
-            <el-input v-model="input" class="insin"></el-input>
-          </el-form-item>
           <span class="po">合同状态：正常</span>
         </div>
       </el-form>
@@ -91,6 +97,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input1:'',
       input:'',
       value1: '',
       form: {
@@ -156,13 +163,11 @@ export default {
 }
 
 .bluck {
-    margin-bottom: 15px;
     width: 266px;
     display: flex;
 }
 .mday {
-    margin-left: 10px !important;
-    margin-bottom: 15px !important;
+    display: flex;
 }
 .po {
     width: 40px;
@@ -172,14 +177,5 @@ export default {
     font-size: 14px;
     color: #606266;
 }
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 </style>
