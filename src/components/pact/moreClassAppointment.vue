@@ -6,7 +6,7 @@
         <el-form-item label="教练工号">
           <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label-width='82px' label="教练姓名"class="block">
+        <el-form-item label-width='82px' label="教练姓名" class="block">
           <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
@@ -28,7 +28,7 @@
         <el-form-item label="会员卡号1">
           <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label-width='82px' label="会员姓名1"class="block">
+        <el-form-item label-width='82px' label="会员姓名1" class="block">
           <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
@@ -43,7 +43,7 @@
         <el-form-item label="会员卡号2">
           <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label-width='82px' label="会员姓名2"class="block">
+        <el-form-item label-width='82px' label="会员姓名2" class="block">
           <el-input v-model="input"></el-input>
         </el-form-item>
       </div>
@@ -58,7 +58,7 @@
         <el-form-item label="会员卡号3">
           <el-input v-model="input"></el-input>
         </el-form-item>
-        <el-form-item label-width='82px' label="会员姓名3"class="block">
+        <el-form-item label-width='82px' label="会员姓名3" class="block">
           <el-input v-model="input"></el-input>
         </el-form-item>
       </div>

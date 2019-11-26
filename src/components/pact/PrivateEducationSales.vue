@@ -74,6 +74,7 @@
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.desc" style="width: 470px;"></el-input>
       </el-form-item>
+
       <span class="demonstration">礼包包含商品</span>
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column prop="date" label="名称">

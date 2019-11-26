@@ -7,7 +7,6 @@
         <el-input v-model="input" style="width: 187px;"></el-input>
       </el-form-item>
 
-
       <div class="conment">
         <div class="shenfen">
           <div class="block">
@@ -90,10 +89,10 @@
         </el-form-item>
       </div>
 
-
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.desc" style="width: 459px;"></el-input>
       </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
       </el-form-item>

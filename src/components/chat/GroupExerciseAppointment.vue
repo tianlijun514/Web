@@ -18,16 +18,13 @@
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
 
-      <el-form-item label="手机号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
-
       <el-form-item label="类型">
         <el-select v-model="formInline.regions">
           <el-option label="全部" value="01"></el-option>
           <el-option label="1对1" value="02"></el-option>
           <el-option label="1对多" value="03"></el-option>
         </el-select>
+      </el-form-item>
 
         <el-form-item label="状态">
         <el-select v-model="formInline.regions">
@@ -51,7 +48,6 @@
         </el-date-picker>
 
         <el-button type="primary" @click="onSubmit">查询</el-button>
-      </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%">
@@ -92,6 +88,7 @@
     data () {
       // 这里存放数据
       return {
+          value1:'',
         currentPage: 5,
         formInline: {
           user: '',

@@ -23,11 +23,9 @@
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
 
-
         <span class="demonstration">统计日期</span>
         <el-date-picker v-model="value1" type="date" placeholder="选择日期">
         </el-date-picker>
-
 
       <el-form-item label="教练工号">
         <el-input v-model="formInline.user"></el-input>
@@ -85,6 +83,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      value1:'',
       currentPage: 5,
       formInline: {
         user: '',
