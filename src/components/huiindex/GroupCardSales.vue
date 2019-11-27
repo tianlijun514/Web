@@ -39,7 +39,7 @@
           </div>
 
           <el-form-item label="销售类型">
-            <el-select v-model="form.region"style="width: 185px">
+            <el-select v-model="form.region" style="width: 185px">
               <el-option label="1-新合同" value="0" @click.native="OpenRegion(0)"></el-option>
               <el-option label="2-升级" value="1" @click.native="OpenRegion(1)"></el-option>
               <el-option label="3-续会" value="3"></el-option>
@@ -112,7 +112,6 @@
       <a href="javascript:;" class="file">上传会员照片(zip文件)
         <input id="upload1" type="file" @change="importfxx(this)" />
       </a>
-
       <!-- </el-upload> -->
     </div>
 
