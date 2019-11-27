@@ -7,53 +7,76 @@
           <el-input v-model="input"></el-input>
         </el-form-item>
         <el-form-item label="会员卡号">
-          <el-input v-model="input"></el-input>
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
-      <div class="shenfen">
-        <el-form-item label="会员姓名">
-          <el-input v-model="input"></el-input>
-        </el-form-item>
-        <el-form-item label="会员编号">
-          <el-input v-model="input"></el-input>
-        </el-form-item>
+
+
+      <div class="conment">
+        <div class="shenfen">
+          <el-form-item label="会员姓名" >
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="会员编号">
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <el-form-item label="原会籍类型" label-width="82px">
+            <el-input v-model="input" style="width: 449px" disabled></el-input>
+          </el-form-item>
+        </div>
+        <div class="shenfen">
+          <el-form-item label="合同起日">
+            <el-input
+                    style="width: 185px"
+                    suffix-icon="el-icon-date"
+                    v-model="input1" disabled>
+            </el-input>
+
+          </el-form-item>
+          <el-form-item label="合同迄日">
+            <el-input
+                    style="width: 185px"
+                    suffix-icon="el-icon-date"
+                    v-model="input1" disabled>
+            </el-input>
+          </el-form-item>
+        </div>
+        <div class="shenfen">
+          <el-form-item label="合同价值">
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="剩余价值">
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+        </div>
       </div>
-      <div style="margin-bottom: 15px;">
-        <el-form-item label="原会籍类型" label-width="82px">
-          <el-input v-model="input" style="width: 449px"></el-input>
-        </el-form-item>
-      </div>
-      <div class="mday">
-        <span class="demonstration">合同日期范围</span>
-        <el-date-picker   style="width: 449px" v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-        </el-date-picker>
-      </div>
-      <div class="shenfen">
-        <el-form-item label="合同价值">
-          <el-input v-model="input"></el-input>
-        </el-form-item>
-        <el-form-item label="剩余价值">
-          <el-input v-model="input"></el-input>
-        </el-form-item>
-      </div>
+
       <div class="minx">
         <el-form-item label="定金编号"  style="width:237px">
 
-          <el-input v-model="input" style="width: 157px"></el-input>
+          <el-input v-model="input" style="width: 157px" disabled></el-input>
         </el-form-item>
         <button type="primary" @click="alerts()" class="btnte">...</button>
 
         <el-form-item label="定金金额">
-          <el-input v-model="input"></el-input>
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
 
-      <el-form-item label="转入会员">
-        <el-select v-model="form.region">
-          <el-option label="1-新会员" value="shanghai"></el-option>
-          <el-option label="2-老会员" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
+      <div class="minx">
+        <el-form-item label="转入会员" >
+          <el-select v-model="form.region" style="width: 185px" @change="zhuanru">
+            <el-option label="1-新会员" value="1"></el-option>
+            <el-option label="2-老会员" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="会员编号" v-if="bian=='2'">
+          <el-input v-model="input"></el-input>
+        </el-form-item>
+      </div>
 
       <div class="minx">
         <el-form-item label="会员卡号" style="width:237px">
@@ -99,10 +122,10 @@
 
       <div class="shenfen">
         <el-form-item label="手续费">
-          <el-input v-model="input"></el-input>
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
         <el-form-item label="应收金额">
-          <el-input v-model="input"></el-input>
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
 
@@ -139,6 +162,8 @@ export default {
   data () {
     // 这里存放数据
     return {
+      bian:false,
+      input1:'',
       input:'',
       dialog: {
         show : false
@@ -170,10 +195,13 @@ export default {
     },
     alerts () {
       this.dialog.show = true;
-      // this.alertipShow = true;
     },
     kamony(){
       this.ka.show= true;
+    },
+    zhuanru(e){
+      this.bian=e;
+      console.log(e)
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -194,16 +222,12 @@ export default {
 }
 </script>
 <style scoped>
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+  .conment {
+    border: 3px solid rgb(255, 239, 206);
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+
 .pacuk {
     width: 610px !important;
     background: white;
@@ -252,10 +276,6 @@ export default {
 .shenfen {
     display: flex;
     width: 100%;
-}
-.mday {
-    margin-left: -15px !important;
-    margin-bottom: 15px !important;
 }
 
 .minx {

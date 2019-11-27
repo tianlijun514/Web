@@ -141,9 +141,7 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
+
 @import './../../assets/css/table.css';
 .uys {
     width: 50%;

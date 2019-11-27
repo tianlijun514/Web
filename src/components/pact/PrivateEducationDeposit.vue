@@ -3,13 +3,22 @@
   <div class='boxs'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="会员类型">
-        <el-select v-model="form.region">
-          <el-option label="1-新会员" value="shanghai"></el-option>
-          <el-option label="2-老会员" value="beijing"></el-option>
-        </el-select>
+      <div  class="shenfen">
+        <el-form-item label="会员类型">
+          <el-select v-model="form.region" @change="typehui">
+            <el-option label="1-新会员" value="1"></el-option>
+            <el-option label="2-老会员" value="2"></el-option>
+          </el-select>
+        </el-form-item>
 
-      </el-form-item>
+        <el-form-item label="会员卡号" v-if="card=='2'">
+          <el-input v-model="input" class="hname"></el-input>
+        </el-form-item>
+
+      </div>
+
+
+
       <div class='shenfen'>
         <el-form-item label="会员姓名">
           <el-input v-model="input" class="hname"></el-input>
@@ -40,13 +49,13 @@
 
       <div class="shenfen">
         <el-form-item label="定金类型">
-          <el-select v-model="form.region2">
-            <el-option label="会籍定金" value="hux"></el-option>
-            <el-option label="私教定金" value="sijao"></el-option>
-            <el-option label="停转补定金" value="tibox"></el-option>
-            <el-option label="转让定金" value="zrj"></el-option>
-            <el-option label="租箱定金" value="ding"></el-option>
-            <el-option label="商品定金" value="shopng"></el-option>
+          <el-select v-model="form.region2"  @change="dingjin">
+            <el-option label="会籍定金" value="01"></el-option>
+            <el-option label="私教定金" value="02"></el-option>
+            <el-option label="停转补定金" value="03"></el-option>
+            <el-option label="转让定金" value="04"></el-option>
+            <el-option label="租箱定金" value="05"></el-option>
+            <el-option label="商品定金" value="06"></el-option>
           </el-select>
         </el-form-item>
 
@@ -55,33 +64,37 @@
         </el-form-item>
       </div>
 
-      <div class="shenfen">
-        <el-form-item label="营销活动" >
-          <el-select v-model="form.region3">
-            <el-option label="不参加营销活动" value="yin"></el-option>
-            <el-option label="参加营销活动" value="yxbj"></el-option>
-          </el-select>
+      <div v-if="wieder=='01'">
+        <div class="shenfen">
+          <el-form-item label="营销活动" >
+            <el-select v-model="form.region3">
+              <el-option label="不参加营销活动" value="yin"></el-option>
+              <el-option label="参加营销活动" value="yxbj"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="卡种类型">
+            <el-select v-model="form.region3">
+              <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
+              <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
+              <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
+              <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
+              <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
+              <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
+              <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
+              <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
+              <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
+              <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
+            </el-select>
+          </el-form-item>
+        </div>
+
+        <el-form-item label="卡种价格">
+          <el-input v-model="input" class="hname"></el-input>
         </el-form-item>
 
-        <el-form-item label="卡种类型">
-          <el-select v-model="form.region3">
-            <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
-            <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
-            <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
-            <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
-            <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
-            <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
-            <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
-            <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
-            <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
-            <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
-          </el-select>
-        </el-form-item>
       </div>
 
-      <el-form-item label="卡种价格">
-        <el-input v-model="input" class="hname"></el-input>
-      </el-form-item>
 
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.desc" style="width:480px"></el-input>
@@ -111,6 +124,8 @@ export default {
   data () {
     // 这里存放数据
     return {
+      wieder: true,
+      card: false,
       input:'',
       form: {
         name: '',
@@ -132,6 +147,13 @@ export default {
   methods: {
     onSubmit () {
       console.log('submit!');
+    },
+    typehui (e) {
+      this.card = e
+      console.log(e)
+    },
+    dingjin (e) {
+      this.wieder = e
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

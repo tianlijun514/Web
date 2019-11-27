@@ -3,70 +3,78 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
       <div class="shenfen">
-        <el-form-item label="会员卡号">
-          <input type="text" class="input_box">
+        <el-form-item label="会员姓名">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
-        <el-form-item label="会员编号" style="margin-left: 28px">
-          <input type="text" class="input_box">
+        <el-form-item label-width='82px' label="会员编号" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
+
       <div class="shenfen">
         <el-form-item label="会员姓名">
-          <input type="text" class="input_box">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
-        <el-form-item label="合同终止日" style="margin-left: 28px" label-width='82px'>
-          <input type="text" class="input_box">
+        <el-form-item label="合同终止日" label-width="82px" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
       <div class="shenfen">
         <el-form-item label="定金编号">
-          <input type="text" class="input_box">
+          <el-input v-model="input" disabled style="width: 160px"></el-input>
         </el-form-item>
         <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
         <button type="primary" @click="alerts()" class="btnte">...</button>
-        <el-form-item label="定金金额" style="margin-left: 2px">
-          <input type="text" class="input_box">
+
+        <el-form-item label="定金金额" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
       <div class="shenfen">
         <el-form-item label="私教礼包">
-          <el-select v-model="form.region" class="sex">
+          <el-select v-model="form.region"  style="width: 188px;">
             <el-option label="SJ001 - 私教送健身包" value="shanghai"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="私教课程" style="margin-left: 28px">
-          <input type="text" class="input_box">
+        <el-form-item label="私教课程" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
 
       <div class="shenfen">
         <el-form-item label="上课教练">
-          <el-select v-model="form.region" class="sex">
+          <el-select v-model="form.region" style="width: 188px;">
             <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="课程数量" style="margin-left: 28px">
-          <input type="text" class="input_box">
+        <el-form-item label="课程数量" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
 
-      <div class="block">
-        <span class="demonstration">日期范围</span>
-        <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-        </el-date-picker>
+      <div class="shenfen">
+        <el-form-item label="开始日期">
+          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+        </el-form-item>
+
+        <el-form-item label="结束日期" class="block">
+          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+        </el-form-item>
       </div>
+
       <div class="shenfen">
         <el-form-item label="实际售价">
-          <input type="text" class="input_box">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
-        <el-form-item label="应收金额" style="margin-left: 28px">
-          <input type="text" class="input_box">
+        <el-form-item label="应收金额" class="block">
+          <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
 
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="form.desc" style="width: 470px;"></el-input>
       </el-form-item>
+
       <span class="demonstration">礼包包含商品</span>
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column prop="date" label="名称">
@@ -100,6 +108,8 @@ export default {
   data () {
     // 这里存放数据
     return {
+      input:'',
+      input1:'',
       value1: '',
       alertipShow: false,
       alertText: '',
@@ -162,7 +172,7 @@ export default {
     box-sizing: border-box;
 }
 .pact {
-    width: 60% !important;
+    width: 630px !important;
     background: white;
 }
 .formbox {
@@ -175,27 +185,11 @@ export default {
     display: flex;
 }
 
-.input_box {
-    -webkit-appearance: none;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-    color: #606266;
-    display: inline-block;
-    font-size: inherit;
-    height: 30px;
-    line-height: 30px;
-    outline: 0;
-    padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 203px !important;
-}
+
 
 .block {
-    margin-left: 15px !important;
-    margin-bottom: 15px !important;
+    margin-left: 20px !important;
+
 }
 
 .btnte {
