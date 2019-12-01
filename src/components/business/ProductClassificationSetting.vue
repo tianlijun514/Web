@@ -26,17 +26,17 @@
       <el-table-column prop="status" label="状态"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-          <el-button @click="handledelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="handleClick(scope.row,scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="handledelete(scope.row,scope.$index)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="total" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-    <DialogFound :dialog='dialog' :ruleForm='ruleForm'></DialogFound>
-    <!-- <DialogFound :dialog='dialog' @update='getProfile'></DialogFound> -->
+    <DialogFound :dialog='dialog' :ruleForm='ruleForm' @update='chaxun'></DialogFound>
+    <!-- <DialogFound :dialog='dialog' @></DialogFound> -->
   </div>
 
 </template>
@@ -62,21 +62,18 @@ export default {
     return {
       handleClose: '',
       dialogVisible: false,
-      currentPage: 5,
+      currentPage: 1,
       typeCode: '',
       nameme: '',
       size: 10,
       total: 0,
       currentPage: 1,
-
-
       ruleForm: {
-        typebian: '',
-        name: '',
-        region: '',
-        resource: '',
-        desc: '',
-        id: '',
+        typeCode: '',
+        typeName: '',
+        subjectCode: '',
+        isDepositCard: null,
+        remark: '',
       },
       dialog: {
         show: false,
@@ -118,14 +115,14 @@ export default {
           typeCode: this.typeCode,
           name: this.nameme,
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total
-
         })
     },
     // 修改
     handleClick (index, row) {
+      console.log(row)
       console.log(this.dialog)
       this.dialog = {
         show: true,
@@ -133,11 +130,11 @@ export default {
         option: 'edit'
       };
       this.ruleForm = {
-        // typebian: row.typebian,
-        // name: row.name,
-        // region: row.region,
-        // resource: row.resource,
-        // desc: row.desc,
+        typeCode: row.typeCode,
+        typeName: row.typeName,
+        subjectCode: row.subjectCode,
+        isDepositCard: row.isDepositCard,
+        remark: row.remark,
         // id: row._id,
       }
 
@@ -150,29 +147,40 @@ export default {
         option: 'add'
       };
       this.ruleForm = {
-        // typebian: '',
-        // name: '',
-        // region: '',
-        // resource: '',
-        // desc: '',
+        typeCode: '',
+        typeName: '',
+        subjectCode: '',
+        isDepositCard: null,
+        remark: '',
         // id: '',
       }
       this.dialog.show = true
     },
-
     // 删除
-    handledelete (typeCode) {
-      this.$axios.delete(`/123/344/222${typeCode}`).then(res => {
-        this.$message('删除成功');
-
-
+    handledelete (row, typeCode) {
+      this.$confirm('确定要删除此记录吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.delete(base + `/commodity/deleteSpType/${row.typeCode}`).then(res => {
+          console.log(res.data)
+          if (res.data.code == 10000) {
+            this.$message({
+              message: '操作成功',
+              type: 'success'
+            });
+            this.chaxun();
+          } else {
+            this.$message.error('删除失败');
+          }
+        })
       })
-    }
+    },
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    // this.getProfile()
     this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）

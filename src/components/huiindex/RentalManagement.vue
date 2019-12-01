@@ -155,7 +155,7 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    this.erkundigen(),//微信
+    this.erkundigen(),
       axios
         .get(base + '/rentBox/getRentBoxStatus').then((res) => {
           console.log(res.data.o)
