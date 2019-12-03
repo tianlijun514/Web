@@ -20,18 +20,18 @@
 
       <el-button type="primary" @click="onSubmit">查询</el-button>
 
-      <el-button type="text" @click="outerVisible = true" class="btn">新郑商品入库</el-button>
+      <el-button type="text" @click="outerVisible = true" class="btn">新增商品入库</el-button>
 
       <!-- 新增退货商品弹框 -->
       <el-dialog title="新增商品入库数量" :visible.sync="outerVisible">
         <el-form :model="numberValidateForm" ref="numberValidateForm" class="demo-ruleForm">
           <div>
-            <el-form-item label="OA订单号" prop="bian" :rules="[{ required: true, message: '类型编号不能为空'}]">
+            <el-form-item label="OA订单号" prop="bian" :rules="[{ required: true, message: 'OA订单号不能为空'}]">
               <el-input v-model.number="numberValidateForm.bian" autocomplete="off"></el-input>
             </el-form-item>
           </div>
 
-          <el-button type="primary" @click="alerts()" style="margin: 20px 130px">+添加商品</el-button>
+          <el-button type="primary" @click="angelegt()" style="margin: 20px 130px">+添加商品</el-button>
           <div>
             <span>入库商品明细</span>
             <el-table :data="tableData" border style="width: 100%">
@@ -64,7 +64,9 @@
       <el-table-column prop="province" label="打印状态"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
+          <el-button type="text" size="small">打印</el-button>
           <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
+          <el-button type="text" size="small">确定</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -72,7 +74,7 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
       </el-pagination>
     </div>
-    <Auswahl :dialog="dialog"></Auswahl>
+    <Auswahl :auswahl="auswahl"></Auswahl>
   </div>
 
 </template>
@@ -94,7 +96,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      dialog: {
+      auswahl: {
         show: false
       },
       handleClose: '',
@@ -130,8 +132,8 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    alerts () {
-      this.dialog.show = true;
+    angelegt  () {
+      this.auswahl.show = true;
     },
     onSubmit () {
       console.log('submit!');
