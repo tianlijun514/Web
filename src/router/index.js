@@ -1261,6 +1261,7 @@ export default new Router({
             title: '教练员设置'
           }
         },
+        
         {
           path: '/parameters6',
           component: () => import('../components/parameters/PersonalGroupExercises.vue'),
@@ -1336,6 +1337,27 @@ export default new Router({
           component: () => import('../components/parameters/RentalPriceSetting.vue'),
           meta: {
             title: '租箱价格设置'
+          }
+        },
+        {
+          path: '/parameters17',
+          component: () => import('../components/parameters/addCoach.vue'),
+          meta: {
+            title: '新增教练员'
+          }
+        },
+        {
+          path: '/parameters18',
+          component: () => import('../components/parameters/addCourse.vue'),
+          meta: {
+            title: '新增私教课程'
+          }
+        },
+        {
+          path: '/parameters19',
+          component: () => import('../components/parameters/addClassroom.vue'),
+          meta: {
+            title: '新增教室'
           }
         },
 
@@ -1447,6 +1469,13 @@ export default new Router({
           component: () => import('../components/operation/QrCodeDetail.vue'),
           meta: {
             title: '二维码明细查询'
+          }
+        },
+        {
+          path: '/operation14',
+          component: () => import('../components/operation/addStore.vue'),
+          meta: {
+            title: '新增门店级别'
           }
         },
 

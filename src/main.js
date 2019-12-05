@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
+import store from './store'
 import router from './router';
 import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
@@ -62,5 +63,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
     router,
     i18n,
+    store,
     render: h => h(App)
 }).$mount('#app');
