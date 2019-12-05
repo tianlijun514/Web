@@ -20,39 +20,16 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <!-- 
-      <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" @change='datas' type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd">
-      </el-date-picker> -->
 
       <el-form-item label="销售员">
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
-      <!-- 
-      <el-form-item label="会员卡号">
-        <el-input v-model="inoutmen"></el-input>
-      </el-form-item>
-
-      <el-form-item label="会员姓名">
-        <el-input v-model="inoutmen"></el-input>
-      </el-form-item>
-
-      <el-form-item label="是否使用">
-        <el-select v-model="value" style="width: 188px;">
-          <el-option v-for="item in anwenden" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item> -->
 
       <el-form-item>
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
 
-      <!-- <el-form-item>
-        <el-button type="primary" @click="herleiten">导出</el-button>
-      </el-form-item> -->
     </el-form>
-    <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
@@ -62,16 +39,29 @@
         <!-- <el-button size="mini" type="primary">打印</el-button> -->
       </el-table-column>
     </el-table>
-    <el-table :data="modalitat" border style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
-    </el-table>
+    <!-- 第二个表 -->
+    <el-form :inline="true" class="demo-form-inline">
+      <template>
+        <el-table :data="modalitat" border style="width: 100%">
+          <el-table-column fixed  prop="name" label="门店名称" width="120"></el-table-column>
+          <el-table-column prop="date" label="日期" width="150"></el-table-column>
+          <el-table-column prop="province" label="备注"></el-table-column>
+          <el-table-column fixed="right" label="操作" width="100">
+            <template>
+              <el-button type="text" size="small" @click="dialogVisible = true">修改</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-dialog title="输入备注" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+          <el-input v-model="inoutmen"></el-input>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog>
 
-    <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
-      </el-pagination>
-    </div>
+      </template>
+    </el-form>
   </div>
 
 </template>
@@ -92,9 +82,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage: 1,
-      total: 0,
-      size: 10,
+      dialogVisible: false,
       inoutmen: '',
       value: '',
       value1: '',
@@ -177,10 +165,10 @@ export default {
       ],
       tableData: [{}],
       modalitat: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }]
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }]
 
     }
   },
@@ -216,17 +204,7 @@ export default {
       this.date_e = y + "-" + m + "-" + d;
       console.log(this.date_e)
     },
-    // 导出
-    herleiten () {
-      axios
-        .get(url + '/visit/excel', { responseType: 'arraybuffer' })
-        .then(res => {
-          let blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
-          let objectUrl = URL.createObjectURL(blob);
-          window.location.href = objectUrl;
-          console.log(res);
-        })
-    },
+
 
     // 查询
     chaxun () {
@@ -273,10 +251,6 @@ export default {
     width: 100px !important;
 }
 @import './../../assets/css/table.css';
-.uys {
-    width: 32%;
-    margin: auto;
-}
 .APPX {
     width: 100%;
 }

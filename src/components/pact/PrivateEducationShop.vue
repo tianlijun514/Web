@@ -91,14 +91,14 @@
       </el-form-item>
 
         <el-form-item label="选择教练">
-          <el-select v-model="form.region" style="width: 458px;">
+          <el-select v-model="form.region" class="whinth">
             <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
           </el-select>
         </el-form-item>
 
 
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc" style="width: 459px;"></el-input>
+        <el-input type="textarea" v-model="form.desc"  class="whinth"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
@@ -208,6 +208,9 @@
   .block {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
+  }
+  .whinth{
+    width: 460px;
   }
 
 </style>

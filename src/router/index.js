@@ -36,7 +36,7 @@ export default new Router({
           }
         },
 
-  // 内容跳转组件
+        // 内容跳转组件
         {
           path: '/hymesg',
           component: () => import('../components/huibox/MemberRnformation.vue'),
@@ -60,7 +60,7 @@ export default new Router({
         },
         {
           path: '/sijiao',
-          component: () => import( '../components/page/PersonalEducation.vue'),
+          component: () => import('../components/page/PersonalEducation.vue'),
           meta: {
             title: '私教销售流水查询'
           }
@@ -74,7 +74,7 @@ export default new Router({
         },
         {
           path: '/huiyuan',
-          component: () => import( '../components/page/MembershipExit.vue'),
+          component: () => import('../components/page/MembershipExit.vue'),
           meta: {
             title: '会员出入场'
           }
@@ -88,7 +88,7 @@ export default new Router({
         },
         {
           path: '/zhika',
-          component: () => import(  '../components/page/MembershipCardSynthesis.vue'),
+          component: () => import('../components/page/MembershipCardSynthesis.vue'),
           meta: {
             title: '会员制卡综合查询'
           }
@@ -109,12 +109,12 @@ export default new Router({
         },
         {
           path: '/shenqing',
-          component: () => import( '../components/page/MyApplication.vue'),
+          component: () => import('../components/page/MyApplication.vue'),
           meta: {
             title: '我的申请'
           }
         },
-    
+
         {
           path: '/box',
           component: () => import('../components/huibox/MemberInformationSynthesis.vue'),
@@ -812,12 +812,300 @@ export default new Router({
           }
         },
         {
+          path: '/dingjinyq',
+          component: () => import('../components/approval/dingjinyq.vue'),
+          meta: {
+            title: '定金延期申请'
+          }
+        },
+        {
           path: '/approval7',
           component: () => import('../components/approval/ProcessApprovalDefinition.vue'),
           meta: {
             title: '流程审批环节的定义'
           }
         },
+
+        // 新申请的页面跳转
+        {
+          path: '/huibox',
+          component: () => import('../components/approval/huibox.vue'),
+          meta: {
+            title: '会员资料修改申请'
+          }
+        },
+        {
+          path: '/Maloft',
+          component: () => import('../components/approval/Maloft.vue'),
+          meta: {
+            title: '次卡次数调整'
+          }
+        },
+        {
+          path: '/genggaiday',
+          component: () => import('../components/approval/genggaiday.vue'),
+          meta: {
+            title: '更改会籍开始和结束时间申请'
+          }
+        },
+        {
+          path: '/huijitype',
+          component: () => import('../components/approval/huijitype.vue'),
+          meta: {
+            title: '更改会籍类型申请'
+          }
+        },
+        {
+          path: '/zengjiaday',
+          component: () => import('../components/approval/zengjiaday.vue'),
+          meta: {
+            title: '更改加增日期申请'
+          }
+        },
+        {
+          path: '/xiugaitongdian',
+          component: () => import('../components/approval/xiugaitongdian.vue'),
+          meta: {
+            title: '修改通店申请'
+          }
+        },
+        {
+          path: '/katingka',
+          component: () => import('../components/approval/katingka.vue'),
+          meta: {
+            title: '公司卡停卡申请'
+          }
+        },
+        {
+          path: '/huijihetongfukuang',
+          component: () => import('../components/approval/huijihetongfukuang.vue'),
+          meta: {
+            title: '更改会籍合同付款方式申请'
+          }
+        },
+        {
+          path: '/hetongbukuang',
+          component: () => import('../components/approval/hetongbukuang.vue'),
+          meta: {
+            title: '会籍合同补款申请'
+          }
+        },
+        {
+          path: '/Hetongxiaoshou1',
+          component: () => import('../components/approval/Hetongxiaoshou1.vue'),
+          meta: {
+            title: '更改会籍合同销售员1申请'
+          }
+        },
+        {
+          path: '/Huijixiaoshou2',
+          component: () => import('../components/approval/Huijixiaoshou2.vue'),
+          meta: {
+            title: '更改会籍合同销售员2申请'
+          }
+        },
+        {
+          path: '/huiyuanbukashenqing',
+          component: () => import('../components/approval/huiyuanbukashenqing.vue'),
+          meta: {
+            title: '更改会员补卡付款方式申请'
+          }
+        },
+        {
+          path: '/huijihetongfukuang',
+          component: () => import('../components/approval/huijihetongfukuang.vue'),
+          meta: {
+            title: '更改会员停卡付款方式申请'
+          }
+        },
+        {
+          path: '/gengaihuijifukuang',
+          component: () => import('../components/approval/gengaihuijifukuang.vue'),
+          meta: {
+            title: '更改会籍转让付款方式申请'
+          }
+        },
+        {
+          path: '/gengzuxiang',
+          component: () => import('../components/approval/gengzuxiang.vue'),
+          meta: {
+            title: '更改租箱付款方式申请'
+          }
+        },
+        {
+          path: '/huijizhuanbu',
+          component: () => import('../components/approval/huijizhuanbu.vue'),
+          meta: {
+            title: '会籍停转补手续费申请'
+          }
+        },
+        {
+          path: '/hetongjiyong',
+          component: () => import('../components/approval/hetongjiyong.vue'),
+          meta: {
+            title: '更改会籍合同计佣日期申请'
+          }
+        },
+        {
+          path: '/gengheimingdan',
+          component: () => import('../components/approval/gengheimingdan.vue'),
+          meta: {
+            title: '更改黑名单申请'
+          }
+        },
+        {
+          path: '/zengchuzhika',
+          component: () => import('../components/approval/zengchuzhika.vue'),
+          meta: {
+            title: '赠送储值卡'
+          }
+        },
+        {
+          path: '/yuetiaozheng',
+          component: () => import('../components/approval/yuetiaozheng.vue'),
+          meta: {
+            title: '储值卡余额调整'
+          }
+        },
+        {
+          path: '/chuzhikayanqi',
+          component: () => import('../components/approval/chuzhikayanqi.vue'),
+          meta: {
+            title: '储值卡延期'
+          }
+        },
+        {
+          path: '/tejiashenpi',
+          component: () => import('../components/approval/tejiashenpi.vue'),
+          meta: {
+            title: '租箱特价审批'
+          }
+        },
+        {
+          path: '/zulingday',
+          component: () => import('../components/approval/zulingday.vue'),
+          meta: {
+            title: '租箱更改租赁日期申请'
+          }
+        },
+        {
+          path: '/zuxianghao',
+          component: () => import('../components/approval/zuxianghao.vue'),
+          meta: {
+            title: '租箱更换箱号申请'
+          }
+        },
+        {
+          path: '/hetongtuikuang',
+          component: () => import('../components/approval/hetongtuikuang.vue'),
+          meta: {
+            title: '会籍合同退款申请'
+          }
+        },
+        {
+          path: '/Hjtuikuansheng',
+          component: () => import('../components/approval/Hjtuikuansheng.vue'),
+          meta: {
+            title: '私教延期申请'
+          }
+        },
+        {
+          path: '/sijiaotime',
+          component: () => import('../components/approval/sijiaotime.vue'),
+          meta: {
+            title: '更改私教开始结束日期申请'
+          }
+        },
+        {
+          path: '/quxiaohexiao',
+          component: () => import('../components/approval/quxiaohexiao.vue'),
+          meta: {
+            title: '取消核销申请'
+          }
+        },
+        {
+          path: '/sijiaokeshi',
+          component: () => import('../components/approval/sijiaokeshi.vue'),
+          meta: {
+            title: '更改私教课时数申请'
+          }
+        },
+        {
+          path: '/pilianghexiao',
+          component: () => import('../components/approval/pilianghexiao.vue'),
+          meta: {
+            title: '批量核销课数申请'
+          }
+        },
+        {
+          path: '/Sijiaofukuan',
+          component: () => import('../components/approval/Sijiaofukuan.vue'),
+          meta: {
+            title: '更改私教合同付款方式申请'
+          }
+        },
+        {
+          path: '/sijiaohetong1',
+          component: () => import('../components/approval/sijiaohetong1.vue'),
+          meta: {
+            title: '更改私教合同销售员1申请'
+          }
+        },
+        {
+          path: '/sijiaohetong2',
+          component: () => import('../components/approval/sijiaohetong2.vue'),
+          meta: {
+            title: '更改私教合同销售员2申请'
+          }
+        },
+        {
+          path: '/sijiaojiyong',
+          component: () => import('../components/approval/sijiaojiyong.vue'),
+          meta: {
+            title: '更改私教合同计佣日期申请'
+          }
+        },
+        {
+          path: '/sijiaoHbu',
+          component: () => import('../components/approval/sijiaoHbu.vue'),
+          meta: {
+            title: '私教合同补款申请'
+          }
+        },
+        {
+          path: '/Sijiaotuikuang',
+          component: () => import('../components/approval/Sijiaotuikuang.vue'),
+          meta: {
+            title: '私教合同退款申请'
+          }
+        },
+        {
+          path: '/Dingjinyanqin',
+          component: () => import('../components/approval/Dingjinyanqin.vue'),
+          meta: {
+            title: '定金延期申请'
+          }
+        },
+        {
+          path: '/DingHefukuang',
+          component: () => import('../components/approval/DingHefukuang.vue'),
+          meta: {
+            title: '更改定金合同付款方式申请'
+          }
+        },
+        {
+          path: '/Xiaoshangoing',
+          component: () => import('../components/approval/Xiaoshangoing.vue'),
+          meta: {
+            title: '更改小商品付款方式申请'
+          }
+        },
+
+
+
+
+
+
 
         // 业务报表组件
 
@@ -1182,7 +1470,7 @@ export default new Router({
 
 
 
-    // {
+        // {
         //   path: '/icon',
         //   component: () => import('../components/page/Icon.vue'),
         //   meta: {
@@ -1196,7 +1484,7 @@ export default new Router({
         //     title: '基础表格'
         //   }
         // },
-      
+
         // {
         //   path: '/form',
         //   component: () => import( /* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
@@ -1234,7 +1522,7 @@ export default new Router({
         // },
 
         // 11111111111111
-      
+
 
 
         // {

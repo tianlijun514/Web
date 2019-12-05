@@ -179,40 +179,10 @@ export default {
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 203px !important;
 }
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
-.yut {
-    text-align: right;
-    vertical-align: middle;
-    float: left;
-    font-size: 14px;
-    color: #606266;
-    line-height: 40px;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .block {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
 }
 
-.textar {
-    width: 56% !important;
-}
-.btnte {
-    width: 25px !important;
-    height: 28px !important;
-    margin-left: 2px;
-    text-align: center;
-    background: #333;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    margin-top: 2px;
-}
 </style>
