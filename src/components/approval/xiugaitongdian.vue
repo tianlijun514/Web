@@ -4,7 +4,7 @@
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
       <el-form-item label="合同编号" label-width='82px'>
-        <el-input v-model="input" class="kuang"></el-input>
+        <el-input @blur="changeCount" v-model="form.bianhao" class="kuang"></el-input>
       </el-form-item>
 
       <div class="conment">
@@ -37,7 +37,7 @@
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
 
-          <el-form-item label="合同迄日" style="margin-left: 7px;">
+          <el-form-item label="合同迄日" style="margin-left: 3px;">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
         </div>
@@ -60,20 +60,20 @@
           </el-form-item>
         </div>
       </div>
+      <div class="chebox">
+        <p class="tong">现有通店</p>
+        <p class="xuan">*减少通店直接取消勾选，保存即可</p>
+      </div>
+      <div v-show="checkboxing">
+        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
 
-      <div class="shenfen">
-        <el-form-item label="原增加日期" label-width="82px">
-          <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
-        </el-form-item>
-
-        <el-form-item label="新增加日期" label-width="82px" style="margin-left:4px;">
-          <el-date-picker v-model="value1" type="date" class="kuang">
-          </el-date-picker>
-        </el-form-item>
+        <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+          <el-checkbox v-for="city in cities" :label="city" :key="city" class="boxsing">{{city}}</el-checkbox>
+        </el-checkbox-group>
       </div>
 
       <div class="shenfen">
-        <el-form-item label="新会籍类型" label-width="82px">
+        <el-form-item label="新加通店" label-width="82px">
           <el-select v-model="form.region" style="width: 380px;">
             <el-option label="A00006 - 红牌楼店" value="A00006"></el-option>
             <el-option label="A00007 - 花郡店" value="A00007"></el-option>
@@ -111,6 +111,8 @@
 </template>
 
 <script>
+const cityOptions = ['A00006 - 红牌楼店', 'A00007 - 花郡店', 'A00008 - 万象城店', 'A00009 - 新城市店', 'A00014 - 阳光新业店',
+  'A00016 - 龙湖店', 'A00017 - 王府井店'];
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -126,10 +128,16 @@ export default {
   data () {
     // 这里存放数据
     return {
+      checkboxing: false,
+      checkAll: false,
+      checkedCities: [],
+      cities: cityOptions,
+      isIndeterminate: true,
       input: '',
       input1: '',
       value1: '',
       form: {
+        bianhao: '',
         name: '',
         region: '',
         date1: '',
@@ -150,6 +158,23 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
+    handleCheckAllChange (val) {
+      this.checkedCities = val ? cityOptions : [];
+      this.isIndeterminate = false;
+    },
+    handleCheckedCitiesChange (value) {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === this.cities.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+    },
+    changeCount () {
+      if (this.bianhao!='') {
+        this.checkboxing = true
+      } else {
+        this.checkboxing = false
+      }
+
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -203,5 +228,23 @@ label {
 }
 .whinth {
     width: 461px;
+}
+.tong {
+    color: #606266;
+    font-size: 14px;
+    width: 65px !important;
+}
+.xuan {
+    font-size: 14px;
+    color: #f66;
+}
+.chebox {
+    height: 30px;
+    margin-left: 13px;
+    width: 400px;
+    display: flex;
+}
+.boxsing {
+    width: 185px !important;
 }
 </style>

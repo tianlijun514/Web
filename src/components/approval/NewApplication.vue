@@ -16,8 +16,8 @@
       <router-link to='./hetongbukuang' class="span">会籍合同补款申请</router-link>
       <router-link to="./Hetongxiaoshou1" class="span">更改会籍合同销售员1申请</router-link>
       <router-link to='./Huijixiaoshou2' class="span">更改会籍合同销售员2申请</router-link>
-      <router-link to='./katingka' class="span">更改会员补卡付款方式申请</router-link>
-      <router-link to='./huiyuanbukashenqing' class="span">更改会员停卡付款方式申请</router-link>
+      <router-link to='./huiyuanbukashenqing' class="span">更改会员补卡付款方式申请</router-link>
+      <router-link to='./tingkabukuanbox' class="span">更改会员停卡付款方式申请</router-link>
       <router-link to='./gengaihuijifukuang' class="span">更改会籍转让付款方式申请</router-link>
       <router-link to='./gengzuxiang' class="span">更改租箱付款方式申请</router-link>
       <router-link to="./huijizhuanbu" class="span">会籍停转补手续费申请</router-link>

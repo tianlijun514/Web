@@ -3,7 +3,7 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="合同编号" label-width='82px'>
+      <el-form-item label="补卡流水号" label-width='82px'>
         <el-input v-model="input" class="kuang"></el-input>
       </el-form-item>
 
@@ -14,7 +14,7 @@
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
 
-          <el-form-item label="销售类别" label-width='82px'>
+          <el-form-item label="合同编号" label-width='82px'>
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
@@ -28,38 +28,42 @@
           </el-form-item>
         </div>
 
-        <el-form-item label="会籍类型">
-          <el-input v-model="input" disabled class='whinth'></el-input>
+        <div class="shenfen">
+          <el-form-item label="原卡号">
+            <el-input v-model="input1" disabled class="kuang"></el-input>
+          </el-form-item>
+
+          <el-form-item label="新卡号" style="margin-left: 4px;">
+            <el-input v-model="input1" disabled class="kuang"></el-input>
+          </el-form-item>
+        </div>
+
+        <el-form-item label="付款金额">
+          <el-input v-model="input" disabled class='kuang'></el-input>
         </el-form-item>
 
-        <div class="shenfen">
-          <el-form-item label="合同起日">
-            <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
-          </el-form-item>
-
-          <el-form-item label="合同迄日" style="margin-left: 7px;">
-            <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
-          </el-form-item>
-        </div>
-
-        <div class="shenfen">
-          <el-form-item label="合同金额">
-            <el-input v-model="input" disabled></el-input>
-          </el-form-item>
-          <el-form-item label-width='82px' label="定金金额">
-            <el-input v-model="input" disabled></el-input>
-          </el-form-item>
-        </div>
-
-        <div class="shenfen">
-          <el-form-item label="转入金额">
-            <el-input v-model="input" disabled></el-input>
-          </el-form-item>
-          <el-form-item label-width='82px' label="付款金额">
-            <el-input v-model="input" disabled></el-input>
-          </el-form-item>
-        </div>
       </div>
+
+      <div class="shenfen">
+        <el-form-item label="原停卡方式" label-width="82px">
+          <el-select v-model="form.region" style="width: 459px;">
+            <!-- <el-option label="A00006 - 红牌楼店" value="A00006"></el-option> -->
+          </el-select>
+        </el-form-item>
+      </div>
+
+      <div class="shenfen">
+        <el-form-item label="新停卡方式" label-width="82px">
+          <el-select v-model="form.region" style="width: 459px;">
+            <el-option label="001 - 现金" value="A00006"></el-option>
+            <el-option label="002 - 支付宝" value="A00007"></el-option>
+            <el-option label="003 - 刷卡" value="A00008"></el-option>
+            <el-option label="004 - 微信" value="A00009"></el-option>
+            <el-option label="005 - 储值卡" value="A000014"></el-option>
+          </el-select>
+        </el-form-item>
+      </div>
+
       <el-form-item label="申请原因">
         <el-input type="textarea" v-model="form.desc" class='whinth'></el-input>
       </el-form-item>
@@ -75,7 +79,7 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'katingka',
+  name: 'huiyuanbukashenqing',
   props: {
 
   },
@@ -134,14 +138,6 @@ export default {
     padding-top: 10px;
     margin-bottom: 10px;
     width: 560px;
-}
-label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
 }
 
 .pact {

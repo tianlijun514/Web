@@ -912,8 +912,8 @@ export default new Router({
           }
         },
         {
-          path: '/huijihetongfukuang',
-          component: () => import('../components/approval/huijihetongfukuang.vue'),
+          path: '/tingkabukuanbox',
+          component: () => import('../components/approval/tingkabukuanbox.vue'),
           meta: {
             title: '更改会员停卡付款方式申请'
           }

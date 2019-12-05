@@ -37,7 +37,7 @@
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
 
-          <el-form-item label="合同迄日" style="margin-left: 7px;">
+          <el-form-item label="合同迄日" style="margin-left: 4px;">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
         </div>
