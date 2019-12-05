@@ -3,35 +3,39 @@
   <div class='app'>
     <el-dialog :title="dialog.title" :visible.sync="dialog.show" :close-on-click-modal='false' :close-on-press-escape='false' :modal-append-to-body="false" width="30%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="类型编号" prop="typeCode">
-          <el-input v-model="ruleForm.typeCode"></el-input>
+        <el-form-item label="合同编号" prop="typeCode">
+          <el-input v-model="ruleForm.typeCode" style="width: 185px;"></el-input>
         </el-form-item>
 
-        <el-form-item label="类型名称" prop="typeName">
-          <el-input v-model="ruleForm.typeName"></el-input>
-        </el-form-item>
-<!-- 
-        <el-form-item label="科目编码" prop="subjectCode">
-          <el-select v-model="ruleForm.subjectCode" style="width: 185px;" @change="type_list">
-            <el-option v-for="(formtype, index) in type_list" :key="index" :label="formtype.remark" :value="formtype"></el-option>
+        <el-form-item label="结算方式">
+          <el-select v-model="type" style="width: 185px;">
+            <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
-        </el-form-item>  -->
-
-          <el-form-item label="科目编码">
-        <el-select v-model="type" @change="leibox">
-          <el-option v-for='item in type_list' :key="item.id" :label="item.typeName" :value="item.number"></el-option>
-        </el-select>
-      </el-form-item>
-
-        <el-form-item label="储值卡支付" prop="isDepositCard">
-          <el-radio-group v-model="ruleForm.isDepositCard">
-            <el-radio label="2">否</el-radio>
-            <el-radio label="1">是</el-radio>
-          </el-radio-group>
         </el-form-item>
+
+        <el-form-item label="供应商编号">
+          <el-select v-model="type" style="width: 185px;">
+            <el-option v-for='item in gongying' :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
+
+
+         
+          <el-form-item label="开始日期">
+           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
+          </el-date-picker>
+          </el-form-item>
+
+             <el-form-item label="结束日期">
+           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
+          </el-date-picker>
+          </el-form-item>
+
+
+       
 
         <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" v-model="ruleForm.remark"></el-input>
+          <el-input type="textarea" v-model="ruleForm.remark" style="width: 185px;"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">立即添加·</el-button>
@@ -62,8 +66,28 @@ export default {
   data () {
     // 这里存放数据
     return {
-      type:null,
-      type_list: [
+      type: null,
+      type_list: [{
+          value: '02',
+          label: '经销'
+        }, {
+          value: '03',
+          label: '代销'
+        }
+      ],
+
+      gongying: [{
+          value: '21321',
+          label: '21321 - 3213'
+        }, {
+          value: 'C00001',
+          label: 'C00001 - 测试商品'
+        },
+        {
+          value: 'G0001',
+          label: 'G0001 - 荷花池批发市场'
+        }
+
 
       ],
       value1: '',
@@ -106,7 +130,7 @@ export default {
         const url = this.dialog.option == 'add' ? `addSpType` : `updateSpType/`
         if (valid) {
           console.log(this.ruleForm)
-          this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
+          // this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
           axios.post(base + `/commodity/${url}`, this.ruleForm)
             .then(res => {
               if (res.data.code == 10000) {

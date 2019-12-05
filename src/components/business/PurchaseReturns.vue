@@ -16,7 +16,7 @@
           <span class="demonstration">退货日期</span>
           <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
         </div>
-        <el-button type="primary" @click="alerts()" style="margin: 20px 130px">+添加商品</el-button>
+        <el-button type="primary" @click="angelegt()" style="margin: 20px 130px">+添加商品</el-button>
         <div>
           <span>退货商品明细</span>
           <el-table :data="tableData" border style="width: 100%">
@@ -48,6 +48,7 @@
       <el-table-column prop="province" label="打印状态"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
+           <el-button type="text" size="small">打印</el-button>
           <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
         </template>
       </el-table-column>
@@ -56,7 +57,7 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
       </el-pagination>
     </div>
-    <Auswahl :dialog="dialog"></Auswahl>
+    <Auswahl :auswahl="auswahl"></Auswahl>
   </div>
 
 </template>
@@ -78,7 +79,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      dialog: {
+      auswahl: {
         show: false
       },
       handleClose: '',
@@ -112,8 +113,8 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    alerts () {
-      this.dialog.show = true;
+    angelegt  () {
+      this.auswahl.show = true;
     },
     onSubmit () {
       console.log('submit!');

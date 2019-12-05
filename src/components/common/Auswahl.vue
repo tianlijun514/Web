@@ -1,7 +1,7 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='app'>
-    <el-dialog title="商品选择" :visible.sync="dialog.show" width="55%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
+    <el-dialog title="商品选择" :visible.sync="auswahl.show" width="70%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="商品名称">
           <el-input v-model="formInline.user"></el-input>
@@ -35,6 +35,7 @@
         <el-table-column prop="Hebian" label="备用价1" width="100"></el-table-column>
         <el-table-column prop="yuan" label="备用价2" width="100"></el-table-column>
         <el-table-column prop="hetime" label="备用价3" width="120"></el-table-column>
+        <el-table-column prop="ku" label="库存" width="120"></el-table-column>
       </el-table>
       <div class="block">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
@@ -52,7 +53,7 @@
 export default {
   name: 'Auswahl',
   props: {
-    dialog: Object
+    auswahl: Object
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
@@ -74,6 +75,7 @@ export default {
         phonex: '12515121412',
         moneys: '20',
         bian: '0101101',
+        ku:'1211'
 
       }
       ]

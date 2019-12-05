@@ -24,6 +24,7 @@
       </el-date-picker>
 
       <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit">导出</el-button>
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%">

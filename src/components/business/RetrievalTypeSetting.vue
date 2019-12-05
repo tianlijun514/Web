@@ -48,15 +48,14 @@
       <el-table-column fixed="right" label="操作" width="400">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click='test_click2("edit",scope.row)'>修改</el-button>
-          <el-button type="text" size="small" @click='handleClose(scope.row)'>删除</el-button>
+          <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)'>删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="total" layout="total, sizes, prev, pager, next, jumper" :total="total">
+       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-
   </div>
 
 </template>
@@ -111,16 +110,33 @@ export default {
   watch: {},
   // 方法集合
   methods: {
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`);
+      this.size = val;
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+      this.chaxun();
+    },
+
     //删除
-    handleClose(id) {
+    handleClose (row, typeCode) {
       this.$confirm('确定要删除此记录吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        axios.get(`/category/delete.do?id=${id}`).then(response => {
-          if (response.data.code == 0) {
-            this.fetchData(); //刷新列表
+        axios.delete(base + `/commodity/deleteReceiveType/${row.typeCode}`).then(res => {
+          console.log(res.data)
+          if (res.data.code == 10000) {
+            this.$message({
+              message: '操作成功',
+              type: 'success'
+            });
+            this.chaxun();
+          } else {
+            this.$message.error('删除失败');
           }
         })
       })
@@ -131,7 +147,6 @@ export default {
 
 
     test_click2: function (e, b) {
-      console.log(b)
       this.dialogVisible = true
       if (e == 'add') {
         this.title = '新增'
@@ -150,22 +165,8 @@ export default {
     },
 
 
-
-    onSubmit () {
-      console.log('submit!');
-    },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
-    },
-
-
-
     // 查询
     chaxun () {
-      console.log(111111111)
       axios.
         post(base + '/commodity/getReceiveType', {
           page: this.currentPage,
@@ -184,11 +185,8 @@ export default {
     submitForm (numberValidateForm) {
       console.log(111)
       this.$refs[numberValidateForm].validate((valid) => {
-
         console.log(valid)
         if (valid) {
-          console.log(333)
-
           axios.post(base + `/commodity/` + this.option, {
             // data:this.numberValidateForm
             remark: this.numberValidateForm.remark,
@@ -198,11 +196,12 @@ export default {
             .then(res => {
               if (res.data.code == 10000) {
                 this.$message({
-                  message: '成功',
+                  message: '操作成功',
                   type: 'success'
                 });
                 this.dialogVisible = false;
-                this.chaxun();
+                this.numberValidateForm = {}
+                this.chaxun()
               } else {
                 this.$message.error('添加失败，请重新再试！');
               }
