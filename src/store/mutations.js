@@ -17,6 +17,13 @@ const mutations = {
     updatePrivateCourseType(state, data) {
         state.privateCourseType = data;
     },
+    updateClassRoom(state, data) {
+        state.classRoom = data;
+    },
+    updateClassRoomType(state, data) {
+        state.classRoomType = data;
+    },
+    
 }
 
 export default mutations;
