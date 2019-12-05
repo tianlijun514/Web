@@ -105,19 +105,19 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="最小数">
-                    <el-input v-model="logForm.minData" autocomplete="off"></el-input>
+                    <el-input type="number" v-model="logForm.minData" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="最大数">
-                    <el-input v-model="logForm.maxData" autocomplete="off"></el-input>
+                    <el-input type="number" v-model="logForm.maxData" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="单价下限">
-                    <el-input v-model="logForm.minPrice" autocomplete="off"></el-input>
+                    <el-input type="number" v-model="logForm.minPrice" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="单价上线">
-                    <el-input v-model="logForm.maxPrice" autocomplete="off"></el-input>
+                    <el-input type="number" v-model="logForm.maxPrice" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="有限天数">
-                    <el-input v-model="logForm.days" autocomplete="off"></el-input>
+                    <el-input type="number" v-model="logForm.days" autocomplete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -168,8 +168,6 @@ export default {
                 name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
                 id: [{ required: true, message: '请输入编号', trigger: 'blur' }]
             },
-            
-            
             dialogFormVisible: false
         };
     },
@@ -191,7 +189,6 @@ export default {
                         return;
                     }
                     this.addPrivateCourse(this.form).then(res => {
-                        console.log(res)
                         if (res == 'yes') {
                             this.$message({
                                 message: '添加私教课程成功',

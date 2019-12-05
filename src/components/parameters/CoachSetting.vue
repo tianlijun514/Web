@@ -107,7 +107,6 @@ export default {
             this.getCoach(this.num);
         },
         jump(e) {
-            console.log(e);
             this.$router.push({ path: '/parameters17', query: { data: e } });
         },
         dalete(e) {
@@ -133,12 +132,14 @@ export default {
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
-    // 生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
+    created() {
         this.getCoachInformation('J0001');
         this.getCoachInformation('J0002');
         this.getCoach(this.num);
+    },
+    // 生命周期 - 挂载完成（可以访问DOM元素）
+    mounted() {
+        
     },
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前

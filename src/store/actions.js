@@ -176,6 +176,49 @@ const actions = {
             return 'yes'
         }
     },
+    //修改课程
+    async updateCourse({ commit, state }, value) {
+        let data;
+        if (value.state2) {
+            data = await axios
+                .post(base + '/course/updateCourse', {
+                    states: 2,
+                    id:value.id,
+                    update:1
+                })
+        } else {
+            console.log(value, '123')
+            let type,
+                isState
+            if (value.type2) {
+                type = 1
+            } else {
+                type = 0
+            }
+            if (value.state == '正常') {
+                isState = 1
+            } else {
+                isState = 2
+            }
+            data = await axios
+                .post(base + '/course/updateCourse', {
+                    number: value.id,
+                    name: value.name,
+                    courseType: value.type,
+                    startDate: date1,
+                    endDate: date2,
+                    monster: type,
+                    states: isState,
+                    remarks: value.desc,
+                    prices: value.table,
+                })
+        }
+        console.log(data)
+        if (data.data.data == '更新课程成功') {
+            return 'yes'
+        }
+        
+    },
 
 }
 
