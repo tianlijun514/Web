@@ -5,6 +5,8 @@ const state = {
     coach:{},//教练员信息
     privateCourse:{},//私教课程
     privateCourseType:[],//私教课程类型
+    classRoom:{},//团操教室
+    classRoomType:[],//团操教室类型
 
 }
 export default state;

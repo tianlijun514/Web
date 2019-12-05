@@ -9,37 +9,48 @@ const actions = {
     },
     // 请求类型
     async getCoachInformation({ commit, state }, value) {
-        await axios
+        let data= await axios
             .post(base + '/configType/getTypes', {
                 code: value
             })
-            .then(res => {
-                if (value == 'J0001') {
-                    let obj
-                    let array = []
-                    for (let i = 0; i < res.data.data.length; i++) {
-                        obj = { label: res.data.data[i].remark, value: res.data.data[i].number }
-                        array.push(obj)
-                    }
-                    commit('updateCoachLevel', array)
-                } else if (value == 'J0002') {
-                    let obj
-                    let array = []
-                    for (let i = 0; i < res.data.data.length; i++) {
-                        obj = { label: res.data.data[i].remark, value: res.data.data[i].number }
-                        array.push(obj)
-                    }
-                    commit('updateCoachType', array)
-                } else if (value == 'K0001') {
-                    let obj
-                    let array = []
-                    for (let i = 0; i < res.data.data.length; i++) {
-                        obj = { label: res.data.data[i].remark, value: res.data.data[i].number }
-                        array.push(obj)
-                    }
-                    commit('updatePrivateCourseType', array)
+            if (value == 'J0001') {
+                let obj
+                let array = []
+                for (let i = 0; i < data.data.data.length; i++) {
+                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                    array.push(obj)
                 }
-            });
+                commit('updateCoachLevel', array)
+                return array
+            } else if (value == 'J0002') {
+                let obj
+                let array = []
+                for (let i = 0; i < data.data.data.length; i++) {
+                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                    array.push(obj)
+                }
+                commit('updateCoachType', array)
+                return array
+            } else if (value == 'K0001') {
+                let obj
+                let array = []
+                for (let i = 0; i < data.data.data.length; i++) {
+                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                    array.push(obj)
+                }
+                commit('updatePrivateCourseType', array)
+                return array
+            } else if (value == 'J0003') {
+                let obj
+                let array = []
+                for (let i = 0; i < data.data.data.length; i++) {
+                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                    array.push(obj)
+                }
+                console.log(array)
+                commit('updateClassRoomType', array)
+                return array
+            }
     },
     // 新增教练员
     async addCoach({ commit, state }, value) {
@@ -160,6 +171,7 @@ const actions = {
         } else {
             isState = 2
         }
+
         let data = await axios
             .post(base + '/course/addCourse', {
                 number: value.id,
@@ -171,6 +183,7 @@ const actions = {
                 states: isState,
                 remarks: value.desc,
                 prices: value.table,
+                storeNumber:value.storeId,
             })
         if (data.data.data == '增加课程成功') {
             return 'yes'
@@ -202,15 +215,17 @@ const actions = {
             }
             data = await axios
                 .post(base + '/course/updateCourse', {
+                    id:value.id2,
                     number: value.id,
                     name: value.name,
                     courseType: value.type,
-                    startDate: date1,
-                    endDate: date2,
+                    startDate: value.date1,
+                    endDate: value.date2,
                     monster: type,
                     states: isState,
                     remarks: value.desc,
                     prices: value.table,
+                    update:2
                 })
         }
         console.log(data)
@@ -219,6 +234,62 @@ const actions = {
         }
         
     },
+    //查询团操教室
+    async getClassRoom({ commit, state }, value) {
+        await axios
+            .post(base + '/classroom/queryClassRoom' + '/' + value.page + '/' + value.size, {
+                storeNumber: value.level,
+                name: value.store,
+                type: '',
+            })
+            .then(res => {
+                commit('updateClassRoom', res.data.queryResult)
+            });
+    },
+    //新增团操教室
+    async addClassRoom({ commit, state }, value){
+        console.log(value,'123')
+        let state1
+        if(value.states=='正常'){
+            state1=1
+        }else{
+            state1=2
+        }
+        let data = await axios
+            .post(base + '/classroom/addClassRoom', {
+                storeNumber:value.store,
+                number:value.number,
+                name:value.name,
+                maxMan:value.maxMan,
+                type:value.type,
+                remarks:value.remarks,
+                states:state1
+            })
+            console.log(data)
+        if (data.data.data == '新增教室成功') {
+            return 'yes'
+        }
+    },
+    //修改课程
+    async updateClassRoom({ commit, state }, value) {
+        let data
+        if (value.state2) {
+            data = await axios
+                .post(base + '/classroom/updateClassRoom', {
+                    states: 2,
+                    id:value.id,
+                    // update:1
+                })
+        } else {
+            data = await axios
+                .post(base + '/classroom/updateClassRoom', {
+                    states: 2,
+                    id:value.id,
+                    update:1
+                })
+        }
+        console.log(data)
+    }
 
 }
 

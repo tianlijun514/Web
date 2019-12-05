@@ -1360,6 +1360,34 @@ export default new Router({
             title: '新增教室'
           }
         },
+        {
+          path: '/parameters20',
+          component: () => import('../components/parameters/addAttribute.vue'),
+          meta: {
+            title: '新增属性'
+          }
+        },
+        {
+          path: '/parameters21',
+          component: () => import('../components/parameters/addStoreInform.vue'),
+          meta: {
+            title: '新增门店通知'
+          }
+        },
+        {
+          path: '/parameters22',
+          component: () => import('../components/parameters/addLoss.vue'),
+          meta: {
+            title: '新增挂失'
+          }
+        },
+        {
+          path: '/parameters23',
+          component: () => import('../components/parameters/addCoachPackage.vue'),
+          meta: {
+            title: '新增私教礼包'
+          }
+        },
 
         // 运营设置组件
         {

@@ -53,11 +53,11 @@
                 <div class="aptable">
                     <span class="titex">教练门店</span>
                     <el-table
-                        :data="coachStore"
+                        :data="coachStore2"
                         border
                         style="width: 90%;"
                         @selection-change="handleSelectionChange"
-                        ref="dataTable"
+                        ref="dataTable2"
                         height="400"
                     >
                         <el-table-column type="selection" label="选择"></el-table-column>
@@ -73,14 +73,16 @@
                 @selection-change="handleSelectionChange"
                 ref="dataTable"
             >
-                <el-table-column prop="coachLevel" label="教练等级"></el-table-column>
+                <el-table-column prop="data" label="教练等级"></el-table-column>
                 <el-table-column prop="minData" label="最小数"></el-table-column>
                 <el-table-column prop="maxData" label="最大数"></el-table-column>
                 <el-table-column prop="minPrice" label="单价下限"></el-table-column>
                 <el-table-column prop="maxPrice" label="单价上线"></el-table-column>
                 <el-table-column prop="days" label="有效天数"></el-table-column>
                 <el-table-column prop="storeName" label="操作">
-                    <el-button size="mini" type="primary">删除</el-button>
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="deleteData(scope.row)">删除</el-button>
+                    </template>
                 </el-table-column>
             </el-table>
             <div class="addBtn">
@@ -147,11 +149,11 @@ export default {
                 type2: '',
                 state: '正常',
                 desc: '',
-                date1:'',
-                date2:'',
+                date1: '',
+                date2: '',
                 type: '',
                 storeId: [],
-                table: [],
+                table: []
             },
             logForm: {
                 coachLevel: '',
@@ -160,26 +162,33 @@ export default {
                 maxData: '',
                 minPrice: '',
                 maxPrice: '',
-                days: '',
-                
+                days: ''
             },
             hasSelectList: ['1', '2', '5'],
             rules: {
                 name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
                 id: [{ required: true, message: '请输入编号', trigger: 'blur' }]
             },
-            dialogFormVisible: false
+            dialogFormVisible: false,
+            coachStore2: [],
+            id: 0,
+            level123:[],
         };
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ level: state => state.coachLevel, type: state => state.privateCourseType, coachStore: state => state.coachStore ,level: state => state.coachLevel })
+        ...mapState({
+            level: state => state.coachLevel,
+            type: state => state.privateCourseType,
+            coachStore: state => state.coachStore,
+            level: state => state.coachLevel
+        })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addPrivateCourse', 'getStore']),
+        ...mapActions(['getCoachInformation', 'addPrivateCourse', 'getStore','updateCourse']),
         onSubmit(form) {
             this.$refs[form].validate(valid => {
                 if (!valid) {
@@ -188,40 +197,89 @@ export default {
                     if (this.form.storeId.length == 0) {
                         return;
                     }
-                    this.addPrivateCourse(this.form).then(res => {
-                        if (res == 'yes') {
-                            this.$message({
-                                message: '添加私教课程成功',
-                                type: 'success'
-                            });
-                            this.form.id = '';
-                            this.form.name = '';
-                            this.form.date1 = '';
-                            this.form.date2 = '';
-                            this.form.type = '';
-                            this.form.state = '正常';
-                            this.form.desc = '';
-                            this.form.type2 = '';
-                            this.form.storeId = [];
-                            this.form.table = [];
-                            this.coachStore.forEach(row => {
-                                this.$refs.dataTable.toggleRowSelection(row, false);
-                            });
-                            
+                    if (this.$route.query.data) {
+                        this.form.id2 = this.$route.query.data.id;
+                        console.log(typeof this.form.date2)
+                        if(typeof this.form.date1 == 'object'){
+                            var now = new Date(this.form.date1)
+                            this.form.date1 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
                         }
-                    });
+                        if(typeof this.form.date2 == 'object'){
+                            var now = new Date(this.form.date2)
+                            this.form.date2 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+                        }
+                        if (typeof this.form.type == 'string') {
+                            for (let i = 0; i < this.type.length; i++) {
+                                console.log(this.type[i].label == this.form.courseType)
+                                if (this.type[i].label == this.form.type) {
+                                    this.form.type = this.type[i].value;
+                                }
+                            }
+                        }
+                        this.updateCourse(this.form).then(res => {
+                            if (res == 'yes') {
+                                this.$message({
+                                    message: '修改成功',
+                                    type: 'success'
+                                });
+                                this.$router.push('/parameters6');
+                                this.form.id = '';
+                                this.form.name = '';
+                                this.form.date1 = '';
+                                this.form.date2 = '';
+                                this.form.type = '';
+                                this.form.state = '正常';
+                                this.form.desc = '';
+                                this.form.type2 = '';
+                                this.form.storeId = [];
+                                this.form.table = [];
+                            }
+                        });
+                    } else {
+                        this.addPrivateCourse(this.form).then(res => {
+                            if (res == 'yes') {
+                                this.$message({
+                                    message: '添加私教课程成功',
+                                    type: 'success'
+                                });
+                                this.$router.push('/parameters6');
+                                this.form.id = '';
+                                this.form.name = '';
+                                this.form.date1 = '';
+                                this.form.date2 = '';
+                                this.form.type = '';
+                                this.form.state = '正常';
+                                this.form.desc = '';
+                                this.form.type2 = '';
+                                this.form.storeId = [];
+                                this.form.table = [];
+                                this.coachStore.forEach(row => {
+                                    this.$refs.dataTable.toggleRowSelection(row, false);
+                                });
+                            }
+                        });
+                    }
                 }
             });
         },
-        showTime(){
+        showTime() {
             this.logForm.coachLevel = '';
             this.logForm.minData = '';
             this.logForm.maxData = '';
             this.logForm.minPrice = '';
             this.logForm.maxPrice = '';
             this.logForm.days = '';
-            this.dialogFormVisible = true
-            this.getCoachInformation('J0001')
+            this.dialogFormVisible = true;
+            this.getCoachInformation('J0001');
+        },
+        deleteData(e) {
+            console.log(e.id);
+            for (let i = 0; i < this.form.table.length; i++) {
+                if (this.form.table[i].id == e.id) {
+                    console.log(i);
+                    this.form.table.splice(i, 1);
+                }
+            }
         },
         handleSelectionChange(a) {
             this.form.storeId = [];
@@ -241,37 +299,78 @@ export default {
             this.dialogFormVisible = false;
         },
         addBtn() {
-            this.form.table.push({coachLevel:this.logForm.coachLevel,minData:this.logForm.minData,maxData:this.logForm.maxData,minPrice:this.logForm.minPrice,maxPrice:this.logForm.maxPrice,days:this.logForm.days});
+            let data;
+            this.id++;
+            for (let i = 0; i < this.level.length; i++) {
+                if (this.level[i].value == this.logForm.coachLevel) {
+                    data = this.level[i].label;
+                }
+            }
+            this.form.table.push({
+                id: this.id,
+                data,
+                coachLevel: this.logForm.coachLevel,
+                minData: this.logForm.minData,
+                maxData: this.logForm.maxData,
+                minPrice: this.logForm.minPrice,
+                maxPrice: this.logForm.maxPrice,
+                days: this.logForm.days
+            });
             this.dialogFormVisible = false;
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
-    // 生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
-        this.getCoachInformation('J0001');
+    created() {
+        this.getCoachInformation('J0001').then(res=>{
+            console.log(res)
+            this.level123=res
+            setTimeout(()=>{
+                if (this.$route.query.data){
+                    this.form.table = this.$route.query.data.coursePrices;
+                    for (let i = 0; i < this.form.table.length; i++) {
+                        for(let k=0;k<this.level123.length;k++){
+                            if(this.form.table[i].coachLevel==this.level123[k].value){
+                                this.form.table[i].data=this.level123[k].label
+                            }
+                        }
+                        this.id = i;
+                        this.form.table[i].id = this.id;
+                    }
+                }
+                
+            },100)
+        })
         this.getCoachInformation('K0001');
-        this.getStore();
-        console.log(this.$route.query.data)
-        if(this.$route.query.data){
-            this.form.id=this.$route.query.data.number
-            this.form.name=this.$route.query.data.name
-            this.form.type=this.$route.query.data.courseType
-            this.form.date1=this.$route.query.data.startDate
-            this.form.date2=this.$route.query.data.endDate
-            this.form.type2=this.$route.query.data.monster==1?true:false
-            this.form.state=this.$route.query.data.states==1?'正常':'停用'
-            this.form.desc=this.$route.query.data.remarks
-            // this.tableData.forEach(row => {
-            //     console.log(row)
-            //     if (this.hasSelectList.indexOf(row.id) >= 0) {
-            //         console.log(this.hasSelectList.indexOf(row.id))
-            //         this.$refs.dataTable.toggleRowSelection(row, true);
-            //     }
-            // });
+        this.getStore().then(res => {
+            this.coachStore2 = res;
+            if (this.$route.query.data) {
+                setTimeout(() => {
+                    this.coachStore2.forEach(row => {
+                        if (this.$route.query.data.storeNumberArr.indexOf(row.number) >= 0) {
+                            this.form.storeId.push(
+                                this.$route.query.data.storeNumberArr[this.$route.query.data.storeNumberArr.indexOf(row.number)]
+                            );
+                            this.$refs.dataTable2.toggleRowSelection(row, true);
+                        }
+                    });
+                }, 100);
+            }
+        });
+        console.log(this.$route.query.data);
+        if (this.$route.query.data) {
+            this.form.id = this.$route.query.data.number;
+            this.form.name = this.$route.query.data.name;
+            this.form.type = this.$route.query.data.courseType;
+            this.form.date1 = this.$route.query.data.startDate;
+            this.form.date2 = this.$route.query.data.endDate;
+            this.form.type2 = this.$route.query.data.monster == 1 ? true : false;
+            this.form.state = this.$route.query.data.states == 1 ? '正常' : '停用';
+            this.form.desc = this.$route.query.data.remarks;
+            
         }
-        
     },
+    // 生命周期 - 挂载完成（可以访问DOM元素）
+    mounted() {},
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前
     beforeUpdate() {}, // 生命周期 - 更新之前
@@ -371,7 +470,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    width: 75%;
     height: 50px;
 }
 </style>

@@ -9,7 +9,7 @@
                         value=""
                     ></el-option>
                     <el-option
-                        v-for="(item,index) in type"
+                        v-for="(item,index) in store"
                         :label="item.label"
                         :value="item.value"
                         :key="index"
@@ -20,13 +20,13 @@
                 <el-input v-model="num.store"></el-input>
             </el-form-item>
             <el-form-item label="类型">
-                <el-select v-model="num.level">
+                <el-select v-model="num.type">
                   <el-option
                         label="全部"
                         value=""
                     ></el-option>
                     <el-option
-                        v-for="(item,index) in type"
+                        v-for="(item,index) in classRoomType"
                         :label="item.label"
                         :value="item.value"
                         :key="index"
@@ -40,22 +40,17 @@
                 <el-button type="primary" @click="xinzheng">新增</el-button>
             </el-form-item>
         </el-form>
-        <span class="searchRst">查询结果：共{{course.total}}条记录/显示{{num.size}}页</span>
-        <el-table :data="course.list" border style="width: 100%;text-align:center">
-            <el-table-column prop="number" label="门店"></el-table-column>
-            <el-table-column prop="name" label="教室编号"></el-table-column>
-            <el-table-column prop="courseType" label="名称"></el-table-column>
-            <el-table-column prop="startDate" label="最多人数"></el-table-column>
-            <el-table-column prop="endDate" label="类型"></el-table-column>
-            <el-table-column prop="states" label="状态">
-              <template slot-scope="scope">
-                  <span>{{scope.row.states==1?'正常':'停用'}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="storeName" label="操作" width="260" >
+        <span class="searchRst">查询结果：共{{classRoom.total}}条记录/显示{{num.size}}页</span>
+        <el-table :data="classRoom.list" border style="width: 100%;text-align:center">
+            <el-table-column prop="store.name" label="门店"></el-table-column>
+            <el-table-column prop="number" label="教室编号"></el-table-column>
+            <el-table-column prop="name" label="名称"></el-table-column>
+            <el-table-column prop="maxMan" label="最多人数"></el-table-column>
+            <el-table-column prop="states" label="类型"></el-table-column>
+            <el-table-column prop="storeName" label="操作" width="200" >
               <template slot-scope="scope">
                 <el-button size="mini" @click="update(scope.row)" type="primary">修改</el-button>
-                <el-button size="mini" type="primary">删除</el-button>
+                <el-button size="mini" @click="dalete(scope.row)" type="primary">删除</el-button>
               </template>
                 
             </el-table-column>
@@ -68,7 +63,7 @@
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="num.size"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="course.total"
+                :total="classRoom.total"
             ></el-pagination>
         </div>
     </div>
@@ -92,43 +87,71 @@ export default {
                 store: '',
                 level: '',
                 type: ''
-            }
+            },
+            store:[]
         };
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ course: state => state.privateCourse ,type: state=>state.privateCourseType })
+        ...mapState({ classRoom: state => state.classRoom ,coachStore: state=>state.coachStore,classRoomType:state=>state.classRoomType })
     },
     // 监控data中的数据变化
-    watch: {},
+    watch: {
+    },
     // 方法集合
     methods: {
-        ...mapActions(['getPrivateCourse','getCoachInformation']),
+        ...mapActions(['getClassRoom','getStore','updateClassRoom','getCoachInformation']),
         serch() {
-            this.getPrivateCourse(this.num);
+            this.getClassRoom(this.num);
         },
         handleSizeChange(val) {
             this.num.size = val;
             this.num.page = 1;
-            this.getPrivateCourse(this.num);
+            this.getClassRoom(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getPrivateCourse(this.num);
+            this.getClassRoom(this.num);
         },
         xinzheng() {
             this.$router.push('/parameters19');
         },
         update(e){
             this.$router.push({path:'/parameters19',query:{data:e}});
+        },
+        dalete(e){
+            this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                e.state2 = 2;
+                this.updateClassRoom(e).then(res => {
+                    if (res == 'yes') {
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        });
+                        this.getCoach(this.num);
+                    }
+                });
+            });
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.getCoachInformation('J0003')
+        this.getStore().then(res => {
+            this.store = [];
+            for (let i = 0; i < res.length; i++) {
+                this.store.push({ label: res[i].number + '-' + res[i].name, value: res[i].number });
+            }
+        });
+        this.getClassRoom(this.num);
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-      this.getCoachInformation('K0001')
-        this.getPrivateCourse(this.num);
+      
     },
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前
@@ -136,7 +159,9 @@ export default {
     updated() {}, // 生命周期 - 更新之后
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
-    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+    activated() {
+        this.getClassRoom(this.num);
+    } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang="scss" scoped >

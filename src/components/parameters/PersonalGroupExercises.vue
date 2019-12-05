@@ -110,7 +110,6 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                console.log(e)
                 e.state2 = 3;
                 this.updateCourse(e).then(res => {
                     if (res == 'yes') {
@@ -118,7 +117,7 @@ export default {
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getCoach(this.num);
+                        this.getPrivateCourse(this.num);
                     }
                 });
             });
@@ -145,7 +144,9 @@ export default {
     updated() {}, // 生命周期 - 更新之后
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
-    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+    activated() {
+        this.getPrivateCourse(this.num);
+    } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang="scss" scoped >

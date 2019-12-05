@@ -4,34 +4,20 @@
         <div class="conments">
             <div class="appx">
                 <el-form ref="form" :model="form" label-width="80px" class="formbox demo-ruleForm">
-                    <el-form-item label="收卡门店" v-model="form.name">
-                        <el-select v-model="form.name" class="sex">
-                            <el-option
-                                v-for="(item,index) in array"
-                                :label="item.label"
-                                :value="item.value"
-                                :key="index+'a'"
-                            ></el-option>
-                        </el-select>
+                    <el-form-item label="接收门店">
+                        <div>
+                            全部门店
+                            <el-button type="primary">选择...</el-button>
+                        </div>
                     </el-form-item>
-                    <el-form-item label="配卡类型" v-model="form.name">
-                        <el-select v-model="form.name" class="sex">
-                            <el-option
-                                v-for="(item,index) in array"
-                                :label="item.label"
-                                :value="item.value"
-                                :key="index+'a'"
-                            ></el-option>
-                        </el-select>
+                    <el-form-item label="标题">
+                        <el-input type="text" v-model="form.name" class="input_box" />
                     </el-form-item>
-                    <el-form-item label="卡号">
-                        <el-input type="number" v-model="form.name" class="input_box" />
+                    <el-form-item label="内容">
+                        <el-input type="textarea" v-model="form.name" class="input_box" />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item label="上传图片">
                         <div class="name">
-                            <div>
-                                <el-button size="small" type="primary">提交卡号</el-button>
-                            </div>
                             <el-upload
                                 class="upload-demo"
                                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -39,22 +25,19 @@
                                 :on-remove="handleRemove"
                                 list-type="picture"
                             >
-                                <el-button size="small" type="primary">上传卡号（Excel文件）</el-button>
+                                <el-button size="small">点击上传</el-button>
                             </el-upload>
+                            <div>
+                                <el-button size="small" type="primary">上传</el-button>
+                            </div>
                         </div>
+                    </el-form-item>
+                    <el-form-item class="btn">
+                        <el-button type="primary" @click="onSubmit('form')">提交</el-button>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
-        <div class="btn">
-            <el-button type="primary" @click="onSubmit('form')">提交配卡</el-button>
-            <el-button type="primary" @click="onSubmit('form')">查询配卡</el-button>
-        </div>
-        <el-table :data="table" border style="width: 45%;text-align:center;margin-left:30px;">
-            <el-table-column prop="number" label="卡号"></el-table-column>
-            <el-table-column prop="name" label="收卡门店"></el-table-column>
-            <el-table-column prop="leavel" label="卡类型"></el-table-column>
-        </el-table>
     </div>
 </template>
 
@@ -72,11 +55,9 @@ export default {
         // 这里存放数据
         return {
             form: {
-                name: ''
+                name: '',
             },
-            fileList: [],
-            array: [{ label: '123', value: '321' }],
-            table:[]
+            fileList:[]
         };
     },
     // 监听属性 类似于data概念
@@ -121,7 +102,7 @@ export default {
 .conments {
     display: flex;
     // padding: 20px;
-    width: 45%;
+    width: 40%;
     margin: 20px;
     border: 10px solid #f4f4f4;
 }
@@ -187,6 +168,8 @@ export default {
     display: flex;
     justify-content: center;
     width: 35%;
-    margin-bottom: 30px;
+    position: absolute;
+    left: 0;
+    top: 400px;
 }
 </style>
