@@ -3,36 +3,33 @@
     <div class="appmm">
         <div class="conments">
             <div class="appx">
-                <el-form
-                    ref="form"
-                    :model="form"
-                    label-width="80px"
-                    class="formbox demo-ruleForm"
-                >
-                <el-form-item label="门店">
-                        <el-select v-model="form.level" class="sex">
+                <el-form ref="form" :model="form" label-width="80px" class="formbox demo-ruleForm">
+                    <el-form-item label="门店">
+                        <el-select v-model="form.store" class="sex" v-show="isAdd">
                             <el-option
-                                v-for="(item,index) in level"
+                                v-for="(item,index) in store"
                                 :label="item.label"
                                 :value="item.value"
                                 :key="index+'a'"
                             ></el-option>
                         </el-select>
+                        <div v-show="!isAdd">{{form.store}}</div>
                     </el-form-item>
                     <el-form-item label="教室编号">
-                        <el-input type="text" v-model="form.id" class="input_box" />
+                        <el-input type="text" v-model="form.number" class="input_box" v-show="isAdd" />
+                        <div v-show="!isAdd">{{form.number}}</div>
                     </el-form-item>
                     <el-form-item label="名称">
                         <el-input type="text" v-model="form.name" class="input_box" />
                     </el-form-item>
                     <el-form-item label="最多人数">
-                        <el-input type="text" v-model="form.name" class="input_box" />
+                        <el-input type="number" v-model="form.maxMan" class="input_box" />
                     </el-form-item>
-                    
+
                     <el-form-item label="类型">
                         <el-select v-model="form.type" class="sex">
                             <el-option
-                                v-for="(item,index) in type"
+                                v-for="(item,index) in classRoomType"
                                 :label="item.label"
                                 :value="item.value"
                                 :key="index+'b'"
@@ -40,12 +37,12 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="备注">
-                        <el-input type="textarea" v-model="form.desc"></el-input>
+                        <el-input type="textarea" v-model="form.remarks"></el-input>
                     </el-form-item>
                     <el-form-item label="状态">
-                        <el-radio-group v-model="form.state">
-                            <el-radio label="在职"></el-radio>
-                            <el-radio label="离职"></el-radio>
+                        <el-radio-group v-model="form.states">
+                            <el-radio label="正常"></el-radio>
+                            <el-radio label="停用"></el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item class="btn">
@@ -71,39 +68,76 @@ export default {
         // 这里存放数据
         return {
             form: {
-                id: '',
+                number: '',
                 name: '',
-                level: '',
+                store: '',
+                maxMan: '',
+                states: '正常',
                 type: '',
-                state: '在职',
-                desc: '',
-                type2: '',
+                remarks:'',
             },
-            
-
+            isAdd: true,
+            store: []
         };
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ level: state => state.coachLevel, type: state => state.coachType, coachStore: state => state.coachStore })
+        ...mapState({ type: state => state.coachType,classRoomType:state=>state.classRoomType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addCoach', 'getStore']),
-        onSubmit(form) {
-            
-        },
+        ...mapActions(['getCoachInformation', 'addClassRoom', 'getStore','updateClassRoom']),
+        onSubmit() {
+            if(this.isAdd){
+                console.log(this.form)
+                this.addClassRoom(this.form).then(res=>{
+                    if (res == 'yes') {
+                                this.$message({
+                                    message: '新增教室成功',
+                                    type: 'success'
+                                });
+                                this.$router.push('/parameters7')
+                                this.form.number = '';
+                                this.form.name = '';
+                                this.form.store = '';
+                                this.form.type = '';
+                                this.form.state = '正常';
+                                this.form.maxMan = '';
+                                this.form.remarks = '';
+                            }
+                })
+            }else{
+                this.form.id=this.$route.query.data.id
+                this.updateClassRoom(this.form).then(res=>{
+                    console.log(res)
+                })
+            }
+        }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
-    // 生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
+    created() {
         this.getCoachInformation('J0001');
         this.getCoachInformation('J0002');
-        this.getStore();    
+        this.getCoachInformation('J0003')
+        this.getStore().then(res => {
+            this.store = [];
+            for (let i = 0; i < res.length; i++) {
+                this.store.push({ label: res[i].number + '-' + res[i].name, value: res[i].number });
+            }
+        });
+        console.log(this.$route.query.data)
+        if(this.$route.query.data){
+            this.form=this.$route.query.data
+            this.form.store=this.$route.query.data.storeNumber+'-'+this.$route.query.data.store.name
+            this.form.states=this.$route.query.data.states==1?'正常':'停用'
+            this.isAdd=false
+        }
+        
     },
+    // 生命周期 - 挂载完成（可以访问DOM元素）
+    mounted() {},
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前
     beforeUpdate() {}, // 生命周期 - 更新之前

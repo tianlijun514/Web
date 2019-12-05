@@ -43,7 +43,7 @@
               <template slot-scope="scope">
                 <el-button size="mini" @click="update(scope.row)" type="primary">修改</el-button>
                 <el-button size="mini" type="primary">复制</el-button>
-                <el-button size="mini" type="primary">删除</el-button>
+                <el-button size="mini" @click="dalete(scope.row)" type="primary">删除</el-button>
               </template>
                 
             </el-table-column>
@@ -91,7 +91,7 @@ export default {
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getPrivateCourse','getCoachInformation']),
+        ...mapActions(['getPrivateCourse','getCoachInformation','updateCourse']),
         serch() {
             this.getPrivateCourse(this.num);
         },
@@ -104,6 +104,24 @@ export default {
             this.num.page = val;
             this.getPrivateCourse(this.num);
         },
+        dalete(e){
+            this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                e.state2 = 3;
+                this.updateCourse(e).then(res => {
+                    if (res == 'yes') {
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        });
+                        this.getPrivateCourse(this.num);
+                    }
+                });
+            });
+        },
         xinzheng() {
             this.$router.push('/parameters18');
         },
@@ -112,11 +130,13 @@ export default {
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.getCoachInformation('K0001')
+        this.getPrivateCourse(this.num);
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-      this.getCoachInformation('K0001')
-        this.getPrivateCourse(this.num);
+      
     },
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前
@@ -124,7 +144,9 @@ export default {
     updated() {}, // 生命周期 - 更新之后
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
-    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+    activated() {
+        this.getPrivateCourse(this.num);
+    } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang="scss" scoped >
