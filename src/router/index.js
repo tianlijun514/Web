@@ -1388,6 +1388,20 @@ export default new Router({
             title: '新增私教礼包'
           }
         },
+        {
+          path: '/parameters24',
+          component: () => import('../components/parameters/addMembersGift.vue'),
+          meta: {
+            title: '新增会员礼包'
+          }
+        },
+        {
+          path: '/parameters25',
+          component: () => import('../components/parameters/addCard.vue'),
+          meta: {
+            title: '新增卡种'
+          }
+        },
 
         // 运营设置组件
         {
