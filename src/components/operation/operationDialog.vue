@@ -101,75 +101,175 @@
             </span>
         </el-dialog>
         <!-- 新增区域管理 -->
-        <el-dialog title="新增区域管理" :visible.sync="isShow2" width="60%" :before-close="handleClose">
+        <el-dialog title="新增区域管理" :visible.sync="isShow2" width="674px" :before-close="handleClose">
             <div class="show2">
                 <el-form
+                    :model="form"
+                    :rules="rules"
+                    class="formbox demo-ruleForm"
+                    label-width="100px"
+                    style="width:300px;"
+                >
+                    <el-form-item label="编号" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="名称" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="区域类型">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="启用时间">
+                        <el-date-picker v-model="form.date1" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="禁用时间">
+                        <el-date-picker v-model="form.date2" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="负责人">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="备注" prop="name">
+                        <el-input type="textarea" v-model="form.name" />
+                    </el-form-item>
+                </el-form>
+                <div>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 300px"
+                        @selection-change="handleSelectionChange"
+                        height="350"
+                        ref="dataTable"
+                    >
+                        <el-table-column type="selection" label="选择"></el-table-column>
+                        <el-table-column prop="number" label="编号"></el-table-column>
+                        <el-table-column prop="name" label="名称"></el-table-column>
+                    </el-table>
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShow2 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow2 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+        <!-- 新增参数 -->
+        <el-dialog title="新增参数" :visible.sync="isShow3" width="400px" :before-close="handleClose">
+            <el-form
                 :model="form"
                 :rules="rules"
                 class="formbox demo-ruleForm"
                 label-width="100px"
                 style="width:300px;"
             >
-                <el-form-item label="编号" prop="name">
+                <el-form-item label="参数名" prop="name">
                     <el-input type="text" v-model="form.name" />
                 </el-form-item>
-                <el-form-item label="名称" prop="name">
+                <el-form-item label="说明" prop="name">
                     <el-input type="text" v-model="form.name" />
                 </el-form-item>
-                <el-form-item label="区域类型">
-                    <el-select v-model="form.store" class="sex">
-                        <el-option
-                            v-for="(item,index) in choose1"
-                            :label="item.label"
-                            :value="item.value"
-                            :key="index+'a'"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-row>
-                        <el-col :span="12">
-                            <el-form-item label="启用时间">
-                                <el-date-picker v-model="form.date1" type="date" placeholder="选择日期"></el-date-picker>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item label="禁用时间">
-                                <el-date-picker v-model="form.date2" type="date" placeholder="选择日期"></el-date-picker>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                <el-form-item label="负责人">
-                    <el-select v-model="form.store" class="sex">
-                        <el-option
-                            v-for="(item,index) in choose1"
-                            :label="item.label"
-                            :value="item.value"
-                            :key="index+'a'"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="备注" prop="name">
+                <el-form-item label="内容" prop="name">
                     <el-input type="textarea" v-model="form.name" />
                 </el-form-item>
             </el-form>
-            <div>
-                <el-table
-                    :data="table"
-                    border
-                    style="width: 300px"
-                    @selection-change="handleSelectionChange"
-                    height="300"
-                    ref="dataTable"
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShow3 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow3 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+        <!-- 新增营销活动 -->
+        <el-dialog title="新增营销活动" :visible.sync="isShow4" width="800px" :before-close="handleClose">
+            <div class="show2">
+                <el-form
+                    :model="form"
+                    :rules="rules"
+                    class="formbox demo-ruleForm"
+                    label-width="100px"
+                    style="width:300px;"
                 >
-                    <el-table-column type="selection" label="选择"></el-table-column>
-                    <el-table-column prop="number" label="编号"></el-table-column>
-                    <el-table-column prop="name" label="名称"></el-table-column>
-                </el-table>
+                    <el-form-item label="活动名称" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="启用时间">
+                        <el-date-picker v-model="form.date1" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="禁用时间">
+                        <el-date-picker v-model="form.date2" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-radio-group v-model="form.states">
+                            <el-radio label="正常"></el-radio>
+                            <el-radio label="停用"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="备注" prop="name">
+                        <el-input type="textarea" v-model="form.name" />
+                    </el-form-item>
+                </el-form>
+                <div>
+                    <p>可售门店</p>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 300px"
+                        @selection-change="handleSelectionChange"
+                        height="300"
+                        ref="dataTable"
+                    >
+                        <el-table-column type="selection" label="选择"></el-table-column>
+                        <el-table-column prop="number" label="编号"></el-table-column>
+                        <el-table-column prop="name" label="名称"></el-table-column>
+                    </el-table>
+                </div>
             </div>
+            <div class="show2">
+                
+                <div class="table">
+                    <p>卡种价格</p>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 350px"
+                        @selection-change="handleSelectionChange"
+                        height="350"
+                        ref="dataTable"
+                    >
+                        <el-table-column prop="number" label="卡种"></el-table-column>
+                        <el-table-column prop="name" label="价格"></el-table-column>
+                    </el-table>
+                </div>
+                <div class="table"> 
+                    <p>选择礼品</p>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 350px"
+                        @selection-change="handleSelectionChange"
+                        height="350"
+                        ref="dataTable"
+                    >
+                        <el-table-column type="selection" label="选择"></el-table-column>
+                        <el-table-column prop="number" label="编号"></el-table-column>
+                        <el-table-column prop="name" label="名称"></el-table-column>
+                    </el-table>
+                </div>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="isShow2 = false">取 消</el-button>
-                <el-button type="primary" @click="isShow2 = false">确 定</el-button>
+                <el-button @click="isShow4 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow4 = false">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -229,6 +329,10 @@ export default {
                 this.isShow1 = true;
             } else if (new0 == 'addArea' || new0 == 'addArea1') {
                 this.isShow2 = true;
+            } else if (new0 == 'addParameter' || new0 == 'addParameter1') {
+                this.isShow3 = true;
+            } else if (new0 == 'addMarketing' || new0 == 'addMarketing1') {
+                this.isShow4 = true;
             }
         }
     },
@@ -254,9 +358,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import './../../assets/css/table.css';
-.show2{
+.show2 {
     display: flex;
     justify-content: space-between;
+    .table{
+        margin-top: 20px;
+    }
 }
 </style>
 
