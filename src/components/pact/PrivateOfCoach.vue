@@ -180,15 +180,6 @@ export default {
     margin-bottom: 10px;
     width: 580px;
 }
-label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
-}
-
 .demonstration {
     height: 32px;
     vertical-align: middle;

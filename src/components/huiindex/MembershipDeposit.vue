@@ -3,7 +3,6 @@
   <div class='boxs'>
     <el-tabs type="border-card">
       <el-tab-pane label="定金销售">
-
         <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
           <div class="shenfen">
@@ -193,32 +192,32 @@
                 </el-form-item>
               </div>
 
-                <div class="shenfen">
-                  <el-form-item label="营销活动">
-                    <el-select v-model="form.region3">
-                      <el-option label="不参加营销活动" value="yin"></el-option>
-                      <el-option label="参加营销活动" value="yxbj"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="卡种类型" style="width:50%">
-                    <el-select v-model="cardtype">
-                      <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
-                      <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
-                      <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
-                      <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
-                      <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
-                      <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
-                      <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
-                      <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
-                      <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
-                      <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
-                    </el-select>
-                  </el-form-item>
+              <div class="shenfen">
+                <el-form-item label="营销活动">
+                  <el-select v-model="form.region3">
+                    <el-option label="不参加营销活动" value="yin"></el-option>
+                    <el-option label="参加营销活动" value="yxbj"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="卡种类型" style="width:50%">
+                  <el-select v-model="cardtype">
+                    <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
+                    <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
+                    <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
+                    <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
+                    <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
+                    <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
+                    <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
+                    <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
+                    <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
+                    <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
+                  </el-select>
+                </el-form-item>
               </div>
 
               <el-form-item label="卡种价格" style="width:50%">
-                  <el-input v-model="input" class="hname"></el-input>
-                </el-form-item>
+                <el-input v-model="input" class="hname"></el-input>
+              </el-form-item>
 
               <el-form-item label="备注" style="width:100%">
                 <el-input type="textarea" v-model="form.desc" style="width: 480px"></el-input>
@@ -372,6 +371,7 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+    font-weight: 600;
 }
 .btn {
     width: 45px !important;

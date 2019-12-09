@@ -22,14 +22,14 @@
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="date" label="序号" width="50"></el-table-column>
       <el-table-column prop="name" label="门店编号" width="150"></el-table-column>
-      <el-table-column prop="address" label="门店名称"  width="200"></el-table-column>
+      <el-table-column prop="address" label="门店名称" width="200"></el-table-column>
     </el-table>
 
     <span class="titec">指定区域: 100001-全城门店</span>
     <el-table :data="quandata" border style="width: 100%">
       <el-table-column prop="date" label="序号" width="50"></el-table-column>
       <el-table-column prop="name" label="门店编号" width="150"></el-table-column>
-      <el-table-column prop="address" label="门店名称"  width="200"></el-table-column>
+      <el-table-column prop="address" label="门店名称" width="200"></el-table-column>
     </el-table>
 
   </div>
@@ -52,7 +52,6 @@ export default {
   data () {
     // 这里存放数据
     return {
-
       formInline: {
         user: '',
         region: ''
@@ -124,26 +123,19 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
-.block {
-    width: 50%;
-    margin: auto;
-}
 .hetong {
     height: 30px;
     line-height: 30px;
 }
-.el-table, 
+.el-table,
 .el-table__expanded-cell {
     background-color: rgb(240, 240, 240);
 }
- .titec{
-   font-size: 15px;
- }
-  .biv{
+.titec {
+    font-size: 15px;
+}
+.biv {
     font-size: 14px;
-  }
+}
 </style>

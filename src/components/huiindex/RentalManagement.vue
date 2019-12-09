@@ -1,7 +1,7 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app1'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+  <div class='app'>
+    <el-form :inline="true"  class="demo-form-inline">
       <el-form-item label="租箱号">
         <el-input v-model="gemietet"></el-input>
       </el-form-item>
@@ -23,7 +23,7 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change='datas'>
       </el-date-picker>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="erkundigen">查询</el-button>
       </el-form-item>
     </el-form>
@@ -76,11 +76,6 @@ export default {
       size: 10,
       date_s: '',
       date_e: '',
-
-      formInline: {
-        user: '',
-        region: ''
-      },
       value1: '',
       tableTitle: [
         { title: '箱号', data: 'boxCode' },
@@ -181,12 +176,12 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
+.app{
+  width: 100%;
+}
 .block {
-    width: 50%;
+    width: 550px;
     margin: auto;
 }
 </style>

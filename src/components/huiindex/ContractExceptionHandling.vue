@@ -3,18 +3,15 @@
   <div class="conmeny">
     <div class="demit">
       <el-form class="shenfen">
-
         <el-form-item label="会籍合同号" label-width="100px" style="width: 60%">
-          <el-input v-model="input" ></el-input>
+          <el-input v-model="input"></el-input>
         </el-form-item>
 
-        <el-form-item>
+        <el-form-item style="margin-left: 10px">
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
       </el-form>
     </div>
-
-
 
     <div class='pacuk'>
       <el-form ref="form" :model="form" label-width="80px" class="formbox">
@@ -30,22 +27,22 @@
           </div>
 
           <el-form-item label="销售类别">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
           <el-form-item label="会员姓名">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
           <el-form-item label="会员编号">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
         </div>
         <el-form-item label="会籍类型">
           <el-input v-model="input" class="insin" disabled></el-input>
         </el-form-item>
 
-        <div class="mday">
+        <div class="shenfen">
           <el-form-item label="合同起日">
             <el-input style="width: 185px" suffix-icon="el-icon-date" v-model="input1" disabled></el-input>
           </el-form-item>
@@ -57,18 +54,18 @@
 
         <div class="shenfen">
           <el-form-item label="合同金额">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
           <el-form-item label="定金金额">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
           <el-form-item label="转入金额">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
           <el-form-item label="付款金额">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="mday"></el-input>
           </el-form-item>
         </div>
         <div class="minx">
@@ -91,14 +88,14 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-  
-   
+
+
   },
   data () {
     // 这里存放数据
     return {
-      input1:'',
-      input:'',
+      input1: '',
+      input: '',
       value1: '',
       form: {
         name: '',
@@ -141,9 +138,9 @@ export default {
 }
 </script>
 <style scoped>
-  .insin{
+.insin {
     width: 450px;
-  }
+}
 .conmeny {
     width: 100%;
 }
@@ -155,11 +152,10 @@ export default {
     width: 580px !important;
     background: white;
     margin-top: 15px;
-  padding: 15px;
+    padding: 15px;
 }
 .shenfen {
     display: flex;
-    width: 100%;
 }
 
 .bluck {
@@ -167,7 +163,7 @@ export default {
     display: flex;
 }
 .mday {
-    display: flex;
+    width: 184px;
 }
 .po {
     width: 40px;
@@ -177,5 +173,4 @@ export default {
     font-size: 14px;
     color: #606266;
 }
-
 </style>

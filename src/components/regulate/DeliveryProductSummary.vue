@@ -3,7 +3,7 @@
   <div class='APPX'>
     <el-form :inline="true" class="demo-form-inline">
 
-     <el-form-item label="收货部门">
+      <el-form-item label="收货部门">
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
 
@@ -11,7 +11,7 @@
       <el-date-picker v-model="value1" @change='datas' type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd">
       </el-date-picker>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
 
@@ -20,12 +20,22 @@
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
-    <el-table :data="tableData" border style="width: 100%;text-align:center">
-      <template v-for="(item,index) in tableTitle">
-        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
-        </el-table-column>
-      </template>
-
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column  prop="date" label="出库单号" width="120"></el-table-column>
+      <el-table-column prop="name" label="发货部门" width="120"></el-table-column>
+      <el-table-column prop="province" label="发货日期" width="120"></el-table-column>
+      <el-table-column prop="city" label="收货部门" width="120"></el-table-column>
+      <el-table-column prop="address" label="商品编号" width="120"></el-table-column>
+      <el-table-column prop="zip" label="商品名称"></el-table-column>
+       <el-table-column prop="city" label="单位" width="120"></el-table-column>
+      <el-table-column prop="address" label="数量" width="120"></el-table-column>
+      <el-table-column prop="zip" label="操作员" width="120"></el-table-column>
+      <el-table-column label="操作" width="150">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <el-button type="text" size="small">编辑</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div class="uys">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -54,23 +64,18 @@ export default {
       currentPage: 1,
       total: 0,
       size: 10,
-      inoutmen:'',
+      inoutmen: '',
       value1: '',
       date_s: '',
       date_e: '',
-      tableTitle: [
-        { title: '出库单号', data: 'num' },
-        { title: '发货部门', data: 'storeName' },
-        { title: '发货日期', data: 'name' },
-        { title: '收货部门', data: 'phone' },
-        { title: '商品编号', data: 'idCard' },
-        { title: '商品名称', data: 'timeHorizon' },
-        { title: '单位', data: 'type' },
-        { title: '数量', data: 'shellUser' },
-        { title: '操作员', data: 'shellUser' },
-      ],
-      tableData: [{}],
-
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }]
     }
   },
   // 监听属性 类似于data概念
@@ -88,7 +93,7 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-  
+
     datas (even) {
       console.log(even)
       console.log(new Date())
@@ -139,6 +144,9 @@ export default {
           this.total = res.data.queryResult.total;
         })
     },
+    handleClick (row) {
+      console.log(row);
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -158,9 +166,6 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
 .uys {
     width: 32%;

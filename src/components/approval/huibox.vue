@@ -1,29 +1,118 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='pact'>
+  <div class='pacuk'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
       <div class="shenfen">
-        <div class="block">
-          <span class="demonstration">日期</span>
-          <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 201px">
-          </el-date-picker>
-        </div>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-form-item label="合同编号">
+          <el-input v-model="input"></el-input>
+        </el-form-item>
+
+        <el-form-item label="性别">
+          <el-select v-model="form.region" style="width: 185px" @change="zhuanru">
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="2"></el-option>
+          </el-select>
         </el-form-item>
       </div>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="授课时间" width="90"></el-table-column>
-        <el-table-column prop="name" label="11/19"></el-table-column>
-        <el-table-column prop="day" label="11/20"></el-table-column>
-        <el-table-column prop="muy" label="11/21"></el-table-column>
-        <el-table-column prop="tau" label="11/22"></el-table-column>
-        <el-table-column prop="sum" label="11/23"></el-table-column>
-        <el-table-column prop="sunm" label="11/24"></el-table-column>
-        <el-table-column prop="address" label="11/25"></el-table-column>
-        <el-table-column prop="buy" label="11/26"></el-table-column>
-      </el-table>
 
+      <div class="shenfen">
+        <el-form-item label="中文姓名">
+          <el-input v-model="input" class="minx"></el-input>
+        </el-form-item>
+
+        <el-form-item label="英文姓名">
+          <el-input v-model="input"></el-input>
+        </el-form-item>
+      </div>
+
+      <div style=" display: flex;">
+        <el-form-item label="证件号">
+          <el-select v-model="form.region" style="width: 185px">
+            <el-option label="身份证" value="shanghai"></el-option>
+            <el-option label="护照" value="beijing"></el-option>
+            <el-option label="回乡证" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-input v-model="input" style="width: 268px"></el-input>
+      </div>
+
+      <div class="shenfen">
+        <el-form-item label="出生日期">
+          <el-date-picker v-model="value1" type="date" style="width: 185px">
+          </el-date-picker>
+
+        </el-form-item>
+        <el-form-item label="国籍">
+          <el-input style="width: 185px" v-model="input1">
+          </el-input>
+        </el-form-item>
+      </div>
+
+      <div class="shenfen">
+        <el-form-item label="手机">
+          <el-input v-model="input" class="minx"></el-input>
+        </el-form-item>
+
+        <el-form-item label="联系电话">
+          <el-input v-model="input"></el-input>
+        </el-form-item>
+      </div>
+
+      <el-form-item label="电子邮件" >
+        <el-input v-model="form.desc" style="width:450px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="通讯地址">
+        <el-input v-model="form.desc" style="width:450px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="备注">
+        <el-input type="textarea" v-model="form.desc" style="width:450px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="监护人会员号" label-width="96px" style="margin-left: -17px;">
+        <el-input v-model="input" class="minx"></el-input>
+      </el-form-item>
+
+      <!-- <button type="primary" @click="kamony()" class="btnte">...</button> -->
+
+      <div class="zhao">
+        <div class="zjin">
+          <p class="po">照片</p>
+          <button type="primary" class="btnzhao" @click="dialogVisible = true">更换..</button>
+          <!-- <el-button type="text" >点击打开 Dialog</el-button> -->
+        </div>
+        <div class="shenfen">
+          <p class="comui">证件照</p>
+          <button type="primary" class="btnzhao" @click="dialog = true">更换..</button>
+
+        </div>
+      </div>
+
+      <el-form-item label="申请原因">
+        <el-input type="textarea" v-model="form.desc" style="width:450px;"></el-input>
+      </el-form-item>
+
+      <el-form-item class="divbin">
+        <el-button type="primary" @click="onSubmit">保存申请</el-button>
+      </el-form-item>
+      <el-dialog title="上传会员照片" :visible.sync="dialogVisible" width="30%">
+        111111
+
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+      </el-dialog>
+      <!-- 2 -->
+      <el-dialog title="上传证件" :visible.sync="dialog" width="30%">
+        22222
+
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialog= false">取 消</el-button>
+          <el-button type="primary" @click="dialog = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-form>
   </div>
 </template>
@@ -33,17 +122,21 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'huibox',
+  name: 'indexdj',
   props: {
 
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-
   },
   data () {
     // 这里存放数据
     return {
+      dialogVisible: false,
+      dialog: false,
+      bian: false,
+      input1: '',
+      input: '',
       value1: '',
       form: {
         name: '',
@@ -54,19 +147,7 @@ export default {
         type: [],
         resource: '',
         desc: ''
-      },
-      tableData: [{
-        date: '8:00',
-        name: '11111',
-        day:'2222',
-        muy:'3333',
-        tau:'444',
-        sum:'5555',
-        sunm:'6666',
-        address:'777',
-        buy:'8888',
-
-      }]
+      }
     }
   },
   // 监听属性 类似于data概念
@@ -78,7 +159,10 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-
+    zhuanru (e) {
+      this.bian = e;
+      console.log(e)
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -98,18 +182,68 @@ export default {
 }
 </script>
 <style scoped>
-@import './../../assets/css/table.css';
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
+.pacuk {
+    width: 610px !important;
+    background: white;
+}
+.formbox {
+    width: 90%;
+    padding: 25px;
+    margin: auto;
+}
+
+.zhao {
+    display: flex;
+    margin-bottom: 15px;
+}
+.po {
+    width: 40px;
+    margin-left: 40px;
+    height: 25px;
+    line-height: 26px;
     font-size: 14px;
     color: #606266;
-    padding: 0 10px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+}
+.comui {
+    width: 58px;
+    margin-left: 54px;
+    height: 25px;
+    line-height: 26px;
+    font-size: 14px;
+    color: #606266;
+}
+.btnzhao {
+    text-align: center;
+    background: #333;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 2px;
+    width: 50px;
+    height: 25px;
+}
+.zjin {
+    display: flex;
+    width: 280px;
 }
 .shenfen {
     display: flex;
+    width: 100%;
+}
+
+.minx {
+    width: 185px;
+}
+.btnte {
+    width: 25px !important;
+    height: 28px !important;
+    margin-left: 2px;
+    text-align: center;
+    background: #333;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 2px;
+    font-weight: 600;
 }
 </style>

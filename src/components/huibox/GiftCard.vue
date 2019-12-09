@@ -1,15 +1,15 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='app'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="门店">
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
 
       <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-      </el-date-picker>
-      <el-form-item>
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+
+      <el-form-item style="margin-left: 10px;">
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
@@ -19,6 +19,7 @@
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
+
     <div class="block">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
@@ -47,11 +48,7 @@ export default {
     // 这里存放数据
     return {
       currentPage: 1,
-       total: 0,
-      formInline: {
-        user: '',
-        region: ''
-      },
+      total: 0,
       value1: '',
       size: 10,
       inoutmen: "世豪店",
@@ -80,7 +77,7 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-     handleSizeChange (val) {
+    handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
       this.size = val;
     },
@@ -89,11 +86,11 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-        chaxun () {
+    chaxun () {
       axios
         .get(base + '/depositCard/getGiveDepositCard/' + this.currentPage + '/' + this.size, {
           params: {
-            storeName:this.inoutmen,
+            storeName: this.inoutmen,
             // endDate: this.date_s,
             // startDate: this.date_e
           }
@@ -126,12 +123,12 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
+.app{
+  width: 100%;
+}
 .block {
-    width: 50%;
+    width: 550px;
     margin: auto;
 }
 </style>

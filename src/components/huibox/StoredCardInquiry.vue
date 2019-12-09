@@ -1,39 +1,37 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='aapp'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true"  class="demo-form-inline">
+
       <el-form-item label="门店">
         <el-input v-model="inoutmen"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="类型">
-        <el-select v-model="intype">
-          <el-option label="全部" value="xiaoshou"></el-option>
-          <el-option label="100元储值卡" value="shi"></el-option>
-          <el-option label="300元储值卡" value="buka"></el-option>
-          <el-option label="500元储值卡" value="hui"></el-option>
-          <el-option label="1200储值卡" value="yu"></el-option>
-        </el-select>
-      </el-form-item> -->
+
       <el-form-item label="类型">
         <el-select v-model="intype" @change="choose()">
           <el-option v-for="item in brandd" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item label="储值卡号">
         <el-input v-model="chuzhi"></el-input>
       </el-form-item>
+
       <el-form-item label="会员号">
         <el-input v-model="user"></el-input>
       </el-form-item>
+
       <span class="demonstration">赠送日期</span>
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change='datas'>
       </el-date-picker>
-      <el-form-item>
+
+      <el-form-item style="margin-left: 10px;">
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
+
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
@@ -70,10 +68,6 @@ export default {
       currentPage: 1,
       total: 0,
       brandd: [],
-      formInline: {
-        user: '',
-        region: ''
-      },
       size: 10,
       value1: '',
       inoutmen: "世豪店",
@@ -154,10 +148,6 @@ export default {
           console.log(res)
           for (let i = 0; i < res.data.queryResult.list.length; i++) {
             res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-
-            // if(timeHorizon >=33){
-            //   timeHorizon = '上午'
-            // }
           }
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total;
@@ -185,9 +175,6 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
 .aom {
     width: 50%;

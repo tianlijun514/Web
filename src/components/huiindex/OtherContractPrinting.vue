@@ -2,9 +2,11 @@
 <template>
   <div class='APPX'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
+
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="类型">
         <el-select v-model="formInline.regions">
           <el-option label="01-会籍" value="xiaoshou"></el-option>
@@ -19,6 +21,7 @@
           <el-option label="10 - 私教预约" value="sj"></el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item label="状态">
         <el-select v-model="formInline.regions">
           <el-option label="未打印" value="wdy"></el-option>
@@ -29,9 +32,11 @@
       <el-form-item label="合同号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <span class="demonstration">日期范围</span>
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
+
       <el-form-item label="会员/姓名">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -42,12 +47,11 @@
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
+
       <template v-for="(item,index) in tableTitle">
-        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
-        
-        </el-table-column>
-   
+        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
+
        <el-table-column scope label="操作">
         <el-button size="mini" type="primary">合同打印</el-button>
       </el-table-column>
@@ -83,7 +87,6 @@ export default {
         region: ''
       },
       value1: '',
-   
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
@@ -146,12 +149,9 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
 .uys {
-    width: 50%;
+    width: 550px;
     margin: auto;
 }
 .APPX{

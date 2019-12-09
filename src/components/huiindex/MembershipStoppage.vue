@@ -4,7 +4,7 @@
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
       <el-form-item label="选择类型">
-        <el-select v-model="form.region"  style="width: 185px" @change="xuanzhe">
+        <el-select v-model="form.region" style="width: 185px" @change="xuanzhe">
           <el-option label="停卡" value="1"></el-option>
           <el-option label="转店" value="2"></el-option>
           <el-option label="补卡" value="3"></el-option>
@@ -18,40 +18,32 @@
       <div class="conment">
         <div class="shenfen">
           <el-form-item label="会员姓名">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="minx"></el-input>
           </el-form-item>
           <el-form-item label="会员编号" style="margin-left: 25px">
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
+
         <div style="margin-bottom: 15px;">
           <el-form-item label="原会籍类型" label-width="82px">
             <el-input v-model="input" style="width: 473px" disabled></el-input>
           </el-form-item>
         </div>
+
         <div class="shenfen">
           <el-form-item label="合同起日">
-            <el-input
-                    style="width: 185px"
-                    suffix-icon="el-icon-date"
-                    v-model="input1" disabled>
-            </el-input>
-
+            <el-input class="minx" suffix-icon="el-icon-date" v-model="input1" disabled> </el-input>
           </el-form-item>
-          <el-form-item label="合同迄日" style="margin-left: 25px">
-            <el-input
-                    style="width: 185px"
-                    suffix-icon="el-icon-date"
-                    v-model="input1" disabled>
-            </el-input>
 
+          <el-form-item label="合同迄日" style="margin-left: 25px">
+            <el-input style="width: 187px" suffix-icon="el-icon-date" v-model="input1" disabled></el-input>
           </el-form-item>
         </div>
 
-
         <div class="shenfen">
           <el-form-item label="合同价值">
-            <el-input v-model="input" disabled></el-input>
+            <el-input v-model="input" disabled class="minx"></el-input>
           </el-form-item>
           <el-form-item label="剩余价值" style="margin-left: 25px">
             <el-input v-model="input" disabled></el-input>
@@ -59,11 +51,11 @@
         </div>
       </div>
 
-
-      <div class="minx">
+      <div class="shenfen">
         <el-form-item label="定金编号">
-          <el-input v-model="input" disabled></el-input>
+          <el-input v-model="input" disabled class="minx"></el-input>
         </el-form-item>
+
         <button type="primary" @click="alerts()" class="btnte">...</button>
         <el-form-item label="定金金额">
           <el-input v-model="input" disabled></el-input>
@@ -72,8 +64,9 @@
 
       <div v-if="ting">
         <el-form-item label="停卡月数">
-          <el-input v-model="input" style="width: 185px"></el-input>
+          <el-input v-model="input" class="minx"></el-input>
         </el-form-item>
+
         <div class="block">
           <span class="demonstration">停卡日期范围</span>
           <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -81,13 +74,13 @@
         </div>
       </div>
 
+      <div v-if="zhuandian">
+        <el-form-item label="转出店门" label-width="82px">
+          <el-input v-model="input" style="width: 473px" disabled></el-input>
+        </el-form-item>
 
-      <div v-if="zhuandian" >
-          <el-form-item label="转出店门" label-width="82px">
-            <el-input v-model="input" style="width: 473px" disabled></el-input>
-          </el-form-item>
         <el-form-item label="转入门店">
-          <el-select v-model="form.regions"  style="width: 475px">
+          <el-select v-model="form.regions" style="width: 475px">
             <el-option label="A00006 - 红牌楼店" value="A00006"></el-option>
             <el-option label="A00007 - 花郡店" value="A00007"></el-option>
             <el-option label="A00008 - 万象城店" value="A00008"></el-option>
@@ -111,24 +104,25 @@
         </el-form-item>
       </div>
 
-        <div class="minx" v-if="huiyuan">
-          <el-form-item label="新会员卡号" label-width="82px">
-            <el-input v-model="input"></el-input>
-          </el-form-item>
-          <button type="primary" @click="kamony()" class="btnte">...</button>
-        </div>
+      <div class="shenfen" v-if="huiyuan">
+        <el-form-item label="新会员卡号" label-width="82px">
+          <el-input v-model="input" style="width: 180px"></el-input>
+        </el-form-item>
+        <button type="primary" @click="kamony()" class="btnte">...</button>
+      </div>
 
       <div class="shenfen">
         <el-form-item label="手续费">
-          <el-input v-model="input" disabled></el-input>
+          <el-input v-model="input" disabled class="minx"></el-input>
         </el-form-item>
+
         <el-form-item label="应收金额" style="margin-left: 28px">
-          <el-input v-model="input" disabled></el-input>
+          <el-input v-model="input" disabled style="width: 185px"></el-input>
         </el-form-item>
       </div>
 
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc" style="width: 480px"></el-input>
+        <el-input type="textarea" v-model="form.desc" style="width: 475px"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
@@ -136,7 +130,7 @@
       </el-form-item>
     </el-form>
 
-     <Dialog :dialog="dialog"></Dialog>
+    <Dialog :dialog="dialog"></Dialog>
     <kabox :ka="ka"></kabox>
 
   </div>
@@ -160,16 +154,16 @@ export default {
   data () {
     // 这里存放数据
     return {
-      ting:true,
-      zhuandian:false,
-      huiyuan:false,
-      input1:'',
-      input:'',
+      ting: true,
+      zhuandian: false,
+      huiyuan: false,
+      input1: '',
+      input: '',
       dialog: {
-        show : false
-        },
+        show: false
+      },
       ka: {
-        show :false
+        show: false
       },
       value1: '',
       form: {
@@ -197,23 +191,23 @@ export default {
       // this.alertipShow = true;
       this.dialog.show = true;
     },
-    kamony(){
-      this.ka.show= true;
+    kamony () {
+      this.ka.show = true;
     },
-    xuanzhe(e){
+    xuanzhe (e) {
       this.zhuandian = false;
       this.huiyuan = false;
       this.ting = true;
-     if(e==2) {
-       this.zhuandian = true;
-       this.huiyuan = false;
-       this.ting = false;
+      if (e == 2) {
+        this.zhuandian = true;
+        this.huiyuan = false;
+        this.ting = false;
 
-     }else if (e==3){
-       this.zhuandian = false;
-       this.huiyuan = true;
-       this.ting = false;
-     }
+      } else if (e == 3) {
+        this.zhuandian = false;
+        this.huiyuan = true;
+        this.ting = false;
+      }
     },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -234,11 +228,11 @@ export default {
 }
 </script>
 <style scoped>
-  .conment {
+.conment {
     border: 3px solid rgb(255, 239, 206);
     padding-top: 10px;
     margin-bottom: 10px;
-  }
+}
 .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -259,7 +253,6 @@ export default {
     margin: auto;
 }
 
-
 .shenfen {
     display: flex;
 }
@@ -270,7 +263,7 @@ export default {
 }
 
 .minx {
-    display: flex;
+    width: 182px;
 }
 .btnte {
     width: 25px !important;
@@ -282,5 +275,6 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+  font-weight: 600;
 }
 </style>

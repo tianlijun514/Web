@@ -52,70 +52,6 @@ export default new Router({
           }
         },
         {
-          path: '/dialog',
-          component: () => import('../components/page/MembershipSales.vue'),
-          meta: {
-            title: '会籍销售流水查询'
-          }
-        },
-        {
-          path: '/sijiao',
-          component: () => import('../components/page/PersonalEducation.vue'),
-          meta: {
-            title: '私教销售流水查询'
-          }
-        },
-        {
-          path: '/dingjin',
-          component: () => import('../components/page/DepositSales.vue'),
-          meta: {
-            title: '定金销售流水查询'
-          }
-        },
-        {
-          path: '/huiyuan',
-          component: () => import('../components/page/MembershipExit.vue'),
-          meta: {
-            title: '会员出入场'
-          }
-        },
-        {
-          path: '/fangke',
-          component: () => import('../components/page/VisitorEntry.vue'),
-          meta: {
-            title: '访客录入'
-          }
-        },
-        {
-          path: '/zhika',
-          component: () => import('../components/page/MembershipCardSynthesis.vue'),
-          meta: {
-            title: '会员制卡综合查询'
-          }
-        },
-        {
-          path: '/shangping',
-          component: () => import('../components/page/CommodityUse.vue'),
-          meta: {
-            title: '商品领用'
-          }
-        },
-        {
-          path: '/zhifu',
-          component: () => import('../components/page/PaymentFlow.vue'),
-          meta: {
-            title: '支付流水查询'
-          }
-        },
-        {
-          path: '/shenqing',
-          component: () => import('../components/page/MyApplication.vue'),
-          meta: {
-            title: '我的申请'
-          }
-        },
-
-        {
           path: '/box',
           component: () => import('../components/huibox/MemberInformationSynthesis.vue'),
           meta: {
@@ -201,6 +137,7 @@ export default new Router({
             title: '储值卡查询'
           }
         },
+        // 会籍业务
         {
           path: '/index1',
           component: () => import('../components/huiindex/MembershipDeposit.vue'),
@@ -449,6 +386,7 @@ export default new Router({
             title: '1对多上课预约'
           }
         },
+// 私教查询
         {
           path: '/chat1',
           component: () => import('../components/chat/PersonalEducationSalesFlow.vue'),
@@ -731,36 +669,34 @@ export default new Router({
         },
 
         // 客损管理组件
-        {
-          path: '/customer',
-          component: () => import('../components/customer/GuestComplaintEntry.vue'),
-          meta: {
-            title: '客诉录入'
-          }
-        },
-        {
-          path: '/customer1',
-          component: () => import('../components/customer/CustomerComplaintHandling.vue'),
-          meta: {
-            title: '客诉处理'
-          }
-        },
-        {
-          path: '/customer2',
-          component: () => import('../components/customer/CustomerComplaintComprehensive.vue'),
-          meta: {
-            title: '客诉综合查询'
-          }
-        },
-        {
-          path: '/customer3',
-          component: () => import('../components/customer/OnlineCustomerService.vue'),
-          meta: {
-            title: '在线客服处理'
-          }
-        },
-
-
+        // {
+        //   path: '/customer',
+        //   component: () => import('../components/customer/GuestComplaintEntry.vue'),
+        //   meta: {
+        //     title: '客诉录入'
+        //   }
+        // },
+        // {
+        //   path: '/customer1',
+        //   component: () => import('../components/customer/CustomerComplaintHandling.vue'),
+        //   meta: {
+        //     title: '客诉处理'
+        //   }
+        // },
+        // {
+        //   path: '/customer2',
+        //   component: () => import('../components/customer/CustomerComplaintComprehensive.vue'),
+        //   meta: {
+        //     title: '客诉综合查询'
+        //   }
+        // },
+        // {
+        //   path: '/customer3',
+        //   component: () => import('../components/customer/OnlineCustomerService.vue'),
+        //   meta: {
+        //     title: '在线客服处理'
+        //   }
+        // },
         // 审批流组件
         {
           path: '/approval',
@@ -805,8 +741,8 @@ export default new Router({
           }
         },
         {
-          path: '/approval6',
-          component: () => import('../components/approval/NewApplication.vue'),
+          path: '/newApplication',
+          component: () => import('../components/approval/newApplication.vue'),
           meta: {
             title: '新申请'
           }
@@ -1101,12 +1037,6 @@ export default new Router({
           }
         },
 
-
-
-
-
-
-
         // 业务报表组件
 
         {
@@ -1390,6 +1320,20 @@ export default new Router({
         },
 
         // 运营设置组件
+        {
+          path: '/quxianzushezhi',
+          component: () => import('../components/operation/quxianzushezhi.vue'),
+          meta: {
+            title: '用户权限组设置'
+          }
+        },
+        {
+          path: '/yonghuguanli',
+          component: () => import('../components/operation/yonghuguanli.vue'),
+          meta: {
+            title: '用户管理'
+          }
+        },
         {
           path: '/operation',
           component: () => import('../components/operation/StoreSetting.vue'),

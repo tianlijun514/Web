@@ -10,8 +10,8 @@
       <div class="conment">
         <div class="shenfen">
           <div class="block">
-            <span class="demonstration">销售日期</span>
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 183px" >
+            <span class="demonstration"  style="margin-left: -3px">销售日期</span>
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width: 187px" >
             </el-date-picker>
           </div>
 
@@ -40,11 +40,11 @@
 
         <div class="shenfen">
           <el-form-item label="合同起日">
-            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 187px;"></el-input>
           </el-form-item>
 
-          <el-form-item label="合同迄日">
-            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+          <el-form-item label="合同迄日" style="margin-left: 3px">
+            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 187px;"></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
@@ -67,11 +67,11 @@
       </div>
 
       <div class="shenfen">
-        <el-form-item label="定金编号" class="phone">
+        <el-form-item label="定金编号">
           <el-input type="text"  disabled style="width: 160px"></el-input>
         </el-form-item>
         <button type="primary" @click="alerts()" class="btnte">...</button>
-        <el-form-item label="定金金额" class="phone">
+        <el-form-item label="定金金额">
           <el-input type="text"  disabled></el-input>
         </el-form-item>
       </div>
@@ -171,17 +171,8 @@
     border: 3px solid rgb(255, 239, 206);
     padding-top: 10px;
     margin-bottom: 10px;
-    width: 580px;
+    width: 570px;
   }
-  label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
-  }
-
   .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -193,7 +184,7 @@
     box-sizing: border-box;
   }
   .pact {
-    width: 670px !important;
+    width: 650px !important;
     background: white;
   }
   .formbox {
@@ -220,6 +211,7 @@
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+    font-weight: 600;
   }
 
 </style>

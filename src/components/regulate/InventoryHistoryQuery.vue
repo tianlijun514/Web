@@ -17,7 +17,7 @@
       <span class="demonstration">保存月份</span>
       <el-date-picker v-model="value2" type="month" placeholder="选择月" style="width: 150px;"></el-date-picker>
 
-      <el-button type="primary" @click="onSubmit">查询</el-button>
+      <el-button type="primary" @click="onSubmit" style="margin-left: 10px">查询</el-button>
       <el-button type="primary" @click="onSubmit">导出</el-button>
 
     </el-form>
@@ -136,19 +136,15 @@ export default {
     width: 50%;
     margin: auto;
 }
-.btn {
-    background: #333;
-    color: white;
-    width: 100px;
-}
-.conment {
-    height: 140px;
-}
+
 .ange {
-    width: 15px;
+    width: 20px;
     height: 24px;
     margin-left: -8px;
     font-weight: 600;
+    background: #333;
+    color: white;
+    border: none;
 }
 .demonstration{
   margin-left: 15px;

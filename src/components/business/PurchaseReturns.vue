@@ -4,7 +4,7 @@
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <span class="demonstration">退货日期</span>
       <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
 

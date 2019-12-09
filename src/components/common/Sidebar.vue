@@ -41,60 +41,60 @@ export default {
           index: 'dashboard',
           title: '系统首页'
         },
-        {
-          icon: 'el-icon-rank',
-          index: '6',
-          title: '常用功能',
-          subs: [
-            {
-              index: 'drag',
-              title: '会员信息综合查询'
-            },
-            {
-              index: 'dialog',
-              title: '会籍销售流水查询'
-            },
-            {
-              index: 'sijiao',
-              title: '私教销售流水查询'
-            },
-            {
-              index: 'dingjin',
-              title: '定金销售流水查询'
-            },
-            {
-              index: 'huiyuan',
-              title: '会员出入场'
-            },
-            {
-              index: 'fangke',
-              title: '访客录入'
-            },
-            {
-              index: 'zhika',
-              title: '会员制卡综合查询'
-            },
-            {
-              index: 'shangping',
-              title: '商品领用'
-            },
-            {
-              index: 'zhifu',
-              title: '支付流水查询'
-            },
-            {
-              index: 'shenqing',
-              title: '我的申请'
-            }
-          ]
-        },
+        // {
+        //   icon: 'el-icon-rank',
+        //   index: '6',
+        //   title: '常用功能',
+        //   subs: [
+        //     {
+        //       index: 'drag',
+        //       title: '会员信息综合查询'
+        //     },
+        //     {
+        //       index: 'dialog',
+        //       title: '会籍销售流水查询'
+        //     },
+        //     {
+        //       index: 'sijiao',
+        //       title: '私教销售流水查询'
+        //     },
+        //     {
+        //       index: 'dingjin',
+        //       title: '定金销售流水查询'
+        //     },
+        //     {
+        //       index: 'huiyuan',
+        //       title: '会员出入场'
+        //     },
+        //     {
+        //       index: 'fangke',
+        //       title: '访客录入'
+        //     },
+        //     {
+        //       index: 'zhika',
+        //       title: '会员制卡综合查询'
+        //     },
+        //     {
+        //       index: 'shangping',
+        //       title: '商品领用'
+        //     },
+        //     {
+        //       index: 'zhifu',
+        //       title: '支付流水查询'
+        //     },
+        //     {
+        //       index: 'shenqing',
+        //       title: '我的申请'
+        //     }
+        //   ]
+        // },
         {
           icon: 'el-icon-burger',
           index: '3',
           title: '会籍',
           subs: [
             {
-                // icon: 'el-icon-burger',
+              // icon: 'el-icon-burger',
               index: '3-2',
               title: '会籍查询',
               subs: [
@@ -447,11 +447,6 @@ export default {
                   index: 'regulate12',
                   title: '商品销售(调整)'
                 }
-
-
-
-
-
               ]
             }
           ]
@@ -501,35 +496,35 @@ export default {
             }
           ]
         },
-        {
-          icon: 'el-icon-turn-off-microphone',
-          index: '12',
-          title: '客诉',
-          subs: [
-            {
-              index: '12-1',
-              title: '客诉管理',
-              subs: [
-                {
-                  index: 'customer',
-                  title: '客诉录入'
-                },
-                {
-                  index: 'customer1',
-                  title: '客诉处理'
-                },
-                {
-                  index: 'customer2',
-                  title: '客诉综合查询'
-                },
-                {
-                  index: 'customer3',
-                  title: '在线客服处理'
-                }
-              ]
-            }
-          ]
-        },
+        // {
+        //   icon: 'el-icon-turn-off-microphone',
+        //   index: '12',
+        //   title: '客诉',
+        //   subs: [
+        //     {
+        //       index: '12-1',
+        //       title: '客诉管理',
+        //       subs: [
+        //         {
+        //           index: 'customer',
+        //           title: '客诉录入'
+        //         },
+        //         {
+        //           index: 'customer1',
+        //           title: '客诉处理'
+        //         },
+        //         {
+        //           index: 'customer2',
+        //           title: '客诉综合查询'
+        //         },
+        //         {
+        //           index: 'customer3',
+        //           title: '在线客服处理'
+        //         }
+        //       ]
+        //     }
+        //   ]
+        // },
         {
           icon: 'el-icon-finished',
           index: '13',
@@ -564,7 +559,7 @@ export default {
                   title: '终审'
                 },
                 {
-                  index: 'approval6',
+                  index: 'newApplication',
                   title: '新申请'
                 },
                 {
@@ -688,57 +683,64 @@ export default {
                   index: 'parameters5',
                   title: '教练员设置'
                 },
-                 {
+                {
                   index: 'parameters6',
                   title: '私教及团操课程设置'
                 },
-                 {
+                {
                   index: 'parameters7',
                   title: '团操教室定义'
                 },
-                 {
+                {
                   index: 'parameters8',
                   title: '团操课表发布'
                 },
-                 {
+                {
                   index: 'parameters9',
                   title: '其他属性设置'
                 },
-                 {
+                {
                   index: 'parameters10',
                   title: '发送门店通知'
                 },
-                 {
+                {
                   index: 'parameters11',
                   title: '储值卡配卡'
                 },
-                 {
+                {
                   index: 'parameters12',
                   title: '储值卡挂失'
                 },
-                 {
+                {
                   index: 'parameters13',
                   title: '私教礼包设置'
                 },
-                 {
+                {
                   index: 'parameters14',
                   title: '会员礼包设置'
                 },
-                 {
+                {
                   index: 'parameters15',
                   title: '税号设置'
                 },
-                 {
+                {
                   index: 'parameters16',
                   title: '租箱价格设置'
                 },
-                
+
               ]
             },
             {
               index: '15-2',
               title: '运营设置',
               subs: [
+                {
+                  index: 'quxianzushezhi',
+                  title: '用户权限组设置'
+                }, {
+                  index: 'yonghuguanli',
+                  title: '用户管理'
+                },
                 {
                   index: 'operation',
                   title: '门店设置'
@@ -775,23 +777,23 @@ export default {
                   index: 'operation8',
                   title: '菜单设置'
                 },
-                 {
+                {
                   index: 'operation9',
                   title: '系统日志'
                 },
-                 {
+                {
                   index: 'operation10',
                   title: 'DPR月度目标输入'
                 },
-                 {
+                {
                   index: 'operation11',
                   title: '营运日报门店设置'
                 },
-                 {
+                {
                   index: 'operation12',
                   title: '二维码生成'
                 },
-                 {
+                {
                   index: 'operation13',
                   title: '二维码明细查询'
                 },
@@ -886,35 +888,38 @@ export default {
     height: 100%;
 }
 
-.sidebar>ul{
-     background: #333; 
+.sidebar > ul {
+    background: #333;
 }
-.el-submenu>ul>li{
-  color: #333 !important;
+.el-submenu > ul > li {
+    color: #333 !important;
 }
 .el-submenu__title:hover {
-    background-color: #606266!important;
+    background-color: #606266 !important;
 }
-.el-menu-item:hover{
-  background-color: rgba(96, 98, 102, 0.65)!important;
+.el-menu-item:hover {
+    background-color: rgba(96, 98, 102, 0.65) !important;
 }
 .el-menu {
-    background-color: #f0e9e5ef;
+    background-color:#fff;
 }
+
 .el-button--primary {
-    color: #FFF;
+    color: #fff;
     background-color: #303133;
     border-color: #303133;
 }
-.el-button--primary:focus, .el-button--primary:hover{
-    color: #FFF;
-    background-color: rgba(96, 98, 102, 0.65)!important;
+.el-button--primary:focus,
+.el-button--primary:hover {
+    color: #fff;
+    background-color: rgba(96, 98, 102, 0.65) !important;
     border-color: rgba(96, 98, 102, 0.65) !important;
 }
 .el-menu-item.is-active {
-        color: rgb(191, 203, 217)!important;
+    color: rgb(191, 203, 217) !important;
 }
-.el-menu-item:focus, .el-menu-item:hover {
+.el-menu-item:focus,
+.el-menu-item:hover {
     outline: 0;
     background-color: rgba(96, 98, 102, 0.65);
 }
@@ -924,5 +929,4 @@ export default {
     padding: 0 45px;
     min-width: 200px;
 }
-
 </style>

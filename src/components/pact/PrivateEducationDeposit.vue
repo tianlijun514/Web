@@ -5,7 +5,7 @@
 
       <div  class="shenfen">
         <el-form-item label="会员类型">
-          <el-select v-model="form.region" @change="typehui">
+          <el-select v-model="form.region" @change="typehui" class="hname">
             <el-option label="1-新会员" value="1"></el-option>
             <el-option label="2-老会员" value="2"></el-option>
           </el-select>
@@ -25,7 +25,7 @@
         </el-form-item>
 
         <el-form-item label="性别" >
-          <el-select v-model="form.regions">
+          <el-select v-model="form.regions" class="hname">
             <el-option label="男" value="man"></el-option>
             <el-option label="女" value="woman"></el-option>
           </el-select>
@@ -34,7 +34,7 @@
 
       <div class="shenfen">
         <el-form-item label="证件号">
-          <el-select v-model="form.region1">
+          <el-select v-model="form.region1" class="hname">
             <el-option label="身份证" value="shanghai"></el-option>
             <el-option label="护照" value="beijing"></el-option>
             <el-option label="回乡证" value="beijing"></el-option>
@@ -49,7 +49,7 @@
 
       <div class="shenfen">
         <el-form-item label="定金类型">
-          <el-select v-model="form.region2"  @change="dingjin">
+          <el-select v-model="form.region2"  @change="dingjin" class="hname">
             <el-option label="会籍定金" value="01"></el-option>
             <el-option label="私教定金" value="02"></el-option>
             <el-option label="停转补定金" value="03"></el-option>
@@ -66,15 +66,15 @@
 
       <div v-if="wieder=='01'">
         <div class="shenfen">
-          <el-form-item label="营销活动" >
-            <el-select v-model="form.region3">
+          <el-form-item label="营销活动">
+            <el-select v-model="form.region3" class="hname">
               <el-option label="不参加营销活动" value="yin"></el-option>
               <el-option label="参加营销活动" value="yxbj"></el-option>
             </el-select>
           </el-form-item>
 
           <el-form-item label="卡种类型">
-            <el-select v-model="form.region3">
+            <el-select v-model="form.region3" class="hname">
               <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
               <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
               <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>

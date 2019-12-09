@@ -138,16 +138,6 @@ label {
     color: #000;
 }
 
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .pact {
     width: 670px !important;
     background: white;
@@ -162,8 +152,4 @@ label {
     display: flex;
 }
 
-.block {
-    margin-left: 15px !important;
-    margin-bottom: 15px !important;
-}
 </style>

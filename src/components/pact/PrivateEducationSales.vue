@@ -6,7 +6,7 @@
         <el-form-item label="会员姓名">
           <el-input v-model="input" disabled></el-input>
         </el-form-item>
-        <el-form-item label-width='82px' label="会员编号" class="block">
+        <el-form-item  label="会员编号" class="block">
           <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
@@ -15,7 +15,7 @@
         <el-form-item label="会员姓名">
           <el-input v-model="input" disabled></el-input>
         </el-form-item>
-        <el-form-item label="合同终止日" label-width="82px" class="block">
+        <el-form-item label="合同终止日" label-width="82px" style="margin-left: 18px">
           <el-input v-model="input" disabled></el-input>
         </el-form-item>
       </div>
@@ -23,7 +23,6 @@
         <el-form-item label="定金编号">
           <el-input v-model="input" disabled style="width: 160px"></el-input>
         </el-form-item>
-        <alertip v-show="alertipShow" @closeTip="alertipShow = false" :alertText="alertText"></alertip>
         <button type="primary" @click="alerts()" class="btnte">...</button>
 
         <el-form-item label="定金金额" class="block">
@@ -54,11 +53,11 @@
 
       <div class="shenfen">
         <el-form-item label="开始日期">
-          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 187px;"></el-input>
         </el-form-item>
 
         <el-form-item label="结束日期" class="block">
-          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+          <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 187px;"></el-input>
         </el-form-item>
       </div>
 
@@ -72,7 +71,7 @@
       </div>
 
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc" style="width: 470px;"></el-input>
+        <el-input type="textarea" v-model="form.desc" style="width: 475px;"></el-input>
       </el-form-item>
 
       <span class="demonstration">礼包包含商品</span>
@@ -88,11 +87,12 @@
         <el-button type="primary" @click="onSubmit" class="btny">确认并提交</el-button>
       </el-form-item>
     </el-form>
+    <Dialog :dialog="dialog"></Dialog>
   </div>
 </template>
 
 <script>
-import alertip from '../huiindex/zjding'
+  import Dialog from '../common/Dialog'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -103,7 +103,7 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    alertip
+    Dialog
   },
   data () {
     // 这里存放数据
@@ -111,7 +111,9 @@ export default {
       input:'',
       input1:'',
       value1: '',
-      alertipShow: false,
+      dialog: {
+        show : false
+      },
       alertText: '',
       form: {
         name: '',
@@ -140,7 +142,7 @@ export default {
       console.log('submit!');
     },
     alerts () {
-      this.alertipShow = true;
+      this.dialog.show = true;
     },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -185,11 +187,8 @@ export default {
     display: flex;
 }
 
-
-
 .block {
     margin-left: 20px !important;
-
 }
 
 .btnte {
@@ -202,6 +201,7 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+  font-weight: 600;
 }
 .btny {
     margin-top: 20px;

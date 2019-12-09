@@ -64,9 +64,6 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
       currentPage4: 4,
       formInline: {
         user: '',
