@@ -82,7 +82,7 @@ export default {
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'getCoach', 'updateCoach']),
+        ...mapActions([]),
         handleSizeChange(val){
 
         },

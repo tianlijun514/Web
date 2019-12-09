@@ -15,13 +15,11 @@
         <span class="searchRst">查询结果：共0条记录/显示1页</span>
         <el-table :data="table" border style="width: 100%;text-align:center">
             <el-table-column prop="name" label="编号"></el-table-column>
-            <el-table-column prop="name" label="名称" width="300"></el-table-column>
+            <el-table-column prop="name" label="标题" width="500"></el-table-column>
             <el-table-column prop="name" label="价格"></el-table-column>
             <el-table-column prop="name" label="启用时间"></el-table-column>
             <el-table-column prop="name" label="结束时间"></el-table-column>
             <el-table-column prop="name" label="状态"></el-table-column>
-            <el-table-column prop="name" label="生日礼包"></el-table-column>
-            <el-table-column prop="name" label="购买方式"></el-table-column>
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
                     <el-button size="mini" type="primary">修改</el-button>
@@ -78,11 +76,11 @@ export default {
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'getCoach', 'updateCoach']),
+        ...mapActions([]),
         handleSizeChange(val) {},
         handleCurrentChange(val) {},
         add() {
-            
+            this.$router.push('/parameters24');
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
