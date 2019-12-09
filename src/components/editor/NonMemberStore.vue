@@ -10,7 +10,7 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
@@ -22,7 +22,7 @@
       </template>
     </el-table>
     <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
       </el-pagination>
     </div>
 
@@ -46,15 +46,11 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 5,
       formInline: {
         user: '',
         region: ''
       },
-
       value1: '',
       tableTitle: [
         { title: '序号', data: 'num' },
@@ -113,9 +109,6 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
 .uys {
     width: 50%;

@@ -79,7 +79,6 @@ export default {
       nameme: '',
       size: 10,
       total: 0,
-      currentPage: 1,
       ruleForm: {
         typeCode: '',
         typeName: '',
@@ -238,9 +237,5 @@ export default {
     width: 50%;
     margin: auto;
 }
-.btn {
-    background: #333;
-    color: white;
-    width: 55px;
-}
+
 </style>

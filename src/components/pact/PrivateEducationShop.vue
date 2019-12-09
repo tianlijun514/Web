@@ -41,11 +41,11 @@
 
         <div class="shenfen">
           <el-form-item label="合同起日">
-            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 187px;"></el-input>
           </el-form-item>
 
-          <el-form-item label="合同迄日">
-            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
+          <el-form-item label="合同迄日" style="margin-left: 2px">
+            <el-input  suffix-icon="el-icon-date" v-model="input1" disabled style="width: 188px;"></el-input>
           </el-form-item>
         </div>
         <div class="shenfen">
@@ -170,17 +170,8 @@
     border: 3px solid rgb(255, 239, 206);
     padding-top: 10px;
     margin-bottom: 10px;
-    width: 580px;
+    width: 570px;
   }
-  label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
-  }
-
   .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -192,7 +183,7 @@
     box-sizing: border-box;
   }
   .pact {
-    width: 670px !important;
+    width: 650px !important;
     background: white;
   }
   .formbox {

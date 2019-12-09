@@ -5,6 +5,7 @@
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="状态">
         <el-select v-model="formInline.regions">
           <el-option label="已售未制卡" value="wdy"></el-option>
@@ -16,7 +17,7 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
@@ -24,7 +25,6 @@
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
-
         </el-table-column>
 
       </template>

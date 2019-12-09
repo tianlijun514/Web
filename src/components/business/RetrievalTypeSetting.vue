@@ -143,9 +143,6 @@ export default {
     },
 
 
-
-
-
     test_click2: function (e, b) {
       this.dialogVisible = true
       if (e == 'add') {
@@ -161,9 +158,7 @@ export default {
       }
       console.log(this.option)
       console.log(e);   // 输出结果：123
-
     },
-
 
     // 查询
     chaxun () {
@@ -177,7 +172,6 @@ export default {
           console.log(res.data)
           this.tableData = res.data.queryResult.list
           this.total = res.data.queryResult.total
-
         })
 
     },

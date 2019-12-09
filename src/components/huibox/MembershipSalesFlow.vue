@@ -1,19 +1,23 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app1'>
+  <div class='app'>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员卡号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员编号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员姓名/证件号/手机号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="合同号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -22,12 +26,18 @@
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
+
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
+
+    <div class="block">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -47,6 +57,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      currentPage: 1,
       formInline: {
         user: '',
         region: ''
@@ -95,6 +106,12 @@ export default {
   watch: {},
   // 方法集合
   methods: {
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`);
+    },
     onSubmit () {
       console.log('submit!');
     }
@@ -118,4 +135,11 @@ export default {
 </script>
 <style  scoped>
 @import './../../assets/css/table.css';
+.app {
+    width: 100%;
+}
+.block {
+    width: 550px;
+    margin: auto;
+}
 </style>

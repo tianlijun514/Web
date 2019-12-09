@@ -13,7 +13,7 @@
         </el-date-picker>
       </div>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="getDayNumByYearMonth">查询</el-button>
       </el-form-item>
     </el-form>
@@ -189,7 +189,7 @@ table.list td.no {
   font-style: italic;
   font-weight: bold;
 }
-table.list tr.line2 {
+table.list tr{
   background-color: #f4f4f4;
 }
 </style>

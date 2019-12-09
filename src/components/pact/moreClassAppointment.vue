@@ -13,13 +13,7 @@
       <div class="shenfen">
         <div class="block">
           <span class="demonstration">上课日期</span>
-          <el-date-picker
-                  style="width: 466px;"
-                  v-model="value1"
-                  type="datetimerange"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  :default-time="['12:00:00']">
+          <el-date-picker class="kuang" v-model="value1" type="datetimerange" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['12:00:00']">
           </el-date-picker>
         </div>
       </div>
@@ -34,8 +28,8 @@
       </div>
 
       <el-form-item label="私教课程1">
-        <el-select v-model="form.regions" style="width: 466px;">
-          <el-option label="A00006 - 红牌楼店" value="02" ></el-option>
+        <el-select v-model="form.regions" class="kuang">
+          <el-option label="A00006 - 红牌楼店" value="02"></el-option>
         </el-select>
       </el-form-item>
 
@@ -49,8 +43,8 @@
       </div>
 
       <el-form-item label="私教课程2">
-        <el-select v-model="form.regions" style="width: 466px;">
-          <el-option label="A00006 - 红牌楼店" value="02" ></el-option>
+        <el-select v-model="form.regions" class="kuang">
+          <el-option label="A00006 - 红牌楼店" value="02"></el-option>
         </el-select>
       </el-form-item>
 
@@ -64,8 +58,8 @@
       </div>
 
       <el-form-item label="私教课程3">
-        <el-select v-model="form.regions" style="width: 466px;">
-          <el-option label="A00006 - 红牌楼店" value="02" ></el-option>
+        <el-select v-model="form.regions" class="kuang">
+          <el-option label="A00006 - 红牌楼店" value="02"></el-option>
         </el-select>
       </el-form-item>
 
@@ -92,7 +86,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      input:'',
+      input: '',
       value1: '',
       form: {
         name: '',
@@ -134,17 +128,8 @@ export default {
 }
 </script>
 <style scoped>
-  .block {
+.block {
     margin-left: 20px !important;
-
-  }
-label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
 }
 
 .demonstration {
@@ -167,7 +152,6 @@ label {
     margin: auto;
 }
 
-
 .shenfen {
     display: flex;
 }
@@ -176,5 +160,7 @@ label {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
 }
-
+.kuang {
+    width: 473px;
+}
 </style>

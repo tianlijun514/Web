@@ -1,36 +1,46 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='pact'>
-    <el-form ref="form" label-width="80px" class="formbox" :rules="form_rules" >
-      <el-form-item label="门店">
-        <input type="text" class="input_box" v-model="storeName">
-      </el-form-item>
+    <el-form ref="form" label-width="80px" class="formbox" :rules="form_rules">
+      <div class="box">
+        <el-form-item label="门店">
+          <input type="text" class="input_box" v-model="storeName">
+        </el-form-item>
 
-      <el-form-item label="姓名" prop='name'>
-        <input type="text" class="input_box" v-model="name">
-      </el-form-item>
-      <el-form-item label-width='82px' label="手机" prop='phone'>
-        <input type="text" class="input_box" v-model="phone">
-      </el-form-item>
-
-      <el-form-item label="证件号" label-width='82px' prop='idCard'>
-        <input type="text" class="input_box" v-model="idCard">
-      </el-form-item>
-      <div class="block" style="margin-left: 28px">
-        <span class="demonstration">来访日期</span>
-        <el-date-picker v-model="date" type="date" style="width: 201px">
-        </el-date-picker>
+        <el-form-item label="姓名" prop='name'>
+          <input type="text" class="input_box" v-model="name">
+        </el-form-item>
       </div>
 
-      <el-form-item label="时间">
-        <el-select v-model="timeHorizon" class="sex">
-          <el-option label="上午" value="1"></el-option>
-          <el-option label="下午" value="2"></el-option>
-          <el-option label="晚上" value="3"></el-option>
-        </el-select>
-      </el-form-item>
+      <div class="box" style="margin-left: -3px;">
+        <el-form-item label-width='82px' label="手机" prop='phone'>
+          <input type="text" class="input_box" v-model="phone">
+        </el-form-item>
+
+        <el-form-item label="证件号" label-width='82px' prop='idCard'>
+          <input type="text" class="input_box" v-model="idCard">
+        </el-form-item>
+      </div>
+
+      <div class="box">
+        <div class="block" style="margin-left: 28px">
+          <span class="demonstration">来访日期</span>
+          <el-date-picker v-model="date" type="date" style="width: 201px">
+          </el-date-picker>
+        </div>
+
+        <el-form-item label="时间">
+          <el-select v-model="timeHorizon" style="width: 204px">
+            <el-option label="上午" value="1"></el-option>
+            <el-option label="下午" value="2"></el-option>
+            <el-option label="晚上" value="3"></el-option>
+          </el-select>
+        </el-form-item>
+      </div>
+
+      <div class="box">
       <el-form-item label="访客类型">
-        <el-select v-model="type" class="sex">
+        <el-select v-model="type">
           <el-option label="APP SHOW" value="1"></el-option>
           <el-option label="WALK IN" value="2"></el-option>
           <el-option label="DATE IN" value="3"></el-option>
@@ -40,6 +50,9 @@
       <el-form-item label="销售员" label-width='82px' prop='shellUser'>
         <input type="text" class="input_box" v-model="shellUser">
       </el-form-item>
+      </div>
+
+
 
       <!-- <el-form-item label="备注">
         <el-input type="textarea" v-model="form.record" class="textar"></el-input>
@@ -141,9 +154,6 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    margin-left: 85px !important;
-}
 .demonstration {
     height: 32px;
     vertical-align: middle;
@@ -155,13 +165,15 @@ export default {
     box-sizing: border-box;
 }
 .pact {
-    width: 450px !important;
+    width: 650px !important;
     background: white;
 }
-.formbox{
-  padding: 20px;
+.formbox {
+    padding: 20px;
 }
-
+.box {
+    display: flex;
+}
 .input_box {
     -webkit-appearance: none;
     background-color: #fff;
@@ -184,5 +196,4 @@ export default {
     margin-left: 15px !important;
     margin-bottom: 15px !important;
 }
-
 </style>

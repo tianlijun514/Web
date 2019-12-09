@@ -466,9 +466,6 @@ export default {
 .box {
     margin-left: 17px;
 }
-.demonstration {
-    margin-left: 13px;
-}
 
 .leftin{
   margin-left: 25px

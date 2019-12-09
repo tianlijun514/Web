@@ -19,7 +19,7 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-      <el-button type="primary" @click="onSubmit">查询</el-button>
+      <el-button type="primary" @click="onSubmit" style="margin-left: 10px">查询</el-button>
 
       <el-button type="text" @click="outerVisible = true" class="btn">新增商品入库</el-button>
 

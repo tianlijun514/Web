@@ -37,7 +37,7 @@
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
 
-          <el-form-item label="合同迄日" style="margin-left: 7px;">
+          <el-form-item label="合同迄日" style="margin-left: 3px;">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
         </div>
@@ -160,25 +160,7 @@ export default {
     margin-bottom: 10px;
     width: 560px;
 }
-label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
-}
 
-.demonstration {
-    height: 32px;
-    vertical-align: middle;
-    line-height: 32px !important;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .pact {
     width: 630px !important;
     background: white;
@@ -193,10 +175,6 @@ label {
     display: flex;
 }
 
-.block {
-    margin-left: 15px !important;
-    margin-bottom: 15px !important;
-}
 .kuang{
   width: 187px;
 }

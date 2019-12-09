@@ -5,6 +5,7 @@
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="状态">
         <el-select v-model="formInline.regions">
           <el-option label="2-已售未制卡" value="xiaoshou"></el-option>
@@ -13,30 +14,35 @@
           <el-option label="5-会员已领卡" value="hui"></el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item label="卡号/会员">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="日期类型">
         <el-select v-model="formInline.region">
           <el-option label="销售日期" value="time"></el-option>
           <el-option label="制卡日期" value="boxs"></el-option>
         </el-select>
       </el-form-item>
+
       <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-      </el-date-picker>
-      <el-form-item>
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
+
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
+
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
       </el-pagination>
     </div>
 
@@ -60,10 +66,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
       formInline: {
         user: '',
         region: ''
@@ -136,12 +139,13 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
+.app{
+  width: 100%;
+}
 .block {
-    width: 50%;
+    width: 550px;
     margin: auto;
+
 }
 </style>

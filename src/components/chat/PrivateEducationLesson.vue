@@ -100,8 +100,6 @@ export default {
         yuan:'11111',
         xsdata:'2222',
         jmoney:'333',
-
-
       }]
     }
   },

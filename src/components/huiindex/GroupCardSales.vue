@@ -22,7 +22,7 @@
           </div>
 
           <div class="conments">
-            <div class="yingbut" >
+            <div class="yingbut">
               <el-form-item label="营销活动">
                 <el-select v-model="form.region" style="width: 185px">
                   <el-option v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value" @click.native="OpenRegion(item.value)">
@@ -48,35 +48,35 @@
 
           <div class='conments'>
             <el-form-item label="有效期">
-              <el-input v-model="typeHuiList.periodDate"></el-input>
+              <el-input v-model="typeHuiList.periodDate" class="kuang"></el-input>
             </el-form-item>
 
             <el-form-item label="赠送天数">
-              <el-input v-model="typeHuiList.giveDate"></el-input>
+              <el-input v-model="typeHuiList.giveDate" class="kuang"></el-input>
             </el-form-item>
 
           </div>
           <div class="block">
             <span class="demonstration">日期范围</span>
-            <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+            <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 450px">
             </el-date-picker>
           </div>
 
           <div class='conments'>
             <el-form-item label="指导价">
-              <el-input input type="text"  v-model="typeHuiList.guidingPrice"/>
+              <el-input input type="text" v-model="typeHuiList.guidingPrice" class="kuang"/>
             </el-form-item>
             <el-form-item label="总价">
-              <el-input type="text"  v-model="typeHuiList.totalPrice"/>
+              <el-input type="text" v-model="typeHuiList.totalPrice" class="kuang"/>
             </el-form-item>
 
           </div>
           <div class='conments'>
             <el-form-item label="实际售价">
-              <el-input v-model="input"></el-input>
+              <el-input v-model="input" class="kuang"></el-input>
             </el-form-item>
             <el-form-item label="应收金额">
-              <el-input v-model="input"></el-input>
+              <el-input v-model="input" class="kuang"></el-input>
             </el-form-item>
           </div>
           <el-form-item label="备注">
@@ -198,7 +198,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      input:'',
+      input: '',
       checked: true,
       //下拉框
       typeHui: '',
@@ -410,7 +410,7 @@ export default {
 
 </script>
 <style scoped>
-  @import './../../assets/css/table.css';
+@import './../../assets/css/table.css';
 .boxst {
     width: 100px;
     font-size: 17px;
@@ -452,10 +452,11 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+    font-weight: 600;
 }
 .yingbut {
     display: -webkit-box;
-  width: 265px;
+    width: 265px;
 }
 .demonstration {
     height: 32px;
@@ -467,6 +468,9 @@ export default {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-left: 13px;
+}
+.kuang {
+    width: 185px;
 }
 
 .block {

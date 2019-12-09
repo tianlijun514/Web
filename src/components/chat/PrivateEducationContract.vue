@@ -36,8 +36,6 @@
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-
-
       <el-form-item label="会员/姓名">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -60,7 +58,6 @@
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">合同打印</el-button>
-
         </template>
       </el-table-column>
     </el-table>

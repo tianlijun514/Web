@@ -151,14 +151,6 @@ export default {
     margin-bottom: 10px;
     width: 560px;
 }
-label {
-    display: inline-block;
-    width: 82px !important;
-    text-align: left;
-    padding: 1px;
-    margin: 1px;
-    color: #000;
-}
 
 .pact {
     width: 630px !important;

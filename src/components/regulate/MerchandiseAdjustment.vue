@@ -131,12 +131,6 @@ export default {
     width: 70% !important;
 }
 
-.btn {
-    background: #333;
-    color: white;
-    width: 100px;
-}
-
 .angelegt {
     height: 30px;
     margin: 30px auto;

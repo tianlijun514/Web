@@ -1,7 +1,6 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='appmm'>
-
     <div class="conments">
       <div class="appx">
         <el-form ref="form" :model="form" label-width="80px" class="formbox">
@@ -12,16 +11,18 @@
               <el-option label="3-续会" value="xuhj"></el-option>
             </el-select>
           </el-form-item>
+
           <div class="minx">
             <el-form-item label="定金编号" class="phone">
               <input type="text" class="input_box">
             </el-form-item>
-           
             <button type="primary" @click="alerts()" class="btnte">...</button>
           </div>
+
           <el-form-item label="定金金额" class="phone">
             <input type="text" class="input_box">
           </el-form-item>
+
           <div class="yingbut">
             <el-form-item label="营销活动">
               <el-select v-model="form.region" class="sex">
@@ -29,10 +30,10 @@
                 <el-option label="不参加营销活动" value="shenji"></el-option>
               </el-select>
             </el-form-item>
-            <!-- <el-button type="primary">扫描条码</el-button> -->
             <el-button type="primary" @click="open">扫描条码</el-button>
             <el-button type="primary" @click="yaoming">会员邀请码</el-button>
           </div>
+
           <el-form-item label="会籍类型">
             <el-select v-model="form.region3">
               <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
@@ -55,8 +56,8 @@
             <el-form-item label="赠送天数">
               <input type="text" class="input_box">
             </el-form-item>
-
           </div>
+
           <div class="block">
             <span class="demonstration">日期范围</span>
             <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
@@ -70,8 +71,8 @@
             <el-form-item label="总价">
               <input type="text" class="input_box">
             </el-form-item>
-
           </div>
+
           <div class='divbin'>
             <el-form-item label="实际售价">
               <input type="text" class="input_box">
@@ -79,7 +80,6 @@
             <el-form-item label="应收金额">
               <input type="text" class="input_box">
             </el-form-item>
-
           </div>
 
           <el-form-item label="市场渠道">
@@ -98,10 +98,9 @@
           <el-form-item label="备注">
             <el-input type="textarea" v-model="form.desc"></el-input>
           </el-form-item>
-
         </el-form>
-
       </div>
+
       <div class="aptable">
         <span class="titex">您选择的营销活动附带赠品信息</span>
         <el-table :data="bianta" border style="width: 58%">
@@ -115,7 +114,6 @@
           <el-table-column prop="zixuan" label="自选门店" width="120"></el-table-column>
         </el-table>
       </div>
-
     </div>
 
     <div>卡号列表</div>
@@ -131,11 +129,11 @@
       <el-table-column prop="mun" label="生日"></el-table-column>
     </el-table>
     <el-form>
+
       <el-form-item class="miet">
         <el-button type="primary" @click="onSubmit">确认并提交</el-button>
         <el-button>取消</el-button>
       </el-form-item>
-
     </el-form>
     <Dialog :dialog="dialog"></Dialog>
   </div>
@@ -159,9 +157,9 @@ export default {
   data () {
     // 这里存放数据
     return {
-       dialog: {
-        show : false
-        },
+      dialog: {
+        show: false
+      },
       value1: '',
       form: {
         name: '',
@@ -183,7 +181,6 @@ export default {
         sex: '44444',
         phones: '55555',
         mun: '66666'
-
       }],
 
       bianta: [{
@@ -203,11 +200,7 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
     alerts () {
-      // this.alertipShow = true;
       this.dialog.show = true;
     },
     open () {
@@ -241,7 +234,10 @@ export default {
           message: '取消输入'
         });
       });
-    }
+    },
+    onSubmit () {
+      console.log('submit!');
+    },
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -262,19 +258,18 @@ export default {
 }
 </script>
 <style scoped>
-.miet{
-  margin-left: 40% !important;
-  margin-top: 30px;
+.miet {
+    margin-left: 40% !important;
+    margin-top: 30px;
 }
-.titex{
-  font-size: 13px;
+.titex {
+    font-size: 13px;
 }
 .conments {
     display: flex;
 }
 .aptable {
     width: 48% !important;
-
 }
 .appmm {
     width: 100% !important;
@@ -282,27 +277,16 @@ export default {
 }
 .appx {
     width: 48% !important;
-
 }
 .formbox {
     width: 90%;
     padding: 25px;
     margin: auto;
 }
-.hname {
-    width: 80% !important;
-}
 .divbin {
     display: flex !important;
 }
 
-.shenfen {
-    display: flex;
-}
-.sinxex {
-    width: 48.5% !important;
-    margin-left: 5px;
-}
 .input_box {
     -webkit-appearance: none;
     background-color: #fff;
@@ -318,14 +302,9 @@ export default {
     outline: 0;
     padding: 0 15px;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 100%
+    width: 100%;
 }
-.dinglei {
-    display: flex;
-}
-.conmeny {
-    display: flex;
-}
+
 .minx {
     display: flex;
 }
@@ -339,6 +318,7 @@ export default {
     color: white;
     border-radius: 5px;
     margin-top: 2px;
+    font-weight: 600;
 }
 .yingbut {
     display: -webkit-box;
@@ -354,10 +334,7 @@ export default {
     box-sizing: border-box;
     margin-left: 13px;
 }
-.el-date-range-picker {
-    width: 510px !important;
-    z-index: 500;
-}
+
 .block {
     margin-bottom: 15px;
 }

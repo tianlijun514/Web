@@ -75,11 +75,9 @@ export default {
       auswahl: {
         show: false
       },
-
       dialog: {
         show: false
       },
-
       formInline: {
         user: '',
         region: ''
@@ -154,11 +152,6 @@ export default {
     width: 70% !important;
 }
 
-.btn {
-    background: #333;
-    color: white;
-    width: 100px;
-}
 .btnte {
     background: #333;
     color: white;
@@ -180,9 +173,7 @@ export default {
     font-size: 14px;
     word-break: break-all;
 }
-.monet {
-    display: flex;
-}
+
 .heji {
     width: 270px;
     float: right;

@@ -84,9 +84,6 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    // anuyy(){
-    //  this.$router.push('./huibox')
-    // }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {

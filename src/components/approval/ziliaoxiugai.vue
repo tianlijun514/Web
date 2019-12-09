@@ -134,14 +134,14 @@
       </el-form-item>
     </el-form>
 
-    <Dialog :dialog="dialog"></Dialog>
-    <kabox :ka="ka"></kabox>
+    <!-- <Dialog :dialog="dialog"></Dialog>
+    <kabox :ka="ka"></kabox> -->
   </div>
 </template>
 
 <script>
-import Dialog from '../common/Dialog'
-import kabox from './ka'
+// import Dialog from '../common/Dialog'
+// import kabox from './ka'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -161,12 +161,12 @@ export default {
       bian: false,
       input1: '',
       input: '',
-      dialog: {
-        show: false
-      },
-      ka: {
-        show: false
-      },
+      // dialog: {
+      //   show: false
+      // },
+      // ka: {
+      //   show: false
+      // },
       value1: '',
       form: {
         name: '',
@@ -189,12 +189,12 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-    alerts () {
-      this.dialog.show = true;
-    },
-    kamony () {
-      this.ka.show = true;
-    },
+    // alerts () {
+    //   this.dialog.show = true;
+    // },
+    // kamony () {
+    //   this.ka.show = true;
+    // },
     zhuanru (e) {
       this.bian = e;
       console.log(e)

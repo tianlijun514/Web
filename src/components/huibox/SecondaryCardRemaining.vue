@@ -5,12 +5,15 @@
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员卡号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="合同号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员姓名">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -19,17 +22,18 @@
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
+
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
     </el-table>
+
     <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
       </el-pagination>
     </div>
-
   </div>
 
 </template>
@@ -50,10 +54,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      currentPage: 1,
       formInline: {
         user: '',
         region: ''
@@ -69,7 +70,6 @@ export default {
         { title: '剩余次数', data: 'sex' },
         { title: '开始日期', data: 'cardClass' },
         { title: '结束日期', data: 'cardNo' },
-
       ],
       tableData: [{
         num: '00012',
@@ -83,7 +83,6 @@ export default {
         telNo: '2019-12-12',
         photo: '2018-12-01',
         cardPhoto: '2018-12-23',
- 
       },]
     }
   },
@@ -122,12 +121,12 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
+.app{
+  width: 100%;
+}
 .block {
-    width: 50%;
+    width: 550px;
     margin: auto;
 }
 </style>

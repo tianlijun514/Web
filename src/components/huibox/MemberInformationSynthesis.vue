@@ -3,18 +3,23 @@
   <div class='tableBox'>
     <!-- <mybtn btntext='删除' btnclss='yellow'></mybtn>  -->
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
+
       <el-form-item label="门店">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员卡号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员编号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="会员姓名/证件号/手机号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
+
       <el-form-item label="合同号">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -34,15 +39,19 @@
         <el-button size="mini" type="primary" @click="handleLook">查看</el-button>
       </el-table-column>
     </el-table>
+
+    <div class="block">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
-import mybtn from '../page/btn'
+// import mybtn from '../page/btn'
 // import tables from '../table/boxliTable'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-
 export default {
   name: 'boxli',
   props: {
@@ -50,12 +59,12 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    mybtn: mybtn,
-    // tables
+    // mybtn: mybtn,
   },
   data () {
     // 这里存放数据
     return {
+      currentPage: 1,
       formInline: {
         user: '',
         region: ''
@@ -109,7 +118,12 @@ export default {
   methods: {
     handleLook () {
       this.$router.push('./hymesg')
-      console.log(1111)
+    },
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`);
     },
     onSubmit () {
       console.log('submit!');
@@ -133,11 +147,18 @@ export default {
 }
 </script>
 <style  scoped>
+@import './../../assets/css/table.css';
+.tableBox {
+    width: 100%;
+}
 .btns {
     background: #333;
     border: none;
     color: white;
     width: 50px;
 }
-@import './../../assets/css/table.css';
+.block {
+    width: 550px;
+    margin: auto;
+}
 </style>

@@ -22,7 +22,7 @@
       <el-date-picker v-model="value1" @change='datas' type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd">
       </el-date-picker>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 10px">
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
       <el-form-item>
@@ -148,11 +148,6 @@ export default {
 
     // 查询
     chaxun () {
-      // if (this.inputhui == '') {
-      //   console.log(this.inputhui)
-      //   return;
-      // }
-      // let _this = this;
       axios
         .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
           params: {
@@ -165,13 +160,8 @@ export default {
             date_e: this.date_e
           }
         }).then(res => {
-          // console.log(res)
           for (let i = 0; i < res.data.queryResult.list.length; i++) {
             res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-
-            // if(timeHorizon >=33){
-            //   timeHorizon = '上午'
-            // }
           }
           this.tableData = res.data.queryResult.list;
           // console.log(this.tableData)
@@ -198,9 +188,7 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
+
 @import './../../assets/css/table.css';
 .uys {
     width: 50%;

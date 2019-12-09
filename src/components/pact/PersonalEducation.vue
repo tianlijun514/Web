@@ -65,9 +65,6 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
       currentPage4: 4,
       formInline: {
         user: '',
@@ -87,11 +84,6 @@ export default {
         { title: '上课时间', data: 'cardClass' },
         { title: '状态', data: 'cardNo' },
         { title: '是否打印', data: 'hao' },
-        // { title: '姓名', data: 'name' },
-
-
-
-
       ],
       tableData: [{
         num: '00012',
@@ -104,9 +96,6 @@ export default {
         cardNo: '2018-12-12',
         telNo: '2019-12-12',
         hao: '2018-12-12',
-        // name: '2019-12-12',
-
-
       },]
     }
   },
@@ -145,9 +134,6 @@ export default {
 }
 </script>
 <style scoped>
-.el-form-item__content {
-    width: 100px !important;
-}
 @import './../../assets/css/table.css';
 .uys {
     width: 50%;

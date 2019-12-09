@@ -12,7 +12,7 @@
         <el-input v-model="spCode" style="width: 110px;"></el-input>
       </el-form-item>
 
-      <el-button type="primary" @click="angelegt()">...</el-button>
+      <el-button type="primary" @click="angelegt()" class="btn">...</el-button>
 
       <el-button type="primary" @click="onSubmit">查询</el-button>
       <el-button type="primary" @click="onSubmit">导出</el-button>
@@ -138,11 +138,6 @@ export default {
     margin: auto;
 }
 .btn {
-    background: #333;
-    color: white;
-    width: 100px;
-}
-.conment {
-    height: 140px;
+    font-weight: 600;
 }
 </style>

@@ -139,9 +139,6 @@ export default {
     },
 
 
-
-
-
     test_click2: function (e, b) {
       this.dialogVisible = true
       if (e == 'add') {
