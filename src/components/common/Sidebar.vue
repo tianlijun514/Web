@@ -778,10 +778,10 @@ export default {
                   index: 'operation7',
                   title: '短信模板设置'
                 },
-                {
-                  index: 'operation8',
-                  title: '菜单设置'
-                },
+                // {
+                //   index: 'operation8',
+                //   title: '菜单设置'
+                // },
                 {
                   index: 'operation9',
                   title: '系统日志'

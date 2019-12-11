@@ -742,7 +742,7 @@ export default new Router({
         },
         {
           path: '/newApplication',
-          component: () => import('../components/approval/NewApplication.vue'),
+          component: () => import('../components/approval/newApplication.vue'),
 
           meta: {
             title: '新申请'
@@ -1412,13 +1412,13 @@ export default new Router({
           }
         },
 
-        {
-          path: '/operation8',
-          component: () => import('../components/operation/MenuSettings.vue'),
-          meta: {
-            title: '菜单设置'
-          }
-        },
+        // {
+        //   path: '/operation8',
+        //   component: () => import('../components/operation/MenuSettings.vue'),
+        //   meta: {
+        //     title: '菜单设置'
+        //   }
+        // },
 
         {
           path: '/operation9',
