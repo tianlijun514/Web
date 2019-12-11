@@ -58,9 +58,17 @@
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
 
     <el-table :data="tableData" border style="width: 100%;text-align:center">
+      <el-table-column type="selection" label="选择"></el-table-column>
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
+      <el-table-column label="操作" width="300">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="primary">合并订单</el-button>
+                    <el-button size="mini" type="primary" @click="jump">拆分订单</el-button>
+                    <el-button size="mini" type="primary">退定金</el-button>
+                </template>
+        </el-table-column>
     </el-table>
     
     <div class="block">
@@ -141,6 +149,9 @@ export default {
     },
     onSubmit () {
       console.log('submit!');
+    },
+    jump(){
+      this.$router.push('/index1')
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

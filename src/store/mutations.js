@@ -23,6 +23,9 @@ const mutations = {
     updateClassRoomType(state, data) {
         state.classRoomType = data;
     },
+    updateCourseClass(state, data) {
+        state.courseClass = data;
+    },
     
 }
 

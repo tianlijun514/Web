@@ -142,15 +142,13 @@ const actions = {
     },
     //查询私教课程
     async getPrivateCourse({ commit, state }, value) {
-        await axios
+        let data= await axios
             .post(base + '/course/queryCourse' + '/' + value.page + '/' + value.size, {
                 courseType: value.level,
                 name: value.store
             })
-            .then(res => {
-                console.log(res)
-                commit('updatePrivateCourse', res.data.queryResult)
-            });
+            commit('updatePrivateCourse', data.data.queryResult)
+            return data.data.queryResult
     },
     // 新增私教课程
     async addPrivateCourse({ commit, state }, value) {
@@ -270,7 +268,7 @@ const actions = {
             return 'yes'
         }
     },
-    //修改课程
+    //修改团操教室
     async updateClassRoom({ commit, state }, value) {
         let data
         if (value.state2) {
@@ -278,18 +276,73 @@ const actions = {
                 .post(base + '/classroom/updateClassRoom', {
                     states: 2,
                     id:value.id,
-                    // update:1
                 })
         } else {
+            console.log(value)
             data = await axios
                 .post(base + '/classroom/updateClassRoom', {
-                    states: 2,
                     id:value.id,
-                    update:1
+                    storeNumber:value.storeNumber,
+                    number:value.number,
+                    name:value.name,
+                    maxMan:value.maxMan,
+                    type:value.type,
+                    remarks:value.remarks,
+                    states:value.states=='正常'?1:2
                 })
         }
         console.log(data)
-    }
+        if(data.data.data=='更新教室成功'){
+            return 'yes'
+        }
+    },
+    // 查询团操课表
+    async getCourseClass({commit, state },value){
+        await axios
+                .post(base + '/courseClass/queryCourseClass', {
+                    year:value.year,
+                    month:value.month
+                }).then(res=>{
+                    let array=[]
+                    for(let i in res.data.queryResult.object){
+                        array.push({date:i,data:res.data.queryResult.object[i]})
+                    }
+                    array.sort(function(a,b){
+                        return Date.parse(a.date)-Date.parse(b.date);
+                   });
+                    commit('updateCourseClass',array)
+                })
+    },
+    //查询团课课程
+    async getCourseBySelect({ commit, state }, value) {
+        let data= await axios
+            .post(base + '/course/queryCourseBySelect', {
+
+            })
+            return data.data.queryResult
+    },
+    //查询团课教练
+    async getqueryCoachBySelect({ commit, state }, value) {
+        let data= await axios
+            .post(base + '/coach/queryCoachBySelect', {
+
+            })
+            return data.data.queryResult
+    },
+    //添加每天团操课表
+    async addCourseClass({ commit, state }, value) {
+        let data= await axios
+            .post(base + '/courseClass/addCourseClass', {
+                dateType:'single',
+                classDate:value.date+value.date2,
+                courseNumber:value.course,
+                coachNumber:value.coach,
+                classroomNumber:'',
+                peoples:0,
+                remarks:value.remarks
+            })
+            return data.data.queryResult
+    },
 
 }
 

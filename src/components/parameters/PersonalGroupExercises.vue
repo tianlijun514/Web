@@ -34,7 +34,7 @@
             <el-table-column prop="courseType" label="课程类型"></el-table-column>
             <el-table-column prop="startDate" label="启用时间"></el-table-column>
             <el-table-column prop="endDate" label="结束时间"></el-table-column>
-            <el-table-column prop="states" label="状态">
+            <el-table-column label="状态">
               <template slot-scope="scope">
                   <span>{{scope.row.states==1?'正常':'停用'}}</span>
               </template>

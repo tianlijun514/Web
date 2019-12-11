@@ -236,7 +236,6 @@
                 </div>
             </div>
             <div class="show2">
-                
                 <div class="table">
                     <p>卡种价格</p>
                     <el-table
@@ -251,7 +250,7 @@
                         <el-table-column prop="name" label="价格"></el-table-column>
                     </el-table>
                 </div>
-                <div class="table"> 
+                <div class="table">
                     <p>选择礼品</p>
                     <el-table
                         :data="table"
@@ -270,6 +269,185 @@
             <span slot="footer" class="dialog-footer">
                 <el-button @click="isShow4 = false">取 消</el-button>
                 <el-button type="primary" @click="isShow4 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+        <!-- 新增用户权限组 -->
+        <el-dialog
+            title="新增用户权限组"
+            :visible.sync="isShow5"
+            width="400px"
+            :before-close="handleClose"
+        >
+            <el-form
+                :model="form"
+                :rules="rules"
+                class="formbox demo-ruleForm"
+                label-width="100px"
+                style="width:300px;"
+            >
+                <el-form-item label="编号" prop="name">
+                    <el-input type="text" v-model="form.name" />
+                </el-form-item>
+                <el-form-item label="中文名" prop="name">
+                    <el-input type="text" v-model="form.name" />
+                </el-form-item>
+                <el-form-item label="英文名" prop="name">
+                    <el-input type="text" v-model="form.name" />
+                </el-form-item>
+                <el-form-item label="安全级别">
+                    <el-select v-model="form.store" class="sex">
+                        <el-option
+                            v-for="(item,index) in choose1"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index+'a'"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="允许IP">
+                    <el-input type="text" v-model="form.name" />
+                </el-form-item>
+                <el-form-item label="状态">
+                    <el-radio-group v-model="form.states">
+                        <el-radio label="正常"></el-radio>
+                        <el-radio label="停用"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShow5 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow5 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+        <!-- 新增用户 -->
+        <el-dialog title="新增用户" :visible.sync="isShow6" width="800px" :before-close="handleClose">
+            <div class="show2">
+                <el-form
+                    :model="form"
+                    :rules="rules"
+                    class="formbox demo-ruleForm"
+                    label-width="100px"
+                    style="width:300px;"
+                >
+                    <el-form-item label="编号" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="登录密码" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="中文名" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="英文名" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="权限组">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="平板登录门店">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="职务">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="手机号" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="电话" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="性别">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="生日">
+                        <el-date-picker v-model="form.date1" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="工号" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="安全级别">
+                        <el-select v-model="form.store" class="sex">
+                            <el-option
+                                v-for="(item,index) in choose1"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index+'a'"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                     <el-form-item label="允许IP" prop="name">
+                        <el-input type="text" v-model="form.name" />
+                    </el-form-item>
+                    <el-form-item label="过期时间">
+                        <el-date-picker v-model="form.date1" type="date" placeholder="选择日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-radio-group v-model="form.states">
+                            <el-radio label="正常"></el-radio>
+                            <el-radio label="停用"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-form>
+                <div>
+                    <p>可售登录门店</p>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 350px"
+                        @selection-change="handleSelectionChange"
+                        height="400"
+                        ref="dataTable"
+                    >
+                        <el-table-column type="selection" label="选择"></el-table-column>
+                        <el-table-column prop="number" label="编号"></el-table-column>
+                        <el-table-column prop="name" label="名称"></el-table-column>
+                    </el-table>
+                    <p>可售查询区域</p>
+                    <el-table
+                        :data="table"
+                        border
+                        style="width: 350px"
+                        @selection-change="handleSelectionChange"
+                        height="400"
+                        ref="dataTable"
+                    >
+                        <el-table-column type="selection" label="选择"></el-table-column>
+                        <el-table-column prop="number" label="编号"></el-table-column>
+                        <el-table-column prop="name" label="名称"></el-table-column>
+                    </el-table>
+                </div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShow6 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow6 = false">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -333,14 +511,22 @@ export default {
                 this.isShow3 = true;
             } else if (new0 == 'addMarketing' || new0 == 'addMarketing1') {
                 this.isShow4 = true;
+            } else if (new0 == 'addUserPermissions' || new0 == 'addUserPermissions1') {
+                this.isShow5 = true;
+            } else if (new0 == 'addUser' || new0 == 'addUser1') {
+                this.isShow6 = true;
             }
-        }
+        },
+        
     },
     // 方法集合
     methods: {
         ...mapActions([]),
         handleClose(done) {
             done();
+        },
+        handleSelectionChange(){
+            
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
@@ -361,7 +547,7 @@ export default {
 .show2 {
     display: flex;
     justify-content: space-between;
-    .table{
+    .table {
         margin-top: 20px;
     }
 }
