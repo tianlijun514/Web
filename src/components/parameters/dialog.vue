@@ -260,6 +260,72 @@
                 <el-button type="primary" @click="isShow7= false">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 新增课程 -->
+        <el-dialog title="新增课程" :visible.sync="isShow8" width="50%" :before-close="handleClose">
+            <el-form :model="isShow8Form" class="demo-form-inline" label-width="80px">
+                <el-form-item label="课程">
+                    <el-select v-model="isShow8Form.course" class="sex">
+                        <el-option
+                            v-for="(item,index) in course"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index+'a'"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="教练">
+                    <el-select v-model="isShow8Form.coach" class="sex">
+                        <el-option
+                            v-for="(item,index) in coach"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index+'a'"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="教室">
+                    <el-select v-model="isShow8Form.coach" class="sex">
+                        <el-option
+                            v-for="(item,index) in coach"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index+'a'"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="日期" style="margin-left:0;">
+                            <el-date-picker v-model="isShow8Form.date" type="date" placeholder="选择日期"></el-date-picker>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item>
+                            <el-time-select
+                                v-model="isShow8Form.date2"
+                                :picker-options="{
+                            start: '08:00',
+                            step: '00:05',
+                            end: '22:00'
+                        }"
+                                placeholder="选择时间"
+                            ></el-time-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-form-item label="人数">
+                    <el-input type="number" v-model="isShow8Form.number" />
+                </el-form-item>
+                <el-form-item label="备注">
+                    <el-input type="textarea" v-model="isShow8Form.remarks"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShow8 = false">取 消</el-button>
+                <el-button type="primary" @click="isShow8Yes">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -282,6 +348,7 @@ export default {
                 store: '',
                 maxMan: '',
                 date: '',
+                date2: '',
                 state: '是',
                 states: '正常',
                 type: '',
@@ -294,6 +361,19 @@ export default {
             isShow5: false,
             isShow6: false,
             isShow7: false,
+            isShow8: false,
+            isShow8Form:{
+                name:'',
+                coach:'',
+                course:'',
+                remarks:'',
+                date:'',
+                date2:'',
+                number:'',
+                classRoom:'',
+            },
+            coach: [],
+            course: [],
             rules: {
                 name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }]
             },
@@ -303,7 +383,8 @@ export default {
                     value: '2'
                 }
             ],
-            table: [{ name: '1111' }]
+            table: [{ name: '1111' }],
+            
         };
     },
     // 监听属性 类似于data概念
@@ -327,14 +408,30 @@ export default {
                 this.isShow6 = true;
             } else if (new0 == 'storeLevel' || new0 == 'storeLevel1') {
                 this.isShow7 = true;
+            } else if (new0 == 'addCourse' || new0 == 'addCourse1') {
+                this.isShow8 = true;
+                this.getCourseBySelect().then(res => {
+                    for (let i in res.list) {
+                        this.course.push({ label: res.list[i].name, value: res.list[i].number });
+                    }
+                });
+                this.getqueryCoachBySelect().then(res => {
+                    for (let i in res.list) {
+                        this.coach.push({ label: res.list[i].name, value: res.list[i].number });
+                    }
+                });
             }
         }
     },
     // 方法集合
     methods: {
-        ...mapActions([]),
+        ...mapActions(['getCourseBySelect', 'getqueryCoachBySelect','addCourseClass']),
         handleClose(done) {
             done();
+        },
+        isShow8Yes(){
+            console.log(this.isShow8Form)
+
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
@@ -354,7 +451,6 @@ export default {
 @import './../../assets/css/table.css';
 .el-form-item__content {
     display: flex;
-    
 }
 </style>
 
