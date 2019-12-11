@@ -14,9 +14,10 @@
       </el-form-item>
 
       <el-form-item label="商品类别">
-        <el-select v-model="value">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
+        <el-select v-model="typeCode">
+          <el-option label="全部" value></el-option>
+           <el-option v-for="item in type_list" :key="item.id" :label="item.typeName" :value="item.typeCode">
+              </el-option>
         </el-select>
       </el-form-item>
 
@@ -38,94 +39,105 @@
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
 
+      <el-form-item>
+        <el-button type="primary" @click="herleiten">导出Execl</el-button>
+      </el-form-item>
+
+
+      <el-form-item>
+        <el-button type="primary" @click="upload">上传Execl</el-button>
+      </el-form-item>
+
       <el-button type="text" @click='test_click2("add")' class="btn">新增</el-button>
       <!-- 添加弹框 -->
       <el-dialog :title="title" :visible.sync="dialogVisible" width="40%">
         <el-form :model="numberValidateForm" ref="numberValidateForm" :rules="rules">
 
-          <el-form-item label="商品编码" prop="typeCode">
-            <el-input v-model.number="numberValidateForm.typeCode" autocomplete="off"></el-input>
+          <el-form-item label="商品编码" prop="spCode">
+            <el-input v-model="numberValidateForm.spCode" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="商品名称" prop="name">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+          <el-form-item label="商品名称" prop="spName">
+            <el-input v-model="numberValidateForm.spName" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="商品类别" prop="subjectCode">
-            <el-select v-model="numberValidateForm.subjectCode" style="width: 185px;">
-              <!-- <el-option v-for="(formtype, index) in type_list" :key="index" :label="formtype.type_list" :value="formtype"></el-option> -->
-              <el-option v-for="item in type_list" :key="item.value" :label="item.label" :value="item.value">
+          <el-form-item label="商品类别" prop="typeCode">
+            <el-select v-model="numberValidateForm.typeCode" style="width: 187px;" @change="leixing">
+              <el-option v-for="item in type_list" :key="item.id" :label="item.typeName" :value="item.typeCode">
               </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="计量单位" prop="jiliang">
-            <el-select v-model="numberValidateForm.subjectCode" style="width: 185px;">
+          <el-form-item label="计量单位" prop="unit">
+            <el-select v-model="numberValidateForm.unit" style="width: 125px;">
               <el-option v-for="item in dan" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="助记符" prop="jizhu" class="boxsize">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+          <el-button type="text" @click='addieren' class="btn">增加</el-button> <!-- 添加计量单位 -->
+
+          <el-form-item label="助记符" prop="mnemonic" class="boxsize">
+            <el-input v-model="numberValidateForm.mnemonic" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="标准售价" prop="eag">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+          <el-form-item label="标准售价" prop="price">
+            <el-input v-model.number="numberValidateForm.price" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="员工价" class="leftin">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+            <el-input v-model.number="numberValidateForm.empPrice" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="会员价"  class="leftin">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+          <el-form-item label="会员价" class="leftin">
+            <el-input v-model.number="numberValidateForm.vipPrice" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="备用价1" class="box">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+            <el-input v-model.number="numberValidateForm.sparePrice1" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="备用价2" class="box">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+            <el-input v-model.number="numberValidateForm.sparePrice2" autocomplete="off"></el-input>
           </el-form-item>
 
           <el-form-item label="备用价3" class="box">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+            <el-input v-model.number="numberValidateForm.sparePrice3" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item label="采购价" prop="caigou" style="margin-left: 16px;">
-            <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
+          <el-form-item label="采购价" prop="cgPrice" style="margin-left: 16px;">
+            <el-input v-model.number="numberValidateForm.cgPrice" autocomplete="off"></el-input>
           </el-form-item>
 
           <div style=" display: flex">
             <el-form-item label="采购合同号">
-              <el-select v-model="numberValidateForm.subjectCode" style="width: 185px;margin-left: -3px;">
+              <el-select v-model="numberValidateForm.cgContractNum" style="width: 185px;margin-left: -3px;">
                 <el-option v-for="item in Vertrag" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
 
-            <el-form-item label="卖品/非卖" prop="mai">
-              <el-select v-model="type" style="margin-left: -6px;width:185px;">
-                <el-option v-for="item in Verkaufen" :key="item.value" :label="item.label" :value="item.value">
+            <el-form-item label="卖品/非卖" prop="type">
+              <el-select v-model="numberValidateForm.type" style="width:187px;">
+                <el-option v-for="item in mai" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
+
           </div>
 
-          <el-form-item label="上架日期" prop="shangdata">
-           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
-          </el-date-picker>
+          <el-form-item label="上架日期" prop="putawayDate">
+            <el-date-picker v-model="numberValidateForm.putawayDate" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
+            </el-date-picker>
           </el-form-item>
 
-             <el-form-item label="下架日期" prop="xiadata">
-           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
-          </el-date-picker>
+          <el-form-item label="下架日期" prop="soldoutDate">
+            <el-date-picker v-model="numberValidateForm.soldoutDate" type="date" placeholder="选择日期" style="width:187px;margin-left: 4px" prop="shangdata">
+            </el-date-picker>
           </el-form-item>
 
           <el-form-item label="备注" prop="remark" style="margin-left: 39px;">
-            <el-input type="textarea" v-model.number="numberValidateForm.remark" autocomplete="off" style="width:460px"></el-input>
+            <el-input type="textarea" v-model="numberValidateForm.remark" autocomplete="off" style="width:465px"></el-input>
           </el-form-item>
           <br>
           <el-form-item style="margin-left:85px;">
@@ -154,13 +166,22 @@
       <el-table-column prop="cgContractNum" label="采购合同号" width="100"></el-table-column>
       <el-table-column prop="putawayDate" label="上架日期" width="100"></el-table-column>
       <el-table-column prop="soldoutDate" label="下架日期" width="100"></el-table-column>
-      <el-table-column prop="type" label="卖品/非卖品" width="100"></el-table-column>
+      <el-table-column prop="type" label="卖品/非卖品" width="100">
+        <template slot-scope="scope">
+          <span>{{scope.row.type==1?'卖品':'非卖品'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
-      <el-table-column prop="status" label="状态" width="100"></el-table-column>
+      <el-table-column prop="status" label="状态" width="100">
+        <template slot-scope="scope">
+          <span>{{scope.row.status==1?'有效':'无效'}}</span>
+        </template>
+
+      </el-table-column>
 
       <el-table-column label="操作" width="80">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click='test_click2("edit",scope.row)'>修改</el-button>
+          <el-button type="text" size="small" @click='test_click2("edit",scope.row)' class="btn">修改</el-button>
           <!-- <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)'>删除</el-button> -->
         </template>
       </el-table-column>
@@ -197,6 +218,7 @@ export default {
       spCode: '',
       spName: '',
       mnemonic: '',
+      typeCode:'',
       type: '',
       status: '',
       size: 10,
@@ -235,35 +257,8 @@ export default {
         label: '盒'
       }
       ],
-      type_list: [{
-        value: '01',
-        label: '全部'
-      }, {
-        value: '02',
-        label: '11111 - 22222'
-      }, {
-        value: '03',
-        label: '222 - 222'
-      }, {
-        value: '04',
-        label: 'L001 - 饮料类'
-      }, {
-        value: '05',
-        label: 'L002 - 会籍办卡类'
-      }, {
-        value: '06',
-        label: 'L003 - 工本费'
-      }, {
-        value: '07',
-        label: 'L004 - 锁'
-      }, {
-        value: '08',
-        label: 'sp1001 - 运动饮料'
-      }],
+
       options: [{
-        value: '01',
-        label: '全部'
-      }, {
         value: '02',
         label: '11111 - 22222'
       }, {
@@ -285,6 +280,7 @@ export default {
         value: '08',
         label: 'sp1001 - 运动饮料'
       }],
+
       Verkaufen: [{
         value: '1',
         label: '卖品',
@@ -292,6 +288,14 @@ export default {
         value: '2',
         label: '非卖品',
       }],
+      mai: [{
+        value: '1',
+        label: '卖品',
+      }, {
+        value: '2',
+        label: '非卖品',
+      }],
+
       effektiv: [{
         value: '1',
         label: '有效',
@@ -301,41 +305,57 @@ export default {
       }],
       value: '',
       numberValidateForm: {
+        spCode: '',
+        spName: '',
+        remark: '',
         typeCode: '',
-        name: '',
-        remark: ''
+        unit: '',
+        mnemonic: '',
+        price: null,
+        empPrice: null,
+        vipPrice: null,
+        sparePrice1: null,
+        sparePrice2: null,
+        sparePrice3: null,
+        cgPrice: null,
+        cgContractNum: '',
+        type: null,
+        putawayDate: '',
+        soldoutDate: '',
+        remark: '',
       },
+      type_list: [],
       value1: '',
       tableData: [{}],
       rules: {
-        typeCode: [
+        spCode: [
           { required: true, message: '商品编号不能为空', trigger: 'blur' }
         ],
-        name: [
+        spName: [
           { required: true, message: '商品名称不能为空', trigger: 'blur' }
         ],
-        subjectCode: [
-          { required: true, message: '请选择商品类型', trigger: 'change' }
+        typeCode: [
+          { required: true, message: '请选择商品类型', trigger: 'blur' }
         ],
-        jiliang: [
-          { required: true, message: '请选择计量单位', trigger: 'change' }
+        unit: [
+          { required: true, message: '请选择计量单位', trigger: 'blur' }
         ],
-        jizhu: [
-          { required: true, message: '助记符不能为空', trigger: 'change' }
+        mnemonic: [
+          { required: true, message: '助记符不能为空', trigger: 'blur' }
         ],
-        eag: [
-          { required: true, message: '标准售价不能为空', trigger: 'change' }
+        price: [
+          { required: true, message: '标准售价不能为空', trigger: 'blur' }
         ],
-        caigou: [
-          { required: true, message: '采购价不能为空', trigger: 'change' }
+        cgPrice: [
+          { required: true, message: '采购价不能为空', trigger: 'blur' }
         ],
-        shangdata: [
-          { required: true, message: '上架日期不能为空', trigger: 'change' }
+        putawayDate: [
+          { required: true, message: '上架日期不能为空', trigger: 'blur' }
         ],
-        xiadata: [
-          { required: true, message: '下架日期不能为空', trigger: 'change' }
+        soldoutDate: [
+          { required: true, message: '下架日期不能为空', trigger: 'blur' }
         ],
-        mai: [
+        typeing: [
           { required: true, message: '请选择卖品/非卖品', trigger: 'change' }
         ],
       }
@@ -356,25 +376,45 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-
+    leixing () {
+      // console.log(this.numberValidateForm.typeCode)
+     this.numberValidateForm.typeCode
+    },
     test_click2: function (e, b) {
       this.dialogVisible = true
       if (e == 'add') {
-        this.title = '新增'
-        this.option = 'addReceiveType'
+        this.title = '新增商品类型'
+        this.option = 'addSpInfo'
       } else {
-        this.title = '编辑'
-        this.option = 'updateReceiveType'
+        this.title = '修改商品类型'
+        this.option = 'updateSpInfo'
         this.numberValidateForm.typeCode = b.typeCode,
-          this.numberValidateForm.name = b.name,
+          this.numberValidateForm.spCode = b.spCode,
+          this.numberValidateForm.spName = b.spName
+        this.numberValidateForm.unit = b.unit,
+          this.numberValidateForm.mnemonic = b.mnemonic,
+          this.numberValidateForm.price = b.price
+        this.numberValidateForm.empPrice = b.empPrice,
+          this.numberValidateForm.vipPrice = b.vipPrice,
+          this.numberValidateForm.sparePrice1 = b.sparePrice1,
+          this.numberValidateForm.sparePrice2 = b.sparePrice2
+        this.numberValidateForm.sparePrice3 = b.sparePrice3,
+          this.numberValidateForm.cgPrice = b.cgPrice,
+          this.numberValidateForm.cgContractNum = b.cgContractNum
+        this.numberValidateForm.type = b.type,
+          this.numberValidateForm.putawayDate = b.putawayDate
+        this.numberValidateForm.soldoutDate = b.soldoutDate,
           this.numberValidateForm.remark = b.remark
-        console.log(b.name)
       }
-      console.log(this.option)
-      console.log(e);   // 输出结果：123
+      // console.log(this.option)
+      // console.log(e);   // 输出结果：123
 
     },
 
+    // 计量单位新增
+    addieren () {
+
+    },
 
     // 查询
     chaxun () {
@@ -384,13 +424,11 @@ export default {
           size: this.size,
           spCode: this.spCode,
           spName: this.spName,
-          mnemonic: this.mnemonic
-
+          mnemonic: this.mnemonic,
+          typeCode:this.typeCode
         }).then(res => {
-          console.log(res.data)
           this.tableData = res.data.queryResult.list
           this.total = res.data.queryResult.total
-
         })
 
     },
@@ -400,12 +438,8 @@ export default {
       this.$refs[numberValidateForm].validate((valid) => {
         console.log(valid)
         if (valid) {
-          axios.post(base + `/commodity/` + this.option, {
-            // data:this.numberValidateForm
-            remark: this.numberValidateForm.remark,
-            name: this.numberValidateForm.name,
-            typeCode: this.numberValidateForm.typeCode
-          })
+          this.numberValidateForm.type = parseInt(this.numberValidateForm.type)
+          axios.post(base + `/commodity/` + this.option, this.numberValidateForm)
             .then(res => {
               if (res.data.code == 10000) {
                 this.$message({
@@ -422,6 +456,25 @@ export default {
         }
       });
     },
+       // 导出
+    herleiten () {
+      axios
+        .get(base + '/commodity/excelSpInfo',{responseType: 'arraybuffer'})
+        .then(res => {
+          let blob = new Blob ([res.data],{type:"application/vnd.ms-excel"});
+          let objectUrl = URL.createObjectURL(blob);
+          window.location.href=objectUrl;
+          console.log(res);
+        })
+    },
+
+    // 上传表
+    upload(){
+      // axios
+      // .post(base+'/commodity/uploadSpExecl').then((res)=>{
+      //   console.log(res)
+      // })
+    },
     resetForm (numberValidateForm) {
       this.$refs[numberValidateForm].resetFields();
     },
@@ -432,6 +485,10 @@ export default {
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
     this.chaxun()
+    axios
+      .post(base + '/commodity/getAllSpType').then((res) => {
+        this.type_list = res.data
+      })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
@@ -467,7 +524,7 @@ export default {
     margin-left: 17px;
 }
 
-.leftin{
-  margin-left: 25px
+.leftin {
+    margin-left: 25px;
 }
 </style>

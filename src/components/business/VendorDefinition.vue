@@ -15,11 +15,12 @@
       </el-form-item>
 
       <el-button type="text" @click='test_click2("add")' class="btn">新增</el-button>
+
       <!-- 添加弹框 -->
       <el-dialog :title="title" :visible.sync="dialogVisible" width="30%">
         <el-form :model="numberValidateForm" ref="numberValidateForm" class="demo-ruleForm" :rules="rules">
-          <el-form-item label="编码" prop="typeCode">
-            <el-input v-model.number="numberValidateForm.typeCode" autocomplete="off"></el-input>
+          <el-form-item label="编码" prop="code">
+            <el-input v-model.number="numberValidateForm.code" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="名称" style="margin-left: 11px">
             <el-input v-model.number="numberValidateForm.name" autocomplete="off"></el-input>
@@ -42,13 +43,13 @@
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="typeCode" label="编码" width="150"></el-table-column>
+      <el-table-column fixed prop="code" label="编码" width="150"></el-table-column>
       <el-table-column prop="name" label="姓名" width="150"></el-table-column>
       <el-table-column prop="remark" label="状态"></el-table-column>
       <el-table-column fixed="right" label="操作" width="400">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click='test_click2("edit",scope.row)'>修改</el-button>
-          <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)'>删除</el-button>
+          <el-button type="text" size="small" @click='test_click2("edit",scope.row)' class="btn">修改</el-button>
+          <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)' class="btn">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,14 +89,14 @@ export default {
       title: '',
       option: '',
       numberValidateForm: {
-        typeCode: '',
+        code: '',
         name: '',
         remark: ''
       },
       value1: '',
       tableData: [{}],
       rules: {
-        typeCode: [
+        code: [
           { required: true, message: '编码不能为空', trigger: 'blur' }
         ]}
     }
@@ -117,14 +118,13 @@ export default {
     },
 
     //删除
-    handleClose (row, typeCode) {
+    handleClose (row, code) {
       this.$confirm('确定要删除此记录吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        axios.delete(base + `/commodity/deleteSupplier/${row.typeCode}`).then(res => {
-          console.log(res.data)
+        axios.delete(base + `/commodity/deleteSupplier/${row.code}`).then(res => {
           if (res.data.code == 10000) {
             this.$message({
               message: '操作成功',
@@ -147,17 +147,14 @@ export default {
       } else {
         this.title = '编辑'
         this.option = 'updateSupplier'
-        this.numberValidateForm.typeCode = b.typeCode,
-          this.numberValidateForm.name = b.name,
-          this.numberValidateForm.remark = b.remark
-        console.log(b.name)
+        this.numberValidateForm.code = b.code,
+        this.numberValidateForm.name = b.name,
+        this.numberValidateForm.remark = b.remark
       }
-      console.log(this.option)
-      console.log(e);   // 输出结果：123
+      // console.log(this.option)
+      // console.log(e);   // 输出结果：123
 
     },
-
-
     // 查询
     chaxun () {
       axios.
@@ -167,24 +164,20 @@ export default {
           name: this.namebox,
           code: this.typeCode
         }).then(res => {
-          console.log(res.data)
           this.tableData = res.data.queryResult.list
           this.total = res.data.queryResult.total
-
         })
 
     },
     // 添加
     submitForm (numberValidateForm) {
-      console.log(111)
       this.$refs[numberValidateForm].validate((valid) => {
-        console.log(valid)
+        // console.log(valid)
         if (valid) {
           axios.post(base + `/commodity/` + this.option, {
-            // data:this.numberValidateForm
             remark: this.numberValidateForm.remark,
             name: this.numberValidateForm.name,
-            code: this.numberValidateForm.typeCode
+            code: this.numberValidateForm.code
           })
             .then(res => {
               if (res.data.code == 10000) {

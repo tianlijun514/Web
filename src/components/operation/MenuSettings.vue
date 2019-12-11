@@ -1,7 +1,15 @@
 <!-- vue快捷创建组件 -->
 <template>
 <div class='app'>
-  <div>cccc</div>
+  <div class="content">
+    <div>
+      <div style="padding:8px 0"><span style="margin-right:10px">菜单设置</span> <el-button type="primary">新增</el-button></div>
+      <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+    </div>
+    <div>
+
+    </div>
+  </div>
 </div>
 </template>
 
@@ -21,7 +29,41 @@ components: {
 data() {
 // 这里存放数据
 return {
-
+  treeData: [{
+          label: '一级 1',
+          children: [{
+            label: '二级 1-1',
+            children: [{
+              label: '三级 1-1-1'
+            }]
+          }]
+        }, {
+          label: '一级 2',
+          children: [{
+            label: '二级 2-1',
+            children: [{
+              label: '三级 2-1-1'
+            }]
+          }, {
+            label: '二级 2-2',
+            children: [{
+              label: '三级 2-2-1'
+            }]
+          }]
+        }, {
+          label: '一级 3',
+          children: [{
+            label: '二级 3-1',
+            children: [{
+              label: '三级 3-1-1'
+            }]
+          }, {
+            label: '二级 3-2',
+            children: [{
+              label: '三级 3-2-1'
+            }]
+          }]
+        }]
 }
 },
 // 监听属性 类似于data概念
@@ -30,7 +72,9 @@ computed: {},
 watch: {},
 // 方法集合
 methods: {
-
+  handleNodeClick(data) {
+        console.log(data);
+      }
 },
 // 生命周期 - 创建完成（可以访问当前this实例）
 created() {
@@ -50,6 +94,12 @@ activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
 <style  scoped>
-
+.content{
+  display: flex;
+  flex-direction: row
+}
+.content>div{
+  flex: auto
+}
 
 </style>

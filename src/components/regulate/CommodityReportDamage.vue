@@ -40,15 +40,15 @@
             <span>报损数量输入负数：增加库存</span>
 
             <el-table :data="tableData" border style="width: 100%">
-              <el-table-column fixed prop="date" label="出库单号"></el-table-column>
-              <el-table-column prop="name" label="发货部门"></el-table-column>
-              <el-table-column prop="dai" label="发货日期"></el-table-column>
-              <el-table-column prop="bei" label="收货部门"></el-table-column>
-              <el-table-column prop="bei" label="打印状态"></el-table-column>
-
+              <el-table-column fixed prop="date" label="商品编码"></el-table-column>
+              <el-table-column prop="name" label="商品名称"></el-table-column>
+              <el-table-column prop="dai" label="单位"></el-table-column>
+              <el-table-column prop="bei" label="报损数量">
+                <input type="text" v-model="shu" class="shu">
+              </el-table-column>
               <el-table-column fixed="right" label="操作" width="150">
                 <template>
-                  <el-button type="text" size="small">修改</el-button>
+                  <el-button type="text" size="small">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -70,12 +70,19 @@
       <el-table-column prop="bei" label="商品名称"></el-table-column>
       <el-table-column prop="dai" label="单位"></el-table-column>
       <el-table-column prop="bei" label="数量"></el-table-column>
+      <el-table-column label="操作" width="145">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">图片报损前</el-button>
+          <el-button @click="handleClick(scope.row)" type="text" size="small">图片报损后</el-button>
+        </template>
+      </el-table-column>
+
     </el-table>
     <div class="block">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
       </el-pagination>
     </div>
-  <Auswahl :auswahl="auswahl"></Auswahl>
+    <Auswahl :auswahl="auswahl"></Auswahl>
   </div>
 
 </template>
@@ -97,9 +104,10 @@ export default {
   data () {
     // 这里存放数据
     return {
-       auswahl: {
+      auswahl: {
         show: false
       },
+      shu: '',
       spCode: '',
       type: '',
       handleClose: '',
@@ -185,7 +193,7 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-      angelegt  () {
+    angelegt () {
       this.auswahl.show = true;
     },
     onSubmit () {
@@ -245,5 +253,9 @@ export default {
 }
 .conment {
     height: 140px;
+}
+.shu {
+    width: 100px;
+    height: 30px;
 }
 </style>
