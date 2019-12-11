@@ -10,13 +10,7 @@
         <el-form-item label="类型名称" prop="typeName">
           <el-input v-model="ruleForm.typeName"></el-input>
         </el-form-item>
-<!-- 
-        <el-form-item label="科目编码" prop="subjectCode">
-          <el-select v-model="ruleForm.subjectCode" style="width: 185px;" @change="type_list">
-            <el-option v-for="(formtype, index) in type_list" :key="index" :label="formtype.remark" :value="formtype"></el-option>
-          </el-select>
-        </el-form-item>  -->
-
+ 
           <el-form-item label="科目编码">
         <el-select v-model="type" @change="leibox">
           <el-option v-for='item in type_list' :key="item.id" :label="item.typeName" :value="item.number"></el-option>
@@ -63,9 +57,7 @@ export default {
     // 这里存放数据
     return {
       type:null,
-      type_list: [
-
-      ],
+      type_list: [],
       value1: '',
       tableData: [{}],
       rules: {
@@ -105,7 +97,6 @@ export default {
         // }
         const url = this.dialog.option == 'add' ? `addSpType` : `updateSpType/`
         if (valid) {
-          console.log(this.ruleForm)
           this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
           axios.post(base + `/commodity/${url}`, this.ruleForm)
             .then(res => {
@@ -130,7 +121,6 @@ export default {
   created () {
     axios
       .post(base + '/commodity/getAllSpType').then((res) => {
-        console.log(res.data)
         this.type_list = res.data
       })
   },

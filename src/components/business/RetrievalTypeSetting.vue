@@ -47,8 +47,8 @@
       <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column fixed="right" label="操作" width="400">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click='test_click2("edit",scope.row)'>修改</el-button>
-          <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)'>删除</el-button>
+          <el-button type="text" size="small" @click='test_click2("edit",scope.row)' class="btn">修改</el-button>
+          <el-button type="text" size="small" @click='handleClose(scope.row,scope.$index)' class="btn">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -152,12 +152,9 @@ export default {
         this.title = '编辑'
         this.option = 'updateReceiveType'
         this.numberValidateForm.typeCode = b.typeCode,
-          this.numberValidateForm.name = b.name,
-          this.numberValidateForm.remark = b.remark
-        console.log(b.name)
+        this.numberValidateForm.name = b.name,
+        this.numberValidateForm.remark = b.remark
       }
-      console.log(this.option)
-      console.log(e);   // 输出结果：123
     },
 
     // 查询
@@ -169,7 +166,6 @@ export default {
           name: this.namebox,
           typeCode: this.typeCode
         }).then(res => {
-          console.log(res.data)
           this.tableData = res.data.queryResult.list
           this.total = res.data.queryResult.total
         })
@@ -177,12 +173,11 @@ export default {
     },
     // 添加
     submitForm (numberValidateForm) {
-      console.log(111)
+      // console.log(111)
       this.$refs[numberValidateForm].validate((valid) => {
-        console.log(valid)
+        // console.log(valid)
         if (valid) {
           axios.post(base + `/commodity/` + this.option, {
-            // data:this.numberValidateForm
             remark: this.numberValidateForm.remark,
             name: this.numberValidateForm.name,
             typeCode: this.numberValidateForm.typeCode

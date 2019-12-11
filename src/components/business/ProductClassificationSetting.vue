@@ -23,11 +23,13 @@
       <el-table-column prop="typeName" label="分类名称" width="120"></el-table-column>
       <el-table-column prop="subjectCode" label="科目代码"></el-table-column>
       <el-table-column prop="remark" label="备 注"></el-table-column>
-      <el-table-column prop="status" label="状态"></el-table-column>
+      <el-table-column prop="status" label="状态">
+
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row,scope.row)" type="text" size="small">修改</el-button>
-          <el-button @click="handledelete(scope.row,scope.$index)" type="text" size="small">删除</el-button>
+          <el-button @click="handleClick(scope.row,scope.row)" type="text" size="small" class="btn">修改</el-button>
+          <el-button @click="handledelete(scope.row,scope.$index)" type="text" size="small" class="btn">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -114,7 +116,6 @@ export default {
           typeCode: this.typeCode,
           name: this.nameme,
         }).then(res => {
-          // console.log(res.data)
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total
         })
@@ -204,5 +205,9 @@ export default {
     width: 50%;
     margin: auto;
 }
-
+.btn {
+    background: #333;
+    color: white;
+    width: 55px;
+}
 </style>

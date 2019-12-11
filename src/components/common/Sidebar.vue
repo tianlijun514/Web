@@ -454,46 +454,48 @@ export default {
         {
           icon: 'el-icon-lx-redpacket_fill',
           index: '11',
-          title: '财务',
+          title: '财务管理',
           subs: [
-            {
-              index: '11-1',
-              title: '财务管理',
-              subs: [
-                {
-                  index: 'finance',
-                  title: 'TraCode设置'
-                },
-                {
+              {
                   index: 'finance1',
                   title: '支付流水查询'
                 },
-                {
-                  index: 'finance2',
-                  title: '每月摊销汇总'
-                },
-                {
-                  index: 'finance3',
-                  title: '定金销售流水详单查询'
-                },
-                {
+                        {
                   index: 'finance4',
                   title: '支付流水备注修改'
                 },
-                {
-                  index: 'finance5',
-                  title: '电子发票管理'
-                },
-                {
-                  index: 'finance6',
-                  title: '预售设置'
-                },
-                {
-                  index: 'finance7',
-                  title: '预收款查询'
-                }
-              ]
-            }
+            // {
+            //   // index: '11-1',
+            //   // title: '财务管理',
+            //   subs: [
+            //     // {
+            //     //   index: 'finance',
+            //     //   title: 'TraCode设置'
+            //     // },
+              
+            //     // {
+            //     //   index: 'finance2',
+            //     //   title: '每月摊销汇总'
+            //     // },
+            //     // {
+            //     //   index: 'finance3',
+            //     //   title: '定金销售流水详单查询'
+            //     // },
+        
+            //     // {
+            //     //   index: 'finance5',
+            //     //   title: '电子发票管理'
+            //     // },
+            //     // {
+            //     //   index: 'finance6',
+            //     //   title: '预售设置'
+            //     // },
+            //     // {
+            //     //   index: 'finance7',
+            //     //   title: '预收款查询'
+            //     // }
+            //   ]
+            // }
           ]
         },
         // {
@@ -530,11 +532,7 @@ export default {
           index: '13',
           title: '审批',
           subs: [
-            {
-              index: '13-1',
-              title: '审批流',
-              subs: [
-                {
+ {
                   index: 'approval',
                   title: '我的申请'
                 },
@@ -566,8 +564,15 @@ export default {
                   index: 'approval7',
                   title: '流程审批环节的定义'
                 }
-              ]
-            }
+
+
+            // {
+            //   index: '13-1',
+            //   title: '审批流',
+            //   subs: [
+               
+            //   ]
+            // }
           ]
         },
         {

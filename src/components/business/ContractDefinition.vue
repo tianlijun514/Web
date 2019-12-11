@@ -2,20 +2,22 @@
 <template>
   <div class='app'>
     <el-form :inline="true" class="demo-form-inline">
-      <el-form-item label="分类编码">
-        <el-input v-model="typeCode"></el-input>
+      <el-form-item label="合同编号">
+        <el-input v-model="code"></el-input>
       </el-form-item>
 
-      <el-form-item label="商品类别">
-        <el-select v-model="nameme">
+      <el-form-item label="结算方式">
+        <el-select v-model="clearing">
+          <el-option label="全部" value></el-option>
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="送货方式">
-        <el-select v-model="song">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select v-model="ps">
+          <el-option label="全部" value></el-option>
+          <el-option v-for="item in song" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
@@ -28,18 +30,30 @@
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="typeCode" label="合同编号" width="150"></el-table-column>
-      <el-table-column prop="typeName" label="供应商" width="120"></el-table-column>
-      <el-table-column prop="subjectCode" label="结算方式"></el-table-column>
-      <el-table-column prop="subjectCode" label="合同开始日期"></el-table-column>
-      <el-table-column prop="subjectCode" label="合同结算日期"></el-table-column>
-      <el-table-column prop="status" label="状态"></el-table-column>
-      <el-table-column prop="remark" label="送货方式"></el-table-column>
+      <el-table-column fixed prop="code" label="合同编号" width="150"></el-table-column>
+      <el-table-column prop="name" label="供应商" width="120"></el-table-column>
+      <el-table-column prop="clearing" label="结算方式">
+        <template slot-scope="scope">
+          <span>{{scope.row.clearing==1?'经销':'代销'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="startDate" label="合同开始日期"></el-table-column>
+      <el-table-column prop="endDate" label="合同结算日期"></el-table-column>
+      <el-table-column prop="status" label="状态">
+        <template slot-scope="scope">
+          <span>{{scope.row.status==1?'有效':'无效'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="ps" label="送货方式">
+            <template slot-scope="scope">
+          <span>{{scope.row.ps==1?'配送':'直送'}}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row,scope.row)" type="text" size="small">修改</el-button>
-          <el-button @click="handledelete(scope.row,scope.$index)" type="text" size="small">删除</el-button>
+          <el-button @click="handleClick(scope.row,scope.row)" type="text" size="small" class="btn">修改</el-button>
+          <el-button @click="handledelete(scope.row,scope.$index)" type="text" size="small"  class="btn">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,16 +89,18 @@ export default {
       handleClose: '',
       dialogVisible: false,
       currentPage: 1,
-      typeCode: '',
-      nameme: '',
+      code: "",
+      clearing: '',
+      ps: '',
       size: 10,
       total: 0,
       ruleForm: {
-        typeCode: '',
-        typeName: '',
-        subjectCode: '',
-        isDepositCard: null,
-        remark: '',
+        code: '',
+        clearing: null,
+        supplierCode: '',
+        startDate: '',
+        endDate: '',
+        ps:null,
       },
       dialog: {
         show: false,
@@ -95,23 +111,17 @@ export default {
       tableData: [{
       }],
       options: [{
-        value: '01',
-        label: '全部'
-      }, {
-        value: '02',
+        value: '1',
         label: '经销'
       }, {
-        value: '03',
+        value: '2',
         label: '代销'
       }],
       song: [{
-        value: '001',
-        label: '全部'
-      }, {
-        value: '002',
+        value: '1',
         label: '配送'
       }, {
-        value: '003',
+        value: '2',
         label: '直送'
       }
       ]
@@ -140,14 +150,18 @@ export default {
     },
     // 查询
     chaxun () {
+      let a
+      let b
+      a = this.clearing ? parseInt(this.clearing) : ''
+      b = this.ps ? parseInt(this.ps) : ''
       axios
-        .post(base + '/commodity/getSpType', {
+        .post(base + '/commodity/getSpContract', {
           page: this.currentPage,
           size: this.size,
-          typeCode: this.typeCode,
-          name: this.nameme,
+          code: this.code,
+          clearing: a,
+          ps: b
         }).then(res => {
-          // console.log(res.data)
           this.tableData = res.data.queryResult.list;
           this.total = res.data.queryResult.total
         })
@@ -179,11 +193,16 @@ export default {
         option: 'add'
       };
       this.ruleForm = {
-        typeCode: '',
-        typeName: '',
-        subjectCode: '',
-        isDepositCard: null,
-        remark: '',
+        code: '',
+        clearing: '',
+        supplierCode: '',
+        startDate:'',
+        endDate:'',
+        ps:'',
+
+
+        // isDepositCard: null,
+        // remark: '',
         // id: '',
       }
       this.dialog.show = true
@@ -237,5 +256,9 @@ export default {
     width: 50%;
     margin: auto;
 }
-
+.btn {
+    background: #333;
+    color: white;
+    width: 55px;
+}
 </style>

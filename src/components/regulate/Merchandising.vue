@@ -12,14 +12,28 @@
         <el-table-column prop="name" label="商品名称"></el-table-column>
         <el-table-column prop="dai" label="单位"></el-table-column>
         <el-table-column prop="bei" label="标准单价"></el-table-column>
-        <el-table-column prop="bei" label="数量"></el-table-column>
-        <el-table-column prop="dai" label="折扣类别"></el-table-column>
-        <el-table-column prop="bei" label="折扣单价"></el-table-column>
-        <el-table-column prop="bei" label="小计金额"></el-table-column>
-        <el-table-column prop="bei" label="折扣备注"></el-table-column>
+        <el-table-column prop="bei" label="数量">
+          <input type="text" class="int">
+        </el-table-column>
+        <el-table-column label="折扣类别" width="125px">
+          <template>
+            <el-select v-model="type" style="width: 95px;">
+              <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column prop="bei" label="折扣单价">
+          <input type="text"  class="int">
+        </el-table-column>
+        <el-table-column prop="bei" label="小计金额">
+          <input type="text"  class="int inpuy">
+        </el-table-column>
+        <el-table-column prop="bei" label="折扣备注"  width="100">
+          <input type="text" class="zhe">
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="80">
           <template>
-            <el-button type="text" size="small">修改</el-button>
+            <el-button type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -85,11 +99,31 @@ export default {
       numberValidateForm: {
         bian: ''
       },
+      type: '',
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
         dai: '00001',
         bei: 'xiixii'
+      }],
+      type_list: [{
+        value: '01',
+        label: '默认售价'
+      }, {
+        value: '02',
+        label: '员工价'
+      }, {
+        value: '03',
+        label: '会员价'
+      }, {
+        value: '04',
+        label: '备用价1'
+      }, {
+        value: '05',
+        label: '备用价2'
+      }, {
+        value: '06',
+        label: '备用价3'
       }],
     }
   },
@@ -184,7 +218,13 @@ export default {
     float: right;
     margin-top: 50px;
 }
-.inpuy{
-    border: 2px solid #ffff00
+.inpuy {
+    border: 2px solid #ffff00;
+}
+.int{
+  width: 55px
+}
+.zhe{
+    width: 75px
 }
 </style>

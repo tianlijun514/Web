@@ -18,7 +18,7 @@ export default new Router({
           path: '/dashboard',
           component: () => import('../components/page/Dashboard.vue'),
           meta: {
-            title: '系统首页'
+            title: '会员管理'
           }
         },
         {
@@ -611,13 +611,13 @@ export default new Router({
         },
 
         // 财务管理组件
-        {
-          path: '/finance',
-          component: () => import('../components/finance/TraCodeSetting.vue'),
-          meta: {
-            title: 'TraCode设置'
-          }
-        },
+        // {
+        //   path: '/finance',
+        //   component: () => import('../components/finance/TraCodeSetting.vue'),
+        //   meta: {
+        //     title: 'TraCode设置'
+        //   }
+        // },
         {
           path: '/finance1',
           component: () => import('../components/finance/PaymentFlowQuery.vue'),
@@ -625,20 +625,20 @@ export default new Router({
             title: '支付流水查询'
           }
         },
-        {
-          path: '/finance2',
-          component: () => import('../components/finance/MonthlyAmortizationSummary.vue'),
-          meta: {
-            title: '每月摊销汇总'
-          }
-        },
-        {
-          path: '/finance3',
-          component: () => import('../components/finance/DepositSalesFlow.vue'),
-          meta: {
-            title: '定金销售流水详单查询'
-          }
-        },
+        // {
+        //   path: '/finance2',
+        //   component: () => import('../components/finance/MonthlyAmortizationSummary.vue'),
+        //   meta: {
+        //     title: '每月摊销汇总'
+        //   }
+        // },
+        // {
+        //   path: '/finance3',
+        //   component: () => import('../components/finance/DepositSalesFlow.vue'),
+        //   meta: {
+        //     title: '定金销售流水详单查询'
+        //   }
+        // },
         {
           path: '/finance4',
           component: () => import('../components/finance/PaymentFlowNote.vue'),
@@ -646,27 +646,27 @@ export default new Router({
             title: '支付流水备注修改'
           }
         },
-        {
-          path: '/finance5',
-          component: () => import('../components/finance/ElectronicInvoiceManagement.vue'),
-          meta: {
-            title: '电子发票管理'
-          }
-        },
-        {
-          path: '/finance6',
-          component: () => import('../components/finance/PresaleSetting.vue'),
-          meta: {
-            title: '预售设置'
-          }
-        },
-        {
-          path: '/finance7',
-          component: () => import('../components/finance/AdvanceReceiptInquiry.vue'),
-          meta: {
-            title: '预收款查询'
-          }
-        },
+        // {
+        //   path: '/finance5',
+        //   component: () => import('../components/finance/ElectronicInvoiceManagement.vue'),
+        //   meta: {
+        //     title: '电子发票管理'
+        //   }
+        // },
+        // {
+        //   path: '/finance6',
+        //   component: () => import('../components/finance/PresaleSetting.vue'),
+        //   meta: {
+        //     title: '预售设置'
+        //   }
+        // },
+        // {
+        //   path: '/finance7',
+        //   component: () => import('../components/finance/AdvanceReceiptInquiry.vue'),
+        //   meta: {
+        //     title: '预收款查询'
+        //   }
+        // },
 
         // 客损管理组件
         // {

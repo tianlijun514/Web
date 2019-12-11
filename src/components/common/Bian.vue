@@ -2,40 +2,37 @@
 <template>
   <div class='app'>
     <el-dialog :title="dialog.title" :visible.sync="dialog.show" :close-on-click-modal='false' :close-on-press-escape='false' :modal-append-to-body="false" width="30%">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="合同编号" prop="typeCode">
-          <el-input v-model="ruleForm.typeCode" style="width: 185px;"></el-input>
+      <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="合同编号">
+          <el-input v-model="ruleForm.code" style="width: 185px;"></el-input>
         </el-form-item>
 
         <el-form-item label="结算方式">
-          <el-select v-model="type" style="width: 185px;">
+          <el-select v-model="ruleForm.clearing" style="width: 185px;">
             <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="供应商编号">
-          <el-select v-model="type" style="width: 185px;">
+          <el-select v-model="ruleForm.supplierCode" style="width: 185px;">
             <el-option v-for='item in gongying' :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
 
-
-         
-          <el-form-item label="开始日期">
-           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
+        <el-form-item label="开始日期">
+          <el-date-picker v-model="ruleForm.startDate" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
           </el-date-picker>
-          </el-form-item>
+        </el-form-item>
 
-             <el-form-item label="结束日期">
-           <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
+        <el-form-item label="结束日期">
+          <el-date-picker v-model="ruleForm.endDate" type="date" placeholder="选择日期" style="width:187px;" prop="shangdata">
           </el-date-picker>
-          </el-form-item>
+        </el-form-item>
 
-
-       
-
-        <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" v-model="ruleForm.remark" style="width: 185px;"></el-input>
+        <el-form-item label="配送方式">
+          <el-select v-model="ruleForm.ps" style="width: 185px;">
+            <el-option v-for='item in pei' :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">立即添加·</el-button>
@@ -66,43 +63,34 @@ export default {
   data () {
     // 这里存放数据
     return {
-      type: null,
       type_list: [{
-          value: '02',
-          label: '经销'
-        }, {
-          value: '03',
-          label: '代销'
-        }
-      ],
-
-      gongying: [{
-          value: '21321',
-          label: '21321 - 3213'
-        }, {
-          value: 'C00001',
-          label: 'C00001 - 测试商品'
-        },
-        {
-          value: 'G0001',
-          label: 'G0001 - 荷花池批发市场'
-        }
-
-
-      ],
-      value1: '',
-      tableData: [{}],
-      rules: {
-        typeCode: [
-          { required: true, message: '类型编号不能为空', trigger: 'blur' }
-        ],
-        typeName: [
-          { required: true, message: '类型名称不能为空', trigger: 'blur' }
-        ],
-        subjectCode: [
-          { required: true, message: '请选择财务分类', trigger: 'change' }
-        ]
+        value: '1',
+        label: '经销'
+      }, {
+        value: '2',
+        label: '代销'
       }
+      ],
+      pei: [{
+        value: '1',
+        label: '配送'
+      }, {
+        value: '2',
+        label: '直送'
+      }
+      ],
+      gongying: [{
+        value: '21321',
+        label: '21321 - 3213'
+      }, {
+        value: 'C00001',
+        label: 'C00001 - 测试商品'
+      },
+      {
+        value: 'G0001',
+        label: 'G0001 - 荷花池批发市场'
+      }],
+      value1: '',
     }
   },
   // 监听属性 类似于data概念
@@ -115,24 +103,21 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-    leibox (e) {
-      this.staat = e
-    },
+    // leibox (e) {
+    //   this.staat = e
+    // },
 
+// 添加
     submitForm (ruleForm) {
       this.$refs[ruleForm].validate(valid => {
-        // let url;
-        // if(this.dialog.option=='add'){
-        //       url = 'addSpType'
-        // }else{
-        //   url = 'updateSpType/'+this.ruleForm.id
-        // }
-        const url = this.dialog.option == 'add' ? `addSpType` : `updateSpType/`
+        const url = this.dialog.option == 'add' ? `addSpContract` : `updateSpContract/`
         if (valid) {
           console.log(this.ruleForm)
-          // this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
+          this.ruleForm.clearing=parseInt(this.ruleForm.clearing)
+          this.ruleForm.ps=parseInt(this.ruleForm.ps)
           axios.post(base + `/commodity/${url}`, this.ruleForm)
             .then(res => {
+              console.log(res.data)
               if (res.data.code == 10000) {
                 this.$message({
                   message: '操作成功',
@@ -152,11 +137,11 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    axios
-      .post(base + '/commodity/getAllSpType').then((res) => {
-        console.log(res.data)
-        this.type_list = res.data
-      })
+    // axios
+    //   .post(base + '/commodity/getAllSpType').then((res) => {
+    //     console.log(res.data)
+    //     this.type_list = res.data
+    //   })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
