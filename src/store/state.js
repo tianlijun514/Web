@@ -7,6 +7,7 @@ const state = {
     privateCourseType:[],//私教课程类型
     classRoom:{},//团操教室
     classRoomType:[],//团操教室类型
+    courseClass:[],//私教及团操课程
 
 }
 export default state;

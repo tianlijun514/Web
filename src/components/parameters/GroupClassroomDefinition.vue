@@ -125,14 +125,14 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                e.state2 = 2;
+                e.state2 = 3;
                 this.updateClassRoom(e).then(res => {
                     if (res == 'yes') {
                         this.$message({
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getCoach(this.num);
+                        this.getClassRoom(this.num);
                     }
                 });
             });

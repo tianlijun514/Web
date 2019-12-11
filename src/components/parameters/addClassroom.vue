@@ -13,7 +13,7 @@
                                 :key="index+'a'"
                             ></el-option>
                         </el-select>
-                        <div v-show="!isAdd">{{form.store}}</div>
+                        <div v-show="!isAdd">{{form.store.name}}</div>
                     </el-form-item>
                     <el-form-item label="教室编号">
                         <el-input type="text" v-model="form.number" class="input_box" v-show="isAdd" />
@@ -110,8 +110,26 @@ export default {
                 })
             }else{
                 this.form.id=this.$route.query.data.id
+                for(let i=0;i<this.classRoomType.length;i++){
+                    if(this.classRoomType[i].label==this.form.type){
+                        this.form.type=this.classRoomType[i].value
+                    }
+                }
                 this.updateClassRoom(this.form).then(res=>{
-                    console.log(res)
+                    if (res == 'yes') {
+                                this.$message({
+                                    message: '更新教室成功',
+                                    type: 'success'
+                                });
+                                this.$router.push('/parameters7')
+                                this.form.number = '';
+                                this.form.name = '';
+                                this.form.store = '';
+                                this.form.type = '';
+                                this.form.state = '正常';
+                                this.form.maxMan = '';
+                                this.form.remarks = '';
+                            }
                 })
             }
         }
@@ -130,7 +148,6 @@ export default {
         console.log(this.$route.query.data)
         if(this.$route.query.data){
             this.form=this.$route.query.data
-            this.form.store=this.$route.query.data.storeNumber+'-'+this.$route.query.data.store.name
             this.form.states=this.$route.query.data.states==1?'正常':'停用'
             this.isAdd=false
         }

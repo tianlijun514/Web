@@ -742,7 +742,8 @@ export default new Router({
         },
         {
           path: '/newApplication',
-          component: () => import('../components/approval/newApplication.vue'),
+          component: () => import('../components/approval/NewApplication.vue'),
+
           meta: {
             title: '新申请'
           }
@@ -1462,6 +1463,13 @@ export default new Router({
           component: () => import('../components/operation/addStore.vue'),
           meta: {
             title: '新增门店级别'
+          }
+        },
+        {
+          path: '/operation15',
+          component: () => import('../components/operation/permissions.vue'),
+          meta: {
+            title: '权限设置'
           }
         },
 
