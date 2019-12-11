@@ -329,19 +329,27 @@ const actions = {
             })
             return data.data.queryResult
     },
+    //查询团课教室
+    async getAllClassRoom({ commit, state }, value) {
+        let data= await axios
+            .post(base + '/classroom/queryAllClassRoom', {
+
+            })
+            return data.data.queryResult
+    },
     //添加每天团操课表
     async addCourseClass({ commit, state }, value) {
         let data= await axios
             .post(base + '/courseClass/addCourseClass', {
                 dateType:'single',
-                classDate:value.date+value.date2,
+                classDate:value.date,
                 courseNumber:value.course,
                 coachNumber:value.coach,
-                classroomNumber:'',
-                peoples:0,
+                classroomNumber:value.classRoom,
+                peoples:value.number,
                 remarks:value.remarks
             })
-            return data.data.queryResult
+            console.log(data)
     },
 
 }

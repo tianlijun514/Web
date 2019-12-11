@@ -284,9 +284,9 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="教室">
-                    <el-select v-model="isShow8Form.coach" class="sex">
+                    <el-select v-model="isShow8Form.classRoom" class="sex">
                         <el-option
-                            v-for="(item,index) in coach"
+                            v-for="(item,index) in classRoom"
                             :label="item.label"
                             :value="item.value"
                             :key="index+'a'"
@@ -374,6 +374,7 @@ export default {
             },
             coach: [],
             course: [],
+            classRoom:[],
             rules: {
                 name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }]
             },
@@ -420,18 +421,32 @@ export default {
                         this.coach.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
+                this.getAllClassRoom().then(res=>{
+                    for (let i in res.list) {
+                        this.classRoom.push({ label: res.list[i].name, value: res.list[i].number });
+                    }
+                })
             }
         }
     },
     // 方法集合
     methods: {
-        ...mapActions(['getCourseBySelect', 'getqueryCoachBySelect','addCourseClass']),
+        ...mapActions(['getCourseBySelect', 'getqueryCoachBySelect','getAllClassRoom','addCourseClass']),
         handleClose(done) {
             done();
         },
         isShow8Yes(){
-            console.log(this.isShow8Form)
-
+            if(typeof this.isShow8Form.number=='string'){
+                this.isShow8Form.number=parseInt(this.isShow8Form.number)
+            }
+            let date = new Date(this.isShow8Form.date)
+            this.isShow8Form.date=date.getFullYear()+ '-' + (date.getMonth() + 1)+ '-' + date.getDate()+' '+this.isShow8Form.date2+':00'
+            
+            this.addCourseClass(this.isShow8Form).then(res=>{
+                if(res=='yes'){
+                    
+                }
+            })
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
