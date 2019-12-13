@@ -48,6 +48,20 @@
                         <el-form-item label="备注">
                             <el-input type="textarea" v-model="form.desc"></el-input>
                         </el-form-item>
+                        <el-upload
+                            class="avatar-uploader"
+                            action="http://192.168.2.118:8083/uploadImg"
+                            :data="{'type':'course'}"
+                            name="img"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="beforeAvatarUpload"
+                        >
+                            <el-button size="small" type="primary">上传图片</el-button>
+                        </el-upload>
+                        <el-form-item>
+                            <img :src="courseImg" alt="" class="courseImg">
+                        </el-form-item>
                     </el-form>
                 </div>
                 <div class="aptable">
@@ -153,7 +167,8 @@ export default {
                 date2: '',
                 type: '',
                 storeId: [],
-                table: []
+                table: [],
+                img:''
             },
             logForm: {
                 coachLevel: '',
@@ -172,7 +187,8 @@ export default {
             dialogFormVisible: false,
             coachStore2: [],
             id: 0,
-            level123:[],
+            level123: [],
+            courseImg:'',
         };
     },
     // 监听属性 类似于data概念
@@ -188,7 +204,7 @@ export default {
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addPrivateCourse', 'getStore','updateCourse']),
+        ...mapActions(['getCoachInformation', 'addPrivateCourse', 'getStore', 'updateCourse']),
         onSubmit(form) {
             this.$refs[form].validate(valid => {
                 if (!valid) {
@@ -199,18 +215,16 @@ export default {
                     }
                     if (this.$route.query.data) {
                         this.form.id2 = this.$route.query.data.id;
-                        console.log(typeof this.form.date2)
-                        if(typeof this.form.date1 == 'object'){
-                            var now = new Date(this.form.date1)
-                            this.form.date1 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+                        if (typeof this.form.date1 == 'object') {
+                            var now = new Date(this.form.date1);
+                            this.form.date1 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
                         }
-                        if(typeof this.form.date2 == 'object'){
-                            var now = new Date(this.form.date2)
-                            this.form.date2 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+                        if (typeof this.form.date2 == 'object') {
+                            var now = new Date(this.form.date2);
+                            this.form.date2 = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
                         }
                         if (typeof this.form.type == 'string') {
                             for (let i = 0; i < this.type.length; i++) {
-                                console.log(this.type[i].label == this.form.courseType)
                                 if (this.type[i].label == this.form.type) {
                                     this.form.type = this.type[i].value;
                                 }
@@ -236,6 +250,8 @@ export default {
                             }
                         });
                     } else {
+                        const param = new FormData();
+
                         this.addPrivateCourse(this.form).then(res => {
                             if (res == 'yes') {
                                 this.$message({
@@ -262,6 +278,25 @@ export default {
                 }
             });
         },
+        handleAvatarSuccess(res, file) {
+            console.log(res, file);
+            if(res.d[0]){
+                this.form.img=res.d[0]
+                this.courseImg='http://192.168.2.118:8083/getImage?path='+res.d[0]
+            }
+        },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
         showTime() {
             this.logForm.coachLevel = '';
             this.logForm.minData = '';
@@ -273,7 +308,6 @@ export default {
             this.getCoachInformation('J0001');
         },
         deleteData(e) {
-            console.log(e.id);
             for (let i = 0; i < this.form.table.length; i++) {
                 if (this.form.table[i].id == e.id) {
                     console.log(i);
@@ -321,25 +355,24 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('J0001').then(res=>{
-            console.log(res)
-            this.level123=res
-            setTimeout(()=>{
-                if (this.$route.query.data){
+        this.getCoachInformation('J0001').then(res => {
+            console.log(res);
+            this.level123 = res;
+            setTimeout(() => {
+                if (this.$route.query.data) {
                     this.form.table = this.$route.query.data.coursePrices;
                     for (let i = 0; i < this.form.table.length; i++) {
-                        for(let k=0;k<this.level123.length;k++){
-                            if(this.form.table[i].coachLevel==this.level123[k].value){
-                                this.form.table[i].data=this.level123[k].label
+                        for (let k = 0; k < this.level123.length; k++) {
+                            if (this.form.table[i].coachLevel == this.level123[k].value) {
+                                this.form.table[i].data = this.level123[k].label;
                             }
                         }
                         this.id = i;
                         this.form.table[i].id = this.id;
                     }
                 }
-                
-            },100)
-        })
+            }, 100);
+        });
         this.getCoachInformation('K0001');
         this.getStore().then(res => {
             this.coachStore2 = res;
@@ -356,8 +389,8 @@ export default {
                 }, 100);
             }
         });
-        console.log(this.$route.query.data);
         if (this.$route.query.data) {
+            console.log(this.$route.query.data)
             this.form.id = this.$route.query.data.number;
             this.form.name = this.$route.query.data.name;
             this.form.type = this.$route.query.data.courseType;
@@ -366,7 +399,6 @@ export default {
             this.form.type2 = this.$route.query.data.monster == 1 ? true : false;
             this.form.state = this.$route.query.data.states == 1 ? '正常' : '停用';
             this.form.desc = this.$route.query.data.remarks;
-            
         }
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
@@ -472,5 +504,13 @@ export default {
     align-items: center;
     width: 75%;
     height: 50px;
+}
+/deep/.el-upload--text{
+    height: auto;
+    border: none;
+}
+.courseImg{
+    width: 100px;
+    height: 100px;
 }
 </style>

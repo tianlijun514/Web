@@ -36,8 +36,8 @@
                 <el-button type="primary" @click="xinzheng">新增</el-button>
             </el-form-item>
         </el-form>
-        <span class="searchRst">查询结果：共{{coach.total}}条记录/显示{{num.size}}页</span>
-        <el-table :data="coach.list" border style="width: 100%;text-align:center">
+        <span class="searchRst">查询结果：共{{coach.t}}条记录/显示{{num.page}}页</span>
+        <el-table :data="coach.d" border style="width: 100%;text-align:center">
             <el-table-column prop="number" label="编号"></el-table-column>
             <el-table-column prop="name" label="名称"></el-table-column>
             <el-table-column prop="leavel" label="等级"></el-table-column>
@@ -58,7 +58,7 @@
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="num.size"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="coach.total"
+                :total="coach.t"
             ></el-pagination>
         </div>
     </div>
@@ -107,7 +107,7 @@ export default {
             this.getCoach(this.num);
         },
         jump(e) {
-            this.$router.push({ path: '/parameters17', query: { data: e } });
+            this.$router.push({ path: '/parameters26', query: { data: e } });
         },
         dalete(e) {
             this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
