@@ -31,7 +31,7 @@
     <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column fixed prop="code" label="合同编号" width="150"></el-table-column>
-      <el-table-column prop="name" label="供应商" width="120"></el-table-column>
+      <el-table-column prop="supplier.name" label="供应商" width="120"></el-table-column>
       <el-table-column prop="clearing" label="结算方式">
         <template slot-scope="scope">
           <span>{{scope.row.clearing==1?'经销':'代销'}}</span>
@@ -62,7 +62,6 @@
       </el-pagination>
     </div>
     <Bian :dialog='dialog' :ruleForm='ruleForm' @update='chaxun'></Bian>
-    <!-- <DialogFound :dialog='dialog' @></DialogFound> -->
   </div>
 
 </template>
@@ -108,8 +107,7 @@ export default {
         option: "edit"
       },
       value1: '',
-      tableData: [{
-      }],
+      tableData: [{}],
       options: [{
         value: '1',
         label: '经销'
@@ -133,9 +131,6 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
       this.size = val;
@@ -162,8 +157,8 @@ export default {
           clearing: a,
           ps: b
         }).then(res => {
-          this.tableData = res.data.queryResult.list;
-          this.total = res.data.queryResult.total
+          this.tableData = res.data.d;
+          this.total = res.data.t
         })
     },
     // 修改
@@ -176,12 +171,7 @@ export default {
         option: 'edit'
       };
       this.ruleForm = {
-        typeCode: row.typeCode,
-        typeName: row.typeName,
-        subjectCode: row.subjectCode,
-        isDepositCard: row.isDepositCard,
-        remark: row.remark,
-        // id: row._id,
+        code: row.code,
       }
 
     },
@@ -199,24 +189,18 @@ export default {
         startDate:'',
         endDate:'',
         ps:'',
-
-
-        // isDepositCard: null,
-        // remark: '',
-        // id: '',
       }
       this.dialog.show = true
     },
     // 删除
-    handledelete (row, typeCode) {
+    handledelete (row, code) {
       this.$confirm('确定要删除此记录吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        axios.delete(base + `/commodity/deleteSpType/${row.typeCode}`).then(res => {
-          console.log(res.data)
-          if (res.data.code == 10000) {
+        axios.delete(base + `/commodity/deleteSpContract/${row.code}`).then(res => {
+          if (res.data.c== 10000) {
             this.$message({
               message: '操作成功',
               type: 'success'

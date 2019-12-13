@@ -30,7 +30,7 @@
         <el-table-column prop="sparePrice1" label="备用价1" width="100"></el-table-column>
         <el-table-column prop="sparePrice2" label="备用价2" width="100"></el-table-column>
         <el-table-column prop="sparePrice3" label="备用价3" width="120"></el-table-column>
-        <!-- <el-table-column prop="ku" label="库存" width="120" v-show="kucun"></el-table-column> -->
+        <el-table-column prop="ku" label="库存" width="120" ></el-table-column>
       </el-table>
       <div class="block">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">

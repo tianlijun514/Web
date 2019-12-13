@@ -29,6 +29,13 @@ export default new Router({
           }
         },
         {
+          path: '/MonthlyAmortizationSummary',
+          component: () => import('../components/common/MonthlyAmortizationSummary'),
+          meta: {
+            title: '修改密码'
+          }
+        },
+        {
           path: '/drag',
           component: () => import('../components/page/MemberCompreInquiry.vue'),
           meta: {
@@ -398,7 +405,7 @@ export default new Router({
           path: '/chat2',
           component: () => import('../components/chat/TeachingAppointments.vue'),
           meta: {
-            title: '教预约核销流水查询'
+            title: '私教预约核销流水查询'
           }
         },
         {

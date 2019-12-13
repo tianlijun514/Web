@@ -100,7 +100,7 @@ export default {
           this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
           axios.post(base + `/commodity/${url}`, this.ruleForm)
             .then(res => {
-              if (res.data.code == 10000) {
+              if (res.data.c == 10000) {
                 this.$message({
                   message: '操作成功',
                   type: 'success'
@@ -121,7 +121,7 @@ export default {
   created () {
     axios
       .post(base + '/commodity/getAllSpType').then((res) => {
-        this.type_list = res.data
+        this.type_list = res.data.d
       })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）

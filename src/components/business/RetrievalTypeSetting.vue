@@ -151,9 +151,9 @@ export default {
       } else {
         this.title = '编辑'
         this.option = 'updateReceiveType'
-        this.numberValidateForm.typeCode = b.typeCode,
-        this.numberValidateForm.name = b.name,
-        this.numberValidateForm.remark = b.remark
+        this.numberValidateForm.typeCode = b.typeCode
+        // this.numberValidateForm.name = b.name,
+        // this.numberValidateForm.remark = b.remark
       }
     },
 
@@ -166,16 +166,14 @@ export default {
           name: this.namebox,
           typeCode: this.typeCode
         }).then(res => {
-          this.tableData = res.data.queryResult.list
-          this.total = res.data.queryResult.total
+          this.tableData = res.data.d
+          this.total = res.data.t
         })
 
     },
     // 添加
     submitForm (numberValidateForm) {
-      // console.log(111)
       this.$refs[numberValidateForm].validate((valid) => {
-        // console.log(valid)
         if (valid) {
           axios.post(base + `/commodity/` + this.option, {
             remark: this.numberValidateForm.remark,
@@ -183,7 +181,7 @@ export default {
             typeCode: this.numberValidateForm.typeCode
           })
             .then(res => {
-              if (res.data.code == 10000) {
+              if (res.data.c== 10000) {
                 this.$message({
                   message: '操作成功',
                   type: 'success'

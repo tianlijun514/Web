@@ -14,7 +14,6 @@
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
 
-      <!-- <el-button type="text" @click="dialogVisible = true" class="btn">新增</el-button> -->
       <el-button type="primary" size="small" icon="view" @click='onAddMoney()'>添加</el-button>
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
@@ -24,7 +23,9 @@
       <el-table-column prop="subjectCode" label="科目代码"></el-table-column>
       <el-table-column prop="remark" label="备 注"></el-table-column>
       <el-table-column prop="status" label="状态">
-
+        <template slot-scope="scope">
+          <span>{{scope.row.status==1?'入库完了':'未入库'}}</span>
+        </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
@@ -38,7 +39,6 @@
       </el-pagination>
     </div>
     <DialogFound :dialog='dialog' :ruleForm='ruleForm' @update='chaxun'></DialogFound>
-    <!-- <DialogFound :dialog='dialog' @></DialogFound> -->
   </div>
 
 </template>
@@ -82,8 +82,7 @@ export default {
         option: "edit"
       },
       value1: '',
-      tableData: [{
-      }],
+      tableData: [{}],
     }
   },
   // 监听属性 类似于data概念
@@ -92,9 +91,6 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
-    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
       this.size = val;
@@ -116,14 +112,14 @@ export default {
           typeCode: this.typeCode,
           name: this.nameme,
         }).then(res => {
-          this.tableData = res.data.queryResult.list;
-          this.total = res.data.queryResult.total
+          this.tableData = res.data.d;
+          this.total = res.data.t
         })
     },
     // 修改
     handleClick (index, row) {
-      console.log(row)
-      console.log(this.dialog)
+      // console.log(row)
+      // console.log(this.dialog)
       this.dialog = {
         show: true,
         title: '修改',
@@ -131,10 +127,10 @@ export default {
       };
       this.ruleForm = {
         typeCode: row.typeCode,
-        typeName: row.typeName,
-        subjectCode: row.subjectCode,
-        isDepositCard: row.isDepositCard,
-        remark: row.remark,
+        // typeName: row.typeName,
+        // subjectCode: row.subjectCode,
+        // isDepositCard: row.isDepositCard,
+        // remark: row.remark,
         // id: row._id,
       }
 
@@ -152,7 +148,6 @@ export default {
         subjectCode: '',
         isDepositCard: null,
         remark: '',
-        // id: '',
       }
       this.dialog.show = true
     },
@@ -164,8 +159,7 @@ export default {
         type: 'warning'
       }).then(() => {
         axios.delete(base + `/commodity/deleteSpType/${row.typeCode}`).then(res => {
-          console.log(res.data)
-          if (res.data.code == 10000) {
+          if (res.data.c == 10000) {
             this.$message({
               message: '操作成功',
               type: 'success'

@@ -39,8 +39,9 @@
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
         </el-table-column>
       </template>
-      <el-table-column scope label="操作">
-        <!-- <el-button size="mini" type="primary">打印</el-button> -->
+      <el-table-column scope label="操作" width="150px">
+        <el-button size="mini" type="primary">修改</el-button>
+        <el-button size="mini" type="primary">删除</el-button>
       </el-table-column>
     </el-table>
     <div class="uys">
@@ -95,7 +96,7 @@ export default {
         { title: '销售员', data: 'shellUser' },
       ],
       tableData: [{
-        
+
       }],
 
     }
@@ -137,11 +138,11 @@ export default {
     // 导出
     herleiten () {
       axios
-        .get(url + '/visit/excel',{responseType: 'arraybuffer'})
+        .get(url + '/visit/excel', { responseType: 'arraybuffer' })
         .then(res => {
-          let blob = new Blob ([res.data],{type:"application/vnd.ms-excel"});
+          let blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
           let objectUrl = URL.createObjectURL(blob);
-          window.location.href=objectUrl;
+          window.location.href = objectUrl;
           console.log(res);
         })
     },
@@ -188,7 +189,6 @@ export default {
 }
 </script>
 <style scoped>
-
 @import './../../assets/css/table.css';
 .uys {
     width: 50%;

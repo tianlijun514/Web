@@ -377,7 +377,6 @@ export default {
       this.chaxun();
     },
     leixing () {
-      // console.log(this.numberValidateForm.typeCode)
      this.numberValidateForm.typeCode
     },
     test_click2: function (e, b) {
@@ -388,27 +387,19 @@ export default {
       } else {
         this.title = '修改商品类型'
         this.option = 'updateSpInfo'
-        this.numberValidateForm.typeCode = b.typeCode,
-          this.numberValidateForm.spCode = b.spCode,
-          this.numberValidateForm.spName = b.spName
+        this.numberValidateForm.typeCode = b.typeCode
+        this.numberValidateForm.spCode = b.spCode,
+        this.numberValidateForm.spName = b.spName
         this.numberValidateForm.unit = b.unit,
-          this.numberValidateForm.mnemonic = b.mnemonic,
-          this.numberValidateForm.price = b.price
-        this.numberValidateForm.empPrice = b.empPrice,
-          this.numberValidateForm.vipPrice = b.vipPrice,
-          this.numberValidateForm.sparePrice1 = b.sparePrice1,
-          this.numberValidateForm.sparePrice2 = b.sparePrice2
-        this.numberValidateForm.sparePrice3 = b.sparePrice3,
-          this.numberValidateForm.cgPrice = b.cgPrice,
-          this.numberValidateForm.cgContractNum = b.cgContractNum
+        this.numberValidateForm.mnemonic = b.mnemonic,
+        this.numberValidateForm.price = b.price
+        this.numberValidateForm.cgPrice = b.cgPrice,
+        this.numberValidateForm.cgContractNum = b.cgContractNum
         this.numberValidateForm.type = b.type,
-          this.numberValidateForm.putawayDate = b.putawayDate
+        this.numberValidateForm.putawayDate = b.putawayDate
         this.numberValidateForm.soldoutDate = b.soldoutDate,
-          this.numberValidateForm.remark = b.remark
+        this.numberValidateForm.remark = b.remark
       }
-      // console.log(this.option)
-      // console.log(e);   // 输出结果：123
-
     },
 
     // 计量单位新增
@@ -427,21 +418,19 @@ export default {
           mnemonic: this.mnemonic,
           typeCode:this.typeCode
         }).then(res => {
-          this.tableData = res.data.queryResult.list
-          this.total = res.data.queryResult.total
+          this.tableData = res.data.d
+          this.total = res.data.t
         })
 
     },
     // 添加
     submitForm (numberValidateForm) {
-      console.log(111)
       this.$refs[numberValidateForm].validate((valid) => {
-        console.log(valid)
         if (valid) {
           this.numberValidateForm.type = parseInt(this.numberValidateForm.type)
           axios.post(base + `/commodity/` + this.option, this.numberValidateForm)
             .then(res => {
-              if (res.data.code == 10000) {
+              if (res.data.c == 10000) {
                 this.$message({
                   message: '操作成功',
                   type: 'success'
@@ -464,7 +453,6 @@ export default {
           let blob = new Blob ([res.data],{type:"application/vnd.ms-excel"});
           let objectUrl = URL.createObjectURL(blob);
           window.location.href=objectUrl;
-          console.log(res);
         })
     },
 

@@ -31,7 +31,7 @@
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="date" label="序号" width="50"></el-table-column>
+      <el-table-column prop="date" label="序号" width="50"></el-table-column>
       <el-table-column prop="name" label="门店名称" width="120"></el-table-column>
       <el-table-column prop="province" label="合同号" width="120"> </el-table-column>
       <el-table-column prop="city" label="合同类型" width="120"></el-table-column>
@@ -39,11 +39,11 @@
       <el-table-column prop="zip" label="会员姓名" width="120"> </el-table-column>
       <el-table-column prop="dy" label="日期" width="120"></el-table-column>
       <el-table-column prop="prov" label="状态" width="120"> </el-table-column>
-      <el-table-column prop="ci" label="销售员" width="120"></el-table-column>
-      <el-table-column prop="ty" label="销售员2" width="120"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150"><template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看合同</el-button>
-          <el-button type="text" size="small">上传签名</el-button>
+      <el-table-column prop="ci" label="销售员" width="100"></el-table-column>
+      <el-table-column prop="ty" label="销售员2" width="100"></el-table-column>
+      <el-table-column label="操作" width="200"><template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="primary" size="small">查看合同</el-button>
+          <el-button type="primary" size="small">上传签名</el-button>
         </template>
       </el-table-column>
     </el-table>

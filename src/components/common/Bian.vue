@@ -14,8 +14,8 @@
         </el-form-item>
 
         <el-form-item label="供应商编号">
-          <el-select v-model="ruleForm.supplierCode" style="width: 185px;">
-            <el-option v-for='item in gongying' :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="ruleForm.supplierCode" style="width: 185px;" @change="gongshang()">
+            <el-option v-for='item in gongying' :key="item.value" :label="item.name" :value="item.code"></el-option>
           </el-select>
         </el-form-item>
 
@@ -79,18 +79,7 @@ export default {
         label: '直送'
       }
       ],
-      gongying: [{
-        value: '21321',
-        label: '21321 - 3213'
-      }, {
-        value: 'C00001',
-        label: 'C00001 - 测试商品'
-      },
-      {
-        value: 'G0001',
-        label: 'G0001 - 荷花池批发市场'
-      }],
-      value1: '',
+      gongying: [],
     }
   },
   // 监听属性 类似于data概念
@@ -103,21 +92,19 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-    // leibox (e) {
-    //   this.staat = e
-    // },
+    gongshang (e) {
+    this.staat = e
+    },
 
 // 添加
     submitForm (ruleForm) {
       this.$refs[ruleForm].validate(valid => {
         const url = this.dialog.option == 'add' ? `addSpContract` : `updateSpContract/`
         if (valid) {
-          console.log(this.ruleForm)
           this.ruleForm.clearing=parseInt(this.ruleForm.clearing)
           this.ruleForm.ps=parseInt(this.ruleForm.ps)
           axios.post(base + `/commodity/${url}`, this.ruleForm)
             .then(res => {
-              console.log(res.data)
               if (res.data.code == 10000) {
                 this.$message({
                   message: '操作成功',
@@ -137,11 +124,11 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    // axios
-    //   .post(base + '/commodity/getAllSpType').then((res) => {
-    //     console.log(res.data)
-    //     this.type_list = res.data
-    //   })
+    axios
+      .post(base + '/commodity/getAllSupplier').then((res) => {
+        this.gongying = res.data
+      })
+    // this.gongshang () 
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

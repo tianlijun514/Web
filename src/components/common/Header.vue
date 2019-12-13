@@ -38,8 +38,11 @@
             <i class="el-icon-caret-bottom"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <a href="#" target="_blank">
-              <el-dropdown-item>修改密码</el-dropdown-item>
+                <router-link to="/MonthlyAmortizationSummary">
+     <el-dropdown-item>修改密码</el-dropdown-item>
+            </router-link>
+            <a href="../common/Auswahl.vue" target="_blank">
+             
             </a>
             <a href="#" target="_blank">
               <el-dropdown-item>帮助中心</el-dropdown-item>
