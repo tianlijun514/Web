@@ -27,8 +27,8 @@
                 <el-button type="primary" @click="xinzheng">新增</el-button>
             </el-form-item>
         </el-form>
-        <span class="searchRst">查询结果：共{{course.total}}条记录/显示{{num.size}}页</span>
-        <el-table :data="course.list" border style="width: 100%;text-align:center">
+        <span class="searchRst">查询结果：共{{course.t}}条记录/显示{{num.size}}页</span>
+        <el-table :data="course.d" border style="width: 100%;text-align:center">
             <el-table-column prop="number" label="编号"></el-table-column>
             <el-table-column prop="name" label="名称"></el-table-column>
             <el-table-column prop="courseType" label="课程类型"></el-table-column>
@@ -56,7 +56,7 @@
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="num.size"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="course.total"
+                :total="course.t"
             ></el-pagination>
         </div>
     </div>
@@ -126,7 +126,7 @@ export default {
             this.$router.push('/parameters18');
         },
         update(e){
-            this.$router.push({path:'/parameters18',query:{data:e}});
+            this.$router.push({path:'/parameters27',query:{data:e}});
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）

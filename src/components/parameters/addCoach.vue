@@ -220,6 +220,7 @@ export default {
         this.getCoachInformation('J0002');
         this.getStore().then(res => {
             this.coachStore = res;
+            console.log(this.coachStore)
             setTimeout(() => {
                 this.coachStore.forEach(row => {
                     for (let i = 0; i < this.$route.query.data.areaCoach.length; i++) {

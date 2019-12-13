@@ -742,7 +742,7 @@ export default new Router({
         },
         {
           path: '/newApplication',
-          component: () => import('../components/approval/newApplication.vue'),
+          component: () => import('../components/approval/NewApplication.vue'),
 
           meta: {
             title: '新申请'
@@ -1331,6 +1331,20 @@ export default new Router({
           component: () => import('../components/parameters/addCard.vue'),
           meta: {
             title: '新增卡种'
+          }
+        },
+        {
+          path: '/parameters26',
+          component: () => import('../components/parameters/addCoach.vue'),
+          meta: {
+            title: '修改教练员'
+          }
+        },
+        {
+          path: '/parameters27',
+          component: () => import('../components/parameters/addCourse.vue'),
+          meta: {
+            title: '修改私教课程'
           }
         },
 

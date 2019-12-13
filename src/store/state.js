@@ -8,6 +8,14 @@ const state = {
     classRoom:{},//团操教室
     classRoomType:[],//团操教室类型
     courseClass:[],//私教及团操课程
+    courseRemain:{},//私教余课一览
+    courseCount:{
+        object:[],
+        total:0,
+    },//剩余课时查询
+    bySignature:{},//私教预约签名
+    appointmentSales:{},//私教预约核销流水
+    appointmentByCoach:[],//查询教练预约信息
 
 }
 export default state;
