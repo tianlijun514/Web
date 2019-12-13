@@ -26,6 +26,22 @@ const mutations = {
     updateCourseClass(state, data) {
         state.courseClass = data;
     },
+    updateCourseRemain(state, data) {
+        state.courseRemain = data;
+    },
+    updateCourseCount(state, data) {
+        state.courseCount = data;
+    },
+    updateBySignature(state, data) {
+        state.bySignature = data;
+    },
+    updateAppointmentSales(state, data) {
+        state.appointmentSales = data;
+    },
+    updateAppointmentByCoach(state, data) {
+        state.appointmentByCoach = data;
+    },
+    
     
 }
 

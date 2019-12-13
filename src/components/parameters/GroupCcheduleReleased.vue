@@ -31,7 +31,7 @@
             </table>
         </div>
 
-        <Dialog :isState="dialogShow" />
+        <Dialog :isState="dialogShow" @dataGet="dataGet" />
     </div>
 </template>
 
@@ -89,10 +89,6 @@ export default {
     // 方法集合
     methods: {
         ...mapActions(['getCourseClass']),
-        dateDef() {
-            let dt = new Date();
-            this.value2 = dt.getFullYear() + '-' + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth() + 1);
-        },
         serch() {
             let value;
             let dt = new Date(this.value2);
@@ -106,15 +102,28 @@ export default {
                 this.dialogShow = 'addCourse1';
             }
         },
-        monthAdd() {}
+        monthAdd() {
+            if (this.dialogShow != 'addCourseYue') {
+                this.dialogShow = 'addCourseYue';
+            } else {
+                this.dialogShow = 'addCourseYue1';
+            }
+        },
+        dataGet(data) {
+            if (data == 'yes') {
+                let value;
+                let dt = new Date(this.value2);
+                value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
+                this.getCourseClass(value);
+            }
+        }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        let value;
         let dt = new Date();
+        this.value2 = dt.getFullYear() + '-' + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth() + 1);
+        let value;
         value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-        this.dateDef();
-        // this.getDayNumByYearMonth();
         this.getCourseClass(value);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
@@ -126,11 +135,11 @@ export default {
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
     activated() {
-        let value;
         let dt = new Date();
+
+        this.value2 = dt.getFullYear() + '-' + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth() + 1);
+        let value;
         value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-        this.dateDef();
-        // this.getDayNumByYearMonth();
         this.getCourseClass(value);
     } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
