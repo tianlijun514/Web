@@ -16,6 +16,8 @@ const state = {
     bySignature:{},//私教预约签名
     appointmentSales:{},//私教预约核销流水
     appointmentByCoach:[],//查询教练预约信息
+    verification:{},//待核销数据
+    replaceCoach:{},//更换教练数据
 
 }
 export default state;

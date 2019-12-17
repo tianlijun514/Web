@@ -40,8 +40,8 @@
                 <el-button type="primary" @click="xinzheng">新增</el-button>
             </el-form-item>
         </el-form>
-        <span class="searchRst">查询结果：共{{classRoom.total}}条记录/显示{{num.size}}页</span>
-        <el-table :data="classRoom.list" border style="width: 100%;text-align:center">
+        <span class="searchRst">查询结果：共{{classRoom.t}}条记录/显示{{num.size}}页</span>
+        <el-table :data="classRoom.d" border style="width: 100%;text-align:center">
             <el-table-column prop="store.name" label="门店"></el-table-column>
             <el-table-column prop="number" label="教室编号"></el-table-column>
             <el-table-column prop="name" label="名称"></el-table-column>
@@ -63,7 +63,7 @@
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="num.size"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="classRoom.total"
+                :total="classRoom.t"
             ></el-pagination>
         </div>
     </div>

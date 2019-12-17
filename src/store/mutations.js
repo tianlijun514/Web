@@ -41,6 +41,12 @@ const mutations = {
     updateAppointmentByCoach(state, data) {
         state.appointmentByCoach = data;
     },
+    updateVerification(state, data) {
+        state.verification = data;
+    },
+    updateReplaceCoach(state, data) {
+        state.replaceCoach = data;
+    },
     
     
 }
