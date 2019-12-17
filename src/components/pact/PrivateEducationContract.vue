@@ -315,16 +315,16 @@ export default {
         async getCourse() {
             await axios.post(base + '/course/queryCourseBySelect', {}).then(res => {
                 this.form.course = [];
-                for (let i = 0; i < res.data.queryResult.list.length; i++) {
-                    this.form.course.push({ label: res.data.queryResult.list[i].name, value: res.data.queryResult.list[i].number });
+                for (let i = 0; i < res.data.d.length; i++) {
+                    this.form.course.push({ label: res.data.d[i].name, value: res.data.d[i].number });
                 }
             });
         },
         async getCoach() {
             await axios.post(base + '/coach/queryCoachBySelect', {}).then(res => {
                 this.form.coachData = [];
-                for (let i = 0; i < res.data.queryResult.list.length; i++) {
-                    this.form.coachData.push({ label: res.data.queryResult.list[i].name, value: res.data.queryResult.list[i].number });
+                for (let i = 0; i < res.data.d.length; i++) {
+                    this.form.coachData.push({ label: res.data.d[i].name, value: res.data.d[i].number });
                 }
             });
         },

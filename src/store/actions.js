@@ -83,7 +83,6 @@ const actions = {
     },
     //查询教练员
     async getCoach({ commit, state }, value) {
-        console.log(value, '888')
         await axios
             .post(base + '/coach/queryCoach' + '/' + value.page + '/' + value.size, {
                 name: value.store,
@@ -91,7 +90,6 @@ const actions = {
                 coachType: value.type
             })
             .then(res => {
-                console.log(res)
                 commit('updateCoach', res.data)
             });
     },
@@ -240,7 +238,8 @@ const actions = {
                 type: '',
             })
             .then(res => {
-                commit('updateClassRoom', res.data.queryResult)
+                console.log(res)
+                commit('updateClassRoom', res.data)
             });
     },
     //新增团操教室
@@ -263,7 +262,7 @@ const actions = {
                 states: state1
             })
         console.log(data)
-        if (data.data.data == '新增教室成功') {
+        if (data.data.i == '操作成功！') {
             return 'yes'
         }
     },
@@ -291,7 +290,7 @@ const actions = {
                 })
         }
         console.log(data)
-        if (data.data.data == '更新教室成功') {
+        if (data.data.i == '操作成功！') {
             return 'yes'
         }
     },
@@ -304,8 +303,8 @@ const actions = {
                 month: value.month
             }).then(res => {
                 let array = []
-                for (let i in res.data.queryResult.object) {
-                    array.push({ date: i, data: res.data.queryResult.object[i] })
+                for (let i in res.data.d[0]) {
+                    array.push({ date: i, data: res.data.d[0][i] })
                 }
                 array.sort(function (a, b) {
                     return Date.parse(a.date) - Date.parse(b.date);
@@ -319,7 +318,7 @@ const actions = {
             .post(base + '/course/queryCourseBySelect', {
 
             })
-        return data.data.queryResult
+        return data.data.d
     },
     //查询团课教练
     async getqueryCoachBySelect({ commit, state }, value) {
@@ -327,7 +326,7 @@ const actions = {
             .post(base + '/coach/queryCoachBySelect', {
 
             })
-        return data.data.queryResult
+        return data.data.d
     },
     //查询团课教室
     async getAllClassRoom({ commit, state }, value) {
@@ -335,7 +334,7 @@ const actions = {
             .post(base + '/classroom/queryAllClassRoom', {
 
             })
-        return data.data.queryResult
+        return data.data.d
     },
     //添加每天团操课表
     async addCourseClass({ commit, state }, value) {
@@ -365,7 +364,7 @@ const actions = {
                 })
         }
 
-        if (data.data.data == '添加课表信息成功') {
+        if (data.data.i == '操作成功！') {
             return 'yes'
         }
     },
@@ -380,7 +379,7 @@ const actions = {
                 salesman: value.salesman,
             })
             .then(res => {
-                commit('updateCourseRemain', res.data.queryResult)
+                commit('updateCourseRemain', data.data.d)
             });
     },
     //剩余课时查询
@@ -398,10 +397,10 @@ const actions = {
                     monthDate: value.monthDate,
                 })
                 .then(res => {
-                    for (let i = 0; i < res.data.queryResult.object.length; i++) {
-                        res.data.queryResult.object[i].unitPrice = res.data.queryResult.object[i].realPrice / res.data.queryResult.object[i].bayNum
+                    for (let i = 0; i < data.data.d.object.length; i++) {
+                        data.data.d.object[i].unitPrice = data.data.d.object[i].realPrice / data.data.d.object[i].bayNum
                     }
-                    commit('updateCourseCount', res.data.queryResult)
+                    commit('updateCourseCount', data.data.d)
                 });
         }
 
@@ -426,7 +425,7 @@ const actions = {
                 dateType: value.dateType,
             })
             .then(res => {
-                commit('updateBySignature', res.data.queryResult)
+                commit('updateBySignature', data.data.d)
             });
 
     },
@@ -450,8 +449,8 @@ const actions = {
                 dateType: value.dateType,
             })
             .then(res => {
-                console.log(res.data.queryResult)
-                commit('updateAppointmentSales', res.data.queryResult)
+                console.log(data.data.d)
+                commit('updateAppointmentSales', data.data.d)
             });
 
     },
@@ -499,7 +498,7 @@ const actions = {
                 reserveType:value.conventionType,
                 remark: value.desc,
             })
-            if(data.data.message=='操作成功！'){
+            if(data.data.i == '操作成功！'){
                 return 'yes'
             }
     },
@@ -545,6 +544,56 @@ const actions = {
                 }
             })
         return data
+    },
+    // 查询待核销信息
+    async getVerification({ commit, state },value) {
+        console.log(value)
+        let data =  await axios
+            .post(base + '/coachContract/queryVerification' + '/' + value.page + '/' + value.size, {
+                startDate:value.date1,
+                endDate:value.date2,
+                coachNumber:value.coachNumber,
+                cardId:value.cardId,
+            })
+        console.log(data)
+        commit('updateVerification',data.data)
+    },
+    //更换教练信息查询
+    async getReplaceCoach({ commit, state },value) {
+        console.log(value)
+        let data =  await axios
+            .post(base + '/coachContract/queryOldCoach' + '/' + value.page + '/' + value.size, {
+                startDate:value.date1,
+                endDate:value.date2,
+                coachName:value.coachName,
+                memberId:value.memberId,
+            })
+        console.log(data)
+        commit('updateReplaceCoach',data.data)
+    },
+    //根据私教合同号查会员信息
+    async getContractMembers({ commit, state },value) {
+        let data =  await axios
+            .get(base + '/coachContract/queryByContractNumber', {
+                params:{
+                    contractNumber:value
+                }
+            })
+        return data.data.d
+    },
+    //新增更换教练
+    async addReplaceCoach({ commit, state },value) {
+        let data =  await axios
+            .post(base + '/coachContract/updateCoachContract', {
+                contractNumber:value.contract,
+                remarks:value.remarks,
+                oldDate:value.date,
+                oldCoach:value.oldCoach,
+                coachNumber:value.coach,
+            })
+        if(data.i=='操作成功！'){
+            return 'yes'
+        }
     },
 
 }
