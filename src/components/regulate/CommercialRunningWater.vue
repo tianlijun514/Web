@@ -4,8 +4,9 @@
     <el-form :inline="true" class="demo-form-inline">
 
       <el-form-item label="领用部门">
-        <el-select v-model="value">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-select v-model="deptCode" @change="bumen">
+          <el-option label="全部" value></el-option>
+          <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.number"></el-option>
         </el-select>
       </el-form-item>
 
@@ -40,7 +41,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 import axios from "axios";
-import { url } from '../js/url'
+import { base } from '../js/url'
 export default {
   name: 'CommercialRunningWater',
   props: {
@@ -59,77 +60,20 @@ export default {
       value1: '',
       date_s: '',
       date_e: '',
+      deptCode:'',
       tableTitle: [
-        { title: '领用部门编号', data: 'num' },
-        { title: '领用部门名称', data: 'storeName' },
-        { title: '商品编码', data: 'name' },
-        { title: '商品名称', data: 'phone' },
-        { title: '单位', data: 'idCard' },
-        { title: '领用类型', data: 'date' },
-        { title: '数量', data: 'timeHorizon' },
-        { title: '领用日期', data: 'type' },
-        { title: '操作员', data: 'shellUser' },
-        { title: '备注', data: 'shellUser' },
+        { title: '领用部门编号', data: 'deptCode' },
+        { title: '领用部门名称', data: 'deptName' },
+        { title: '商品编码', data: 'spCode' },
+        { title: '商品名称', data: 'spName' },
+        { title: '单位', data: 'spUnitName' },
+        { title: '领用类型', data: 'name' },
+        { title: '数量', data: 'spNum' },
+        { title: '领用日期', data: 'receiveDate' },
+        { title: '操作员', data: 'empName' },
+        { title: '备注', data: 'remark' },
       ],
-      options: [{
-        value: 'A00006',
-        label: '红牌楼店'
-      }, {
-        value: 'A00007',
-        label: '花郡店'
-      }, {
-        value: 'A00008',
-        label: '万象城店'
-      }, {
-        value: 'A00009',
-        label: '新城市店'
-      }, {
-        value: 'A00014',
-        label: '阳光新业店'
-      }, {
-        value: 'A00006',
-        label: '龙湖店'
-      }, {
-        value: 'A00007',
-        label: '王府井店'
-      }, {
-        value: 'A00008',
-        label: '天誉店'
-      }, {
-        value: 'A00009',
-        label: '伊藤店'
-      }, {
-        value: 'A00014',
-        label: '金牛店'
-      }, {
-        value: 'A00009',
-        label: '瑞安店'
-      }, {
-        value: 'A00014',
-        label: '339店'
-      }, {
-        value: 'A00006',
-        label: '镏金店'
-      }, {
-        value: 'A00007',
-        label: '紫荆店'
-      }, {
-        value: 'A00008',
-        label: '魅力城'
-      }, {
-        value: 'A00031',
-        label: '二十四城'
-      }, {
-        value: 'A00032',
-        label: '东城国际店'
-      }, {
-        value: 'C001',
-        label: '管理中心'
-      }, {
-        value: 'test',
-        label: '培训测试店'
-      }
-      ],
+      options: [],
       value: '',
       tableData: [{}],
 
@@ -150,27 +94,28 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-  
+
     datas (even) {
-      console.log(even)
-      console.log(new Date())
+      // this.zeroize(even[0])
       var mydata = even[0]
       var y = mydata.getFullYear();
-      var m = mydata.getMonth() + 1;
-      var d = mydata.getDate();
+      var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
+      var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
       this.date_s = y + "-" + m + "-" + d;
       console.log(this.date_s)
       var enddata = even[1]
       var y = enddata.getFullYear();
-      var m = enddata.getMonth() + 1;
-      var d = enddata.getDate();
+      var d = enddata.getDate() + 1 < 10 ? '0' + enddata.getDate() : enddata.getDate();
+      var m = (enddata.getMonth() + 1 < 10 ? '0' + (enddata.getMonth() + 1) : enddata.getMonth() + 1);
       this.date_e = y + "-" + m + "-" + d;
       console.log(this.date_e)
+
     },
+
     // 导出
     herleiten () {
       axios
-        .get(url + '/visit/excel', { responseType: 'arraybuffer' })
+        .get(base + '/commodity/excelSpReceive', { responseType: 'arraybuffer' })
         .then(res => {
           let blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
           let objectUrl = URL.createObjectURL(blob);
@@ -182,29 +127,32 @@ export default {
     // 查询
     chaxun () {
       axios
-        .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
-          params: {
-            storeName: this.inoutmen,
-            phoneNum: this.inputphone,
-            visitorName: this.inputhui,
-            idcard: this.inputzheng,
-            seller: this.inputxiao,
-            date_s: this.date_s,
-            date_e: this.date_e
-          }
+        .post(base + '/commodity/getSpReceiveInfo', {
+          page:this.currentPage,
+          size:this.size,
+          deptCode: this.deptCode,
+          startDate: this.date_s,
+          endDate: this.date_e
         }).then(res => {
-          for (let i = 0; i < res.data.queryResult.list.length; i++) {
-            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-          }
-          this.tableData = res.data.queryResult.list;
-          // console.log(this.tableData)
-          this.total = res.data.queryResult.total;
+          console.log(res.data)
+          this.tableData=res.data.d
+          this.total=res.data.t
         })
     },
+
+    // 类型
+    bumen (e) {
+      this.leixing=e
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    this.chaxun()
+    this.chaxun(),
+      axios
+        .get(base + '/store/getStoreList').then(res => {
+          this.options=res.data.d
+        })
+
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

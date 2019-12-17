@@ -292,15 +292,15 @@ export default {
     this.chauxn()
     axios
       .get(base + '/store/getStoreList').then((res) => {
-        this.type_list = res.data.queryResult.list
+        this.type_list = res.data.d
       }),
       axios
         .get(base + '/store/getStoreList').then((res) => {
-          this.type_shou = res.data.queryResult.list
+          this.type_shou = res.data.d
         }),
       axios
         .get(base + '/store/getStoreList').then((res) => {
-          this.list = res.data.queryResult.list
+          this.list = res.data.d
         })
 
   },

@@ -4,7 +4,7 @@
     <el-form :inline="true" class="demo-form-inline">
 
       <el-form-item label="门店">
-        <el-input v-model="inoutmen"></el-input>
+        <el-input v-model="deptCode"></el-input>
       </el-form-item>
 
       <span class="demonstration">日期</span>
@@ -38,7 +38,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 import axios from "axios";
-import { url } from '../js/url'
+import { base } from '../js/url'
 export default {
   name: 'CommodityInvoicingReport',
   props: {
@@ -54,24 +54,24 @@ export default {
       currentPage: 1,
       total: 0,
       size: 10,
-      inoutmen: '',
+      deptCode: '',
       value1: '',
       date_s: '',
       date_e: '',
       tableTitle: [
-        { title: '商品编号', data: 'num' },
-        { title: '商品名称', data: 'storeName' },
-        { title: '单位', data: 'name' },
-        { title: '入库数量(+)', data: 'phone' },
-        { title: '退货数量(-)', data: 'idCard' },
-        { title: '配送入库数量(+)', data: 'timeHorizon' },
-        { title: '配送入库数量(-)', data: 'type' },
-        { title: '销售数量(-)', data: 'dan' },
-        { title: '报损数量(+-)', data: 'eag' },
-        { title: '领用数量(-)', data: 'danjia' },
-        { title: '当前库存数量', data: 'money' },
+        { title: '商品编号', data: 'spCode' },
+        { title: '商品名称', data: 'spName' },
+        { title: '单位', data: 'unitName' },
+        { title: '入库数量(+)', data: 'cgRkNum' },
+        { title: '退货数量(-)', data: 'cgTkNum' },
+        { title: '配送入库数量(+)', data: 'spRkNum' },
+        { title: '配送入库数量(-)', data: 'spCkNum' },
+        { title: '销售数量(-)', data: 'sellNum' },
+        { title: '报损数量(+-)', data: 'breakageNum' },
+        { title: '领用数量(-)', data: 'receiveNum' },
+        { title: '当前库存数量', data: 'nowNum' },
       ],
-      tableData: [{}],
+      tableData: [],
 
     }
   },
@@ -90,55 +90,44 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-
     datas (even) {
-      console.log(even)
-      console.log(new Date())
       var mydata = even[0]
       var y = mydata.getFullYear();
-      var m = mydata.getMonth() + 1;
-      var d = mydata.getDate();
+      var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
+      var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
       this.date_s = y + "-" + m + "-" + d;
-      console.log(this.date_s)
       var enddata = even[1]
       var y = enddata.getFullYear();
-      var m = enddata.getMonth() + 1;
-      var d = enddata.getDate();
+      var d = enddata.getDate() + 1 < 10 ? '0' + enddata.getDate() : enddata.getDate();
+      var m = (enddata.getMonth() + 1 < 10 ? '0' + (enddata.getMonth() + 1) : enddata.getMonth() + 1);
       this.date_e = y + "-" + m + "-" + d;
-      console.log(this.date_e)
     },
+ 
     // 导出
     herleiten () {
       axios
-        .get(url + '/visit/excel', { responseType: 'arraybuffer' })
+        .get(base + '/commodity/excelSpTotal', { responseType: 'arraybuffer' })
         .then(res => {
           let blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
           let objectUrl = URL.createObjectURL(blob);
           window.location.href = objectUrl;
-          console.log(res);
         })
     },
 
-    // 查询
+
+        // 查询
     chaxun () {
       axios
-        .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
-          params: {
-            storeName: this.inoutmen,
-            phoneNum: this.inputphone,
-            visitorName: this.inputhui,
-            idcard: this.inputzheng,
-            seller: this.inputxiao,
-            date_s: this.date_s,
-            date_e: this.date_e
-          }
+        .post(base + '/commodity/getSpTotal', {
+          page: this.currentPage,
+          size: this.size,
+          deptCode: this.deptCode,
+          startDate: this.date_s,
+          endDate: this.date_e
         }).then(res => {
-          for (let i = 0; i < res.data.queryResult.list.length; i++) {
-            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-          }
-          this.tableData = res.data.queryResult.list;
-          // console.log(this.tableData)
-          this.total = res.data.queryResult.total;
+          // console.log(res.data)
+          this.tableData = res.data.d
+          this.total = res.data.t
         })
     },
   },

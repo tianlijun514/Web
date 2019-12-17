@@ -24,7 +24,7 @@
           <el-option label="使用日期" value="shi"></el-option>
         </el-select>
       </el-form-item>
-      
+
       <span class="demonstration">日期范围</span>
       <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
 
@@ -54,23 +54,26 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
+
     </el-form>
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    <el-button size="mini" type="primary" class="dingdan">合并订单</el-button>
 
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <el-table-column type="selection" label="选择"></el-table-column>
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
-      <el-table-column label="操作" width="300">
-                <template slot-scope="scope">
-                    <el-button size="mini" type="primary">合并订单</el-button>
-                    <el-button size="mini" type="primary" @click="jump">拆分订单</el-button>
-                    <el-button size="mini" type="primary">退定金</el-button>
-                </template>
-        </el-table-column>
+
+      <el-table-column label="操作" width="180">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="jump(scope.row)">拆分订单</el-button>
+          <el-button size="mini" type="primary">退定金</el-button>
+        </template>
+      </el-table-column>
+
     </el-table>
-    
+
     <div class="block">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
       </el-pagination>
@@ -115,7 +118,6 @@ export default {
         { title: '状态', data: 'cardPhoto' },
         { title: '签名', data: 'caryi' },
         { title: '备注', data: 'carcu' },
-        { title: '操作', data: 'carmoney' }
       ],
       tableData: [{
         num: '00012',
@@ -131,8 +133,7 @@ export default {
         cardPhoto: '2018-12-23',
         caryi: '备注',
         carcu: '10',
-        carmoney: '2222'
-      },]
+      }]
     }
   },
   // 监听属性 类似于data概念
@@ -150,7 +151,7 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-    jump(){
+    jump () {
       this.$router.push('/index1')
     }
   },
@@ -180,5 +181,8 @@ export default {
 .block {
     width: 550px;
     margin: auto;
+}
+.dingdan{
+  float: right
 }
 </style>
