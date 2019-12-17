@@ -215,7 +215,7 @@ export default {
       this.$refs[numberValidateForm].validate((valid) => {
         if (valid) {
           // let date = new Date(this.numberValidateForm.tkDate)
-          // this.numberValidateForm.tkDate= date.setFullYear()+'-'+date.getMonth() + 1 +'-'+date.getDate()
+          // this.numberValidateForm.tkDate= date.setFullYear()+'-'+( date.getMonth() + 1) +'-'+date.getDate()
           axios.post(base + `/commodity/` + this.option, this.numberValidateForm)
             .then(res => {
               if (res.data.c == 10000) {

@@ -4,19 +4,33 @@
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
 
       <el-form-item label="领用部门">
-        <el-select v-model="type" style="width: 185px;">
-          <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-select v-model="deptCode" style="width: 185px;" @change="fahuo">
+          <el-option v-for='item in type_list' :key="item.id" :label="item.name" :value="item.number"></el-option>
         </el-select>
       </el-form-item>
 
       <span class="demonstration">日期</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" type="daterange" @change='datas' range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
-      <el-button type="primary" @click="onSubmit" style="margin-left: 10px">查询</el-button>
+      <el-button type="primary" @click="chauxn" style="margin-left: 10px">查询</el-button>
 
-      <el-button type="text" @click="outerVisible = true" class="btn">商品领用</el-button>
+      <el-button type="text" @click="outerVisible = true" class="btn">商品领用</el-button><br>
 
+      <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
+      <el-table :data="tableData" border style="width: 100%">
+        <el-table-column fixed prop="deptCode" label="领用部门编号"></el-table-column>
+        <el-table-column prop="deptName" label="领用部门名称"></el-table-column>
+        <el-table-column prop="spCode" label="商品编码"></el-table-column>
+        <el-table-column prop="spName" label="商品名称"></el-table-column>
+        <el-table-column prop="spUnitName" label="单位"></el-table-column>
+        <el-table-column prop="typeCode" label="领用类型"></el-table-column>
+        <el-table-column prop="spNum" label="数量"></el-table-column>
+      </el-table>
+      <div class="block">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
+      </div>
       <!-- 新增商品领用数量 -->
       <el-dialog title="新增商品损益数量" :visible.sync="outerVisible">
         <el-form :model="numberValidateForm" ref="numberValidateForm" class="demo-ruleForm">
@@ -28,7 +42,7 @@
             </el-form-item>
 
             <div>
-              <el-form-item label="领用类型">
+              <el-form-item label="商品类型">
                 <el-select v-model="type" style="width: 185px;">
                   <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
@@ -68,27 +82,16 @@
       </el-dialog>
 
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="date" label="领用部门编号"></el-table-column>
-      <el-table-column prop="name" label="领用部门名称"></el-table-column>
-      <el-table-column prop="dai" label="商品编码"></el-table-column>
-      <el-table-column prop="bei" label="商品名称"></el-table-column>
-      <el-table-column prop="dai" label="单位"></el-table-column>
-      <el-table-column prop="dai" label="领用类型"></el-table-column>
-      <el-table-column prop="bei" label="数量"></el-table-column>
-    </el-table>
-    <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
-      </el-pagination>
-    </div>
-   <Auswahl :auswahl="auswahl"></Auswahl>
+
+    <Cuswku :cuswku="cuswku"></Cuswku>
   </div>
 
 </template>
 
 <script>
-import Auswahl from '../common/Auswahl'
+import Cuswku from '../common/Cuswku'
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -99,19 +102,31 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-    Auswahl
+    Cuswku
   },
   data () {
     // 这里存放数据
     return {
-        auswahl: {
+      cuswku: {
         show: false
       },
+      date_s: '',
+      date_e: '',
+      total: 0,
+      size: 10,
+      currentPage: 1,
+      deptCode: '',
+      value1: '',
+
+
+
+
+
+
       type: '',
       handleClose: '',
       outerVisible: false,
       innerVisible: false,
-      currentPage: 5,
       formInline: {
         user: '',
         region: ''
@@ -123,13 +138,7 @@ export default {
         value: '01',
         label: '培训测试店'
       }],
-      type_list: [{
-        value: '01',
-        label: '健身'
-      }, {
-        value: '02',
-        label: '锁'
-      }],
+      type_list: [],
       ruleForm: {
         typebian: '',
         name: '',
@@ -138,12 +147,7 @@ export default {
         desc: ''
       },
       value1: '',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        dai: '00001',
-        bei: 'xiixii'
-      }],
+      tableData: [{}],
     }
   },
   // 监听属性 类似于data概念
@@ -152,11 +156,53 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-   angelegt  () {
-      this.auswahl.show = true;
+    // handlebriefaClo(){
+    //   this.show=false
+    // },
+    // zeroize (obj) {
+    //   return lut = obj < 10 ? "0" + obj : obj
+    // },
+
+
+    datas (even) {
+      // this.zeroize(even[0])
+      var mydata = even[0]
+      var y = mydata.getFullYear();
+      var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
+      var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
+      this.date_s = y + "-" + m + "-" + d;
+      console.log(this.date_s)
+      var enddata = even[1]
+      var y = enddata.getFullYear();
+      var d = enddata.getDate() + 1 < 10 ? '0' + enddata.getDate() : enddata.getDate();
+      var m = (enddata.getMonth() + 1 < 10 ? '0' + (enddata.getMonth() + 1) : enddata.getMonth() + 1);
+      this.date_e = y + "-" + m + "-" + d;
+      console.log(this.date_e)
+
     },
-    onSubmit () {
-      console.log('submit!');
+
+    angelegt () {
+      this.cuswku.show = true;
+    },
+    // 获取类型
+    fahuo (e) {
+      this.staat = e
+    },
+    // 查询
+
+    chauxn () {
+      axios
+        .post(base + `/commodity/getSpReceiveInfo`, {
+          page: this.currentPage,
+          size: this.size,
+          deptCode: this.deptCode,
+          startDate: this.date_s,
+          endDate: this.date_e
+        }).then(res => {
+          console.log(res.data)
+          this.tableData = res.data.d
+          this.total = res.data.t
+        })
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
@@ -181,7 +227,10 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    axios
+      .get(base + '/store/getStoreList').then((res) => {
+        this.type_list = res.data.queryResult.list
+      })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

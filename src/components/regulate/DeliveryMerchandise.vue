@@ -30,8 +30,8 @@
         <el-form :model="numberValidateForm" ref="numberValidateForm" class="demo-ruleForm">
           <div class="conment">
             <el-form-item label="发货部门">
-              <el-select v-model="fhDeptCode" style="width: 185px;">
-                <el-option v-for='item in type_list' :key="item.id" :label="item.name" :value="item.number"></el-option>
+              <el-select v-model="fhDeptCode" style="width: 185px;" @change="bumen">
+                <el-option v-for='item in list' :key="item.id" :label="item.name" :value="item.number"></el-option>
               </el-select>
             </el-form-item>
 
@@ -43,7 +43,7 @@
 
             <el-form-item label="收货部门">
               <el-select v-model="shDeptCode" style="width: 185px;">
-               <el-option v-for='item in type_shou' :key="item.id" :label="item.name" :value="item.number"></el-option>
+                <el-option v-for='item in type_shou' :key="item.id" :label="item.name" :value="item.number"></el-option>
               </el-select>
             </el-form-item>
 
@@ -52,23 +52,23 @@
           <el-button type="primary" @click="angelegt()" style="margin: 20px 130px">+添加商品</el-button>
           <div>
             <span>配送商品明细</span>
-            <el-table :data="numberValidateForm.cgRkSps" border style="width: 100%">
-            <el-table-column fixed prop="spCode" label="商品编码"></el-table-column>
-            <el-table-column prop="spName" label="商品名称"></el-table-column>
-            <el-table-column prop="unitName" label="单位"></el-table-column>
-            <el-table-column prop="spNum" label="数量">
-              <template slot-scope="scope">
-                <input type="text" v-model.number="scope.row.spNum" class="shu">
-              </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="150">
-              <template slot-scope="scope">
-                <el-button @click.native.prevent="deleteRow(scope.$index, numberValidateForm.cgRkSps)" type="primary" v-show="shanchu">
-                  移除
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+            <el-table :data="numberValidateForm.spCkInfos" border style="width: 100%">
+              <el-table-column fixed prop="spCode" label="商品编码"></el-table-column>
+              <el-table-column prop="spName" label="商品名称"></el-table-column>
+              <el-table-column prop="unitName" label="单位"></el-table-column>
+              <el-table-column prop="spNum" label="数量">
+                <template slot-scope="scope">
+                  <input type="text" v-model.number="scope.row.spNum" class="shu">
+                </template>
+              </el-table-column>
+              <el-table-column fixed="right" label="操作" width="150">
+                <template slot-scope="scope">
+                  <el-button @click.native.prevent="deleteRow(scope.$index, numberValidateForm.spCkInfos)" type="primary">
+                    移除
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
 
             <el-button type="primary" @click="submitForm('numberValidateForm')" style="margin: 20px 130px">确认并提交</el-button>
           </div>
@@ -77,10 +77,10 @@
           <el-button @click="outerVisible = false">取 消</el-button>
         </div>
       </el-dialog>
-<!-- ------------ -->
+      <!-- ------------ -->
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table :data="tableData" border style="width: 100%" ref="print">
       <el-table-column fixed prop="id" label="出库单号"></el-table-column>
       <el-table-column prop="fhDeptName" label="发货部门"></el-table-column>
       <el-table-column prop="fhDate" label="发货日期"></el-table-column>
@@ -91,10 +91,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column fixed="right" label="操作" width="300">
         <template slot-scope="scope">
-          <el-button type="primary" size="small">打印</el-button>
+          <el-button type="primary" size="small" class="no-print" @click="print">打印</el-button>
           <el-button @click="handleClick(scope.row)" type="primary" size="small">修改</el-button>
+          <el-button @click="handleClick(scope.row)" type="primary" size="small">上传图片</el-button>
+          <el-button type="primary" size="small">确认</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -102,12 +104,15 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-    <Cuswku :auswahl="auswahl"></Cuswku>
+    <Cuswku :cuswku="cuswku" @querylet="angelegt" :thisData="numberValidateForm"></Cuswku>
+    <!-- <Cuswku :cuswku="cuswku" @querylet="angelegt" :thisData="numberValidateForm" :thisDeptCode="fhDeptCode"></Cuswku> -->
   </div>
 
 </template>
 
 <script>
+
+
 import Cuswku from '../common/Cuswku'
 import axios from "axios";
 import { base } from '../js/url'
@@ -126,9 +131,10 @@ export default {
   data () {
     // 这里存放数据
     return {
-      auswahl: {
+      cuswku: {
         show: false
       },
+      list: [],
       type: '',
       fhDeptCode: '',
       shDeptCode: '',
@@ -137,8 +143,6 @@ export default {
       size: 10,
       total: 0,
       currentPage: 1,
-
-
       handleClose: '',
       outerVisible: false,
       innerVisible: false,
@@ -148,7 +152,34 @@ export default {
         region: ''
       },
       numberValidateForm: {
-        bian: ''
+        fhDeptCode: '',
+        fhDate: '',
+        spCkInfos: [
+          {
+            "number": 184,
+            "sparePrice2": 2.98,
+            "sparePrice3": 2.97,
+            "spName": "鲜橙多",
+            "unitName": "瓶",
+            "price": 3.00,
+            "empPrice": 2.50,
+            "vipPrice": 2.50,
+            "spCode": "P0001",
+            "sparePrice1": 2.99
+          },
+          {
+            "number": 112,
+            "sparePrice2": 2.98,
+            "sparePrice3": 2.97,
+            "spName": "烂泥巴",
+            "unitName": "个",
+            "price": 3.00,
+            "empPrice": 2.50,
+            "vipPrice": 2.50,
+            "spCode": "P0003",
+            "sparePrice1": 2.99
+          }
+        ]
       },
       type_list: [],
       type_shou: [],
@@ -174,7 +205,12 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-     deleteRow (index, rows) {
+    print () {
+      this.$print(this.$refs.print)
+    },
+
+
+    deleteRow (index, rows) {
       rows.splice(index, 1);
     },
     datas (even) {
@@ -189,8 +225,21 @@ export default {
       var d = enddata.getDate();
       this.date_e = y + "-" + m + "-" + d;
     },
-    angelegt () {
-      this.auswahl.show = true;
+
+    // 查询添加数据
+    angelegt (data) {
+      this.cuswku.show = true;
+      axios
+        .post(base + '/commodity/getSpInfoByStore', {
+          page: this.currentPage,
+          size: this.size,
+          deptCode: this.fhDeptCode
+        }).then(res => {
+          console.log(res.data)
+          // this.numberValidateForm = res.data.d
+          // this.total = res.data.t
+        })
+
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
@@ -205,6 +254,9 @@ export default {
     shouhuo (e) {
       this.stashouat = e
     },
+    bumen (e) {
+      this.lis = e
+    },
     // 查询
     chauxn () {
       axios
@@ -217,7 +269,7 @@ export default {
           shDeptCode: this.shDeptCode
         }).then(res => {
           this.tableData = res.data.d
-          this.total=res.data.t
+          this.total = res.data.t
         })
     },
     submitForm (formName) {
@@ -237,7 +289,7 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    this.chauxn ()
+    this.chauxn()
     axios
       .get(base + '/store/getStoreList').then((res) => {
         this.type_list = res.data.queryResult.list
@@ -245,7 +297,12 @@ export default {
       axios
         .get(base + '/store/getStoreList').then((res) => {
           this.type_shou = res.data.queryResult.list
+        }),
+      axios
+        .get(base + '/store/getStoreList').then((res) => {
+          this.list = res.data.queryResult.list
         })
+
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

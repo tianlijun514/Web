@@ -14,6 +14,10 @@
                 <el-input v-model="num.memberId"></el-input>
             </el-form-item>
 
+              <el-form-item label="合同编号">
+                <el-input v-model="num.memberId"></el-input>
+            </el-form-item>
+
             <el-form-item label="状态">
                 <el-select v-model="num.states">
                     <el-option label="全部" value=""></el-option>
@@ -43,6 +47,10 @@
 
             <el-form-item style="margin-left: 10px">
                 <el-button type="primary" @click="search">查询</el-button>
+            </el-form-item>
+
+              <el-form-item>
+                <el-button type="primary" @click="search">导出</el-button>
             </el-form-item>
         </el-form>
         <span class="searchRst">查询结果：共{{appointmentSales.total}}条记录/显示{{num.page}}页</span>

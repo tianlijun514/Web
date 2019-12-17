@@ -4,7 +4,7 @@
     <el-form :inline="true" class="demo-form-inline">
 
       <el-form-item label="收货部门">
-        <el-input v-model="inoutmen"></el-input>
+        <el-input v-model="shDeptCode"></el-input>
       </el-form-item>
 
       <span class="demonstration">发货日期</span>
@@ -21,21 +21,15 @@
     </el-form>
     <span class="searchRst">查询结果：共{{total}}条记录/显示第{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column  prop="date" label="出库单号" width="120"></el-table-column>
-      <el-table-column prop="name" label="发货部门" width="120"></el-table-column>
-      <el-table-column prop="province" label="发货日期" width="120"></el-table-column>
-      <el-table-column prop="city" label="收货部门" width="120"></el-table-column>
-      <el-table-column prop="address" label="商品编号" width="120"></el-table-column>
-      <el-table-column prop="zip" label="商品名称"></el-table-column>
-       <el-table-column prop="city" label="单位" width="120"></el-table-column>
-      <el-table-column prop="address" label="数量" width="120"></el-table-column>
-      <el-table-column prop="zip" label="操作员" width="120"></el-table-column>
-      <el-table-column label="操作" width="150">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">上传图片</el-button>
-          <el-button type="text" size="small">确认</el-button>
-        </template>
-      </el-table-column>
+      <el-table-column prop="spCkId" label="出库单号" width="120"></el-table-column>
+      <el-table-column prop="spCk.fhDeptName" label="发货部门" width="120"></el-table-column>
+      <el-table-column prop="spCk.fhDate" label="发货日期" width="120"></el-table-column>
+      <el-table-column prop="spCk.shDeptName" label="收货部门" width="120"></el-table-column>
+      <el-table-column prop="spCode" label="商品编号" width="120"></el-table-column>
+      <el-table-column prop="spName" label="商品名称"></el-table-column>
+      <el-table-column prop="spUnit" label="单位" width="120"></el-table-column>
+      <el-table-column prop="spNum" label="数量" width="120"></el-table-column>
+      <el-table-column prop="spCk.empName" label="操作员" width="120"></el-table-column>
     </el-table>
     <div class="uys">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -48,7 +42,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 import axios from "axios";
-import { url } from '../js/url'
+import { base } from '../js/url'
 export default {
   name: 'DeliveryProductSummary',
   props: {
@@ -64,7 +58,7 @@ export default {
       currentPage: 1,
       total: 0,
       size: 10,
-      inoutmen: '',
+      shDeptCode: '',
       value1: '',
       date_s: '',
       date_e: '',
@@ -95,53 +89,40 @@ export default {
     },
 
     datas (even) {
-      console.log(even)
-      console.log(new Date())
       var mydata = even[0]
       var y = mydata.getFullYear();
       var m = mydata.getMonth() + 1;
       var d = mydata.getDate();
       this.date_s = y + "-" + m + "-" + d;
-      console.log(this.date_s)
       var enddata = even[1]
       var y = enddata.getFullYear();
       var m = enddata.getMonth() + 1;
       var d = enddata.getDate();
       this.date_e = y + "-" + m + "-" + d;
-      console.log(this.date_e)
     },
     // 导出
     herleiten () {
       axios
-        .get(url + '/visit/excel', { responseType: 'arraybuffer' })
+        .get(base + '/visit/excel', { responseType: 'arraybuffer' })
         .then(res => {
           let blob = new Blob([res.data], { type: "application/vnd.ms-excel" });
           let objectUrl = URL.createObjectURL(blob);
           window.location.href = objectUrl;
-          console.log(res);
         })
     },
 
     // 查询
     chaxun () {
       axios
-        .get(url + '/visit/list/' + this.currentPage + '/' + this.size, {
-          params: {
-            storeName: this.inoutmen,
-            phoneNum: this.inputphone,
-            visitorName: this.inputhui,
-            idcard: this.inputzheng,
-            seller: this.inputxiao,
-            date_s: this.date_s,
-            date_e: this.date_e
-          }
+        .post(base + '/commodity/getAllSpCkInfo', {
+          shDeptCode: this.shDeptCode,
+          page: this.currentPage,
+          size: this.size,
+          startDate: this.date_s,
+          endDate: this.date_e
         }).then(res => {
-          for (let i = 0; i < res.data.queryResult.list.length; i++) {
-            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-          }
-          this.tableData = res.data.queryResult.list;
-          // console.log(this.tableData)
-          this.total = res.data.queryResult.total;
+          this.tableData = res.data.d;
+          this.total = res.data.t;
         })
     },
     handleClick (row) {

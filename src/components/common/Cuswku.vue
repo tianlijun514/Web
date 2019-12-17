@@ -1,7 +1,7 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='app'>
-    <el-dialog title="商品选择" :visible.sync="auswahl.show" width="70%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
+    <el-dialog title="商品选择" :visible.sync="cuswku.show" width="70%" :close-on-click-modal="false" :close-on-press-escape="false" :modal-append-to-body="false">
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="商品名称">
           <el-input v-model="spName"></el-input>
@@ -20,7 +20,7 @@
         <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form>
       <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
-      <el-table :data="tableData" border style="width: 100%" @row-click="handdle">
+      <el-table :data="tableData.spCkInfos" border style="width: 100%" @row-click="handdle">
         <el-table-column prop="spCode" label="商品编码" width="80"></el-table-column>
         <el-table-column prop="spName" label="商品名称" width="110"></el-table-column>
         <el-table-column prop="unit" label="单位" width="100"></el-table-column>
@@ -50,9 +50,10 @@ import { base } from '../js/url'
 export default {
   name: 'Auswahl',
   props: {
-    auswahl: Object,
-    table:Object
-
+    cuswku: Object,
+    table:Object,
+    thisData:Object,
+    thisDeptCode:Object
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
@@ -69,7 +70,15 @@ export default {
       type_list: [],
       size: 10,
       total: 0,
-      tableData: [{}]
+      tableData: [{}],
+      queryMsg:{
+        page: this.currentPage,
+        size: this.size,
+        deptCode: this.thisDeptCode,
+        mnemonic: this.mnemonic,
+        typeCode: this.typeCode,
+        spName: this.spName,
+      }
     }
   },
   // 监听属性 类似于data概念
@@ -90,24 +99,23 @@ export default {
     handdle (row, event,column) {
       console.log(row, event, column) 
       this.$emit('tapecode',row)
-      this.auswahl.show=false
+      this.cuswku.show=false
 
       
     },
-
+    querylet() {
+      // this.$emit('querylet',this.queryMsg)
+      this.tableData = this.thisData
+      console.log(this.tableData);
+      // console.log(this.thisDeptCode)
+    },
     // 查询
     chaxun () {
       let a
       a = this.typeCode ? parseInt(this.typeCode) : ''
       axios.
-        post(base + '/commodity/getSpInfo', {
-          page: this.currentPage,
-          size: this.size,
-          spName: this.spName,
-          mnemonic: this.mnemonic,
-          typeCode: a
-        }).then(res => {
-          this.tableData = res.data.d
+        post(base + '/commodity/getSpInfoByStore', this.queryMsg).then(res => {
+          this.tableData = res.data
           this.total = res.data.t
         })
 
@@ -118,7 +126,8 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    this.chaxun()
+    // this.chaxun()
+    this.querylet();
     axios
       .post(base + '/commodity/getAllSpType').then((res) => {
         this.type_list = res.data
