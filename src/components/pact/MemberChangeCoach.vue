@@ -31,7 +31,7 @@
                 <el-button type="primary" @click="xinzheng">新增</el-button>
             </el-form-item>
         </el-form>
-        <span class="searchRst">查询结果：共{{replaceCoach.t}}条记录/显示{{num.size}}页</span>
+        <span class="searchRst">查询结果：共{{replaceCoach.t}}条记录/显示{{num.page}}页</span>
         <el-table :data="replaceCoach.d" border style="width: 100%;text-align:center">
             <template v-for="(item,index) in tableTitle">
                 <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>

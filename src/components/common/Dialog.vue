@@ -64,7 +64,7 @@ export default {
                     }
                 })
                 .then(res => {
-                    let array = res.data.queryResult.list;
+                    let array = res.data.d;
                     let list;
                     this.contract = [];
                     for (let i = 0; i < array.length; i++) {

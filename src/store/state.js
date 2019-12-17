@@ -18,6 +18,8 @@ const state = {
     appointmentByCoach:[],//查询教练预约信息
     verification:{},//待核销数据
     replaceCoach:{},//更换教练数据
+    contractSale:{},//私教销售流水
+    coachPrint:{},//私教合同打印
 
 }
 export default state;

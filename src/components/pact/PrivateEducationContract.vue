@@ -278,7 +278,7 @@ export default {
                     memberNumber:''
                 })
                 .then(res => {
-                    if (res.data.data == '添加私教合同成功') {
+                    if (res.data.i == '操作成功') {
                         this.$message({message:'添加私教合同成功',type:'success'});
                         this.form.kahao = '';
                         this.form.number = '';
@@ -314,6 +314,7 @@ export default {
         },
         async getCourse() {
             await axios.post(base + '/course/queryCourseBySelect', {}).then(res => {
+                console.log(res)
                 this.form.course = [];
                 for (let i = 0; i < res.data.d.length; i++) {
                     this.form.course.push({ label: res.data.d[i].name, value: res.data.d[i].number });
@@ -322,6 +323,7 @@ export default {
         },
         async getCoach() {
             await axios.post(base + '/coach/queryCoachBySelect', {}).then(res => {
+                console.log(res)
                 this.form.coachData = [];
                 for (let i = 0; i < res.data.d.length; i++) {
                     this.form.coachData.push({ label: res.data.d[i].name, value: res.data.d[i].number });
