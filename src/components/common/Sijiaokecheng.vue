@@ -37,7 +37,7 @@
                         v-model="form.date2"
                         :picker-options="{
                             start: '08:00',
-                            step: '00:05',
+                            step: '01:00',
                             end: '22:00'
                         }"
                         placeholder="选择时间"
@@ -113,8 +113,8 @@ export default {
             this.getContractByCard(this.form.membersId).then(res=>{
               if(res.data.d.length!=0){
                 this.tableData=res.data.d
-              this.form.membersName=this.tableData[0].memberName
-              this.form.membersNumber=this.tableData[0].memberId
+                this.form.membersName=this.tableData[0].memberName
+                this.form.membersNumber=this.tableData[0].memberId
               }
               
             })
@@ -133,18 +133,18 @@ export default {
           if(!this.form.membersId){
             this.$message('请输入会员卡号')
             return
+          }else if(!this.addData.memberName){
+            this.$message('会员卡号错误，请重新输入')
+            return
           }else if(!this.form.date){
             this.$message('请选择日期')
             return
           }else if(!this.form.date2){
             this.$message('请选择时间')
             return
-          }else if(!this.addData.memberName){
-            this.$message('请选择预约课程')
-            return
           }
           let date=new Date(this.form.date).getFullYear()+'-'+(new Date(this.form.date).getMonth()+1)+'-'+new Date(this.form.date).getDate()+' '+this.form.date2
-          let data={mermberId:this.form.membersNumber,courseNumber:this.addData.courseNumber,appointmentDate:date,appointmentType:1,coachNumber:this.form.coachNumber}
+          let data={mermberId:this.form.membersNumber,courseNumber:this.addData.courseNumber,appointmentDate:date,appointmentType:1,coachNumber:this.addData.coachNumber}
           this.addAppointment(data).then(res=>{
             if(res){
               this.$message({message:'预约成功',type:"success"})

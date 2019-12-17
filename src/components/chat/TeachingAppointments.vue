@@ -15,7 +15,7 @@
             </el-form-item>
 
               <el-form-item label="合同编号">
-                <el-input v-model="num.memberId"></el-input>
+                <el-input v-model="num.contractId"></el-input>
             </el-form-item>
 
             <el-form-item label="状态">
@@ -103,7 +103,8 @@ export default {
                 coachNumber: '',
                 states: '',
                 dateType: '',
-                date: ''
+                date: '',
+                contractId:''
             }
         };
     },

@@ -277,26 +277,26 @@ export default {
                   index: 'pact3',
                   title: '会员更换教练'
                 },
-                {
-                  index: 'pact4',
-                  title: '私教转店处理'
-                },
-                {
-                  index: 'pact5',
-                  title: '私教转让处理'
-                },
-                {
-                  index: 'pact6',
-                  title: '团操预约和入场'
-                },
-                {
-                  index: 'pact7',
-                  title: '私教礼包销售'
-                },
-                {
-                  index: 'pact8',
-                  title: '1对多上课预约'
-                }
+                // {
+                //   index: 'pact4',
+                //   title: '私教转店处理'
+                // },
+                // {
+                //   index: 'pact5',
+                //   title: '私教转让处理'
+                // },
+                // {
+                //   index: 'pact6',
+                //   title: '团操预约和入场'
+                // },
+                // {
+                //   index: 'pact7',
+                //   title: '私教礼包销售'
+                // },
+                // {
+                //   index: 'pact8',
+                //   title: '1对多上课预约'
+                // }
 
               ]
             },
@@ -320,10 +320,10 @@ export default {
                   index: 'chat4',
                   title: '私教合同打印'
                 },
-                {
-                  index: 'alstable',
-                  title: '1对多团操预约'
-                },
+                // {
+                //   index: 'alstable',
+                //   title: '1对多团操预约'
+                // },
                 {
                   index: 'chat6',
                   title: '私教余课一览表'
@@ -332,10 +332,10 @@ export default {
                   index: 'chat7',
                   title: '私教课时剩余表'
                 },
-                {
-                  index: 'chat8',
-                  title: '小团操预约核销流水查询'
-                },
+                // {
+                //   index: 'chat8',
+                //   title: '小团操预约核销流水查询'
+                // },
                 {
                   index: 'chat9',
                   title: '私教预约签名查询'
@@ -439,10 +439,10 @@ export default {
                   index: 'regulate10',
                   title: '商品领用流水'
                 },
-                {
-                  index: 'regulate11',
-                  title: '库存历史查询'
-                },
+                // {
+                //   index: 'regulate11',
+                //   title: '库存历史查询'
+                // },
                 {
                   index: 'regulate12',
                   title: '商品销售(调整)'

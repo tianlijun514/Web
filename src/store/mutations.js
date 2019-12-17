@@ -39,6 +39,7 @@ const mutations = {
         state.appointmentSales = data;
     },
     updateAppointmentByCoach(state, data) {
+        console.log(data)
         state.appointmentByCoach = data;
     },
     updateVerification(state, data) {
@@ -46,6 +47,12 @@ const mutations = {
     },
     updateReplaceCoach(state, data) {
         state.replaceCoach = data;
+    },
+    updateContractSales(state, data) {
+        state.contractSale = data;
+    },
+    updateCoachPrint(state, data) {
+        state.coachPrint = data;
     },
     
     
