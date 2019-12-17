@@ -13,7 +13,7 @@ const actions = {
             .post(base + '/configType/getTypes', {
                 code: value
             })
-            
+
         if (value == 'J0001') {
             let obj
             let array = []
@@ -143,7 +143,6 @@ const actions = {
                 name: value.store
             })
         commit('updatePrivateCourse', data.data)
-        console.log(data.data)
         return data.data
     },
     // 新增私教课程
@@ -165,7 +164,7 @@ const actions = {
         } else {
             isState = 2
         }
-        
+
         let data = await axios
             .post(base + '/course/addCourse', {
                 number: value.id,
@@ -178,7 +177,7 @@ const actions = {
                 remarks: value.desc,
                 prices: value.table,
                 storeNumber: value.storeId,
-                coursePhoto:value.img,
+                coursePhoto: value.img,
             })
         if (data.data.i == '操作成功！') {
             return 'yes'
@@ -223,7 +222,6 @@ const actions = {
                     update: 2
                 })
         }
-        console.log(data)
         if (data.data.i == '操作成功！') {
             return 'yes'
         }
@@ -244,7 +242,6 @@ const actions = {
     },
     //新增团操教室
     async addClassRoom({ commit, state }, value) {
-        console.log(value, '123')
         let state1
         if (value.states == '正常') {
             state1 = 1
@@ -261,7 +258,6 @@ const actions = {
                 remarks: value.remarks,
                 states: state1
             })
-        console.log(data)
         if (data.data.i == '操作成功！') {
             return 'yes'
         }
@@ -379,7 +375,7 @@ const actions = {
                 salesman: value.salesman,
             })
             .then(res => {
-                commit('updateCourseRemain', data.data.d)
+                commit('updateCourseRemain', res.data.d)
             });
     },
     //剩余课时查询
@@ -400,7 +396,7 @@ const actions = {
                     for (let i = 0; i < data.data.d.object.length; i++) {
                         data.data.d.object[i].unitPrice = data.data.d.object[i].realPrice / data.data.d.object[i].bayNum
                     }
-                    commit('updateCourseCount', data.data.d)
+                    commit('updateCourseCount', res.data.d)
                 });
         }
 
@@ -409,11 +405,11 @@ const actions = {
     async getBySignature({ commit, state }, value) {
         let startDate,
             endDate
-        if(value.date){
+        if (value.date) {
             let date = new Date(value.date[0])
             let date2 = new Date(value.date[1])
-            startDate= date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-            endDate= date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate()
+            startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+            endDate = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate()
         }
         await axios
             .post(base + '/coachContract/queryBySignature' + '/' + value.page + '/' + value.size, {
@@ -425,7 +421,7 @@ const actions = {
                 dateType: value.dateType,
             })
             .then(res => {
-                commit('updateBySignature', data.data.d)
+                commit('updateBySignature', res.data.d)
             });
 
     },
@@ -433,11 +429,11 @@ const actions = {
     async getAppointmentSales({ commit, state }, value) {
         let startDate,
             endDate
-        if(value.date){
+        if (value.date) {
             let date = new Date(value.date[0])
             let date2 = new Date(value.date[1])
-            startDate= date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-            endDate= date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate()
+            startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+            endDate = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate()
         }
         await axios
             .post(base + '/appointment/queryAppointmentSales' + '/' + value.page + '/' + value.size, {
@@ -447,153 +443,190 @@ const actions = {
                 startDate: startDate,
                 endDate: endDate,
                 dateType: value.dateType,
+                contractNumber: value.contractId,
             })
             .then(res => {
-                console.log(data.data.d)
-                commit('updateAppointmentSales', data.data.d)
+                commit('updateAppointmentSales', res.data.d)
             });
 
     },
     // 查询会员
-    async getByCardId({ commit, state },value) {
-        let data =  await axios
+    async getByCardId({ commit, state }, value) {
+        let data = await axios
             .get(base + '/membership/queryByCardId', {
                 params: {
                     cardId: value
                 }
             })
-          return data
+        return data
     },
     //添加私教定金
     async reserveMoneySell({ commit, state }, value) {
         let idType,
             sex
-        if(value.idType=='身份证'){
-            idType=1  
-        }else if(value.idType=='护照'){
-            idType=2
-        }else{
-            idType=3
+        if (value.idType == '身份证') {
+            idType = 1
+        } else if (value.idType == '护照') {
+            idType = 2
+        } else {
+            idType = 3
         }
-        if(value.gender='man'){
-            sex=1
-        }else{
-            sex=2
+        if (value.gender = 'man') {
+            sex = 1
+        } else {
+            sex = 2
         }
-        value.membersType=parseInt(value.membersType)
-        value.conventionType=parseInt(value.conventionType)
-        value.conventionMoney=value.conventionMoney+'.00'
-        value.conventionMoney=parseFloat(value.conventionMoney).toFixed(2)
-        let data =  await axios
+        value.membersType = parseInt(value.membersType)
+        value.conventionType = parseInt(value.conventionType)
+        value.conventionMoney = value.conventionMoney + '.00'
+        value.conventionMoney = parseFloat(value.conventionMoney).toFixed(2)
+        let data = await axios
             .post(base + '/reserveMoney/sell', {
                 memberType: value.membersType,
                 cardTypeId: '',
                 cardId: value.membersId,
                 name: value.membersName,
-                zjType:idType,
+                zjType: idType,
                 sex,
-                zjNum:value.userId,
-                price:'0.00',
-                reservePrice:value.conventionMoney,
-                reserveType:value.conventionType,
+                zjNum: value.userId,
+                price: '0.00',
+                reservePrice: value.conventionMoney,
+                reserveType: value.conventionType,
                 remark: value.desc,
             })
-            if(data.data.i == '操作成功！'){
-                return 'yes'
-            }
+        if (data.data.i == '操作成功！') {
+            return 'yes'
+        }
     },
     //查询私教预约
-    async getAppointmentByCoach({ commit, state },value) {
-        let data =  await axios
+    async getAppointmentByCoach({ commit, state }, value) {
+        let data = await axios
             .post(base + '/appointment/queryAppointmentByCoach', {
-                date: value
+                date: value.dateTime,
+                cardId: value.typeCode,
+                type: value.state
             })
-          let array = []
-        //   console.log(data.data)
-                for (let i in data.data.d[0]) {
-                    // for(let k=0;k<data.data.d[0][i].length;k++){
-                    //     if(data.data.d[0][i][k].appointments.length!=0){
-                    //         console.log(data.data.d[0][i][k])
-                    //     }
-                    // }
-                    array.push({ name: i, data: data.data.d[0][i] })
+        let array = []
+        for (let i in data.data.d[0]) {
+            for (let k = 0; k < data.data.d[0][i].length; k++) {
+                if (data.data.d[0][i][k].appointments.length != 0) {
+                    console.log(data.data.d[0][i][k])
                 }
-          commit('updateAppointmentByCoach', array)
-          return array
+            }
+            array.push({ name: i, data: data.data.d[0][i],type:''})
+        }
+        for (let i = 0; i < array.length; i++) {
+            if (i % 2 == 1) {
+                array[i].type = 'singular'
+            } else {
+                array[i].type = 'dual'
+            }
+        }
+        commit('updateAppointmentByCoach', array)
+        return array
     },
     //新增私教预约
-    async addAppointment({ commit, state },value) {
-        let data =  await axios
+    async addAppointment({ commit, state }, value) {
+        console.log(value)
+        let data = await axios
             .post(base + '/appointment/addAppointment', {
-                mermberId:value.memberId,
-                courseNumber:value.courseNumber,
-                appointmentDate:value.appointmentDate,
-                appointmentType:value.appointmentType,
-                coachNumber:value.coachNumber,
+                mermberId: value.mermberId,
+                courseNumber: value.courseNumber,
+                appointmentDate: value.appointmentDate,
+                appointmentType: value.appointmentType,
+                coachNumber: value.coachNumber,
             })
-        if(data.data.i=='操作成功！'){
+        if (data.data.i == '操作成功！') {
             return 'yes'
         }
     },
     //查询私教预约-会员合同信息
-    async getContractByCard({ commit, state },value) {
-        let data =  await axios
+    async getContractByCard({ commit, state }, value) {
+        let data = await axios
             .get(base + '/coachContract/queryContractByCard', {
-                params:{
+                params: {
                     cardNumber: value
                 }
             })
         return data
     },
     // 查询待核销信息
-    async getVerification({ commit, state },value) {
+    async getVerification({ commit, state }, value) {
         console.log(value)
-        let data =  await axios
+        let data = await axios
             .post(base + '/coachContract/queryVerification' + '/' + value.page + '/' + value.size, {
-                startDate:value.date1,
-                endDate:value.date2,
-                coachNumber:value.coachNumber,
-                cardId:value.cardId,
+                startDate: value.date1,
+                endDate: value.date2,
+                coachNumber: value.coachNumber,
+                cardId: value.cardId,
             })
         console.log(data)
-        commit('updateVerification',data.data)
+        commit('updateVerification', data.data)
     },
     //更换教练信息查询
-    async getReplaceCoach({ commit, state },value) {
-        console.log(value)
-        let data =  await axios
+    async getReplaceCoach({ commit, state }, value) {
+        let data = await axios
             .post(base + '/coachContract/queryOldCoach' + '/' + value.page + '/' + value.size, {
-                startDate:value.date1,
-                endDate:value.date2,
-                coachName:value.coachName,
-                memberId:value.memberId,
+                startDate: value.date1,
+                endDate: value.date2,
+                coachName: value.coachName,
+                memberId: value.memberId,
             })
         console.log(data)
-        commit('updateReplaceCoach',data.data)
+        commit('updateReplaceCoach', data.data)
     },
     //根据私教合同号查会员信息
-    async getContractMembers({ commit, state },value) {
-        let data =  await axios
+    async getContractMembers({ commit, state }, value) {
+        let data = await axios
             .get(base + '/coachContract/queryByContractNumber', {
-                params:{
-                    contractNumber:value
+                params: {
+                    contractNumber: value
                 }
             })
         return data.data.d
     },
     //新增更换教练
-    async addReplaceCoach({ commit, state },value) {
-        let data =  await axios
+    async addReplaceCoach({ commit, state }, value) {
+        let data = await axios
             .post(base + '/coachContract/updateCoachContract', {
-                contractNumber:value.contract,
-                remarks:value.remarks,
-                oldDate:value.date,
-                oldCoach:value.oldCoach,
-                coachNumber:value.coach,
+                contractNumber: value.contract,
+                remarks: value.remarks,
+                oldDate: value.date,
+                oldCoach: value.oldCoach,
+                coachNumber: value.coach,
             })
-        if(data.i=='操作成功！'){
+        if (data.i == '操作成功！') {
             return 'yes'
         }
+    },
+    // 查询私教销售流水
+    async getContractSales({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/coachContract/queryContractSales' + '/' + value.page + '/' + value.size, {
+                startDate: value.date1,
+                endDate: value.date2,
+                salesType: value.type,
+                courseType: value.classification,
+                contractNumber: value.contract,
+                salesman: value.employees,
+                cardId: value.membersId
+            })
+        console.log(data)
+        commit('updateContractSales', data.data)
+    },
+    // 查询私教合同打印
+    async getCoachPrint({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/coachContract/queryPrint' + '/' + value.page + '/' + value.size, {
+                salesType: value.type,
+                contractStates: value.state,
+                contractNumber: value.contract,
+                startDate: value.date1,
+                endDate: value.date2,
+                member: value.name,
+            })
+        console.log(data)
+        commit('updateCoachPrint', data.data)
     },
 
 }

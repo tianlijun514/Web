@@ -31,6 +31,7 @@
     <span class="searchRst">查询结果：共0条记录/显示0页</span>
 
     <el-table :data="tableData" border style="width: 100%;text-align:center">
+      <el-table-column label="序号" type="index" align="center"></el-table-column>
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
       </template>
@@ -70,7 +71,6 @@ export default {
         region: ''
       },
       tableTitle: [
-        { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
         { title: '会员编号', data: 'userNo' },
         { title: '会员卡号', data: 'userCardNo' },
@@ -83,7 +83,6 @@ export default {
         { title: '证件照', data: 'cardPhoto' }
       ],
       tableData: [{
-        num: '00012',
         storeName: '天府四街分店',
         userNo: '0001242',
         userCardNo: '0001242313',
