@@ -3,41 +3,41 @@
     <div class="pact">
         <el-form ref="form" :model="form" label-width="80px" class="formbox">
             <el-form-item label="私教合同号" label-width="82px">
-                <el-input v-model="form.contract" style="width: 187px;"></el-input>
+                <el-input v-model="form.contract" style="width: 187px;" @change="search"></el-input>
             </el-form-item>
 
             <div class="conment">
                 <div class="shenfen">
                     <div class="block">
                         <span class="demonstration">销售日期</span>
-                        <el-date-picker
+                        <el-input
+                            suffix-icon="el-icon-date"
                             v-model="form.date"
-                            type="date"
-                            placeholder="选择日期"
-                            style="width: 183px"
-                        ></el-date-picker>
+                            :disabled="true"
+                            style="width: 185px;"
+                        ></el-input>
                     </div>
 
                     <el-form-item label="销售类别" label-width="82px">
-                        <el-input v-model="form.category" ></el-input>
+                        <el-input v-model="form.date1" :disabled="true"></el-input>
                     </el-form-item>
                 </div>
 
                 <div class="shenfen">
                     <el-form-item label="会员姓名">
-                        <el-input v-model="form.name" ></el-input>
+                        <el-input v-model="form.name" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label-width="82px" label="会员编号">
-                        <el-input v-model="form.number" ></el-input>
+                        <el-input v-model="form.number" :disabled="true"></el-input>
                     </el-form-item>
                 </div>
 
                 <div class="shenfen">
                     <el-form-item label="课程">
-                        <el-input v-model="form.course" ></el-input>
+                        <el-input v-model="form.course" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label-width="82px" label="教练">
-                        <el-input v-model="form.coach" ></el-input>
+                        <el-input v-model="form.coach" :disabled="true"></el-input>
                     </el-form-item>
                 </div>
 
@@ -46,7 +46,7 @@
                         <el-input
                             suffix-icon="el-icon-date"
                             v-model="form.date1"
-                            
+                            :disabled="true"
                             style="width: 185px;"
                         ></el-input>
                     </el-form-item>
@@ -54,26 +54,26 @@
                     <el-form-item label="合同迄日">
                         <el-input
                             suffix-icon="el-icon-date"
-                            v-model="form.data2"
-                            
+                            v-model="form.date2"
+                            :disabled="true"
                             style="width: 185px;"
                         ></el-input>
                     </el-form-item>
                 </div>
                 <div class="shenfen">
                     <el-form-item label="合同金额">
-                        <el-input v-model="form.money" ></el-input>
+                        <el-input v-model="form.money" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label-width="82px" label="付款金额">
-                        <el-input v-model="form.money2" ></el-input>
+                        <el-input v-model="form.money2" :disabled="true"></el-input>
                     </el-form-item>
                 </div>
                 <div class="shenfen">
                     <el-form-item label="合同课时">
-                        <el-input v-model="form.class" ></el-input>
+                        <el-input v-model="form.class" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label-width="82px" label="剩余课时">
-                        <el-input v-model="form.restClass" ></el-input>
+                        <el-input v-model="form.restClass" :disabled="true"></el-input>
                     </el-form-item>
                 </div>
             </div>
@@ -81,7 +81,12 @@
             <div class="shenfen">
                 <el-form-item label="选择教练">
                     <el-select v-model="form.region" style="width: 188px;">
-                        <el-option label="B01171 - 伍一 - 一星级" value="shanghai"></el-option>
+                        <el-option
+                            v-for="(item,index) in coach"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index+'a'"
+                        ></el-option>
                     </el-select>
                 </el-form-item>
             </div>
@@ -98,6 +103,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
+import { mapActions, mapState } from 'vuex';
 import axios from 'axios';
 import { url } from '../js/url';
 export default {
@@ -114,54 +120,115 @@ export default {
             size: 10,
             value1: '',
             form: {
-              contract:'',
-              category:'',
-              number:'',
-              course:'',
-              coach:'',
-              money:'',
-              money2:'',
-              class:'',
-              restClass:'',
+                contract: '',
+                category: '',
+                number: '',
+                course: '',
+                coach: '',
+                money: '',
+                money2: '',
+                class: '',
+                restClass: '',
                 name: '',
                 region: '',
                 date: '',
-                date1:'',
+                date1: '',
                 date2: '',
                 delivery: false,
                 type: [],
                 resource: '',
                 desc: ''
-            }
+            },
+            coach: []
         };
     },
     // 监听属性 类似于data概念
-    computed: {},
+    computed: {
+        ...mapState({})
+    },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
+        ...mapActions(['getContractMembers', 'getqueryCoachBySelect', 'addReplaceCoach']),
         onSubmit() {
-            console.log('submit!1233');
-            axios.get(url + '/coach/updateCoach/' + this.currentPage + '/' + this.size, {
-              params:{
-                number:'1',
-                name:'2',
-                leavel:3,
-                coachType:4,
-                remarks:'5',
-                states:1,
-                teaching:11,
-                areaNumbers:['1'],
-                coachNumber:'123',
-              }
-            }).then(res=>{
-              console.log(res)
-            })
+            if(!this.form.contract){
+                this.$message('请输入私教合同号')
+                return
+            }else if(!this.form.name){
+                this.$message('私教合同号错误，请重新输入')
+                return
+            }
+            let object = {};
+            let date = new Date();
+            object.remarks = this.form.desc;
+            object.date =
+                date.getFullYear() +
+                '-' +
+                (date.getMonth() + 1) +
+                '-' +
+                date.getDate() +
+                ' ' +
+                date.getHours() +
+                ':' +
+                date.getMinutes() +
+                ':' +
+                date.getSeconds();
+            object.oldCoach = this.form.coachNumber;
+            object.coach = this.form.region;
+            object.number = this.form.contract;
+            this.addReplaceCoach(object).then(res => {
+                if (res == 'yes') {
+                    this.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
+                    this.$router.push('/pact3')
+                    this.form.date = '';
+                    this.form.date1=''
+                    this.form.date2=''
+                    this.form.coach=''
+                    this.form.course=''
+                    this.form.class=''
+                    this.form.restClass=''
+                    this.form.money=''
+                    this.form.money2=''
+                    this.form.name=''
+                    this.form.number=''
+                    this.form.coachNumber=''
+                    this.form.contract=''
+                }
+            });
+        },
+        search() {
+
+            this.getContractMembers(this.form.contract).then(res => {
+                if(res[0]){
+                    this.form.date = res[0].createDate;
+                    this.form.date1 = res[0].startDate;
+                    this.form.date2 = res[0].endDate;
+                    this.form.coach = res[0].coachName;
+                    this.form.course = res[0].courseName;
+                    this.form.class = res[0].bayNum;
+                    this.form.restClass = res[0].residueNumber;
+                    this.form.money = res[0].realPrice;
+                    this.form.money2 = res[0].actualPrice;
+                    this.form.name = res[0].memberName;
+                    this.form.number = res[0].memberId;
+                    this.form.coachNumber = res[0].coachNumber;
+                }
+                
+            });
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.getqueryCoachBySelect().then(res => {
+            for (let i = 0; i < res.length; i++) {
+                this.coach.push({ label: res[i].name, value: res[i].number });
+            }
+        });
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, // 生命周期 - 创建之前
