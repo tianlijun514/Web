@@ -735,6 +735,20 @@ const actions = {
                 
             })
             console.log(data)
+            console.log(state.conventionType)
+            console.log(state.conventionState)
+            for(let i=0;i<data.data.d.length;i++){
+                for(let k=0;k<state.conventionType.length;k++){
+                    if(data.data.d[i].reserveType==state.conventionType[k].value){
+                        data.data.d[i].reserveType=state.conventionType[k].label
+                    }
+                }
+                for(let j=0;j<state.conventionState.length;j++){
+                    if(data.data.d[i].status==state.conventionType[j].value){
+                        data.data.d[i].status=state.conventionType[j].label
+                    }
+                }
+            }
         commit('updateReserves', data.data)
     },
     
