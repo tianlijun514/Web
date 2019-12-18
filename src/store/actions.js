@@ -50,6 +50,38 @@ const actions = {
             }
             commit('updateClassRoomType', array)
             return array
+        } else if (value == 'S0001') {
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.data.length; i++) {
+                if(data.data.data[i].remark!='定金销售'){
+                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                    array.push(obj)
+                }
+                
+            }
+            commit('updateMemberSalesType', array)
+            return array
+        } else if (value == 'A0002') {
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.data.length; i++) {
+                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                array.push(obj)
+                
+            }
+            commit('updateConventionType', array)
+            return array
+        } else if (value == 'A0003') {
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.data.length; i++) {
+                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+                array.push(obj)
+                
+            }
+            commit('updateConventionState', array)
+            return array
         }
     },
     // 新增教练员
@@ -513,7 +545,7 @@ const actions = {
                     console.log(data.data.d[0][i][k])
                 }
             }
-            array.push({ name: i, data: data.data.d[0][i],type:''})
+            array.push({ name: i, data: data.data.d[0][i], type: '' })
         }
         for (let i = 0; i < array.length; i++) {
             if (i % 2 == 1) {
@@ -628,6 +660,84 @@ const actions = {
         console.log(data)
         commit('updateCoachPrint', data.data)
     },
+    // 查询会员信息列表
+    async getListMembers({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/member/queryMembers' + '/' + value.page + '/' + value.size, {
+                cardId: value.membersId,
+                memberId: value.membersNumber,
+                str: value.type,
+                contractId: value.contract,
+                storeCode: value.store,
+            })
+        commit('updateListMembers', data.data)
+    },
+    // 查询会籍销售流水
+    async getMembersSales({ commit, state }, value) {
+        let dateType,
+        type
+        if(typeof value.dateType=='string' && value.dateType!=''){
+            dateType=parseInt(value.dateType)
+        }else{
+            dateType=null
+        }
+        console.log(value.type)
+        if(value.type!=''){
+            type=value.type
+        }else{
+            type=null
+        }
+        let data = await axios
+            .post(base + '/contract/queryList' + '/' + value.page + '/' + value.size, {
+                storeCode: value.store,
+                dateType: dateType,
+                startDate: value.date1,
+                endDate: value.date2,
+                shellType: type,
+                contractId:value.contract,
+                salesman:value.sales,
+                
+            })
+            console.log(data)
+        commit('updateMembersSales', data.data)
+    },
+    // 查询定金销售流水
+    async getReserves({ commit, state }, value) {
+        let dateType,
+        type,
+        type2
+        if(value.dateType!=''){
+            dateType=value.dateType
+        }else{
+            dateType=null
+        }
+        if(typeof value.dateType=='string' && value.dateType!=''){
+            type=parseInt(value.dateType)
+        }else{
+            type=null
+        }
+        if(value.regiong!=''){
+            type2=value.regiong
+        }else{
+            type2=null
+        }
+        let data = await axios
+            .post(base + '/reserveMoney/getReserves' + '/' + value.page + '/' + value.size, {
+                storeCode: value.store,
+                reserveType:dateType,
+                id: value.reservationNumber,
+                cardId: value.memberId,
+                memberId: value.type,
+                status:type2,
+                dateType:type,
+                startDate:value.date1,
+                endDate:value.date2,
+                
+            })
+            console.log(data)
+        commit('updateReserves', data.data)
+    },
+    
 
 }
 
