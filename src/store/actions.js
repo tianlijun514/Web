@@ -672,6 +672,27 @@ const actions = {
             })
         commit('updateListMembers', data.data)
     },
+    // 查询会员详细信息
+    async getMemberById({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryMemberById', {
+                params:{
+                    id: value,
+                }
+            })
+        return data
+    },
+    // 查询会员弹窗信息
+    
+    async getBrief({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryBrief', {
+                params:{
+                    id: value,
+                }
+            })
+        return data
+    },
     // 查询会籍销售流水
     async getMembersSales({ commit, state }, value) {
         let dateType,
@@ -681,7 +702,6 @@ const actions = {
         }else{
             dateType=null
         }
-        console.log(value.type)
         if(value.type!=''){
             type=value.type
         }else{
@@ -734,7 +754,18 @@ const actions = {
                 endDate:value.date2,
                 
             })
-            console.log(data)
+            for(let i=0;i<data.data.d.length;i++){
+                for(let k=0;k<state.conventionType.length;k++){
+                    if(data.data.d[i].reserveType==state.conventionType[k].value){
+                        data.data.d[i].reserveType=state.conventionType[k].label
+                    }
+                }
+                for(let j=0;j<state.conventionState.length;j++){
+                    if(data.data.d[i].status==state.conventionState[j].value){
+                        data.data.d[i].status=state.conventionState[j].label
+                    }
+                }
+            }
         commit('updateReserves', data.data)
     },
     

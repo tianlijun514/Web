@@ -22,9 +22,8 @@
                 ></el-date-picker>
             </el-form-item>
             <el-form-item label="类型">
-               
                 <el-select v-model="num.type">
-                   <el-option label="全部" value=""></el-option>
+                    <el-option label="全部" value></el-option>
                     <el-option
                         v-for="(item,index) in memberSalesType"
                         :label="item.label"
@@ -50,7 +49,11 @@
         <el-table :data="membersSales.d" border style="width: 100%;text-align:center">
             <el-table-column label="序号" type="index" align="center"></el-table-column>
             <el-table-column prop="storeName" label="门店名称"></el-table-column>
-            <el-table-column prop="name" label="会员姓名"></el-table-column>
+            <el-table-column prop="name" label="会员姓名">
+                <template slot-scope="scope">
+                    <span class="name" @click="show(scope.row)">{{scope.row.name}}</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="shellDate" label="销售日期"></el-table-column>
             <el-table-column prop="cardName" label="会籍类型"></el-table-column>
             <el-table-column prop="shellName" label="销售类别"></el-table-column>
@@ -75,6 +78,7 @@
                 :total="membersSales.t"
             ></el-pagination>
         </div>
+        <Dialog :showData="showData" :dialogShow="dialogShow" @dialogShowData="dialogShowData" />
     </div>
 </template>
 
@@ -82,11 +86,14 @@
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import { mapActions, mapState } from 'vuex';
+import Dialog from './memberDialog'
 export default {
     name: 'boxhj',
     props: {},
     // import引入的组件需要注入到对象中才能使用
-    components: {},
+    components: {
+        Dialog
+    },
     data() {
         // 这里存放数据
         return {
@@ -101,7 +108,9 @@ export default {
                 date1: '',
                 date2: ''
             },
-            date: ''
+            date: '',
+            showData:'',
+            dialogShow:false
         };
     },
     // 监听属性 类似于data概念
@@ -113,6 +122,14 @@ export default {
     // 方法集合
     methods: {
         ...mapActions(['getMembersSales', 'getCoachInformation']),
+        
+        show(e){
+            this.showData=e.memberId
+            this.dialogShow=true
+        },
+        dialogShowData(e){
+            this.dialogShow=e
+        },
         search() {
             if (this.date) {
                 this.getDate(this.date);
@@ -155,7 +172,7 @@ export default {
     activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style  scoped>
+<style lang="scss" scoped>
 @import './../../assets/css/table.css';
 .app {
     width: 100%;
@@ -164,4 +181,9 @@ export default {
     width: 550px;
     margin: auto;
 }
+.name {
+    color: #e67e22;
+    cursor: pointer;
+}
+
 </style>
