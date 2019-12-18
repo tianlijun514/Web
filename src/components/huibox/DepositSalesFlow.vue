@@ -1,176 +1,209 @@
 <!-- vue快捷创建组件 -->
 <template>
-  <div class='app'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
+    <div class="app">
+        <el-form :inline="true" :model="num" class="demo-form-inline">
+            <el-form-item label="门店">
+                <el-input v-model="num.store" :disabled="true"></el-input>
+            </el-form-item>
 
-      <el-form-item label="定金类型">
-        <el-select v-model="formInline.region">
-          <el-option label="全部" value="shanghai"></el-option>
-          <el-option label="会籍定金" value="beijing"></el-option>
-          <el-option label="私教定金" value="sijiao"></el-option>
-          <el-option label="停转补定金" value="tingbox"></el-option>
-          <el-option label="转让定金" value="zhaun"></el-option>
-          <el-option label="租箱定金" value="xiang"></el-option>
-          <el-option label="商品定金" value="shoping"></el-option>
-        </el-select>
-      </el-form-item>
+            <el-form-item label="定金类型">
+                <el-select v-model="num.type">
+                    <el-option label="全部" value=""></el-option>
+                    <el-option
+                        v-for="(item,index) in conventionType"
+                        :label="item.label"
+                        :value="item.value"
+                        :key="index+'a'"
+                    ></el-option>
+                </el-select>
+            </el-form-item>
 
-      <el-form-item label="日期类型">
-        <el-select v-model="formInline.regions">
-          <el-option label="销售日期" value="xiaoshou"></el-option>
-          <el-option label="使用日期" value="shi"></el-option>
-        </el-select>
-      </el-form-item>
+            <el-form-item label="日期类型">
+                <el-select v-model="num.dateType">
+                    <el-option label="销售日期" value="xiaoshou"></el-option>
+                    <el-option label="使用日期" value="shi"></el-option>
+                </el-select>
+            </el-form-item>
 
-      <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            <span class="demonstration">日期范围</span>
+            <el-date-picker
+                v-model="date"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+            ></el-date-picker>
 
-      <el-form-item label="定金编号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
+            <el-form-item label="定金编号">
+                <el-input v-model="num.reservationNumber"></el-input>
+            </el-form-item>
 
-      <el-form-item label="会员卡号">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
+            <el-form-item label="会员卡号">
+                <el-input v-model="num.memberId"></el-input>
+            </el-form-item>
 
-      <el-form-item label="会员姓名">
-        <el-input v-model="formInline.user"></el-input>
-      </el-form-item>
+            <el-form-item label="会员姓名">
+                <el-input v-model="num.memberName"></el-input>
+            </el-form-item>
 
-      <el-form-item label="是否使用">
-        <el-select v-model="formInline.regiong">
-          <el-option label="全部" value="regbox"></el-option>
-          <el-option label="未使用" value="rewei"></el-option>
-          <el-option label="已使用" value="reshi"></el-option>
-          <el-option label="退定金" value="retui"></el-option>
-          <el-option label="锁定" value="resuo"></el-option>
-          <el-option label="已合并" value="rehe"></el-option>
-        </el-select>
-      </el-form-item>
+            <el-form-item label="是否使用">
+                <el-select v-model="num.regiong">
+                  
+                    <el-option label="全部" value=""></el-option>
+                    <el-option
+                        v-for="(item,index) in conventionState"
+                        :label="item.label"
+                        :value="item.value"
+                        :key="index+'a'"
+                    ></el-option>
+                </el-select>
+            </el-form-item>
 
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
-      </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="search">查询</el-button>
+            </el-form-item>
+        </el-form>
+        <span class="searchRst">查询结果：共{{reserves.t}}条记录/显示{{num.page}}页</span>
+        <el-button size="mini" type="primary" class="dingdan">合并订单</el-button>
 
-    </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
-    <el-button size="mini" type="primary" class="dingdan">合并订单</el-button>
+        <el-table :data="reserves.d" border style="width: 100%;text-align:center">
+            <!-- <el-table-column type="selection" label="选择"></el-table-column> -->
+            <el-table-column type="index" label="选择"></el-table-column>
+            <el-table-column prop="storeName" label="门店名称"></el-table-column>
+            <el-table-column prop="id" label="定金编号"></el-table-column>
+            <el-table-column prop="cardId" label="会员卡号"></el-table-column>
+            <el-table-column prop="member.name" label="会员姓名"></el-table-column>
+            <el-table-column prop="reserveType" label="定金类型"></el-table-column>
+            <el-table-column prop="reservePrice" label="定金金额"></el-table-column>
+            <el-table-column prop="isTotal" label="全额定金"></el-table-column>
+            <el-table-column prop="salesDate" label="销售日期"></el-table-column>
+            <el-table-column prop="useDate" label="使用日期"></el-table-column>
+            <el-table-column prop="status" label="状态"></el-table-column>
+            <el-table-column prop="signature" label="签名">
+              <template slot-scope="scope">
+                <span>{{scope.row.signature==1?'已签名':'未签名'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="remark" label="备注"></el-table-column>
+            <el-table-column label="操作" width="180">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="primary" @click="jump(scope.row)">拆分订单</el-button>
+                    <el-button size="mini" type="primary">退定金</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
 
-    <el-table :data="tableData" border style="width: 100%;text-align:center">
-      <el-table-column type="selection" label="选择"></el-table-column>
-      <template v-for="(item,index) in tableTitle">
-        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center"></el-table-column>
-      </template>
-
-      <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="jump(scope.row)">拆分订单</el-button>
-          <el-button size="mini" type="primary">退定金</el-button>
-        </template>
-      </el-table-column>
-
-    </el-table>
-
-    <div class="block">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="40">
-      </el-pagination>
+        <div class="block">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="reserves.t"
+            ></el-pagination>
+        </div>
     </div>
-  </div>
-
 </template>
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-
+import { mapActions, mapState } from 'vuex';
 export default {
-  name: 'boxdj',
-  props: {
-
-  },
-  // import引入的组件需要注入到对象中才能使用
-  components: {
-
-  },
-  data () {
-    // 这里存放数据
-    return {
-      currentPage: 1,
-      formInline: {
-        user: '',
-        region: ''
-      },
-      value1: '',
-      tableTitle: [
-        { title: '序号', data: 'num' },
-        { title: '门店名称', data: 'storeName' },
-        { title: '定金编号', data: 'userNo' },
-        { title: '会员卡号', data: 'userCardNo' },
-        { title: '会员姓名', data: 'userName' },
-        { title: '定金类型', data: 'sex' },
-        { title: '定金金额', data: 'cardClass' },
-        { title: '全额定金', data: 'cardNo' },
-        { title: '销售日期', data: 'telNo' },
-        { title: '使用日期', data: 'photo' },
-        { title: '状态', data: 'cardPhoto' },
-        { title: '签名', data: 'caryi' },
-        { title: '备注', data: 'carcu' },
-      ],
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '普通',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        photo: '2018-12-01',
-        cardPhoto: '2018-12-23',
-        caryi: '备注',
-        carcu: '10',
-      }]
-    }
-  },
-  // 监听属性 类似于data概念
-  computed: {},
-  // 监控data中的数据变化
-  watch: {},
-  // 方法集合
-  methods: {
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`);
+    name: 'boxdj',
+    props: {},
+    // import引入的组件需要注入到对象中才能使用
+    components: {},
+    data() {
+        // 这里存放数据
+        return {
+            value1: '',
+            tableTitle: [
+                { title: '门店名称', data: 'storeName' },
+                { title: '定金编号', data: 'id' },
+                { title: '会员卡号', data: 'cardId' },
+                { title: '会员姓名', data: 'member.name' },
+                { title: '定金类型', data: 'reserveType' },
+                { title: '定金金额', data: 'reservePrice' },
+                { title: '全额定金', data: 'cardNo' },
+                { title: '销售日期', data: 'salesDate' },
+                { title: '使用日期', data: 'useDate' },
+                { title: '状态', data: 'status' },
+                { title: '签名', data: 'signature' },
+                { title: '备注', data: 'remark' }
+            ],
+            num: {
+                page: 1,
+                size: 10,
+                regiong: '',
+                memberId: '',
+                memberName: '',
+                reservationNumber: '',
+                dateType: '',
+                type:'',
+                store:'',
+                date1:'',
+                date2:''
+            },
+            date:'',
+        };
     },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
+    // 监听属性 类似于data概念
+    computed: {
+        ...mapState({ reserves: state => state.reserves,conventionType:state=>state.conventionType ,conventionState:state=>state.conventionState })
     },
-    onSubmit () {
-      console.log('submit!');
+    // 监控data中的数据变化
+    watch: {},
+    // 方法集合
+    methods: {
+        ...mapActions(['getReserves','getCoachInformation']),
+        search() {
+            if (this.date) {
+                this.getDate(this.date);
+            }
+            this.getReserves(this.num);
+        },
+        getDate(e) {
+            let date = new Date(e[0]);
+            let date2 = new Date(e[1]);
+            this.num.date1 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            this.num.date2 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate();
+        },
+        handleSizeChange(val) {
+            this.size = val;
+            if (this.date) {
+                this.getDate(this.date);
+            }
+            this.getReserves(this.num);
+        },
+        handleCurrentChange(val) {
+            this.page = val;
+            if (this.date) {
+                this.getDate(this.date);
+            }
+            this.getReserves(this.num);
+        },
+        jump() {
+            this.$router.push('./index1');
+        }
     },
-    jump () {
-      this.$router.push('/index1')
-    }
-  },
-  // 生命周期 - 创建完成（可以访问当前this实例）
-  created () {
-
-  },
-  // 生命周期 - 挂载完成（可以访问DOM元素）
-  mounted () {
-
-  },
-  beforeCreate () { }, // 生命周期 - 创建之前
-  beforeMount () { }, // 生命周期 - 挂载之前
-  beforeUpdate () { }, // 生命周期 - 更新之前
-  updated () { }, // 生命周期 - 更新之后
-  beforeDestroy () { }, // 生命周期 - 销毁之前
-  destroyed () { }, // 生命周期 - 销毁完成
-  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
-}
+    // 生命周期 - 创建完成（可以访问当前this实例）
+    created() {
+        this.getReserves(this.num);
+        this.getCoachInformation('A0002')
+        this.getCoachInformation('A0003')
+    },
+    // 生命周期 - 挂载完成（可以访问DOM元素）
+    mounted() {},
+    beforeCreate() {}, // 生命周期 - 创建之前
+    beforeMount() {}, // 生命周期 - 挂载之前
+    beforeUpdate() {}, // 生命周期 - 更新之前
+    updated() {}, // 生命周期 - 更新之后
+    beforeDestroy() {}, // 生命周期 - 销毁之前
+    destroyed() {}, // 生命周期 - 销毁完成
+    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+};
 </script>
 <style scoped>
 @import './../../assets/css/table.css';
@@ -182,7 +215,7 @@ export default {
     width: 550px;
     margin: auto;
 }
-.dingdan{
-  float: right
+.dingdan {
+    float: right;
 }
 </style>

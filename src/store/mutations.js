@@ -54,6 +54,24 @@ const mutations = {
     updateCoachPrint(state, data) {
         state.coachPrint = data;
     },
+    updateListMembers(state, data) {
+        state.listMembers = data;
+    },
+    updateMembersSales(state, data) {
+        state.membersSales = data;
+    },
+    updateMemberSalesType(state, data) {
+        state.memberSalesType = data;
+    },
+    updateReserves(state, data) {
+        state.reserves = data;
+    },
+    updateConventionType(state, data) {
+        state.conventionType = data;
+    },
+    updateConventionState(state, data) {
+        state.conventionState = data;
+    },
     
     
 }

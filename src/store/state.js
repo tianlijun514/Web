@@ -20,6 +20,12 @@ const state = {
     replaceCoach:{},//更换教练数据
     contractSale:{},//私教销售流水
     coachPrint:{},//私教合同打印
+    listMembers:{},//会员列表数据
+    membersSales:{},//会籍销售流水
+    memberSalesType:[],//会籍销售流水类型
+    reserves:{},//定金销售流水
+    conventionType:[],//定金类型
+    conventionState:[],//定金状态
 
 }
 export default state;
