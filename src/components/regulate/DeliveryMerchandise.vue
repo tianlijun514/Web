@@ -31,7 +31,7 @@
           <div class="conment">
             <el-form-item label="发货部门">
               <el-select v-model="fhDeptCode" style="width: 185px;" @change="bumen">
-                <el-option v-for='item in list' :key="item.id" :label="item.name" :value="item.number"></el-option>
+                <el-option v-for='item in boxli' :key="item.id" :label="item.name" :value="item.number"></el-option>
               </el-select>
             </el-form-item>
 
@@ -134,7 +134,7 @@ export default {
       cuswku: {
         show: false
       },
-      list: [],
+      boxli: [],
       type: '',
       fhDeptCode: '',
       shDeptCode: '',
@@ -300,7 +300,7 @@ export default {
         }),
       axios
         .get(base + '/store/getStoreList').then((res) => {
-          this.list = res.data.d
+          this.boxli = res.data.d
         })
 
   },

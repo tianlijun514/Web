@@ -234,7 +234,7 @@ export default {
     this.chaxun()
     axios
       .get(base + '/store/getStoreList').then((res) => {
-        this.type_list = res.data.queryResult.list
+        this.type_list = res.data.d
       })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）

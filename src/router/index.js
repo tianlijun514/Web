@@ -749,7 +749,7 @@ export default new Router({
         },
         {
           path: '/newApplication',
-          component: () => import('../components/approval/NewApplication.vue'),
+          component: () => import('../components/approval/newApplication.vue'),
 
           meta: {
             title: '新申请'

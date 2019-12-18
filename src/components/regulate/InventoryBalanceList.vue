@@ -28,8 +28,6 @@
       <el-table-column prop="number" label="数量"></el-table-column>
       <el-table-column prop="cgPrice" label="标准采购价"></el-table-column>
       <el-table-column prop="totalPrice" label="金额"></el-table-column>
-      <el-table-column prop="dai" label="平均采购价"></el-table-column>
-      <el-table-column prop="bei" label="金额"></el-table-column>
     </el-table>
     <div class="block">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -72,12 +70,7 @@ export default {
       },
 
       value1: '',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        dai: '00001',
-        bei: 'xiixii'
-      }],
+      tableData: [],
     }
   },
   // 监听属性 类似于data概念

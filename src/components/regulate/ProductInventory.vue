@@ -96,7 +96,7 @@ export default {
       subNum: null,
       date_s: '',
       subNum: "0",
-      good:{}
+      good: {}
     }
   },
   // 监听属性 类似于data概念
@@ -105,23 +105,40 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    inexv(e){
-      this.good=e
+    inexv (e) {
+      this.good = e
     },
     // 提交盘点数据
     inventur () {
-      console.log(this.good)
+      // console.log(this.good)
       var mydata = new Date();
       var y = mydata.getFullYear();
       var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
       var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
       this.date_s = y + "-" + m + "-" + d;
+
+      // let forData = this.tableData;
+      // for (let i = 0; i <= forData.lenght; i++) {
+      //   console.log(forData[i]);
+      // }
+
+      let nok = [{        repertoryId: this.good.repertoryId,
+        subNum: this.good.number2,
+        nowDate: this.date_s
+      }]
       axios
-        .post(base + '/commodity/subRepertoryPd', {
-          repertoryId: this.good.repertoryId,
-          subNum: this.good.number2,
-          nowDate: this.date_s
-        }).then(res => {
+        .post(base + '/commodity/subRepertoryPd',
+          nok
+        ).then(res => {
+          // if (res.data.c == 10000) {
+          //   this.$message({
+          //     message: '操作成功',
+          //     type: 'success'
+          //   });
+          //   this.chaxun();
+          // } else {
+          //   this.$message.error('操作失败');
+          // }
           console.log(res.data)
         })
     },
@@ -150,13 +167,16 @@ export default {
     chaxun () {
       axios
         .post(base + '/commodity/getRepertoryPd', {
+
           page: this.currentPage,
           size: this.size,
           deptCode: this.deptCode,
+
         }).then(res => {
+          console.log(res.data)
           this.tableData = res.data.d;
-          for(let i in this.tableData){
-            this.tableData[i].number2=0
+          for (let i in this.tableData) {
+            this.tableData[i].number2 = 0
           }
           this.total = res.data.t;
         })
@@ -171,7 +191,7 @@ export default {
     this.chaxun(),
       axios
         .get(base + '/store/getStoreList').then(res => {
-          this.options = res.data.queryResult.list
+          this.options = res.data.d
         })
 
   },

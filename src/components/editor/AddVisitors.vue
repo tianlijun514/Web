@@ -124,16 +124,15 @@ export default {
           storeName: this.storeName
         })
         .then(res => {
-          console.log(res)
-          if (res.data.code === 10000) {
-            // this.pojo = {}
-            //跳转页面 
-            this.$router.push("./editor4");
-          } else {
-            alert('添加失败！');
-          }
+          console.log(res.data)
+          // if (res.data.code === 10000) {
+          //   // this.pojo = {}
+          //   //跳转页面 
+          //   this.$router.push("./VisitorRecord");
+          // } else {
+          //   alert('添加失败！');
+          // }
         })
-      console.log('submit!');
     },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

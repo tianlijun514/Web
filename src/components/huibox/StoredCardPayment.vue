@@ -8,7 +8,7 @@
 
       <el-form-item label="状态">
         <el-select v-model="intype" @change="choose()">
-          <el-option v-for="item in brandd" :key="item.id" :label="item.remark" :value="item.id"></el-option>
+          <el-option v-for="item in brandd" :key="item.id" :label="item.remark" :value="item.number"></el-option>
         </el-select>
       </el-form-item>
 
@@ -65,14 +65,14 @@ export default {
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
         { title: '时间', data: 'createDate' },
-        { title: '会员姓名', data: 'name' },
+        { title: '会员姓名', data: 'member.name' },
         { title: '支付码', data: 'payCode' },
         { title: '金额', data: 'amount' },
         { title: '状态', data: 'type' },
         { title: '付款时间', data: 'payTime' },
         { title: '操作员', data: 'operationUser' },
       ],
-      tableData: [{}]
+      tableData: []
     }
   },
   // 监听属性 类似于data概念
@@ -94,22 +94,20 @@ export default {
     choose () {
       axios
         .get(base + '/depositCard/getDepositCardStatus').then((res) => {
-          this.brandd = res.data.o
-          console.log(res.data.o)
+          this.brandd = res.data.data
         })
     },
 
     chaxun () {
       axios
-        .get(base + '/depositCard/getDepositCardPay/' + this.currentPage + '/' + this.size, {
-          params: {
+        .post(base + '/depositCard/getDepositCardPay/', {
+            page:this.currentPage,
+            size:this.currentPage,
             storeName: this.inoutmen,
             type: this.intype,
-            // endDate: this.date_s,
-            // startDate: this.date_e
-          }
+            endDate: this.date_s,
+            startDate: this.date_e
         }).then(res => {
-          console.log(res)
           for (let i = 0; i < res.data.queryResult.list.length; i++) {
             res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
           }
