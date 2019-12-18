@@ -8,28 +8,28 @@
                     <el-col :span="5">
                         <el-form label-width="105px">
                             <el-form-item label="会员编号 :">
-                                <span class="p1">123123123123</span>
+                                <span class="p1">{{memberInformation.id}}</span>
                             </el-form-item>
                             <el-form-item label="会员卡号 :">
-                                <span class="p1">123123123123</span>
+                                <span class="p1">{{memberInformation.cardId}}</span>
                             </el-form-item>
                             <el-form-item label="中文姓名 :">
-                                <span class="p1">小小小</span>
+                                <span class="p1">{{memberInformation.name}}</span>
                             </el-form-item>
                             <el-form-item label="证件类型 :">
-                                <span class="p1">身份证</span>
+                                <span class="p1">{{memberInformation.zjType}}</span>
                             </el-form-item>
                             <el-form-item label="出生日期 :">
-                                <span class="p1">1995-05-25</span>
+                                <span class="p1">{{memberInformation.birthday}}</span>
                             </el-form-item>
                             <el-form-item label="手机 :">
-                                <span class="p1">12515214251</span>
+                                <span class="p1">{{memberInformation.phoneNum}}</span>
                             </el-form-item>
                             <el-form-item label="电子邮件 :">
-                                <span class="p1">988152002@qq.com</span>
+                                <span class="p1">{{memberInformation.email}}</span>
                             </el-form-item>
                             <el-form-item label="备注 :">
-                                <span class="p1">哈哈哈哈哈</span>
+                                <span class="p1">{{memberInformation.details}}</span>
                             </el-form-item>
                         </el-form>
                     </el-col>
@@ -40,32 +40,27 @@
                                 <span class="p1"></span>
                             </el-form-item>
                             <el-form-item label="通讯地址 :">
-                                <span class="p1">剑南大道中段1537号</span>
+                                <span class="p1">{{memberInformation.address}}</span>
                             </el-form-item>
                             <el-form-item label="英文姓名 :">
-                                <span class="p1">mededes</span>
+                                <span class="p1">{{memberInformation.englishName}}</span>
                             </el-form-item>
                             <el-form-item label="证件号码 :">
-                                <span class="p1">25154259874815265</span>
+                                <span class="p1">{{memberInformation.zjNum}}</span>
                             </el-form-item>
                             <el-form-item label="性别 :">
-                                <span class="p1">男</span>
-                            </el-form-item>
-                            <el-form-item label="联系电话 :">
-                                <span class="p1">02-8585855</span>
+                                <span class="p1">{{memberInformation.sex}}</span>
                             </el-form-item>
                             <el-form-item label="国籍 :">
-                                <span class="p1">中国</span>
-                            </el-form-item>
-                            <el-form-item label="	K-Yoga卡号 :">
-                                <span class="p1">1010101010</span>
+                                <span class="p1">{{memberInformation.nationality}}</span>
                             </el-form-item>
                         </el-form>
                     </el-col>
                     <el-col :span="4">
                         <div class="demo-fit">
                             <div class="block">
-                                <el-avatar shape="square" :size="100" :src="url"></el-avatar>
+                                <img :src="'http://192.168.2.136:8083/getImage?path='+memberInformation.photoPath" width="100" height="100" alt="">
+                                <!-- <el-avatar shape="square" :size="100" ></el-avatar> -->
                             </div>
                         </div>
                     </el-col>
@@ -315,7 +310,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-
+import { mapActions, mapState } from 'vuex';
 export default {
     name: 'hymesg',
     props: {},
@@ -324,6 +319,11 @@ export default {
     data() {
         // 这里存放数据
         return {
+            memberInformation:{},
+
+
+
+
             currentPage1: 5,
             currentPage2: 5,
             currentPage3: 5,
@@ -494,11 +494,14 @@ export default {
         };
     },
     // 监听属性 类似于data概念
-    computed: {},
+    computed: {
+        ...mapState({ listMembers: state => state.listMembers })
+    },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
+        ...mapActions(['getMemberById']),
         handleClick(tab, event) {
             console.log(tab, event);
         },
@@ -513,7 +516,12 @@ export default {
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.getMemberById(this.$route.query.id).then(res=>{
+            console.log(res)
+            this.memberInformation=res.data.d[0]
+        })
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, // 生命周期 - 创建之前
