@@ -67,7 +67,7 @@
         <el-button size="mini" type="primary" class="dingdan">合并订单</el-button>
 
         <el-table :data="reserves.d" border style="width: 100%;text-align:center">
-            <!-- <el-table-column type="selection" label="选择"></el-table-column> -->
+            <el-table-column type="selection" label="选择"></el-table-column>
             <el-table-column type="index" label="选择"></el-table-column>
             <el-table-column prop="storeName" label="门店名称"></el-table-column>
             <el-table-column prop="id" label="定金编号"></el-table-column>

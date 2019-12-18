@@ -114,7 +114,7 @@ export default {
             this.getListMembers(this.num);
         },
         handleLook(e){
-          console.log(e)
+          this.$router.push({path:'/hymesg',query:{id:e.memberId}})
         },
         handleSizeChange(val) {
             this.num.size = val;
