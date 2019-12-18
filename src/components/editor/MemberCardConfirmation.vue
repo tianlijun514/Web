@@ -1,38 +1,45 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='APPX'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="storeCode"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="formInline.regions">
-          <el-option label="已制卡" value="yp"></el-option>
+        <el-select v-model="status">
+          <el-option label="已制卡" value="2"></el-option>
         </el-select>
       </el-form-item>
 
       <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" @change='datas' type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
       </el-date-picker>
 
       <el-form-item style="margin-left: 10px">
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chauxn">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
-    <el-table :data="tableData" border style="width: 100%;text-align:center">
-      <template v-for="(item,index) in tableTitle">
-        <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
-
-        </el-table-column>
-
-      </template>
-      <el-table-column scope label="操作">
-        <el-button size="mini" type="primary">打印</el-button>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column label="序号" type="index" width="50"></el-table-column>
+      <el-table-column prop="storeName" label="门店名称" width="100"></el-table-column>
+      <el-table-column prop="cardId" label="卡号" width="120"></el-table-column>
+      <el-table-column prop="shellDate" label="销售日期" width="140"></el-table-column>
+      <el-table-column prop="cardTypeName" label="会籍类型" width="100"></el-table-column>
+      <el-table-column prop="startDate" label="有效日期起" width="140"></el-table-column>
+      <el-table-column prop="endDate" label="有效日期止" width="180"></el-table-column>
+      <el-table-column prop="remark" label="状态" width="100"></el-table-column>
+      <el-table-column prop="makeDate" label="制卡日期" width="140"></el-table-column>
+      <el-table-column prop="memberId" label="会员编号"></el-table-column>
+      <el-table-column prop="name" label="会员姓名" width="120"></el-table-column>
+      <el-table-column label="操作" width="110">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="lingka(scope.row,scope.$index)">会员领卡</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -41,6 +48,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { base, url } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -56,39 +65,15 @@ export default {
   data () {
     // 这里存放数据
     return {
+      status: '',
+      storeCode: '',
+      date_s: '',
+      date_e: '',
+      size: 10,
+      total: 0,
+      value1:'',
       currentPage: 1,
-      formInline: {
-        user: '',
-        region: ''
-      },
-
-      value1: '',
-      tableTitle: [
-        { title: '序号', data: 'num' },
-        { title: '门店名称', data: 'storeName' },
-        { title: '卡号', data: 'telNo' },
-        { title: '销售日期', data: 'userName' },
-        { title: '会籍类型', data: 'userNo' },
-        { title: '有效日期起', data: 'userCardNo' },
-        { title: '有效日期止', data: 'sex' },
-        { title: '状态', data: 'cardClass' },
-        { title: '制卡日期', data: 'cardNo' },
-        { title: '会员编号', data: 'hao' },
-        { title: '姓名', data: 'name' },
-      ],
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-        userName: '2018-12-10',
-        sex: '普通',
-        cardClass: '普通',
-        cardNo: '2018-12-12',
-        telNo: '2019-12-12',
-        hao: '2018-12-12',
-        name: '2019-12-12',
-      },]
+      tableData: [],
     }
   },
   // 监听属性 类似于data概念
@@ -97,20 +82,73 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    onSubmit () {
-      console.log('submit!');
+    datas (even) {
+      var mydata = even[0]
+      var y = mydata.getFullYear();
+      var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
+      var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
+      this.date_s = y + "-" + m + "-" + d;
+      var enddata = even[1]
+      var y = enddata.getFullYear();
+      var d = enddata.getDate() + 1 < 10 ? '0' + enddata.getDate() : enddata.getDate();
+      var m = (enddata.getMonth() + 1 < 10 ? '0' + (enddata.getMonth() + 1) : enddata.getMonth() + 1);
+      this.date_e = y + "-" + m + "-" + d;
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
+      this.size = val;
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
-    }
+      this.currentPage = val;
+      this.chaxun();
+    },
+    handleClick (row) {
+      console.log(row);
+    },
+
+    // 领卡
+    lingka (row,cardId) {
+      // console.log(row)
+      axios.get(base + `/card/receiveCard`, {
+        params: {
+          cardId:row.cardId
+        }
+      }).then(res => {
+        if (res.data.c== 10000) {
+          this.$message({
+            message: '领卡成功',
+            type: 'success'
+          });
+          this.chauxn();
+        } else {
+          this.$message.error('领卡失败');
+        }
+      })
+    },
+
+    // 查询
+    chauxn () {
+      let a
+      a = this.status ? parseInt(this.status) : ''
+      axios
+        .post(base + '/card/queryCards/' + this.currentPage + '/' + this.size, {
+          status: a,
+          storeCode: this.storeCode,
+          type: 2,
+          startDate: this.date_s,
+          endDate: this.date_e
+        }
+        ).then(res => {
+          this.tableData = res.data.d
+          this.total = res.data.t
+        })
+    },
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chauxn ()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
