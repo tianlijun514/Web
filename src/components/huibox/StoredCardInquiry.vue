@@ -128,25 +128,23 @@ export default {
     choose () {
       axios
         .get(base + '/depositCard/getDepositCardType').then((res) => {
-          this.brandd = res.data.o
-          console.log(res.data.o)
+          this.brandd = res.data.data
         })
     },
     // 条件查询
     chaxun () {
       axios
-        .get(base + '/depositCard/getDepositCard/' + this.currentPage + '/' + this.size, {
-          params: {
+        .post(base + '/depositCard/getDepositCard/', {
+            page:this.currentPage,
+            size:this.size,
             cardCode: this.chuzhi,
             memberCode: this.user,
             state: this.inputhui,
             type: this.intype,
-            // endDate: this.date_s,
-            // startDate: this.date_e
-          }
+            endDate: this.date_s,
+            startDate: this.date_e
         }).then(res => {
-          console.log(res)
-          for (let i = 0; i < res.data.queryResult.list.length; i++) {
+         for (let i = 0; i < res.data.queryResult.list.length; i++) {
             res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
           }
           this.tableData = res.data.queryResult.list;

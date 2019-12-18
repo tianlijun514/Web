@@ -88,19 +88,20 @@ export default {
     },
     chaxun () {
       axios
-        .get(base + '/depositCard/getGiveDepositCard/' + this.currentPage + '/' + this.size, {
-          params: {
+        .post(base + '/depositCard/getGiveDepositCard', {
+            page:this.currentPage,
+            size:this.size,
             storeName: this.inoutmen,
-            // endDate: this.date_s,
-            // startDate: this.date_e
-          }
+            endDate: this.date_s,
+            startDate: this.date_e
+          
         }).then(res => {
-          console.log(res)
-          for (let i = 0; i < res.data.queryResult.list.length; i++) {
-            res.data.queryResult.list[i].num = (this.currentPage - 1) * this.size + i + 1
-          }
-          this.tableData = res.data.queryResult.list;
-          this.total = res.data.queryResult.total;
+          console.log(res.data)
+          // for (let i = 0; i < res.data.d.length; i++) {
+          //   res.data.d[i].num = (this.currentPage - 1) * this.size + i + 1
+          // }
+          // this.tableData = res.data.d;
+          // this.total = res.data.queryResult.total;
         })
     }
 
