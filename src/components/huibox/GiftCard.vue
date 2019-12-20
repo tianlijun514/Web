@@ -97,11 +97,11 @@ export default {
           
         }).then(res => {
           console.log(res.data)
-          // for (let i = 0; i < res.data.d.length; i++) {
-          //   res.data.d[i].num = (this.currentPage - 1) * this.size + i + 1
-          // }
-          // this.tableData = res.data.d;
-          // this.total = res.data.queryResult.total;
+          for (let i = 0; i < res.data.d.length; i++) {
+            res.data.d[i].num = (this.currentPage - 1) * this.size + i + 1
+          }
+          this.tableData = res.data.d;
+          this.total = res.data.queryResult.total;
         })
     }
 
