@@ -768,7 +768,176 @@ const actions = {
             }
         commit('updateReserves', data.data)
     },
+    // 查询会员停转补列表
+    async getMembershipScrs({ commit, state }, value) {
+        let type
+        if(typeof value.type=='string' && value.type!=''){
+            type=parseInt(value.type)
+        }else{
+            type=null
+        }
+        let data = await axios
+            .post(base + '/membership/queryMembershipScrs' + '/' + value.page + '/' + value.size, {
+                storeCode: value.store,
+                type: type,
+                startDate: value.date1,
+                endDate: value.date2,
+                contractId: value.contract,
+                memberId:value.memberNumber,
+                
+            })
+            console.log(data)
+        commit('updateMembershipScrs', data.data)
+    },
     
+    // 会员会籍合同查询
+    async getMembership({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryMembership', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员定金合同查询
+    async getMemberReserve({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryReserve', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员租箱合同查询
+    async getMemberBox({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryBox', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员私教合同查询
+
+    async getMemberIdDetail({ commit, state }, value) {
+        console.log(value)
+        let data = await axios
+            .post(base + '/coachContract/queryByMemberIdDetail', {
+                memberId:value,
+            })
+        return data.data
+    },
+    // 会员信息出入场查询
+    async getEntrancesByMemberId({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryEntrancesByMemberId' + '/' + value.page + '/' + value.size, {
+                params:{
+                    memberId:value.memberNumber,
+                }
+            })
+        return data.data
+    },
+    // 会员停卡查询
+    async getMemberStopCard({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryStop', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员补卡查询 
+    async getMemberRepair({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryRepair', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员储值卡查询 
+    async getMemberStored({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryStored', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员储值卡挂失 
+    async getMemberUpdateStored({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/member/updateStored', {
+                type:value.number,
+                memberId:value.card
+            })
+        return data.data
+    },
+    // 会员制卡流水查询
+    async getMakeCards({ commit, state }, value) {
+        let type,
+            type2
+        if(typeof value.state=='string' && value.state!=''){
+            type2=parseInt(value.state)
+        }else{
+            type2=null
+        }
+        if(typeof value.type=='string' && value.type!=''){
+            type=parseInt(value.type)
+        }else{
+            type=null
+        }
+        let data = await axios
+            .post(base + '/card/queryCards' + '/' + value.page + '/' + value.size, {
+                status:type2,
+                storeCode:'',
+                type,
+                startDate:value.date1,
+                endDate:value.date2,
+                name:value.memberId
+            })
+            console.log(data)
+        commit('updateMakeCards', data.data)
+    },
+    //合同可入场门店
+    async getContractStore({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryStores', {
+                params:{
+                    contractId:value,
+                } 
+            })
+        return data.data
+    },
+    //次卡剩余次数
+    async getNumCards({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/card/queryNumCards' + '/' + value.page + '/' + value.size, {
+                cardId:value.memberId,
+                storeCode:value.store,
+                contractId:value.contract,
+                name:value.name,
+            })
+            console.log(data)
+        commit('updateNumCards', data.data)
+    },
+    //赠送储值卡流水查询
+    async getGiveDepositCard({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/depositCard/getGiveDepositCard' + '/' + value.page + '/' + value.size, {
+                startDate:value.date1,
+                endDate:value.date2,
+                storeName:value.store,
+            })
+            console.log(data)
+        commit('updateGiveDepositCard', data.data)
+    },
 
 }
 

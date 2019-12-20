@@ -118,6 +118,9 @@ export default {
         onSubmit() {
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReplaceCoach(this.num);
         },
@@ -131,6 +134,9 @@ export default {
             this.size = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReplaceCoach(this.num);
         },
@@ -138,6 +144,9 @@ export default {
             this.page = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReplaceCoach(this.num);
         },

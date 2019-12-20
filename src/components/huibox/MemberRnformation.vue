@@ -59,13 +59,18 @@
                     <el-col :span="4">
                         <div class="demo-fit">
                             <div class="block">
-                                <img :src="'http://192.168.2.136:8083/getImage?path='+memberInformation.photoPath" width="100" height="100" alt="">
+                                <img
+                                    :src="'http://192.168.2.136:8083/getImage?path='+memberInformation.photoPath"
+                                    width="100"
+                                    height="100"
+                                    alt
+                                />
                                 <!-- <el-avatar shape="square" :size="100" ></el-avatar> -->
                             </div>
                         </div>
                     </el-col>
                 </el-row>
-                <el-button size="mini" type="primary" class="gbtn">挂失储值卡</el-button>
+                <el-button size="mini" type="primary" class="gbtn" @click="lossCard(memberInformation.id,memberInformation.storedFlag)">{{memberInformation.storedFlag==0?'挂失储值卡':'取消挂失储值卡'}}</el-button>
             </el-tab-pane>
 
             <!-- 配置管理 -->
@@ -74,45 +79,45 @@
                     <!-- 会籍合同 -->
                     <el-tab-pane label="会籍合同">
                         <el-table :data="tableData" border style="width: 100%">
-                            <el-table-column fixed prop="date" label="序号" width="50"></el-table-column>
-                            <el-table-column prop="name" label="合同号" width="120"></el-table-column>
-                            <el-table-column prop="province" label="卡号" width="120"></el-table-column>
-                            <el-table-column prop="city" label="会籍类型" width="240"></el-table-column>
-                            <el-table-column prop="address" label="指导价" width="120"></el-table-column>
-                            <el-table-column prop="zip" label="实际售价" width="80"></el-table-column>
-                            <el-table-column prop="money" label="付款金额" width="80"></el-table-column>
-                            <el-table-column prop="ding" label="定金金额" width="80"></el-table-column>
-                            <el-table-column prop="zhuan" label="转入金额" width="80"></el-table-column>
-                            <el-table-column prop="zong" label="总次数" width="70"></el-table-column>
-                            <el-table-column prop="sheng" label="剩余次数" width="80"></el-table-column>
-                            <el-table-column prop="jia" label="剩余价值" width="80"></el-table-column>
-                            <el-table-column prop="xiaobox" label="销售类别" width="80"></el-table-column>
-                            <el-table-column prop="hui" label="会籍起日" width="120"></el-table-column>
-                            <el-table-column prop="zhi" label="会籍迄日" width="120"></el-table-column>
-                            <el-table-column prop="zeng" label="赠后日期" width="120"></el-table-column>
-                            <el-table-column prop="zhaung" label="状态" width="60"></el-table-column>
-                            <el-table-column prop="zhong" label="终止日期" width="120"></el-table-column>
-                            <el-table-column prop="ying" label="终止原因" width="120"></el-table-column>
-                            <el-table-column prop="mendian" label="销售门店" width="120"></el-table-column>
-                            <el-table-column prop="xiao" label="销售日期" width="120"></el-table-column>
-                            <el-table-column prop="xishou" label="销售员" width="120"></el-table-column>
+                            <el-table-column type="index" label="序号" width="50"></el-table-column>
+                            <el-table-column prop="contractId" label="合同号"></el-table-column>
+                            <el-table-column prop="cardId" label="卡号"></el-table-column>
+                            <el-table-column prop="cardTypeName" label="会籍类型"></el-table-column>
+                            <el-table-column prop="guidePrice" label="指导价"></el-table-column>
+                            <el-table-column prop="realPrice" label="实际售价"></el-table-column>
+                            <el-table-column prop="price" label="付款金额"></el-table-column>
+                            <el-table-column prop="reserveAmount" label="定金金额"></el-table-column>
+                            <el-table-column prop="zrPrice" label="转入金额"></el-table-column>
+                            <el-table-column prop="totalNum" label="总次数"></el-table-column>
+                            <el-table-column prop="surplusNum" label="剩余次数"></el-table-column>
+                            <el-table-column prop="surplusPrice" label="剩余价值"></el-table-column>
+                            <el-table-column prop="shellType" label="销售类别"></el-table-column>
+                            <el-table-column prop="startDate" label="会籍起日"></el-table-column>
+                            <el-table-column prop="endDate" label="会籍迄日"></el-table-column>
+                            <el-table-column prop="giveDate" label="赠后日期"></el-table-column>
+                            <el-table-column prop="status" label="状态"></el-table-column>
+                            <el-table-column prop="terDate" label="终止日期"></el-table-column>
+                            <el-table-column prop="terCause" label="终止原因"></el-table-column>
+                            <el-table-column prop="sotreName" label="销售门店"></el-table-column>
+                            <el-table-column prop="shellDate" label="销售日期" width="130"></el-table-column>
+                            <el-table-column prop="salesman" label="销售员"></el-table-column>
                         </el-table>
                     </el-tab-pane>
                     <!-- 定金合同 -->
                     <el-tab-pane label="定金合同">
                         <template>
                             <el-table :data="jiaoseData" border style="width: 100%">
-                                <el-table-column prop="date" label="序号" width="180"></el-table-column>
-                                <el-table-column prop="name" label="门店名称" width="180"></el-table-column>
-                                <el-table-column prop="address" label="定金编码"></el-table-column>
-                                <el-table-column prop="ds" label="定金类型"></el-table-column>
-                                <el-table-column prop="dsday" label="定金金额"></el-table-column>
-                                <el-table-column prop="xsday" label="销售日期"></el-table-column>
-                                <el-table-column prop="gqday" label="过期日期"></el-table-column>
-                                <el-table-column prop="syday" label="使用日期"></el-table-column>
-                                <el-table-column prop="ztday" label="状态"></el-table-column>
-                                <el-table-column prop="qmday" label="签名"></el-table-column>
-                                <el-table-column prop="yuday" label="销售员"></el-table-column>
+                                <el-table-column type="index" label="序号"></el-table-column>
+                                <el-table-column prop="storeName" label="门店名称"></el-table-column>
+                                <el-table-column prop="id" label="定金编码"></el-table-column>
+                                <el-table-column prop="reserveType" label="定金类型"></el-table-column>
+                                <el-table-column prop="price" label="定金金额"></el-table-column>
+                                <el-table-column prop="shellDate" label="销售日期"></el-table-column>
+                                <el-table-column prop="endDate" label="过期日期"></el-table-column>
+                                <el-table-column prop="useDate" label="使用日期"></el-table-column>
+                                <el-table-column prop="status" label="状态"></el-table-column>
+                                <el-table-column prop="signature" label="签名"></el-table-column>
+                                <el-table-column prop="salesman1" label="销售员"></el-table-column>
                             </el-table>
                         </template>
                     </el-tab-pane>
@@ -120,39 +125,60 @@
                     <el-tab-pane label="租箱合同">
                         <template>
                             <el-table :data="leasing" border style="width: 100%">
-                                <el-table-column prop="comh" label="流水号" width="180"></el-table-column>
-                                <el-table-column prop="coname" label="店名" width="180"></el-table-column>
-                                <el-table-column prop="conzhu" label="租箱号"></el-table-column>
-                                <el-table-column prop="conxiao" label="销售日期"></el-table-column>
-                                <el-table-column prop="conday" label="租赁开始日期"></el-table-column>
-                                <el-table-column prop="conjiy" label="租赁结束日期"></el-table-column>
-                                <el-table-column prop="conya" label="支付押金"></el-table-column>
-                                <el-table-column prop="conmeny" label="支付租金"></el-table-column>
-                                <el-table-column prop="condata" label="归还日期"></el-table-column>
-                                <el-table-column prop="conyuan" label="销售员"></el-table-column>
+                                <el-table-column prop="id" label="流水号"></el-table-column>
+                                <el-table-column prop="storeName" label="店名"></el-table-column>
+                                <el-table-column prop="boxCode" label="租箱号"></el-table-column>
+                                <el-table-column prop="shellDate" label="销售日期"></el-table-column>
+                                <el-table-column prop="startTiem" label="租赁开始日期"></el-table-column>
+                                <el-table-column prop="endTime" label="租赁结束日期"></el-table-column>
+                                <el-table-column prop="payCash" label="支付押金"></el-table-column>
+                                <el-table-column prop="payRental" label="支付租金"></el-table-column>
+                                <el-table-column prop="returnDate" label="归还日期"></el-table-column>
+                                <el-table-column prop="salesman1" label="销售员"></el-table-column>
                             </el-table>
                         </template>
                     </el-tab-pane>
                     <el-tab-pane label="私教合同">
                         <el-table :data="Sysing" border style="width: 100%">
-                            <el-table-column fixed prop="syxu" label="序号" width="50"></el-table-column>
+                            <el-table-column type="index" label="序号" width="50"></el-table-column>
                             <el-table-column prop="syname" label="门店名称" width="120"></el-table-column>
-                            <el-table-column prop="sybian" label="合同编号" width="120"></el-table-column>
-                            <el-table-column prop="syxiao" label="销售日期" width="120"></el-table-column>
-                            <el-table-column prop="syty" label="销售类型" width="120"></el-table-column>
-                            <el-table-column prop="syzt" label="状态" width="60"></el-table-column>
-                            <el-table-column prop="syzhi" label="课程" width="120"></el-table-column>
-                            <el-table-column prop="syjiao" label="教练" width="80"></el-table-column>
-                            <el-table-column prop="syshi" label="总课时" width="80"></el-table-column>
-                            <el-table-column prop="syyue" label="预约课时" width="80"></el-table-column>
-                            <el-table-column prop="sykexiao" label="核销课时" width="80"></el-table-column>
-                            <el-table-column prop="sysheng" label="剩余课时" width="70"></el-table-column>
-                            <el-table-column prop="syjin" label="金额" width="120"></el-table-column>
-                            <el-table-column prop="sykai" label="开始日期" width="120"></el-table-column>
-                            <el-table-column prop="syday" label="结束日期" width="120"></el-table-column>
-                            <el-table-column prop="sybox" label="终止日期" width="120"></el-table-column>
-                            <el-table-column prop="symin" label="终止原因" width="80"></el-table-column>
-                            <el-table-column prop="syxi" label="销售员" width="120"></el-table-column>
+                            <el-table-column prop="contractNumber" label="合同编号" width="120"></el-table-column>
+                            <el-table-column prop="createDate" label="销售日期" width="120"></el-table-column>
+                            <el-table-column prop="salesType" label="销售类型" width="120">
+                                <template slot-scope="scope">
+                                    <span v-if="scope.row.salesType==1">购买</span>
+                                    <span v-if="scope.row.salesType==2">转店</span>
+                                    <span v-if="scope.row.salesType==3">换教练</span>
+                                    <span v-if="scope.row.salesType==4">转让</span>
+                                    <span v-if="scope.row.salesType==5">升级</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="states" label="状态" width="60">
+                                <template slot-scope="scope">
+                                    <span v-if="scope.row.states==0">作废</span>
+                                    <span v-if="scope.row.states==1">正常</span>
+                                    <span v-if="scope.row.states==2">已签字未确认</span>
+                                    <span v-if="scope.row.states==3">已签字已确认</span>
+                                    <span v-if="scope.row.states==4">未打印</span>
+                                    <span v-if="scope.row.states==5">已打印</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="courseName" label="课程" width="120"></el-table-column>
+                            <el-table-column prop="coachName" label="教练" width="80"></el-table-column>
+                            <el-table-column prop="bayNum" label="总课时" width="80"></el-table-column>
+                            <el-table-column prop="YYKS" label="预约课时" width="80"></el-table-column>
+                            <el-table-column prop="HXKS" label="核销课时" width="80"></el-table-column>
+                            <el-table-column prop="SYKS" label="剩余课时" width="70"></el-table-column>
+                            <el-table-column prop="realPrice" label="金额" width="120"></el-table-column>
+                            <el-table-column prop="startDate" label="开始日期" width="120"></el-table-column>
+                            <el-table-column prop="endDate" label="结束日期" width="120"></el-table-column>
+                            <el-table-column prop="terminationDate" label="终止日期" width="120"></el-table-column>
+                            <el-table-column prop="terminationMsg" label="终止原因" width="80"></el-table-column>
+                            <el-table-column label="销售员" width="120">
+                                <template slot-scope="scope">
+                                    <span>{{scope.row.salesman1}},{{scope.row.salesman2}}</span>
+                                </template>
+                            </el-table-column>
                         </el-table>
                     </el-tab-pane>
                 </el-tabs>
@@ -174,11 +200,10 @@
                     <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="100"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="400"
+                        :total="0"
                     ></el-pagination>
                 </div>
             </el-tab-pane>
@@ -186,24 +211,23 @@
             <!-- 出入场 -->
             <el-tab-pane label="出入场">
                 <template>
-                    <el-table :data="Coument" border style="width: 100%">
-                        <el-table-column prop="couname" label="店名" width="180"></el-table-column>
-                        <el-table-column prop="coushang" label="卡号"></el-table-column>
-                        <el-table-column prop="coudan" label="日期"></el-table-column>
-                        <el-table-column prop="coushu" label="入场时间"></el-table-column>
-                        <el-table-column prop="coujine" label="离开时间"></el-table-column>
-                        <el-table-column prop="coudata" label="消耗次数"></el-table-column>
+                    <el-table :data="Coument.d" border style="width: 100%">
+                        <el-table-column prop="storeName" label="店名" width="180"></el-table-column>
+                        <el-table-column prop="cardId" label="卡号"></el-table-column>
+                        <el-table-column prop="date" label="日期"></el-table-column>
+                        <el-table-column prop="in" label="入场时间"></el-table-column>
+                        <el-table-column prop="out" label="离开时间"></el-table-column>
+                        <el-table-column prop="cardNum" label="消耗次数"></el-table-column>
                     </el-table>
                 </template>
                 <div class="block">
                     <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="100"
+                        @size-change="handleSizeChange1"
+                        @current-change="handleCurrentChange1"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="400"
+                        :total="Coument.t"
                     ></el-pagination>
                 </div>
             </el-tab-pane>
@@ -224,32 +248,14 @@
                 </template>
                 <div class="block">
                     <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="100"
+                        @size-change="handleSizeChange2"
+                        @current-change="handleCurrentChange2"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="400"
+                        :total="0"
                     ></el-pagination>
                 </div>
-            </el-tab-pane>
-
-            <!-- 客诉记录 -->
-            <el-tab-pane label="客诉记录">
-                <template>
-                    <el-table :data="Keing" border style="width: 100%">
-                        <el-table-column prop="kehao" label="序号" width="180"></el-table-column>
-                        <el-table-column prop="kename" label="门店名称"></el-table-column>
-                        <el-table-column prop="keti" label="标题"></el-table-column>
-                        <el-table-column prop="keflei" label="分类"></el-table-column>
-                        <el-table-column prop="kecheng" label="紧急程度"></el-table-column>
-                        <el-table-column prop="kezhaung" label="处理状态"></el-table-column>
-                        <el-table-column prop="kedata" label="提交时间"></el-table-column>
-                        <el-table-column prop="ketime" label="更新时间"></el-table-column>
-                        <el-table-column prop="keren" label="操作人"></el-table-column>
-                    </el-table>
-                </template>
             </el-tab-pane>
 
             <!-- 停卡 -->
@@ -258,18 +264,18 @@
                     <el-tab-pane label="停卡">
                         <template>
                             <el-table :data="tingka" border style="width: 100%">
-                                <el-table-column prop="tihao" label="流水号" width="180"></el-table-column>
-                                <el-table-column prop="tiname" label="门店名称"></el-table-column>
-                                <el-table-column prop="tidata" label="销售日期"></el-table-column>
-                                <el-table-column prop="tihetong" label="合同号"></el-table-column>
-                                <el-table-column prop="tilei" label="回籍类型"></el-table-column>
-                                <el-table-column prop="tibu" label="开始日期"></el-table-column>
-                                <el-table-column prop="tiday" label="结束日期"></el-table-column>
-                                <el-table-column prop="tibox" label="停卡开始"></el-table-column>
-                                <el-table-column prop="timin" label="停卡结束"></el-table-column>
-                                <el-table-column prop="tirx" label="开卡日期"></el-table-column>
-                                <el-table-column prop="tiht" label="新合同号"></el-table-column>
-                                <el-table-column prop="tifei" label="手续费"></el-table-column>
+                                <el-table-column type="index" label="流水号"></el-table-column>
+                                <el-table-column prop="storeName" label="门店名称"></el-table-column>
+                                <el-table-column prop="shellDate" label="销售日期"></el-table-column>
+                                <el-table-column prop="oldContractId" label="合同号"></el-table-column>
+                                <el-table-column prop="cardTypeName" label="回籍类型"></el-table-column>
+                                <el-table-column prop="startDate" label="开始日期"></el-table-column>
+                                <el-table-column prop="endDate" label="结束日期"></el-table-column>
+                                <el-table-column prop="stopStart" label="停卡开始"></el-table-column>
+                                <el-table-column prop="stopEnd" label="停卡结束"></el-table-column>
+                                <el-table-column prop="openDate" label="开卡日期"></el-table-column>
+                                <el-table-column prop="newContractId" label="新合同号"></el-table-column>
+                                <el-table-column prop="serviceCharge" label="手续费"></el-table-column>
                             </el-table>
                         </template>
                     </el-tab-pane>
@@ -277,14 +283,14 @@
                     <el-tab-pane label="补卡">
                         <template>
                             <el-table :data="bkming" border style="width: 100%">
-                                <el-table-column prop="bkhao" label="流水号" width="180"></el-table-column>
-                                <el-table-column prop="bkname" label="门店名称"></el-table-column>
-                                <el-table-column prop="bkdata" label="销售日期"></el-table-column>
-                                <el-table-column prop="bkmp" label="合同号"></el-table-column>
-                                <el-table-column prop="bkcy" label="原卡号"></el-table-column>
-                                <el-table-column prop="bkcom" label="新卡号"></el-table-column>
-                                <el-table-column prop="bkshou" label="手续费"></el-table-column>
-                                <el-table-column prop="bkyuan" label="销售员"></el-table-column>
+                                <el-table-column type="index" label="流水号" width="180"></el-table-column>
+                                <el-table-column prop="storeName" label="门店名称"></el-table-column>
+                                <el-table-column prop="shellDate" label="销售日期"></el-table-column>
+                                <el-table-column prop="contractId" label="合同号"></el-table-column>
+                                <el-table-column prop="oldCard" label="原卡号"></el-table-column>
+                                <el-table-column prop="newCard" label="新卡号"></el-table-column>
+                                <el-table-column prop="serviceCharge" label="手续费"></el-table-column>
+                                <el-table-column prop="salesman" label="销售员"></el-table-column>
                             </el-table>
                         </template>
                     </el-tab-pane>
@@ -292,12 +298,12 @@
                     <el-tab-pane label="储值卡">
                         <template>
                             <el-table :data="zhingbox" border style="width: 100%">
-                                <el-table-column prop="zhname" label="门店名称"></el-table-column>
-                                <el-table-column prop="zhdata" label="储值卡号"></el-table-column>
-                                <el-table-column prop="zhmp" label="储值类型"></el-table-column>
-                                <el-table-column prop="zhcy" label="赠送日期"></el-table-column>
-                                <el-table-column prop="zhcom" label="余额"></el-table-column>
-                                <el-table-column prop="zhshou" label="有效期"></el-table-column>
+                                <el-table-column prop="storeName" label="门店名称"></el-table-column>
+                                <el-table-column prop="cardId" label="储值卡号"></el-table-column>
+                                <el-table-column prop="cardTypeName" label="储值类型"></el-table-column>
+                                <el-table-column prop="startDate" label="赠送日期"></el-table-column>
+                                <el-table-column prop="balance" label="余额"></el-table-column>
+                                <el-table-column prop="endDate" label="有效期"></el-table-column>
                             </el-table>
                         </template>
                     </el-tab-pane>
@@ -319,208 +325,136 @@ export default {
     data() {
         // 这里存放数据
         return {
-            memberInformation:{},
-
-
-
-
-            currentPage1: 5,
-            currentPage2: 5,
-            currentPage3: 5,
-            currentPage4: 4,
-            activeName: 'second',
-            url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            tableData: [
-                {
-                    date: '1',
-                    name: 'test000004',
-                    province: 'B20190224',
-                    city: 'M80509-游泳健身次数12月卡3000100次',
-                    address: '538',
-                    zip: '538',
-                    money: '538',
-                    ding: '0',
-                    zhuan: '538',
-                    zong: '12',
-                    sheng: '10',
-                    jia: '11',
-                    xiaobox: '转让',
-                    hui: '2019-04-01',
-                    zhi: '2020-04-01',
-                    zeng: '2020-04-01',
-                    zhaung: '终止',
-                    zhong: '2019-09-27',
-                    ying: '转让',
-                    mendian: '培训测试店',
-                    xiao: '2019-03-12',
-                    xishou: 'B00974-王福川'
-                }
-            ],
-            jiaoseData: [
-                {
-                    date: '1',
-                    name: '培训测试店',
-                    address: '001',
-                    ds: '会籍定金',
-                    dsday: '1000',
-                    xsday: '2019-12-26',
-                    gqday: '2019-12-12',
-                    syday: '2017-01-12',
-                    ztday: '未使用',
-                    qmday: '已签',
-                    yuday: '2222-小明'
-                }
-            ],
-            leasing: [
-                {
-                    comh: '1',
-                    coname: '培训测试店',
-                    conzhu: '001',
-                    conxiao: '会籍定金',
-                    conday: '1000',
-                    conjiy: '2019-12-26',
-                    conya: '2019-12-12',
-                    conmeny: '2017-01-12',
-                    condata: '未使用',
-                    conyuan: '2222-小明'
-                }
-            ],
-            Sysing: [
-                {
-                    syxu: '1',
-                    syname: '培训测试店',
-                    sybian: '001',
-                    syxiao: '0005',
-                    syty: '2018-05-12',
-                    syzt: '100',
-                    syzhi: '正常',
-                    syjiao: '小虾',
-                    syshi: '120',
-                    syyue: '2小',
-                    sykexiao: '50',
-                    sysheng: '100',
-                    syjin: '5000',
-                    sykeshi: '2018-12-12',
-                    sykai: '2018-12-23',
-                    syday: '2019-12-12',
-                    sybox: '2017-01-12',
-                    symin: '未使用',
-                    syxi: '2222-小明'
-                }
-            ],
-            shoping: [
-                {
-                    shname: '1',
-                    shshang: '培训测试店',
-                    shdan: '001',
-                    shshu: '会籍定金',
-                    shmoney: '1000',
-                    shdata: '2019-12-26'
-                }
-            ],
-            Coument: [
-                {
-                    couname: '培训测试店',
-                    coushang: '000001',
-                    coudan: '2018-10-20',
-                    coushu: '12:10',
-                    coujine: '14:20',
-                    coudata: '2'
-                }
-            ],
-            hexiao: [
-                {
-                    hxname: '培训测试店',
-                    hxhao: '000001',
-                    hxdata: '2018-10-20',
-                    hxtime: '12:10',
-                    hxkecheng: '舞蹈',
-                    hxjiao: '小明',
-                    hxday: '14:20',
-                    hxtai: '已预约'
-                }
-            ],
-            Keing: [
-                {
-                    kehao: '培训测试店',
-                    kename: '000001',
-                    keti: '2018-10-20',
-                    keflei: '12:10',
-                    kecheng: '舞蹈',
-                    kezhaung: '小明',
-                    kedata: '14:20',
-                    ketime: '已预约',
-                    keren: '已预约'
-                }
-            ],
-            tingka: [
-                {
-                    tihao: '培训测试店',
-                    tiname: '000001',
-                    tidata: '2018-10-20',
-                    tihetong: '12:10',
-                    tilei: '舞蹈',
-                    tibu: '小明',
-                    tiday: '14:20',
-                    tibox: '已预约',
-                    timin: '已预约',
-                    tirx: '14:20',
-                    tiht: '已预约',
-                    tifei: '已预约'
-                }
-            ],
-            bkming: [
-                {
-                    bkhao: '培训测试店',
-                    bkname: '000001',
-                    bkdata: '2018-10-20',
-                    bkmp: '12:10',
-                    bkcy: '舞蹈',
-                    bkcom: '小明',
-                    bkshou: '14:20',
-                    bkyuan: '已预约'
-                }
-            ],
-            zhingbox: [
-                {
-                    zhname: '培训测试店',
-                    zhdata: '000001',
-                    zhmp: '2018-10-20',
-                    zhcy: '12:10',
-                    zhcom: '舞蹈',
-                    zhshou: '小明'
-                }
-            ]
+            memberInformation: {},
+            tableData: [],
+            jiaoseData: [],
+            leasing: [],
+            Sysing: [],
+            shoping: [],
+            shopingSearch: {
+                memberNumber: '',
+                page: 1,
+                size: 10
+            },
+            Coument: {},
+            CoumentSearch: {
+                memberNumber: '',
+                page: 1,
+                size: 10
+            },
+            hexiao: [],
+            hexiaoSearch: {
+                memberNumber: '',
+                page: 1,
+                size: 10
+            },
+            tingka: [],
+            bkming: [],
+            zhingbox: []
         };
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ listMembers: state => state.listMembers })
+        ...mapState({})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getMemberById']),
-        handleClick(tab, event) {
-            console.log(tab, event);
-        },
-        handleClick(row) {
-            console.log(row);
-        },
+        ...mapActions([
+            'getMemberById',
+            'getMembership',
+            'getMemberReserve',
+            'getMemberBox',
+            'getEntrancesByMemberId',
+            'getMemberStopCard',
+            'getMemberRepair',
+            'getMemberIdDetail',
+            'getMemberStored',
+            'getMemberUpdateStored',
+        ]),
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.shopingSearch.size = val;
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.shopingSearch.page = val;
+        },
+        handleSizeChange1(val) {
+            this.CoumentSearch.size = val;
+        },
+        handleCurrentChange1(val) {
+            this.CoumentSearch.page = val;
+        },
+        handleSizeChange2(val) {
+            this.hexiaoSearch.size = val;
+        },
+        handleCurrentChange2(val) {
+            this.hexiaoSearch.page = val;
+        },
+        lossCard(e,index) {
+            let title,
+                number
+            if(index==0){
+                number=1
+                title='挂失储值卡'
+            }else{
+                number=2
+                title='取消挂失储值卡'
+            }
+            let object={number,card:e}
+            this.$confirm('此操作将'+title+', 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            })
+            .then(() => {
+                this.getMemberUpdateStored(object).then(res=>{
+                    if(res.i=='操作成功！'){
+                        this.getMemberById(this.$route.query.id).then(res => {
+                            this.memberInformation = res.data.d[0];
+                        });
+                        if(title=='挂失储值卡'){
+                            this.$message({message:'挂失成功',type:'success'})
+                        }else{
+                            this.$message({message:'取消挂失成功',type:'success'})
+                        }
+                    }
+                })
+            })
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getMemberById(this.$route.query.id).then(res=>{
-            console.log(res)
-            this.memberInformation=res.data.d[0]
-        })
+        this.shopingSearch.memberNumber = this.$route.query.id;
+        this.CoumentSearch.memberNumber = this.$route.query.id;
+        this.hexiaoSearch.memberNumber = this.$route.query.id;
+        this.getMemberById(this.$route.query.id).then(res => {
+            this.memberInformation = res.data.d[0];
+        });
+        this.getMembership(this.$route.query.id).then(res => {
+            this.tableData = res.d;
+        });
+        this.getMemberReserve(this.$route.query.id).then(res => {
+            this.jiaoseData = res.d;
+        });
+        this.getMemberBox(this.$route.query.id).then(res => {
+            this.leasing = res.d;
+        });
+        this.getEntrancesByMemberId(this.CoumentSearch).then(res => {
+            this.Coument = res;
+        });
+        this.getMemberStopCard(this.$route.query.id).then(res => {
+            this.tingka = res.d;
+        });
+        this.getMemberRepair(this.$route.query.id).then(res => {
+            this.bkming = res.d;
+        });
+        this.getMemberStored(this.$route.query.id).then(res => {
+            this.zhingbox = res.d;
+        });
+        // this.getMemberIdDetail(this.$route.query.id).then(res=>{
+        //     this.Sysing=res.d
+        // })
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

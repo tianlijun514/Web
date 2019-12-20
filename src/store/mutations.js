@@ -72,6 +72,18 @@ const mutations = {
     updateConventionState(state, data) {
         state.conventionState = data;
     },
+    updateMembershipScrs(state, data) {
+        state.membershipScrs = data;
+    },
+    updateMakeCards(state, data) {
+        state.makeCards = data;
+    },
+    updateNumCards(state, data) {
+        state.numCards = data;
+    },
+    updateGiveDepositCard(state, data) {
+        state.giveDepositCard = data;
+    },
     
     
 }

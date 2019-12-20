@@ -72,7 +72,11 @@
             <el-table-column prop="storeName" label="门店名称"></el-table-column>
             <el-table-column prop="id" label="定金编号"></el-table-column>
             <el-table-column prop="cardId" label="会员卡号"></el-table-column>
-            <el-table-column prop="member.name" label="会员姓名"></el-table-column>
+            <el-table-column prop="member.name" label="会员姓名">
+                <template slot-scope="scope">
+                    <span class="name" @click="show(scope.row)">{{scope.row.member.name}}</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="reserveType" label="定金类型"></el-table-column>
             <el-table-column prop="reservePrice" label="定金金额"></el-table-column>
             <el-table-column prop="isTotal" label="全额定金"></el-table-column>
@@ -103,6 +107,7 @@
                 :total="reserves.t"
             ></el-pagination>
         </div>
+        <Dialog :showData="showData" :dialogShow="dialogShow" @dialogShowData="dialogShowData" />
     </div>
 </template>
 
@@ -110,29 +115,20 @@
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import { mapActions, mapState } from 'vuex';
+import Dialog from './memberDialog'
 export default {
     name: 'boxdj',
-    props: {},
+    props: {
+        
+    },
     // import引入的组件需要注入到对象中才能使用
-    components: {},
+    components: {
+        Dialog
+    },
     data() {
         // 这里存放数据
         return {
             value1: '',
-            tableTitle: [
-                { title: '门店名称', data: 'storeName' },
-                { title: '定金编号', data: 'id' },
-                { title: '会员卡号', data: 'cardId' },
-                { title: '会员姓名', data: 'member.name' },
-                { title: '定金类型', data: 'reserveType' },
-                { title: '定金金额', data: 'reservePrice' },
-                { title: '全额定金', data: 'cardNo' },
-                { title: '销售日期', data: 'salesDate' },
-                { title: '使用日期', data: 'useDate' },
-                { title: '状态', data: 'status' },
-                { title: '签名', data: 'signature' },
-                { title: '备注', data: 'remark' }
-            ],
             num: {
                 page: 1,
                 size: 10,
@@ -147,6 +143,8 @@ export default {
                 date2:''
             },
             date:'',
+            showData:'',
+            dialogShow:false
         };
     },
     // 监听属性 类似于data概念
@@ -161,8 +159,18 @@ export default {
         search() {
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReserves(this.num);
+        },
+        show(e){
+            this.showData=e.member.id
+            this.dialogShow=true
+        },
+        dialogShowData(e){
+            this.dialogShow=e
         },
         getDate(e) {
             let date = new Date(e[0]);
@@ -174,6 +182,9 @@ export default {
             this.size = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReserves(this.num);
         },
@@ -181,6 +192,9 @@ export default {
             this.page = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getReserves(this.num);
         },
@@ -217,5 +231,9 @@ export default {
 }
 .dingdan {
     float: right;
+}
+.name {
+    color: #e67e22;
+    cursor: pointer;
 }
 </style>

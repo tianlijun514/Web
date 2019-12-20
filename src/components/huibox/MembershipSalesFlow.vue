@@ -49,7 +49,7 @@
         <el-table :data="membersSales.d" border style="width: 100%;text-align:center">
             <el-table-column label="序号" type="index" align="center"></el-table-column>
             <el-table-column prop="storeName" label="门店名称"></el-table-column>
-            <el-table-column prop="name" label="会员姓名">
+            <el-table-column label="会员姓名">
                 <template slot-scope="scope">
                     <span class="name" @click="show(scope.row)">{{scope.row.name}}</span>
                 </template>
@@ -133,6 +133,9 @@ export default {
         search() {
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.$message('请选择时间')
+              return
             }
             this.getMembersSales(this.num);
         },

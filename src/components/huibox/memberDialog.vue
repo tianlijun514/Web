@@ -5,14 +5,14 @@
             <div class="dialog">
                 <div class="dialogHeader">
                     <div>
-                        <img :src="'http://192.168.2.136:8083/getImage?path='+isData.photoPath" alt width="120" height="120" />
+                        <img :src="'http://192.168.2.136:8083/getImage?path='+isData.photoPath" alt width="120" height="120" v-if="isData.photoPath" />
                     </div>
                     <div>
                         <span @click="jump">会员详情</span>
                     </div>
                 </div>
                 <div class="dialogContent">
-                    <el-form class="demo-form-inline" label-width="80px">
+                    <el-form class="demo-form-inline" label-width="90px">
                         <el-form-item label="会员编号">
                             <div>{{isData.id}}</div>
                         </el-form-item>
@@ -73,6 +73,7 @@ export default {
             })
         },
         dialogShow(newData,oldData){
+            console.log(newData)
             this.isShow=newData
         }
     },
@@ -83,8 +84,7 @@ export default {
             done();
         },
         yes(){
-            // this.$emit('dialogShowData',false)
-            console.log(this.memberId)
+            this.$emit('dialogShowData',false)
         },
         handShow(){
             this.$emit('dialogShowData',false)
