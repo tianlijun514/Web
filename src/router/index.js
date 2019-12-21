@@ -285,13 +285,13 @@ export default new Router({
             title: '黑名单设置'
           }
         },
-        {
-          path: '/ming',
-          component: () => import('../components/editor/AddBlacklist.vue'),
-          meta: {
-            title: '新增黑名单'
-          }
-        },
+        // {
+        //   path: '/ming',
+        //   component: () => import('../components/editor/AddBlacklist.vue'),
+        //   meta: {
+        //     title: '新增黑名单'
+        //   }
+        // },
         {
           path: '/editor10',
           component: () => import('../components/editor/NonMemberStore.vue'),

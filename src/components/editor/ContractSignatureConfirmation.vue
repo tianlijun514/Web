@@ -9,16 +9,18 @@
       <el-form-item label="类型">
         <el-select v-model="formInline.regions">
           <el-option label="全部" value="01"></el-option>
-          <el-option label="01 - 会籍" value="2"></el-option>
-          <el-option label="02 - 私教" value="3"></el-option>
-          <el-option label="03 - 定金" value="4"></el-option>
-          <el-option label="04 - 停卡" value="5"></el-option>
-          <el-option label="05 - 转让" value="6"></el-option>
-          <el-option label="06 - 转店" value="7"></el-option>
-          <el-option label="07 - 补卡" value="8"></el-option>
-          <el-option label="08 - 租箱" value="9"></el-option>
-          <el-option label="09 - K-Yoga" value="10"></el-option>
-          <el-option label="10 - 私教预约" value="11"></el-option>
+          <!-- <el-option
+                   v-for="(item,index) in contractType"
+                   :label="item.label"
+                   :value="item.value"
+                   :key="index+'a'">
+          </el-option> -->
+              <el-option
+                   v-for="(item,index) in contractType"
+                   :label="item.label"
+                   :value="item.value"
+                   :key="index+'a'">
+          </el-option>
         </el-select>
       </el-form-item>
 
@@ -30,7 +32,7 @@
           <el-option label="已签未通过" value="03"></el-option>
         </el-select>
       </el-form-item>
-      
+
       <el-form-item label="销售员">
         <el-input v-model="formInline.user"></el-input>
       </el-form-item>
@@ -69,6 +71,9 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
@@ -120,11 +125,18 @@ export default {
     }
   },
   // 监听属性 类似于data概念
-  computed: {},
+  computed: {
+    ...mapState({ contractType: state => state.contractType })
+  },
   // 监控data中的数据变化
-  watch: {},
+  watch: {
+    contractType(newData,oldData){
+      console.log(newData)
+    }
+  },
   // 方法集合
   methods: {
+    ...mapActions(['getCoachInformation']),
     onSubmit () {
       console.log('submit!');
     },
@@ -133,12 +145,14 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
-    }
+    },
+
+
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.getCoachInformation('C0001')
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
