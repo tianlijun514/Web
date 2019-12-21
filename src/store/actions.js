@@ -938,6 +938,18 @@ const actions = {
             console.log(data)
         commit('updateGiveDepositCard', data.data)
     },
+    //卡种列表
+    async getByActivity({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/card/queryByActivity', {
+                params:{
+                    isActivity:value,
+                } 
+            })
+            console.log(data.data)
+        return data.data
+        
+    },
 
 }
 

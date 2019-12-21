@@ -116,11 +116,11 @@ export default {
             this.dialogShow=e
         },
         handleSizeChange(val) {
-            this.size = val;
+            this.num.size = val;
             this.getNumCards(this.num);
         },
         handleCurrentChange(val) {
-            this.page = val;
+            this.num.page = val;
             this.getNumCards(this.num);
         },
     },
