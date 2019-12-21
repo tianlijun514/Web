@@ -84,6 +84,12 @@ const mutations = {
     updateGiveDepositCard(state, data) {
         state.giveDepositCard = data;
     },
+    updateActivity(state, data) {
+        state.activity = data;
+    },
+    updateContractType(state, data) {
+        state.contractType = data;
+    },
     
     
 }

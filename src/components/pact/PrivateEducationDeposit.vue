@@ -58,6 +58,7 @@
             <div class="shenfen">
                 <el-form-item label="定金类型">
                     <el-select v-model="form.conventionType" @change="dingjin" class="hname">
+                        
                         <el-option label="会籍定金" value="1"></el-option>
                         <el-option label="私教定金" value="2"></el-option>
                         <el-option label="停转补定金" value="3"></el-option>
@@ -72,27 +73,23 @@
                 </el-form-item>
             </div>
 
-            <div v-if="wieder=='01'">
+            <div v-if="wieder=='1'">
                 <div class="shenfen">
                     <el-form-item label="营销活动">
-                        <el-select v-model="form.activity" class="hname">
-                            <el-option label="不参加营销活动" value="yin"></el-option>
-                            <el-option label="参加营销活动" value="yxbj"></el-option>
+                        <el-select v-model="form.activity" class="hname" @change="cardSearch">
+                            <el-option label="不参加营销活动" value="0"></el-option>
+                            <el-option label="参加营销活动" value="1"></el-option>
                         </el-select>
                     </el-form-item>
 
                     <el-form-item label="卡种类型">
                         <el-select v-model="form.cardType" class="hname">
-                            <el-option label="H1002 - 闪电狼会员1月0元" value="yin"></el-option>
-                            <el-option label="L210 - 连锁金卡12月2398" value="yxbj"></el-option>
-                            <el-option label="L216 - 连锁金卡1年赠卡" value="yin"></el-option>
-                            <el-option label="L293 - 连锁金卡3月0" value="yxbj"></el-option>
-                            <el-option label="M80471 - 单店100次卡  3000" value="yin"></el-option>
-                            <el-option label="N10265 - 单店12月1+X卡 0" value="yxbj"></el-option>
-                            <el-option label="R1001 - 24城单店12月100次卡4000" value="yin"></el-option>
-                            <el-option label="R1003 - 蓝色空间老卡1月0元" value="yxbj"></el-option>
-                            <el-option label="R1004 - 蓝色空间老卡1月10次0元" value="yin"></el-option>
-                            <el-option label="T1060 - 连锁金卡598续费2598" value="yxbj"></el-option>
+                            <el-option
+                                v-for="(item,index) in activity"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index"
+                            ></el-option>
                         </el-select>
                     </el-form-item>
                 </div>
@@ -127,7 +124,7 @@ export default {
     data() {
         // 这里存放数据
         return {
-            wieder: true,
+            wieder: '',
             card: false,
             input: '',
             form: {
@@ -138,25 +135,79 @@ export default {
                 idType: '',
                 userId: '',
                 phone: '',
-                conventionType: '',
+                conventionType: '2',
                 conventionMoney: '',
                 activity: '',
                 cardType: '',
                 cardPrice: '',
                 desc: ''
-            }
+            },
+            type:[],
         };
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({})
+        ...mapState({activity:state=>state.activity})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getByCardId', 'reserveMoneySell']),
+        ...mapActions(['getByCardId', 'reserveMoneySell','getByActivity']),
         onSubmit() {
+            if(this.form.membersType=='1'){
+                if(!this.form.membersName){
+                    this.$message('请输入会员姓名')
+                    return
+                }else if(!this.form.gender){
+                    this.$message('请选择性别')
+                    return
+                }else if(!this.form.idType){
+                    this.$message('请选择证件类型')
+                    return
+                }else if(!this.form.userId){
+                    this.$message('请输入证件号')
+                    return
+                }
+                
+            }else if(this.form.membersType=='2'){
+                if(!this.form.membersId){
+                    this.$message('请输入会员卡号')
+                    return
+                }else{
+                    if(!this.form.membersName && !this.form.gender && !this.form.idType && !this.form.userId){
+                        this.$message('您输入的会员卡号有误，请重新输入')
+                        return
+                    }
+                }
+            }else{
+                this.$message('请选择会员类型')
+                return
+            }
+
+            if(!this.form.phone){
+                this.$message('请输入手机号码')
+                return
+            }else if(!this.form.conventionType){
+                this.$message('请选择定金类型')
+                return
+            }else if(!this.form.conventionMoney){
+                this.$message('请选择定金金额')
+                return
+            }else{
+                if(this.form.conventionType=='1'){
+                    if(!this.form.activity){
+                        this.$message('请选择营销活动')
+                        return
+                    }else if(!this.form.cardType){
+                        this.$message('请选择卡种类型')
+                        return
+                    }else if(!this.form.cardPrice){
+                        this.$message('请输入卡种价格')
+                        return
+                    }
+                }
+            }
             this.reserveMoneySell(this.form).then(res => {
                 if (res == 'yes') {
                     this.$message({ message: '添加私教定金成功', type: 'success' });
@@ -185,26 +236,39 @@ export default {
         },
         search(e) {
             this.getByCardId(e).then(res => {
-                this.form.membersName = res.data.data.member.name;
-                res.data.data.member.name;
-                if (res.data.data.member.zjType == '1') {
+                if(!res.data.d){
+                    this.$message('您输入的会员卡号有误，请重新输入')
+                    return
+                }
+                this.form.membersName = res.data.d[0].member.name;
+                res.data.d[0].member.name;
+                if (res.data.d[0].member.zjType == '1') {
                     this.form.idType = '身份证';
-                } else if (res.data.data.member.zjType == '2') {
+                } else if (res.data.d[0].member.zjType == '2') {
                     this.form.idType = '护照';
                 } else {
                     this.form.idType = '回乡证';
                 }
-                if (res.data.data.member.sex == '1') {
+                if (res.data.d[0].member.sex == '1') {
                     this.form.gender = 'man';
                 } else {
                     this.form.gender = 'woman';
                 }
-                this.form.userId = res.data.data.member.zjNum;
+                this.form.userId = res.data.d[0].member.zjNum;
             });
+        },
+        cardSearch(e){
+            if(e=='1'){
+                this.getByActivity(1)
+            }else{
+                this.getByActivity(0)
+            }
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.form.conventionType=this.wieder
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, // 生命周期 - 创建之前

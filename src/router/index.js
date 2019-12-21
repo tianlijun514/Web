@@ -175,16 +175,17 @@ export default new Router({
         },
         {
           path: '/index5',
-          component: () => import('../components/huiindex/MembershipContractPrinting.vue'),
+          component: () => import('../components/chat/PrivateEducationContract.vue'),
           meta: {
             title: '会籍合同打印'
           }
         },
         {
           path: '/index6',
-          component: () => import('../components/huiindex/OtherContractPrinting.vue'),
+          component: () => import('../components/chat/PrivateEducationContract.vue'),
           meta: {
-            title: '其他合同打印'
+            title: '其他合同打印',
+            
           }
         },
         {

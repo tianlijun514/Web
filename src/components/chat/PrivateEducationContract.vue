@@ -9,9 +9,12 @@
             <el-form-item label="类型">
                 <el-select v-model="num.type">
                     <el-option label="全部" value></el-option>
-                    <el-option label="购买" value="1"></el-option>
-                    <el-option label="转让" value="4"></el-option>
-                    <el-option label="转店" value="2"></el-option>
+                    <el-option
+                        v-for="(item,index) in contractType"
+                        :label="item.label"
+                        :value="item.value"
+                        :key="index+'a'"
+                    ></el-option>
                 </el-select>
             </el-form-item>
 
@@ -129,19 +132,19 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ coachPrint: state => state.coachPrint })
+        ...mapState({ coachPrint: state => state.coachPrint, contractType: state => state.contractType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachPrint']),
+        ...mapActions(['getCoachPrint', 'getCoachInformation']),
         search() {
             if (this.date) {
                 this.getDate(this.date);
-            }else{
-              this.num.date1=''
-              this.num.date2=''
+            } else {
+                this.num.date1 = '';
+                this.num.date2 = '';
             }
             this.getCoachPrint(this.num);
         },
@@ -154,9 +157,9 @@ export default {
         handleSizeChange(val) {
             if (this.date) {
                 this.getDate(this.date);
-            }else{
-              this.num.date1=''
-              this.num.date2=''
+            } else {
+                this.num.date1 = '';
+                this.num.date2 = '';
             }
             this.num.size = val;
             this.getCoachPrint(this.num);
@@ -164,9 +167,9 @@ export default {
         handleCurrentChange(val) {
             if (this.date) {
                 this.getDate(this.date);
-            }else{
-              this.num.date1=''
-              this.num.date2=''
+            } else {
+                this.num.date1 = '';
+                this.num.date2 = '';
             }
             this.num.page = val;
             this.getCoachPrint(this.num);
@@ -175,6 +178,7 @@ export default {
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.getCoachPrint(this.num);
+        this.getCoachInformation('C0001');
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
@@ -184,7 +188,30 @@ export default {
     updated() {}, // 生命周期 - 更新之后
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
-    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+    activated() {}, // 如果页面有keep-alive缓存功能，这个函数会触发
+    beforeRouteEnter(to, from, next) {
+        let title
+        if(to.meta.title=='会籍合同打印'){
+            title='会籍'
+        }else if(to.meta.title=='私教合同打印'){
+            title='私教'
+        }else{
+            title=''
+        }
+        next(vm =>{
+            vm.getCoachInformation('C0001').then(res=>{
+                for(let i in res){
+                    if(res[i].label==title){
+                        vm.num.type=res[i].value
+                        break
+                    }else{
+                        vm.num.type=title
+                    }
+                }
+                vm.getCoachPrint(vm.num);
+            })
+        });
+    }
 };
 </script>
 <style scoped>

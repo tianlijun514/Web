@@ -53,9 +53,9 @@ const actions = {
         } else if (value == 'S0001') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                if(data.data.data[i].remark!='定金销售'){
-                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                if(data.data.d[i].remark!='定金销售'){
+                    obj = { label: data.d.data[i].remark, value: data.data.d[i].number }
                     array.push(obj)
                 }
                 
@@ -65,8 +65,8 @@ const actions = {
         } else if (value == 'A0002') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
                 array.push(obj)
                 
             }
@@ -75,13 +75,25 @@ const actions = {
         } else if (value == 'A0003') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
                 array.push(obj)
                 
             }
             commit('updateConventionState', array)
             return array
+        } else if (value == 'C0001') {
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
+                array.push(obj)
+                
+            }
+            commit('updateContractType', array)
+            return array
+        }else{
+            return data.data.d
         }
     },
     // 新增教练员
@@ -495,7 +507,11 @@ const actions = {
     //添加私教定金
     async reserveMoneySell({ commit, state }, value) {
         let idType,
-            sex
+            sex,
+            membersType,
+            conventionType,
+            conventionMoney,
+            price
         if (value.idType == '身份证') {
             idType = 1
         } else if (value.idType == '护照') {
@@ -508,13 +524,16 @@ const actions = {
         } else {
             sex = 2
         }
-        value.membersType = parseInt(value.membersType)
-        value.conventionType = parseInt(value.conventionType)
-        value.conventionMoney = value.conventionMoney + '.00'
-        value.conventionMoney = parseFloat(value.conventionMoney).toFixed(2)
-        let data = await axios
+        console.log(value.conventionType)
+        price=parseInt(value.cardPrice) + '.00'
+        membersType = parseInt(value.membersType)
+        conventionType = parseInt(value.conventionType)
+        conventionMoney = value.conventionMoney + '.00'
+        conventionMoney = parseFloat(conventionMoney).toFixed(2)
+        if(value.conventionType!='1'){
+            let data = await axios
             .post(base + '/reserveMoney/sell', {
-                memberType: value.membersType,
+                memberType: membersType,
                 cardTypeId: '',
                 cardId: value.membersId,
                 name: value.membersName,
@@ -522,11 +541,28 @@ const actions = {
                 sex,
                 zjNum: value.userId,
                 price: '0.00',
-                reservePrice: value.conventionMoney,
-                reserveType: value.conventionType,
+                reservePrice: conventionMoney,
+                reserveType: conventionType,
                 remark: value.desc,
             })
-        if (data.data.i == '操作成功！') {
+        }else{
+            let data = await axios
+            .post(base + '/reserveMoney/sell', {
+                memberType: membersType,
+                cardTypeId: value.cardType,
+                cardId: value.membersId,
+                name: value.membersName,
+                zjType: idType,
+                sex,
+                zjNum: value.userId,
+                price,
+                reservePrice: conventionMoney,
+                reserveType: conventionType,
+                remark: value.desc,
+            })
+        }
+        
+        if (data.i == '操作成功！') {
             return 'yes'
         }
     },
@@ -946,8 +982,14 @@ const actions = {
                     isActivity:value,
                 } 
             })
-            console.log(data.data)
-        return data.data
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].name, value: data.data.d[i].id }
+                array.push(obj)
+                
+            }
+        commit('updateActivity',array)
         
     },
 
