@@ -3,14 +3,13 @@
     <el-row :gutter="24">
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
-          <div class="grid-content grid-con-1" style="background-color: rgb(86, 139, 248);margin-left: 3px" @click='onAddMoney()'>
+          <div class="grid-content grid-con-1" style="background-color: rgb(86, 139, 248);margin-left: 3px;">
             <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">本店会员</div>
-                <i class="el-icon-setting top"></i>
+                <i class="el-icon-setting top" @click='Sheing()'></i>
               </div>
-              <div class="grid-num center">6542</div>
-
+              <div class="grid-num center" @click='onAddMoney()'>6542</div>
             </div>
           </div>
         </el-card>
@@ -18,12 +17,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(116, 105, 245);">
-            <div class="grid-cont-right" @click='sijiao()'>
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">私教会员</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click='sijiao()'>6542</div>
 
             </div>
           </div>
@@ -32,12 +31,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(60, 178, 199);">
-            <div class="grid-cont-right" @click="abgelaufen">
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">未过期会员</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click="abgelaufen">6542</div>
 
             </div>
           </div>
@@ -46,23 +45,26 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(150, 191, 63);">
-            <div class="grid-cont-right" @click="Mitglieder">
+            <div class="grid-cont-right">
               <div class="tite_box">
                 <div style="width: 120px">新增会员</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="xin">
-                <span class="zheng">昨日新增</span>
-                <span class="shu">111</span>
+              <div @click="Mitglieder">
+                <div class="xin">
+                  <span class="zheng">昨日新增</span>
+                  <span class="shu">111</span>
+                </div>
+                <div class="xin">
+                  <span class="zheng">7日新增</span>
+                  <span class="shu">111</span>
+                </div>
+                <div class="xin">
+                  <span class="zheng">30日新增</span>
+                  <span class="shu">111</span>
+                </div>
               </div>
-              <div class="xin">
-                <span class="zheng">7日新增</span>
-                <span class="shu">111</span>
-              </div>
-              <div class="xin">
-                <span class="zheng">30日新增</span>
-                <span class="shu">111</span>
-              </div>
+
             </div>
           </div>
         </el-card>
@@ -71,12 +73,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(243, 88, 76);">
-            <div class="grid-cont-right" @click="erwarten">
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">即将到期</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click="erwarten">6542</div>
 
             </div>
           </div>
@@ -85,12 +87,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(212, 173, 0);">
-            <div class="grid-cont-right" @click="mitglieder">
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">过期会员</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click="mitglieder">6542</div>
 
             </div>
           </div>
@@ -99,12 +101,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(240, 115, 53);">
-            <div class="grid-cont-right" @click="geburtstag">
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">最近生日</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click="geburtstag">6542</div>
 
             </div>
           </div>
@@ -113,12 +115,12 @@
       <el-col :span="3" class="boxing">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1" style="background-color: rgb(116, 105, 245);">
-            <div class="grid-cont-right" @click="Rangordnung">
+            <div class="grid-cont-right">
               <div class="tite">
                 <div style="width: 120px">会员评级</div>
                 <i class="el-icon-setting top"></i>
               </div>
-              <div class="grid-num center">6542</div>
+              <div class="grid-num center" @click="Rangordnung">6542</div>
 
             </div>
           </div>
@@ -203,13 +205,37 @@
       <el-table-column prop="app" label="APP用户"></el-table-column>
       <el-table-column prop="hui" label="会员卡号" width="95"></el-table-column>
       <el-table-column prop="shijina" label="添加时间" width="90"></el-table-column>
-      <el-table-column prop="huiji" label="所属会籍" width="95"></el-table-column>
-      <el-table-column prop="jiaolian" label="跟进教练" width="90"></el-table-column>
+      <el-table-column prop="huiji" label="所属会籍" width="95">
+        <template slot-scope="scope">
+          <el-button @click="bugjiao(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="jiaolian" label="跟进教练" width="90">
+        <template slot-scope="scope">
+          <el-button @click="verfolgen(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="leixing" label="会员类型" width="90"></el-table-column>
-      <el-table-column prop="shijian" label="时间卡" width="95"></el-table-column>
-      <el-table-column prop="jiao" label="私教卡" width="100"></el-table-column>
-      <el-table-column prop="ci" label="次卡" width="100"></el-table-column>
-      <el-table-column prop="chu" label="储值卡" width="100"></el-table-column>
+      <el-table-column prop="shijian" label="时间卡" width="95">
+        <template slot-scope="scope">
+          <el-button @click="timeka(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="jiao" label="私教卡" width="100">
+        <template slot-scope="scope">
+          <el-button @click="Mitka(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="ci" label="次卡" width="100">
+        <template slot-scope="scope">
+          <el-button @click="cika(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="chu" label="储值卡" width="100">
+        <template slot-scope="scope">
+          <el-button @click="karten(scope.row,scope.row)" type="info" plain size="mini">+</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="积分" width="80"></el-table-column>
       <el-table-column label="操作" width="90">
         <template slot-scope="scope">
@@ -223,32 +249,42 @@
       </el-pagination>
     </div>
 
-    <!-- 树状图 -->
-    <!-- <el-row :gutter="20">
-      <el-col :span="12">
-        <el-card shadow="hover">
-          <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card shadow="hover">
-          <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-        </el-card>
-      </el-col>
-    </el-row> -->
     <Mitglieder :gliederstatistik='gliederstatistik'></Mitglieder>
+    <Aufstellen :aufstdialog='aufstdialog'></Aufstellen>
+    <Trainieren :drillen='drillen'></Trainieren>
+    <Kaallerlei :allerlei='allerlei'></Kaallerlei>
+
   </div>
 </template>
 
 <script>
 import Mitglieder from "../common/Mitglieder";
-import Schart from 'vue-schart';
-import bus from '../common/bus';
+import Aufstellen from "../common/Aufstellen";
+import Trainieren from "../common/Trainieren";
+import Kaallerlei from "../common/Kaallerlei"
+// import Schart from 'vue-schart';
+// import bus from '../common/bus';
+
 export default {
   name: 'dashboard',
   data () {
     return {
       gliederstatistik: {
+        show: false,
+        title: "",
+        option: "edit"
+      },
+      aufstdialog: {
+        show: false,
+        title: "",
+        option: "edit"
+      },
+      drillen: {
+        show: false,
+        title: "",
+        option: "edit"
+      },
+      allerlei: {
         show: false,
         title: "",
         option: "edit"
@@ -311,54 +347,14 @@ export default {
           value: 1065
         }
       ],
-      options: {
-        type: 'bar',
-        title: {
-          text: '最近一周各品类销售图'
-        },
-        xRorate: 25,
-        labels: ['周一', '周二', '周三', '周四', '周五'],
-        datasets: [
-          {
-            label: '家电',
-            data: [234, 278, 270, 190, 230]
-          },
-          {
-            label: '百货',
-            data: [164, 178, 190, 135, 160]
-          },
-          {
-            label: '食品',
-            data: [144, 198, 150, 235, 120]
-          }
-        ]
-      },
-      options2: {
-        type: 'line',
-        title: {
-          text: '最近几个月各品类销售趋势图'
-        },
-        labels: ['6月', '7月', '8月', '9月', '10月'],
-        datasets: [
-          {
-            label: '家电',
-            data: [234, 278, 270, 190, 230]
-          },
-          {
-            label: '百货',
-            data: [164, 178, 150, 135, 160]
-          },
-          {
-            label: '食品',
-            data: [74, 118, 200, 235, 90]
-          }
-        ]
-      }
     };
   },
   components: {
-    Schart,
-    Mitglieder
+    // Schart,
+    Mitglieder,
+    Aufstellen,
+    Trainieren,
+    Kaallerlei
   },
   computed: {
     role () {
@@ -386,13 +382,13 @@ export default {
       this.currentPage = val;
       this.chaxun();
     },
-    changeDate () {
-      const now = new Date().getTime();
-      this.data.forEach((item, index) => {
-        const date = new Date(now - (6 - index) * 86400000);
-        item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-      });
-    },
+    // changeDate () {
+    //   const now = new Date().getTime();
+    //   this.data.forEach((item, index) => {
+    //     const date = new Date(now - (6 - index) * 86400000);
+    //     item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    //   });
+    // },
     shousuo () {
 
     },
@@ -456,6 +452,63 @@ export default {
       };
     },
 
+    // 设置部分
+    Sheing () {
+      this.aufstdialog = {
+        show: true,
+        option: 'add'
+      }
+    },
+
+    // 所属会籍。跟进教练
+    bugjiao () {
+      this.drillen = {
+        show: true,
+        title: '选择用户',
+        option: 'add'
+      };
+    },
+    verfolgen () {
+      this.drillen = {
+        show: true,
+        title: '选择跟进教练',
+        option: 'add'
+      };
+    },
+    // 卡类
+    timeka () {
+      this.allerlei = {
+        show: true,
+        title: '多张时间卡',
+        option: 'add'
+      };
+    },
+    Mitka () {
+      this.allerlei = {
+        show: true,
+        title: '私教卡管理',
+        option: 'add'
+      };
+    },
+    cika () {
+      this.allerlei = {
+        show: true,
+        title: '次卡管理',
+        option: 'add'
+      };
+    },
+    karten () {
+      this.allerlei = {
+        show: true,
+        title: '储值卡管理',
+        option: 'add'
+      };
+    },
+
+
+
+
+
     // handleListener() {
     //     bus.$on('collapse', this.handleBus);
     //     // 调用renderChart方法对图表进行重新渲染
@@ -487,11 +540,10 @@ export default {
     cursor: pointer;
 }
 .block {
-    width: 50%;
+    width: 32%;
     margin: auto;
 }
-.paing {
-}
+
 .center {
     text-align: center;
 }
@@ -633,5 +685,9 @@ export default {
 }
 .app {
     width: 99.5% !important;
+}
+.el-button--mini,
+.el-button--mini.is-round {
+    padding: 5px 25px;
 }
 </style>
