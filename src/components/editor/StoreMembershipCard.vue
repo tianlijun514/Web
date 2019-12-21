@@ -32,7 +32,11 @@
       <el-table-column prop="remark" label="状态" width="100"></el-table-column>
       <el-table-column prop="makeDate" label="制卡日期" width="140"></el-table-column>
       <el-table-column prop="memberId" label="会员编号"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="120"></el-table-column>
+      <el-table-column prop="name" label="会员姓名" width="120" >
+        <template slot-scope="scope">
+          <span class="name" @click="show(scope.row)">{{scope.row.name}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="170">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleClick(scope.row)">打印</el-button>
@@ -44,11 +48,14 @@
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
+    <Dialog :showData="showData" :dialogShow="dialogShow" @dialogShowData="dialogShowData" />
   </div>
 
 </template>
 
 <script>
+
+import Dialog from '../huibox/memberDialog'
 import axios from "axios";
 import { base, url } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
@@ -61,7 +68,7 @@ export default {
   },
   // import引入的组件需要注入到对象中才能使用
   components: {
-
+    Dialog
   },
   data () {
     // 这里存放数据
@@ -74,7 +81,9 @@ export default {
       size: 10,
       total: 0,
       currentPage: 1,
-      tableData: []
+      tableData: [],
+      showData: '',
+      dialogShow: false
     }
   },
   // 监听属性 类似于data概念
@@ -96,6 +105,15 @@ export default {
       this.date_e = y + "-" + m + "-" + d;
     },
 
+    // 名字详情跳转
+    show (e) {
+      this.showData = e.memberId
+      this.dialogShow = true
+    },
+    dialogShowData (e) {
+      this.dialogShow = e
+    },
+
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`);
       this.size = val;
@@ -110,14 +128,14 @@ export default {
     },
 
     // 制卡
-    zhika (row,cardId) {
+    zhika (row, cardId) {
       // console.log(row)
       axios.get(base + `/card/makeCard`, {
         params: {
-          cardId:row.cardId
+          cardId: row.cardId
         }
       }).then(res => {
-        if (res.data.c== 10000) {
+        if (res.data.c == 10000) {
           this.$message({
             message: '操作成功',
             type: 'success'
@@ -175,5 +193,9 @@ export default {
 }
 .APPX {
     width: 100%;
+}
+.name {
+    color: #e67e22;
+    cursor: pointer;
 }
 </style>

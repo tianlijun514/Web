@@ -1,40 +1,36 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='app'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true"  class="demo-form-inline">
       <el-form-item label="会员卡号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="cardId"></el-input>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
       <el-form-item>
+        
         <el-button type="primary" @click="onSubmit">领取</el-button>
       </el-form-item>
-
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="num" label="选择" width="180"></el-table-column>
-      <el-table-column prop="storeName" label="合同号" width="180"></el-table-column>
-          <el-table-column prop="userNo" label="礼品编号" width="180"></el-table-column>
-      <el-table-column prop="userCardNo" label="礼品名称"></el-table-column>
+    <el-table :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange">
+      <el-table-column label="选择" width="180" type="selection"></el-table-column>
+      <el-table-column prop="contractId" label="合同号" width="180"></el-table-column>
+      <el-table-column prop="giftNumber" label="礼品编号" width="180"></el-table-column>
+      <el-table-column prop="name" label="礼品名称"></el-table-column>
     </el-table>
-    <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
-      </el-pagination>
-    </div>
-
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { base } from '../js/url'
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 
 export default {
-  name: 'editor5',
+  name: 'MembershipGiftCollection',
   props: {
 
   },
@@ -45,18 +41,8 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage: 5,
-      formInline: {
-        user: '',
-        region: ''
-      },
-      value1: '',
-      tableData: [{
-        num: '00012',
-        storeName: '天府四街分店',
-        userNo: '0001242',
-        userCardNo: '刘小军',
-      },]
+      cardId: '',
+      tableData: []
     }
   },
   // 监听属性 类似于data概念
@@ -68,16 +54,24 @@ export default {
     onSubmit () {
       console.log('submit!');
     },
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`);
+    handleSelectionChange (val) {
+      this.multipleSelection = val;
     },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
-    }
+    // 查询
+    chaxun () {
+      axios
+        .get(base + '/member/queryGifts', {
+          params: {
+            cardId: this.cardId,
+          }
+        }).then(res => {
+          this.tableData=res.data.d
+        })
+    },
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-
+    this.chaxun()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

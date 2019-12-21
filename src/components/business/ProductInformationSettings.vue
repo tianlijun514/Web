@@ -48,6 +48,10 @@
         <el-button type="primary" @click="upload">上传Execl</el-button>
       </el-form-item>
 
+           <a href="javascript:;" class="file">上传会员信息(Excel文件)
+        <input id="upload" type="file" @change="importfxx(this)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      </a>
+
       <el-button type="text" @click='test_click2("add")' class="btn">新增</el-button>
       <!-- 添加弹框 -->
       <el-dialog :title="title" :visible.sync="dialogVisible" width="40%">
@@ -255,32 +259,7 @@ export default {
       {
         value: '8',
         label: '盒'
-      }
-      ],
-
-      options: [{
-        value: '02',
-        label: '11111 - 22222'
-      }, {
-        value: '03',
-        label: '222 - 222'
-      }, {
-        value: '04',
-        label: 'L001 - 饮料类'
-      }, {
-        value: '05',
-        label: 'L002 - 会籍办卡类'
-      }, {
-        value: '06',
-        label: 'L003 - 工本费'
-      }, {
-        value: '07',
-        label: 'L004 - 锁'
-      }, {
-        value: '08',
-        label: 'sp1001 - 运动饮料'
       }],
-
       Verkaufen: [{
         value: '1',
         label: '卖品',
@@ -323,6 +302,7 @@ export default {
         putawayDate: '',
         soldoutDate: '',
         remark: '',
+        file:''
       },
       type_list: [],
       value1: '',
@@ -418,6 +398,7 @@ export default {
           mnemonic: this.mnemonic,
           typeCode:this.typeCode
         }).then(res => {
+          console.log(res.data)
           this.tableData = res.data.d
           this.total = res.data.t
         })
@@ -463,6 +444,75 @@ export default {
       //   console.log(res)
       // })
     },
+       importfxx (obj) {
+      let _this = this;
+      let inputDOM = this.$refs.inputer;
+      // 通过DOM取文件数据
+      this.file = event.currentTarget.files[0];
+      const rABS = false; //是否将文件读取为二进制字符串
+      const f = this.file;
+      const reader = new FileReader();
+      //if (!FileReader.prototype.readAsBinaryString) {
+      FileReader.prototype.readAsBinaryString = function (f) {
+        let binary = "";
+        let rABS = false; //是否将文件读取为二进制字符串
+        let pt = this;
+        let wb; //读取完成的数据
+        let outdata;
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          let bytes = new Uint8Array(reader.result);
+          let length = bytes.byteLength;
+          for (let i = 0; i < length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          let XLSX = require('xlsx');
+          if (rABS) {
+            wb = XLSX.read(btoa(fixdata(binary)), { //手动转化
+              type: 'base64'
+            });
+          } else {
+            wb = XLSX.read(binary, {
+              type: 'binary'
+            });
+          }
+          outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);//outdata就是你想要的东西
+          this.da = [...outdata]
+          let arr = []
+          this.da.map(v => {
+            let obj = {}
+            obj.cgContractNum = v.cgContractNum
+            obj.spCode = v.spCode
+            arr.push(obj)
+          })
+          console.log(arr)
+          let para = {
+            //withList: JSON.stringify(this.da)
+            withList: arr
+          }
+          _this.$message({
+            message: '请耐心等待导入成功',
+            type: 'success'
+          });
+          // withImport(para).then(res => {
+          //   window.location.reload()
+          // })
+          //向后台发送请求
+          axios.post(base + '/uploadExcel',{
+            file:this.file
+          }).then(res=>{{
+            console.log(res.data)
+          }})
+
+        }
+        reader.readAsArrayBuffer(f);
+      }
+      if (rABS) {
+        reader.readAsArrayBuffer(f);
+      } else {
+        reader.readAsBinaryString(f);
+      }
+    },
     resetForm (numberValidateForm) {
       this.$refs[numberValidateForm].resetFields();
     },
@@ -475,7 +525,7 @@ export default {
     this.chaxun()
     axios
       .post(base + '/commodity/getAllSpType').then((res) => {
-        this.type_list = res.data
+        this.type_list = res.data.d
       })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）

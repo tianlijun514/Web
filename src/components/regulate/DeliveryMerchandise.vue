@@ -96,7 +96,7 @@
           <el-button type="primary" size="small" class="no-print" @click="print">打印</el-button>
           <el-button @click="handleClick(scope.row)" type="primary" size="small">修改</el-button>
           <el-button @click="handleClick(scope.row)" type="primary" size="small">上传图片</el-button>
-          <el-button type="primary" size="small">确认</el-button>
+          <!-- <el-button type="primary" size="small">确认</el-button> -->
         </template>
       </el-table-column>
     </el-table>
