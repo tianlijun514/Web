@@ -152,10 +152,10 @@ export default {
               index: '4-2',
               title: '会籍业务',
               subs: [
-                {
-                  index: 'index1',
-                  title: '会籍定金销售'
-                },
+                // {
+                //   index: 'index1',
+                //   title: '会籍定金销售'
+                // },
                 {
                   index: 'index2',
                   title: '会籍销售'

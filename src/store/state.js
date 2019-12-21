@@ -26,6 +26,12 @@ const state = {
     reserves:{},//定金销售流水
     conventionType:[],//定金类型
     conventionState:[],//定金状态
+    membershipScrs:{},//会员停转补列表
+    makeCards:{},//会员制卡流水
+    numCards:{},//次卡剩余次数
+    giveDepositCard:{},//赠送储值卡流水
+    activity:[],//卡种类型
+    contractType:[],//合同类型
 
 }
 export default state;

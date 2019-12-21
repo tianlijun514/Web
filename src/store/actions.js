@@ -53,9 +53,9 @@ const actions = {
         } else if (value == 'S0001') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                if(data.data.data[i].remark!='定金销售'){
-                    obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                if(data.data.d[i].remark!='定金销售'){
+                    obj = { label: data.d.data[i].remark, value: data.data.d[i].number }
                     array.push(obj)
                 }
                 
@@ -65,8 +65,8 @@ const actions = {
         } else if (value == 'A0002') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
                 array.push(obj)
                 
             }
@@ -75,13 +75,25 @@ const actions = {
         } else if (value == 'A0003') {
             let obj
             let array = []
-            for (let i = 0; i < data.data.data.length; i++) {
-                obj = { label: data.data.data[i].remark, value: data.data.data[i].number }
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
                 array.push(obj)
                 
             }
             commit('updateConventionState', array)
             return array
+        } else if (value == 'C0001') {
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].remark, value: data.data.d[i].number }
+                array.push(obj)
+                
+            }
+            commit('updateContractType', array)
+            return array
+        }else{
+            return data.data.d
         }
     },
     // 新增教练员
@@ -495,7 +507,11 @@ const actions = {
     //添加私教定金
     async reserveMoneySell({ commit, state }, value) {
         let idType,
-            sex
+            sex,
+            membersType,
+            conventionType,
+            conventionMoney,
+            price
         if (value.idType == '身份证') {
             idType = 1
         } else if (value.idType == '护照') {
@@ -508,13 +524,16 @@ const actions = {
         } else {
             sex = 2
         }
-        value.membersType = parseInt(value.membersType)
-        value.conventionType = parseInt(value.conventionType)
-        value.conventionMoney = value.conventionMoney + '.00'
-        value.conventionMoney = parseFloat(value.conventionMoney).toFixed(2)
-        let data = await axios
+        console.log(value.conventionType)
+        price=parseInt(value.cardPrice) + '.00'
+        membersType = parseInt(value.membersType)
+        conventionType = parseInt(value.conventionType)
+        conventionMoney = value.conventionMoney + '.00'
+        conventionMoney = parseFloat(conventionMoney).toFixed(2)
+        if(value.conventionType!='1'){
+            let data = await axios
             .post(base + '/reserveMoney/sell', {
-                memberType: value.membersType,
+                memberType: membersType,
                 cardTypeId: '',
                 cardId: value.membersId,
                 name: value.membersName,
@@ -522,11 +541,28 @@ const actions = {
                 sex,
                 zjNum: value.userId,
                 price: '0.00',
-                reservePrice: value.conventionMoney,
-                reserveType: value.conventionType,
+                reservePrice: conventionMoney,
+                reserveType: conventionType,
                 remark: value.desc,
             })
-        if (data.data.i == '操作成功！') {
+        }else{
+            let data = await axios
+            .post(base + '/reserveMoney/sell', {
+                memberType: membersType,
+                cardTypeId: value.cardType,
+                cardId: value.membersId,
+                name: value.membersName,
+                zjType: idType,
+                sex,
+                zjNum: value.userId,
+                price,
+                reservePrice: conventionMoney,
+                reserveType: conventionType,
+                remark: value.desc,
+            })
+        }
+        
+        if (data.i == '操作成功！') {
             return 'yes'
         }
     },
@@ -768,7 +804,194 @@ const actions = {
             }
         commit('updateReserves', data.data)
     },
+    // 查询会员停转补列表
+    async getMembershipScrs({ commit, state }, value) {
+        let type
+        if(typeof value.type=='string' && value.type!=''){
+            type=parseInt(value.type)
+        }else{
+            type=null
+        }
+        let data = await axios
+            .post(base + '/membership/queryMembershipScrs' + '/' + value.page + '/' + value.size, {
+                storeCode: value.store,
+                type: type,
+                startDate: value.date1,
+                endDate: value.date2,
+                contractId: value.contract,
+                memberId:value.memberNumber,
+                
+            })
+            console.log(data)
+        commit('updateMembershipScrs', data.data)
+    },
     
+    // 会员会籍合同查询
+    async getMembership({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryMembership', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员定金合同查询
+    async getMemberReserve({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryReserve', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员租箱合同查询
+    async getMemberBox({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryBox', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    // 会员私教合同查询
+
+    async getMemberIdDetail({ commit, state }, value) {
+        console.log(value)
+        let data = await axios
+            .post(base + '/coachContract/queryByMemberIdDetail', {
+                memberId:value,
+            })
+        return data.data
+    },
+    // 会员信息出入场查询
+    async getEntrancesByMemberId({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryEntrancesByMemberId' + '/' + value.page + '/' + value.size, {
+                params:{
+                    memberId:value.memberNumber,
+                }
+            })
+        return data.data
+    },
+    // 会员停卡查询
+    async getMemberStopCard({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryStop', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员补卡查询 
+    async getMemberRepair({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryRepair', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员储值卡查询 
+    async getMemberStored({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/member/queryStored', {
+                params:{
+                    memberId:value,
+                }
+            })
+        return data.data
+    },
+    //会员储值卡挂失 
+    async getMemberUpdateStored({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/member/updateStored', {
+                type:value.number,
+                memberId:value.card
+            })
+        return data.data
+    },
+    // 会员制卡流水查询
+    async getMakeCards({ commit, state }, value) {
+        let type,
+            type2
+        if(typeof value.state=='string' && value.state!=''){
+            type2=parseInt(value.state)
+        }else{
+            type2=null
+        }
+        if(typeof value.type=='string' && value.type!=''){
+            type=parseInt(value.type)
+        }else{
+            type=null
+        }
+        let data = await axios
+            .post(base + '/card/queryCards' + '/' + value.page + '/' + value.size, {
+                status:type2,
+                storeCode:'',
+                type,
+                startDate:value.date1,
+                endDate:value.date2,
+                name:value.memberId
+            })
+            console.log(data)
+        commit('updateMakeCards', data.data)
+    },
+    //合同可入场门店
+    async getContractStore({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/contract/queryStores', {
+                params:{
+                    contractId:value,
+                } 
+            })
+        return data.data
+    },
+    //次卡剩余次数
+    async getNumCards({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/card/queryNumCards' + '/' + value.page + '/' + value.size, {
+                cardId:value.memberId,
+                storeCode:value.store,
+                contractId:value.contract,
+                name:value.name,
+            })
+            console.log(data)
+        commit('updateNumCards', data.data)
+    },
+    //赠送储值卡流水查询
+    async getGiveDepositCard({ commit, state }, value) {
+        let data = await axios
+            .post(base + '/depositCard/getGiveDepositCard' + '/' + value.page + '/' + value.size, {
+                startDate:value.date1,
+                endDate:value.date2,
+                storeName:value.store,
+            })
+            console.log(data)
+        commit('updateGiveDepositCard', data.data)
+    },
+    //卡种列表
+    async getByActivity({ commit, state }, value) {
+        let data = await axios
+            .get(base + '/card/queryByActivity', {
+                params:{
+                    isActivity:value,
+                } 
+            })
+            let obj
+            let array = []
+            for (let i = 0; i < data.data.d.length; i++) {
+                obj = { label: data.data.d[i].name, value: data.data.d[i].id }
+                array.push(obj)
+                
+            }
+        commit('updateActivity',array)
+        
+    },
 
 }
 

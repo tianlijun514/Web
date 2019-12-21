@@ -107,6 +107,9 @@ export default {
         search() {
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getVerification(this.num);
         },
@@ -114,6 +117,9 @@ export default {
             this.size = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getVerification(this.num);
         },
@@ -121,6 +127,9 @@ export default {
             this.page = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.num.date1=''
+              this.num.date2=''
             }
             this.getVerification(this.num);
         },

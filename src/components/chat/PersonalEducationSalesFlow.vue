@@ -130,6 +130,9 @@ export default {
         onSubmit() {
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.formInline.date1=''
+              this.formInline.date2=''
             }
             this.getContractSales(this.formInline);
         },
@@ -137,6 +140,9 @@ export default {
             this.size = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.formInline.date1=''
+              this.formInline.date2=''
             }
             this.getContractSales(this.formInline);
         },
@@ -144,6 +150,9 @@ export default {
             this.page = val;
             if (this.date) {
                 this.getDate(this.date);
+            }else{
+              this.formInline.date1=''
+              this.formInline.date2=''
             }
             this.getContractSales(this.formInline);
         }
