@@ -115,13 +115,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ membersSales: state => state.membersSales, memberSalesType: state => state.memberSalesType })
+        ...mapState({ membersSales: state => state.silent.membersSales, memberSalesType: state => state.silent.memberSalesType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getMembersSales', 'getCoachInformation']),
+        ...mapActions(['postMembersSales', 'postPrivateCourseInformation']),
         
         show(e){
             this.showData=e.memberId
@@ -137,7 +137,7 @@ export default {
               this.$message('请选择时间')
               return
             }
-            this.getMembersSales(this.num);
+            this.postMembersSales(this.num);
         },
         getDate(e) {
             let date = new Date(e[0]);
@@ -150,19 +150,19 @@ export default {
         },
         handleSizeChange(val) {
             this.num.size = val;
-            this.getMembersSales(this.num);
+            this.postMembersSales(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getMembersSales(this.num);
+            this.postMembersSales(this.num);
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.date = [new Date(), new Date()];
         this.getDate(this.date);
-        this.getMembersSales(this.num);
-        this.getCoachInformation('S0001');
+        this.postMembersSales(this.num);
+        this.postPrivateCourseInformation('S0001');
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

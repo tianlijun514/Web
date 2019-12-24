@@ -82,13 +82,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ type: state => state.coachType,classRoomType:state=>state.classRoomType })
+        ...mapState({ type: state => state.silent.coachType,classRoomType:state=>state.silent.classRoomType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addClassRoom', 'getStore','updateClassRoom']),
+        ...mapActions(['postPrivateCourseInformation', 'addClassRoom', 'getStore','updateClassRoom']),
         onSubmit() {
             if(this.isAdd){
                 console.log(this.form)
@@ -136,9 +136,9 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('J0001');
-        this.getCoachInformation('J0002');
-        this.getCoachInformation('J0003')
+        this.postPrivateCourseInformation('J0001');
+        this.postPrivateCourseInformation('J0002');
+        this.postPrivateCourseInformation('J0003')
         this.getStore().then(res => {
             this.store = [];
             for (let i = 0; i < res.length; i++) {

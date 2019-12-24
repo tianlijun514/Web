@@ -150,7 +150,7 @@ export default {
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getContractMembers', 'getqueryCoachBySelect', 'addReplaceCoach']),
+        ...mapActions(['postContractMembers', 'postqueryCoachBySelect', 'addReplaceCoach']),
         onSubmit() {
             if(!this.form.contract){
                 this.$message('请输入私教合同号')
@@ -202,7 +202,7 @@ export default {
         },
         search() {
 
-            this.getContractMembers(this.form.contract).then(res => {
+            this.postContractMembers(this.form.contract).then(res => {
                 if(res[0]){
                     this.form.date = res[0].createDate;
                     this.form.date1 = res[0].startDate;
@@ -223,7 +223,7 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getqueryCoachBySelect().then(res => {
+        this.postqueryCoachBySelect().then(res => {
             for (let i = 0; i < res.length; i++) {
                 this.coach.push({ label: res[i].name, value: res[i].number });
             }

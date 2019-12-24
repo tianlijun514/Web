@@ -102,13 +102,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ verification: state => state.verification })
+        ...mapState({ verification: state => state.silent.verification })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getVerification']),
+        ...mapActions(['postVerification']),
         getDate(e) {
             let date = new Date(e[0]);
             let date2 = new Date(e[1]);
@@ -122,7 +122,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getVerification(this.num);
+            this.postVerification(this.num);
         },
         handleSizeChange(val) {
             this.size = val;
@@ -132,7 +132,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getVerification(this.num);
+            this.postVerification(this.num);
         },
         handleCurrentChange(val) {
             this.page = val;
@@ -142,7 +142,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getVerification(this.num);
+            this.postVerification(this.num);
         },
         getCurrentRow(e) {
             this.checkData = e;
@@ -150,7 +150,7 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getVerification(this.num);
+        this.postVerification(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

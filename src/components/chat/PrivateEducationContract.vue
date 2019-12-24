@@ -3,7 +3,7 @@
     <div class="app">
         <el-form :inline="true" :model="num" class="demo-form-inline">
             <el-form-item label="门店">
-                <el-input v-model="num.store"></el-input>
+                <el-input v-model="num.store" :disabled="true"></el-input>
             </el-form-item>
 
             <el-form-item label="类型">
@@ -20,8 +20,8 @@
 
             <el-form-item label="状态">
                 <el-select v-model="num.state">
-                    <el-option label="未打印" value="4"></el-option>
-                    <el-option label="已打印" value="5"></el-option>
+                    <el-option label="未打印" value="0"></el-option>
+                    <el-option label="已打印" value="1"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -49,26 +49,20 @@
         <span class="searchRst">查询结果：共{{coachPrint.t}}条记录/显示{{num.page}}页</span>
         <el-table :data="coachPrint.d" border style="width: 100%">
             <el-table-column type="index" label="序号" width="80"></el-table-column>
-            <el-table-column prop="Mname" label="门店名称"></el-table-column>
-            <el-table-column prop="contractNumber" label="合同号"></el-table-column>
-            <el-table-column label="合同类型">
-                <template slot-scope="scope">
-                    <span v-if="scope.row.salesType==1">购买</span>
-                    <span v-if="scope.row.salesType==2">转店</span>
-                    <span v-if="scope.row.salesType==4">转让</span>
-                </template>
-            </el-table-column>
+            <el-table-column prop="storeName" label="门店名称"></el-table-column>
+            <el-table-column prop="contractId" label="合同号"></el-table-column>
+            <el-table-column prop="contractType" label="合同类型"></el-table-column>
             <el-table-column prop="memberId" label="会员编号"></el-table-column>
-            <el-table-column prop="memberName" label="会员姓名"></el-table-column>
-            <el-table-column prop="createDate" label="日期"></el-table-column>
-            <el-table-column prop="hetime" label="状态">
+            <el-table-column prop="name" label="会员姓名"></el-table-column>
+            <el-table-column prop="shellDate" label="日期"></el-table-column>
+            <el-table-column label="状态">
                 <template slot-scope="scope">
-                    <span>{{scope.row.states==4?'未打印':'已打印'}}</span>
+                    <span>{{scope.row.printStatus==0?'未打印':'已打印'}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="timey" label="打印时间">
+            <el-table-column label="打印时间">
                 <template slot-scope="scope">
-                    <span v-show="scope.row.states==4">{{scope.row.printTime}}</span>
+                    <span v-show="scope.row.printStatus==4">{{scope.row.printTime}}</span>
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
@@ -104,19 +98,6 @@ export default {
         return {
             regions: '',
             date: '',
-            tableData: [
-                {
-                    yuhao: '00012',
-                    Mname: '天府四街分店',
-                    Hebian: '0001242',
-                    name: '刘小军',
-                    kecheng: '2018-12-10',
-                    jiaolian: '普通',
-                    yutime: '普通',
-                    hetime: '2018-12-12',
-                    timey: '2019-12-12'
-                }
-            ],
             num: {
                 page: 1,
                 size: 10,
@@ -132,13 +113,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ coachPrint: state => state.coachPrint, contractType: state => state.contractType })
+        ...mapState({ coachPrint: state => state.silent.coachPrint, contractType: state => state.silent.contractType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachPrint', 'getCoachInformation']),
+        ...mapActions(['postCoachPrint', 'postPrivateCourseInformation']),
         search() {
             if (this.date) {
                 this.getDate(this.date);
@@ -146,7 +127,7 @@ export default {
                 this.num.date1 = '';
                 this.num.date2 = '';
             }
-            this.getCoachPrint(this.num);
+            this.postCoachPrint(this.num);
         },
         getDate(e) {
             let date = new Date(e[0]);
@@ -162,7 +143,7 @@ export default {
                 this.num.date2 = '';
             }
             this.num.size = val;
-            this.getCoachPrint(this.num);
+            this.postCoachPrint(this.num);
         },
         handleCurrentChange(val) {
             if (this.date) {
@@ -172,13 +153,13 @@ export default {
                 this.num.date2 = '';
             }
             this.num.page = val;
-            this.getCoachPrint(this.num);
+            this.postCoachPrint(this.num);
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachPrint(this.num);
-        this.getCoachInformation('C0001');
+        this.postCoachPrint(this.num);
+        this.postPrivateCourseInformation('C0001');
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
@@ -196,10 +177,10 @@ export default {
         }else if(to.meta.title=='私教合同打印'){
             title='私教'
         }else{
-            title=''
+            title=null
         }
         next(vm =>{
-            vm.getCoachInformation('C0001').then(res=>{
+            vm.postPrivateCourseInformation('C0001').then(res=>{
                 for(let i in res){
                     if(res[i].label==title){
                         vm.num.type=res[i].value
@@ -208,7 +189,7 @@ export default {
                         vm.num.type=title
                     }
                 }
-                vm.getCoachPrint(vm.num);
+                vm.postCoachPrint(vm.num);
             })
         });
     }

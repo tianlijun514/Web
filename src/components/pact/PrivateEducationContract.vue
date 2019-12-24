@@ -321,7 +321,7 @@ export default {
                 }
             });
         },
-        async getCoach() {
+        async postCoach() {
             await axios.post(base + '/coach/queryCoachBySelect', {}).then(res => {
                 console.log(res)
                 this.form.coachData = [];
@@ -348,7 +348,7 @@ export default {
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.getCourse();
-        this.getCoach();
+        this.postCoach();
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

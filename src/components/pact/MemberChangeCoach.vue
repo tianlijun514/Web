@@ -108,13 +108,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ replaceCoach: state => state.replaceCoach })
+        ...mapState({ replaceCoach: state => state.silent.replaceCoach })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getReplaceCoach']),
+        ...mapActions(['postReplaceCoach']),
         onSubmit() {
             if (this.date) {
                 this.getDate(this.date);
@@ -122,7 +122,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReplaceCoach(this.num);
+            this.postReplaceCoach(this.num);
         },
         getDate(e) {
             let date = new Date(e[0]);
@@ -138,7 +138,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReplaceCoach(this.num);
+            this.postReplaceCoach(this.num);
         },
         handleCurrentChange(val) {
             this.page = val;
@@ -148,7 +148,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReplaceCoach(this.num);
+            this.postReplaceCoach(this.num);
         },
         xinzheng() {
             this.$router.push('./drillen');
@@ -156,7 +156,7 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getReplaceCoach(this.num);
+        this.postReplaceCoach(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

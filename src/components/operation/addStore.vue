@@ -43,7 +43,6 @@ export default {
                 id: '',
                 name: '',
             },
-            hasSelectList: ['1', '2', '5'],
             rules: {
                 name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
                 id: [{ required: true, message: '请输入编号', trigger: 'blur' }]
@@ -52,21 +51,44 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ level: state => state.coachLevel, type: state => state.coachType, coachStore: state => state.coachStore })
+        ...mapState({})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addCoach', 'getStore']),
+        ...mapActions(['addStoreLevel','updateStoreLevel']),
         onSubmit(form) {
             this.$refs[form].validate(valid => {
                 if (!valid) {
                     return;
                 } else {
-                    this.addCoach(this.form).then(res => {
-                        
-                    });
+                    if(this.$route.query.data){
+                        this.updateStoreLevel(this.form).then(res => {
+                            if(res=='yes'){
+                                this.$message({
+                                    message: '修改门店权限成功',
+                                    type: 'success'
+                                });
+                                this.form.id=''
+                                this.form.name=''
+                                this.$router.go(-1)
+                            }
+                        });
+                    }else{  
+                        this.addStoreLevel(this.form).then(res => {
+                            if(res=='yes'){
+                                this.$message({
+                                    message: '添加门店权限成功',
+                                    type: 'success'
+                                });
+                                this.form.id=''
+                                this.form.name=''
+                                this.$router.go(-1)
+                            }
+                        });
+                    }
+                    
                 }
             });
         },
@@ -77,10 +99,14 @@ export default {
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        if(this.$route.query.data){
+            this.form.name=this.$route.query.data.name
+            this.form.id=this.$route.query.data.code
+        }
+    },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        this.getStore();
     },
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前

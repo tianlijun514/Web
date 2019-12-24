@@ -125,13 +125,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ level: state => state.coachLevel, type: state => state.coachType })
+        ...mapState({ level: state => state.silent.coachLevel, type: state => state.silent.coachType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addCoach', 'getStore', 'updateCoach']),
+        ...mapActions(['postPrivateCourseInformation', 'addCoach', 'getStore', 'updateCoach']),
         onSubmit(form) {
             this.$refs[form].validate(valid => {
                 if (!valid) {
@@ -216,8 +216,8 @@ export default {
     created() {},
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        this.getCoachInformation('J0001');
-        this.getCoachInformation('J0002');
+        this.postPrivateCourseInformation('J0001');
+        this.postPrivateCourseInformation('J0002');
         this.getStore().then(res => {
             this.coachStore = res;
             console.log(this.coachStore)
