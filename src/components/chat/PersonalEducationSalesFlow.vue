@@ -114,13 +114,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ contractSale: state => state.contractSale, type: state => state.privateCourseType })
+        ...mapState({ contractSale: state => state.silent.contractSale, type: state => state.silent.privateCourseType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getContractSales', 'getCoachInformation']),
+        ...mapActions(['postContractSales', 'postPrivateCourseInformation']),
         getDate(e) {
             let date = new Date(e[0]);
             let date2 = new Date(e[1]);
@@ -134,7 +134,7 @@ export default {
               this.formInline.date1=''
               this.formInline.date2=''
             }
-            this.getContractSales(this.formInline);
+            this.postContractSales(this.formInline);
         },
         handleSizeChange(val) {
             this.size = val;
@@ -144,7 +144,7 @@ export default {
               this.formInline.date1=''
               this.formInline.date2=''
             }
-            this.getContractSales(this.formInline);
+            this.postContractSales(this.formInline);
         },
         handleCurrentChange(val) {
             this.page = val;
@@ -154,13 +154,13 @@ export default {
               this.formInline.date1=''
               this.formInline.date2=''
             }
-            this.getContractSales(this.formInline);
+            this.postContractSales(this.formInline);
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getContractSales(this.formInline);
-        this.getCoachInformation('K0001');
+        this.postContractSales(this.formInline);
+        this.postPrivateCourseInformation('K0001');
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

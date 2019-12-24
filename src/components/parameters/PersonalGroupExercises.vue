@@ -85,24 +85,24 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ course: state => state.privateCourse ,type: state=>state.privateCourseType })
+        ...mapState({ course: state => state.silent.privateCourse ,type: state=>state.silent.privateCourseType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getPrivateCourse','getCoachInformation','updateCourse']),
+        ...mapActions(['postPrivateCourse','postPrivateCourseInformation','updateCourse']),
         serch() {
-            this.getPrivateCourse(this.num);
+            this.postPrivateCourse(this.num);
         },
         handleSizeChange(val) {
             this.num.size = val;
             this.num.page = 1;
-            this.getPrivateCourse(this.num);
+            this.postPrivateCourse(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getPrivateCourse(this.num);
+            this.postPrivateCourse(this.num);
         },
         dalete(e){
             this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
@@ -117,7 +117,7 @@ export default {
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getPrivateCourse(this.num);
+                        this.postPrivateCourse(this.num);
                     }
                 });
             });
@@ -131,8 +131,8 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('K0001')
-        this.getPrivateCourse(this.num);
+        this.postPrivateCourseInformation('K0001')
+        this.postPrivateCourse(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
@@ -145,7 +145,7 @@ export default {
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
     activated() {
-        this.getPrivateCourse(this.num);
+        this.postPrivateCourse(this.num);
     } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>

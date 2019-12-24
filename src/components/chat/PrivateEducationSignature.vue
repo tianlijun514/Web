@@ -104,28 +104,28 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({bySignature:state=>state.bySignature})
+        ...mapState({bySignature:state=>state.silent.bySignature})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getBySignature']),
+        ...mapActions(['postBySignature']),
         search() {
-            this.getBySignature(this.num);
+            this.postBySignature(this.num);
         },
         handleSizeChange(val) {
             this.num.size=val
-            this.getBySignature(this.num);
+            this.postBySignature(this.num);
         },
         handleCurrentChange(val) {
             this.num.page=val
-            this.getBySignature(this.num);
+            this.postBySignature(this.num);
         },
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getBySignature(this.num);
+        this.postBySignature(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

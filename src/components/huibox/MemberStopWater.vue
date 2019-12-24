@@ -112,15 +112,15 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ membershipScrs: state => state.membershipScrs })
+        ...mapState({ membershipScrs: state => state.silent.membershipScrs })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getMembershipScrs']),
+        ...mapActions(['postMembershipScrs']),
         search() {
-            this.getMembershipScrs(this.num);
+            this.postMembershipScrs(this.num);
         },
         handleLook(e) {
             this.$router.push({ path: '/hymesg', query: { id: e.memberId } });
@@ -134,16 +134,16 @@ export default {
         },
         handleSizeChange(val) {
             this.num.size = val;
-            this.getMembershipScrs(this.num);
+            this.postMembershipScrs(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getMembershipScrs(this.num);
+            this.postMembershipScrs(this.num);
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getMembershipScrs(this.num);
+        this.postMembershipScrs(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

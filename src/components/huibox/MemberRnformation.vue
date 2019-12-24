@@ -369,9 +369,9 @@ export default {
             'getEntrancesByMemberId',
             'getMemberStopCard',
             'getMemberRepair',
-            'getMemberIdDetail',
+            'postMemberIdDetail',
             'getMemberStored',
-            'getMemberUpdateStored',
+            'postMemberUpdateStored',
         ]),
         handleSizeChange(val) {
             this.shopingSearch.size = val;
@@ -408,7 +408,7 @@ export default {
                 type: 'warning'
             })
             .then(() => {
-                this.getMemberUpdateStored(object).then(res=>{
+                this.postMemberUpdateStored(object).then(res=>{
                     if(res.i=='操作成功！'){
                         this.getMemberById(this.$route.query.id).then(res => {
                             this.memberInformation = res.data.d[0];
@@ -452,7 +452,7 @@ export default {
         this.getMemberStored(this.$route.query.id).then(res => {
             this.zhingbox = res.d;
         });
-        // this.getMemberIdDetail(this.$route.query.id).then(res=>{
+        // this.postMemberIdDetail(this.$route.query.id).then(res=>{
         //     this.Sysing=res.d
         // })
     },

@@ -103,34 +103,36 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ listMembers: state => state.listMembers })
+        ...mapState({ listMembers: state => state.silent.listMembers })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getListMembers']),
+        ...mapActions(['postListMembers']),
         search() {
-            this.getListMembers(this.num);
+            this.postListMembers(this.num);
         },
         handleLook(e){
           this.$router.push({path:'/hymesg',query:{id:e.memberId}})
         },
         handleSizeChange(val) {
             this.num.size = val;
-            this.getListMembers(this.num);
+            this.postListMembers(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getListMembers(this.num);
+            this.postListMembers(this.num);
         }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getListMembers(this.num);
+        this.postListMembers(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {},
+    mounted() {
+        
+    },
     beforeCreate() {}, // 生命周期 - 创建之前
     beforeMount() {}, // 生命周期 - 挂载之前
     beforeUpdate() {}, // 生命周期 - 更新之前

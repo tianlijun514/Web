@@ -113,13 +113,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ appointmentByCoach: state => state.appointmentByCoach })
+        ...mapState({ appointmentByCoach: state => state.silent.appointmentByCoach })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getAppointmentByCoach']),
+        ...mapActions(['postAppointmentByCoach']),
         datas(even) {
             var mydata = even;
             var y = mydata.getFullYear();
@@ -127,7 +127,7 @@ export default {
             var d = mydata.getDate();
             this.form.dateTime = y + '-' + m + '-' + d;
             this.fullscreenLoading = true;
-            this.getAppointmentByCoach(this.form).then(res => {
+            this.postAppointmentByCoach(this.form).then(res => {
                 this.fullscreenLoading = false;
             });
         },

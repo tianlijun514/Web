@@ -106,23 +106,23 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ courseCount:state=>state.courseCount, privateCourseType: state => state.privateCourseType })
+        ...mapState({ courseCount:state=>state.silent.courseCount, privateCourseType: state => state.silent.privateCourseType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCourseCount', 'getCoachInformation']),
+        ...mapActions(['postCourseCount', 'postPrivateCourseInformation']),
         search() {
-            this.getCourseCount(this.num);
+            this.postCourseCount(this.num);
         },
         handleSizeChange(val) {
             this.num.size=val
-            this.getCourseCount(this.num);
+            this.postCourseCount(this.num);
         },
         handleCurrentChange(val) {
             this.num.page=val
-            this.getCourseCount(this.num);
+            this.postCourseCount(this.num);
         },
     },
     // 生命周期 - 创建完成（可以访问当前this实例）

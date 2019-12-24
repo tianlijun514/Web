@@ -149,13 +149,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ reserves: state => state.reserves,conventionType:state=>state.conventionType ,conventionState:state=>state.conventionState })
+        ...mapState({ reserves: state => state.silent.reserves,conventionType:state=>state.silent.conventionType ,conventionState:state=>state.silent.conventionState })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getReserves','getCoachInformation']),
+        ...mapActions(['postReserves','postPrivateCourseInformation']),
         search() {
             if (this.date) {
                 this.getDate(this.date);
@@ -163,7 +163,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReserves(this.num);
+            this.postReserves(this.num);
         },
         show(e){
             this.showData=e.member.id
@@ -186,7 +186,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReserves(this.num);
+            this.postReserves(this.num);
         },
         handleCurrentChange(val) {
             this.page = val;
@@ -196,7 +196,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getReserves(this.num);
+            this.postReserves(this.num);
         },
         jump() {
             this.$router.push('./index1');
@@ -204,9 +204,9 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getReserves(this.num);
-        this.getCoachInformation('A0002')
-        this.getCoachInformation('A0003')
+        this.postReserves(this.num);
+        this.postPrivateCourseInformation('A0002')
+        this.postPrivateCourseInformation('A0003')
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

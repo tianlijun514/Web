@@ -46,7 +46,7 @@
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit('form')">预览卡号</el-button>
                         <el-button type="primary" @click="onSubmit('form')">提交配卡</el-button>
-                        <el-button type="primary" @click="onSubmit('form')">查询配卡</el-button>
+                        <el-button type="primary" @click="search()">查询配卡</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -120,7 +120,10 @@ export default {
     methods: {
         ...mapActions([]),
         onSubmit(form) {},
-        handleSelectionChange(a) {}
+        handleSelectionChange(a) {},
+        search(){
+            this.$router.push('/operation17')
+        }
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {},

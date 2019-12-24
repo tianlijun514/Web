@@ -5,7 +5,7 @@ import router from './router';
 import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
-import axios from 'axios';
+import axios from './utils/axios';
 import Avue from '@smallwei/avue';
 import '@smallwei/avue/lib/index.css';
 Vue.use(Avue);
@@ -24,9 +24,9 @@ Vue.use(qs);
 import Print from './plugs/print'
 Vue.use(Print) // 注册
 
-Vue.prototype.$http = axios
+Vue.prototype.$axios = axios
 // Vue.prototype.$url = 'http://171.221.51.209:8083'
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 
 Vue.config.productionTip = false;
