@@ -93,25 +93,25 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ classRoom: state => state.classRoom ,coachStore: state=>state.coachStore,classRoomType:state=>state.classRoomType })
+        ...mapState({ classRoom: state => state.silent.classRoom ,coachStore: state=>state.silent.coachStore,classRoomType:state=>state.silent.classRoomType })
     },
     // 监控data中的数据变化
     watch: {
     },
     // 方法集合
     methods: {
-        ...mapActions(['getClassRoom','getStore','updateClassRoom','getCoachInformation']),
+        ...mapActions(['postClassRoom','getStore','updateClassRoom','postPrivateCourseInformation']),
         serch() {
-            this.getClassRoom(this.num);
+            this.postClassRoom(this.num);
         },
         handleSizeChange(val) {
             this.num.size = val;
             this.num.page = 1;
-            this.getClassRoom(this.num);
+            this.postClassRoom(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getClassRoom(this.num);
+            this.postClassRoom(this.num);
         },
         xinzheng() {
             this.$router.push('/parameters19');
@@ -132,7 +132,7 @@ export default {
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getClassRoom(this.num);
+                        this.postClassRoom(this.num);
                     }
                 });
             });
@@ -140,14 +140,14 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('J0003')
+        this.postPrivateCourseInformation('J0003')
         this.getStore().then(res => {
             this.store = [];
             for (let i = 0; i < res.length; i++) {
                 this.store.push({ label: res[i].number + '-' + res[i].name, value: res[i].number });
             }
         });
-        this.getClassRoom(this.num);
+        this.postClassRoom(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
@@ -160,7 +160,7 @@ export default {
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
     activated() {
-        this.getClassRoom(this.num);
+        this.postClassRoom(this.num);
     } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>

@@ -87,24 +87,24 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ level: state => state.coachLevel, type: state => state.coachType, coach: state => state.coach })
+        ...mapState({ level: state => state.silent.coachLevel, type: state => state.silent.coachType, coach: state => state.silent.coach })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'getCoach', 'updateCoach']),
+        ...mapActions(['postPrivateCourseInformation', 'postCoach', 'updateCoach']),
         serch() {
-            this.getCoach(this.num);
+            this.postCoach(this.num);
         },
         handleSizeChange(val) {
             this.num.size = val;
             this.num.page = 1;
-            this.getCoach(this.num);
+            this.postCoach(this.num);
         },
         handleCurrentChange(val) {
             this.num.page = val;
-            this.getCoach(this.num);
+            this.postCoach(this.num);
         },
         jump(e) {
             this.$router.push({ path: '/parameters26', query: { data: e } });
@@ -122,7 +122,7 @@ export default {
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getCoach(this.num);
+                        this.postCoach(this.num);
                     }
                 });
             });
@@ -133,9 +133,9 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('J0001');
-        this.getCoachInformation('J0002');
-        this.getCoach(this.num);
+        this.postPrivateCourseInformation('J0001');
+        this.postPrivateCourseInformation('J0002');
+        this.postCoach(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
@@ -148,7 +148,7 @@ export default {
     beforeDestroy() {}, // 生命周期 - 销毁之前
     destroyed() {}, // 生命周期 - 销毁完成
     activated() {
-        this.getCoach(this.num);
+        this.postCoach(this.num);
     } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>

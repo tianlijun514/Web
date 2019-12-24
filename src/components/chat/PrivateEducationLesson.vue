@@ -100,29 +100,29 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ courseRemain: state => state.courseRemain, privateCourseType: state => state.privateCourseType })
+        ...mapState({ courseRemain: state => state.silent.courseRemain, privateCourseType: state => state.silent.privateCourseType })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCourseRemain', 'getCoachInformation']),
+        ...mapActions(['postCourseRemain', 'postPrivateCourseInformation']),
         search() {
-            this.getCourseRemain(this.num);
+            this.postCourseRemain(this.num);
         },
         handleSizeChange(val) {
             this.num.size=val
-            this.getCourseRemain(this.num);
+            this.postCourseRemain(this.num);
         },
         handleCurrentChange(val) {
             this.num.page=val
-            this.getCourseRemain(this.num);
+            this.postCourseRemain(this.num);
         },
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCourseRemain(this.num);
-        this.getCoachInformation('K0001');
+        this.postCourseRemain(this.num);
+        this.postPrivateCourseInformation('K0001');
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

@@ -83,17 +83,17 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ courseClass: state => state.courseClass })
+        ...mapState({ courseClass: state => state.silent.courseClass })
     },
     // 监控data中的数据变化
     // 方法集合
     methods: {
-        ...mapActions(['getCourseClass']),
+        ...mapActions(['postCourseClass']),
         serch() {
             let value;
             let dt = new Date(this.value2);
             value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-            this.getCourseClass(value);
+            this.postCourseClass(value);
         },
         add() {
             if (this.dialogShow != 'addCourse') {
@@ -114,7 +114,7 @@ export default {
                 let value;
                 let dt = new Date(this.value2);
                 value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-                this.getCourseClass(value);
+                this.postCourseClass(value);
             }
         }
     },
@@ -124,7 +124,7 @@ export default {
         this.value2 = dt.getFullYear() + '-' + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth() + 1);
         let value;
         value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-        this.getCourseClass(value);
+        this.postCourseClass(value);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
@@ -140,7 +140,7 @@ export default {
         this.value2 = dt.getFullYear() + '-' + (dt.getMonth() + 1 < 10 ? '0' + (dt.getMonth() + 1) : dt.getMonth() + 1);
         let value;
         value = { year: dt.getFullYear(), month: dt.getMonth() + 1 };
-        this.getCourseClass(value);
+        this.postCourseClass(value);
     } // 如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>

@@ -534,34 +534,34 @@ export default {
                 this.isShow7 = true;
             } else if (new0 == 'addCourse' || new0 == 'addCourse1') {
                 this.isShow8 = true;
-                this.getCourseBySelect().then(res => {
+                this.postCourseBySelect().then(res => {
                     for (let i in res.list) {
                         this.course.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
-                this.getqueryCoachBySelect().then(res => {
+                this.postqueryCoachBySelect().then(res => {
                     for (let i in res.list) {
                         this.coach.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
-                this.getAllClassRoom().then(res => {
+                this.postAllClassRoom().then(res => {
                     for (let i in res.list) {
                         this.classRoom.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
             } else if (new0 == 'addCourseYue' || new0 == 'addCourseYue1') {
                 this.isShow9 = true;
-                this.getCourseBySelect().then(res => {
+                this.postCourseBySelect().then(res => {
                     for (let i in res.list) {
                         this.course.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
-                this.getqueryCoachBySelect().then(res => {
+                this.postqueryCoachBySelect().then(res => {
                     for (let i in res.list) {
                         this.coach.push({ label: res.list[i].name, value: res.list[i].number });
                     }
                 });
-                this.getAllClassRoom().then(res => {
+                this.postAllClassRoom().then(res => {
                     for (let i in res.list) {
                         this.classRoom.push({ label: res.list[i].name, value: res.list[i].number });
                     }
@@ -571,7 +571,7 @@ export default {
     },
     // 方法集合
     methods: {
-        ...mapActions(['getCourseBySelect', 'getqueryCoachBySelect', 'getAllClassRoom', 'addCourseClass']),
+        ...mapActions(['postCourseBySelect', 'postqueryCoachBySelect', 'postAllClassRoom', 'addCourseClass']),
         handleClose(done) {
             done();
         },

@@ -110,28 +110,28 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({appointmentSales:state=>state.appointmentSales})
+        ...mapState({appointmentSales:state=>state.silent.appointmentSales})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getAppointmentSales']),
+        ...mapActions(['postAppointmentSales']),
         search() {
-            this.getAppointmentSales(this.num);
+            this.postAppointmentSales(this.num);
         },
         handleSizeChange(val) {
             this.num.size=val
-            this.getAppointmentSales(this.num);
+            this.postAppointmentSales(this.num);
         },
         handleCurrentChange(val) {
             this.num.page=val
-            this.getAppointmentSales(this.num);
+            this.postAppointmentSales(this.num);
         },
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getAppointmentSales(this.num);
+        this.postAppointmentSales(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

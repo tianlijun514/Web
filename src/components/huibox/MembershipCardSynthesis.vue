@@ -105,13 +105,13 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        ...mapState({ makeCards: state => state.makeCards})
+        ...mapState({ makeCards: state => state.silent.makeCards})
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getMakeCards']),
+        ...mapActions(['postMakeCards']),
         search() {
             if (this.date) {
                 this.getDate(this.date);
@@ -119,7 +119,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getMakeCards(this.num);
+            this.postMakeCards(this.num);
         },
         show(e){
             this.showData=e.memberId
@@ -142,7 +142,7 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getMakeCards(this.num);
+            this.postMakeCards(this.num);
         },
         handleCurrentChange(val) {
             this.page = val;
@@ -152,12 +152,12 @@ export default {
               this.num.date1=''
               this.num.date2=''
             }
-            this.getMakeCards(this.num);
+            this.postMakeCards(this.num);
         },
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getMakeCards(this.num);
+        this.postMakeCards(this.num);
     },
     // 生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

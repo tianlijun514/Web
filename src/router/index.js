@@ -147,7 +147,7 @@ export default new Router({
         // 会籍业务
         {
           path: '/index1',
-          component: () => import('../components/huiindex/MembershipDeposit.vue'),
+          component: () => import('../components/pact/PrivateEducationDeposit.vue'),
           meta: {
             title: '会籍定金销售'
           }
@@ -185,7 +185,7 @@ export default new Router({
           component: () => import('../components/chat/PrivateEducationContract.vue'),
           meta: {
             title: '其他合同打印',
-            
+
           }
         },
         {
@@ -1492,6 +1492,20 @@ export default new Router({
           component: () => import('../components/operation/permissions.vue'),
           meta: {
             title: '权限设置'
+          }
+        },
+        {
+          path: '/operation16',
+          component: () => import('../components/operation/addStore.vue'),
+          meta: {
+            title: '修改门店级别'
+          }
+        },
+        {
+          path: '/operation17',
+          component: () => import('../components/operation/MatchCardSearch.vue'),
+          meta: {
+            title: '配卡查询'
           }
         },
 

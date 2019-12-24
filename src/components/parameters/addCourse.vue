@@ -194,17 +194,17 @@ export default {
     // 监听属性 类似于data概念
     computed: {
         ...mapState({
-            level: state => state.coachLevel,
-            type: state => state.privateCourseType,
-            coachStore: state => state.coachStore,
-            level: state => state.coachLevel
+            level: state => state.silent.coachLevel,
+            type: state => state.silent.privateCourseType,
+            coachStore: state => state.silent.coachStore,
+            level: state => state.silent.coachLevel
         })
     },
     // 监控data中的数据变化
     watch: {},
     // 方法集合
     methods: {
-        ...mapActions(['getCoachInformation', 'addPrivateCourse', 'getStore', 'updateCourse']),
+        ...mapActions(['postPrivateCourseInformation', 'addPrivateCourse', 'getStore', 'updateCourse']),
         onSubmit(form) {
             this.$refs[form].validate(valid => {
                 if (!valid) {
@@ -305,7 +305,7 @@ export default {
             this.logForm.maxPrice = '';
             this.logForm.days = '';
             this.dialogFormVisible = true;
-            this.getCoachInformation('J0001');
+            this.postPrivateCourseInformation('J0001');
         },
         deleteData(e) {
             for (let i = 0; i < this.form.table.length; i++) {
@@ -355,7 +355,7 @@ export default {
     },
     // 生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.getCoachInformation('J0001').then(res => {
+        this.postPrivateCourseInformation('J0001').then(res => {
             console.log(res);
             this.level123 = res;
             setTimeout(() => {
@@ -373,7 +373,7 @@ export default {
                 }
             }, 100);
         });
-        this.getCoachInformation('K0001');
+        this.postPrivateCourseInformation('K0001');
         this.getStore().then(res => {
             this.coachStore2 = res;
             if (this.$route.query.data) {
