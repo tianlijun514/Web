@@ -1,68 +1,55 @@
 <!-- vue快捷创建组件 -->
 <template>
   <div class='APPX'>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="门店">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="storeCode"></el-input>
       </el-form-item>
 
       <el-form-item label="类型">
-        <el-select v-model="formInline.regions">
-          <el-option label="全部" value="01"></el-option>
-          <!-- <el-option
-                   v-for="(item,index) in contractType"
-                   :label="item.label"
-                   :value="item.value"
-                   :key="index+'a'">
-          </el-option> -->
-              <el-option
-                   v-for="(item,index) in contractType"
-                   :label="item.label"
-                   :value="item.value"
-                   :key="index+'a'">
-          </el-option>
+        <el-select v-model="type">
+          <el-option label="全部" value=""></el-option>
+          <el-option  v-for="(item,index) in contractType"  :label="item.label"  :value="item.value" :key="index+'a'"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="状态">
-        <el-select v-model="formInline.regions">
-          <el-option label="全部" value="02"></el-option>
-          <el-option label="已签未确认" value="01"></el-option>
-          <el-option label="已签已确认" value="02"></el-option>
-          <el-option label="已签未通过" value="03"></el-option>
+        <el-select v-model="status">
+          <el-option label="全部" value=""></el-option>
+          <el-option   v-for="(item,index) in Type"  :label="item.label"  :value="item.value" :key="index+'a'"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="销售员">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="salesman"></el-input>
       </el-form-item>
 
       <span class="demonstration">日期范围</span>
-      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+      <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change='datas'>
       </el-date-picker>
       <el-form-item label="合同号">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="contractId"></el-input>
       </el-form-item>
       <el-form-item label="会员/姓名">
-        <el-input v-model="formInline.user"></el-input>
+        <el-input v-model="name"></el-input>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="chaxun">查询</el-button>
       </el-form-item>
     </el-form>
-    <span class="searchRst">查询结果：共0条记录/显示0页</span>
+    <span class="searchRst">查询结果：共{{total}}条记录/显示{{currentPage}}页</span>
     <el-table :data="tableData" border style="width: 100%;text-align:center">
       <template v-for="(item,index) in tableTitle">
         <el-table-column :key="index" :prop="item.data" :label="item.title" align="center">
         </el-table-column>
       </template>
       <el-table-column scope label="操作">
-        <el-button size="mini" type="primary">确认</el-button>
+        <el-button size="mini" type="primary">确认签名</el-button>
       </el-table-column>
     </el-table>
     <div class="uys">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -89,24 +76,29 @@ export default {
   data () {
     // 这里存放数据
     return {
-      currentPage: 5,
-      formInline: {
-        user: '',
-        region: ''
-      },
-
+      size: 10,
+      total: 0,
+      currentPage: 1,
+      storeCode: '',
+      type: '',
+      status: '',
+      date_s: '',
+      date_e: '',
+      salesman: '',
+      contractId: '',
+      name: '',
       value1: '',
       tableTitle: [
         { title: '序号', data: 'num' },
         { title: '门店名称', data: 'storeName' },
-        { title: '合同号', data: 'hyt' },
-        { title: '类型', data: 'telNo' },
-        { title: '会员编号', data: 'userName' },
+        { title: '合同号', data: 'contractId' },
+        { title: '类型', data: 'type' },
+        { title: '会员编号', data: 'memberId' },
         { title: '姓名', data: 'name' },
-        { title: '日期', data: 'userNo' },
-        { title: '状态', data: 'usy' },
-        { title: '销售员', data: 'userCardNo' },
-        { title: '销售员2', data: 'mone' },
+        { title: '日期', data: 'shellDate' },
+        { title: '状态', data: 'status' },
+        { title: '销售员', data: 'salesman1' },
+        { title: '销售员2', data: 'salesman2' },
 
       ],
       tableData: [{
@@ -121,7 +113,8 @@ export default {
         userCardNo: '2018-12-12',
         mone: '2019-12-12',
 
-      },]
+      },],
+      Type: [],
     }
   },
   // 监听属性 类似于data概念
@@ -130,13 +123,27 @@ export default {
   },
   // 监控data中的数据变化
   watch: {
-    contractType(newData,oldData){
-      console.log(newData)
-    }
+    // contractType(newData,oldData){
+    //   // console.log(newData)
+    // }
   },
   // 方法集合
   methods: {
+    datas (even) {
+      var mydata = even[0]
+      var y = mydata.getFullYear();
+      var m = (mydata.getMonth() + 1 < 10 ? '0' + (mydata.getMonth() + 1) : mydata.getMonth() + 1);
+      var d = mydata.getDate() + 1 < 10 ? '0' + mydata.getDate() : mydata.getDate();
+      this.date_s = y + "-" + m + "-" + d;
+
+      var enddata = even[1]
+      var y = enddata.getFullYear();
+      var d = enddata.getDate() + 1 < 10 ? '0' + enddata.getDate() : enddata.getDate();
+      var m = (enddata.getMonth() + 1 < 10 ? '0' + (enddata.getMonth() + 1) : enddata.getMonth() + 1);
+      this.date_e = y + "-" + m + "-" + d;
+    },
     ...mapActions(['getCoachInformation']),
+
     onSubmit () {
       console.log('submit!');
     },
@@ -147,12 +154,48 @@ export default {
       console.log(`当前页: ${val}`);
     },
 
+    // 查询
+    chaxun () {
+      let a
+      a = this.type ? parseInt(this.type) : null
+      let b
+      b = this.status ? parseInt(this.status) : null
+      axios
+        .post(base + '/contract/queryContracts/' + this.currentPage + '/' + this.size, {
+          storeCode: this.storeCode,
+          type: a,
+          status: b,
+          salesman: this.salesman,
+          contractId: this.contractId,
+          name: this.name,
+          startDate: this.date_s,
+          endDate: this.date_e,
+        }
+        ).then(res => {
+          console.log(res.data)
+          for (let i = 0; i < res.data.d.length; i++) {
+            res.data.d[i].num = (this.currentPage - 1) * this.size + i + 1
+          }
+          this.tableData = res.data.d
+          this.total = res.data.t
+        })
+    },
+
+
 
 
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
+    this.chaxun()
     this.getCoachInformation('C0001')
+    this.getCoachInformation('C0002').then(res => {
+      let obj
+      for (let i = 0; i < res.length; i++) {
+        obj = { label: res[i].remark, value: res[i].number }
+        this.Type.push(obj)
+      }
+    })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

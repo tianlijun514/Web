@@ -8,6 +8,9 @@
       </el-form-item>
 
       <div class="conment">
+        <el-form-item label="合同编号" label-width='82px'>
+          <el-input v-model="input" class="kuang" disabled></el-input>
+        </el-form-item>
         <div class="shenfen">
 
           <el-form-item label="销售日期">
@@ -31,10 +34,9 @@
         <el-form-item label="课程">
           <el-input v-model="input" disabled class='whinth'></el-input>
         </el-form-item>
-          <el-form-item label="教练">
+        <el-form-item label="教练">
           <el-input v-model="input" disabled class='whinth'></el-input>
         </el-form-item>
-
 
         <div class="shenfen">
           <el-form-item label="合同起日">
@@ -63,12 +65,21 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
-             <div class="shenfen">
+        <div class="shenfen">
           <el-form-item label="核销课时">
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
           <el-form-item label-width='82px' label="剩余课时">
             <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+        </div>
+           <div class="shenfen">
+          <el-form-item label="原结束日期" label-width="82px" style="margin-left: -1px">
+            <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
+          </el-form-item>
+
+          <el-form-item label="延期结束日" label-width="82px">
+            <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
         </div>
       </div>
@@ -86,6 +97,9 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存申请</el-button>
+      </el-form-item>
+         <el-form-item>
+        <el-button type="primary" @click="onSubmit">审批历史</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -156,7 +170,6 @@ export default {
     margin-bottom: 10px;
     width: 560px;
 }
-
 
 .pact {
     width: 630px !important;

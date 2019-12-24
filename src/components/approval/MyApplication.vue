@@ -143,8 +143,11 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    sversicherungen(){
+    sversicherungen () {
       this.$router.push('./newApplication')
+    },
+    handleClick (row) {
+      this.$router.push('./Antrag')
     },
     onSubmit () {
       console.log('submit!');
@@ -155,10 +158,6 @@ export default {
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
     },
-    handleClick (row) {
-      console.log(row);
-    }
-
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {

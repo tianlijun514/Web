@@ -3,22 +3,22 @@
   <div class='app'>
     <el-dialog :title="sverfahren.title" :visible.sync="sverfahren.show" :close-on-click-modal='false' :close-on-press-escape='false' :modal-append-to-body="false" width="30%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="编号" prop="typeCode">
-          <el-input v-model="ruleForm.typeCode"></el-input>
+        <el-form-item label="编号">
+          <el-input v-model="ruleForm.number"></el-input>
         </el-form-item>
 
-        <el-form-item label="名称" prop="typeName">
-          <el-input v-model="ruleForm.typeName"></el-input>
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
 
         <el-form-item label="类别">
-          <el-select v-model="type" @change="leibox">
+          <el-select v-model="ruleForm.type">
             <el-option v-for='item in type_list' :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="审批环节">
-          <el-checkbox-group v-model="checkList">
+          <el-checkbox-group v-model="ruleForm.checkList">
             <el-checkbox label="初审"></el-checkbox>
             <el-checkbox label="复审"></el-checkbox>
             <el-checkbox label="终审"></el-checkbox>
@@ -26,14 +26,14 @@
         </el-form-item>
 
         <el-form-item label="状态" style="margin-top: -15px;">
-          <el-radio-group v-model="ruleForm.isDepositCard">
-            <el-radio label="2">启用</el-radio>
-            <el-radio label="1">停用</el-radio>
+          <el-radio-group v-model="ruleForm.status">
+            <el-radio value="2" label="启用"></el-radio>
+            <el-radio value="1" label="停用"></el-radio>
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="备注" prop="remark">
-          <el-input type="textarea" v-model="ruleForm.remark"></el-input>
+        <el-form-item label="备注">
+          <el-input type="textarea" v-model="ruleForm.comment"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">立即添加·</el-button>
@@ -64,12 +64,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      checkList: ['初审', '复审',"终审"],
-      type: null,
       type_list: [{
-        value: '0',
-        label: '全部'
-      }, {
         value: '1',
         label: '会籍'
       }, {
@@ -86,12 +81,8 @@ export default {
         label: '营运'
       }],
       value1: '',
-      tableData: [{}],
       rules: {
-        typeCode: [
-          { required: true, message: '编号不能为空', trigger: 'blur' }
-        ],
-        typeName: [
+        name: [
           { required: true, message: '名称不能为空', trigger: 'blur' }
         ],
       }
@@ -106,19 +97,33 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields();
     },
-
-    leibox (e) {
-      this.staat = e
-    },
-
     submitForm (ruleForm) {
       this.$refs[ruleForm].validate(valid => {
-        const url = this.sverfahren.option == 'add' ? `addSpType` : `updateSpType/`
+        // const url = this.sverfahren.option == 'add' ? `addSpType` : `updateProcess/`
         if (valid) {
-          console.log(this.ruleForm)
-          this.ruleForm.isDepositCard = parseInt(this.ruleForm.isDepositCard)
-          axios.post(base + `/commodity/${url}`, this.ruleForm)
+          //indexOf()判断是否包含某个元素，未找到就返回 -1
+          // for (let i = 0; i < this.ruleForm.checkList.length; i++) {
+          //   if (this.ruleForm.checkList.indexOf('初审') != -1) {
+          //     retrun isfirst:'1'
+          //   } else {
+          //     retrun isfirst: '0';
+          //   }
+          //   if (this.ruleForm.checkList.indexOf('复审') != -1) {
+          //     retrun issecond: '1'
+          //   } else {
+          //     retrun issecond: '0';
+          //   }
+          //   if (this.ruleForm.checkList.indexOf('终审') != -1) {
+          //     retrun istherd: '1';
+          //   } else {
+          //     retrun istherd: '0';
+          //   }
+          // }
+          this.ruleForm.status = parseInt(this.ruleForm.status)
+          this.ruleForm.type = parseInt(this.ruleForm.type)
+          axios.post(base + `/process/updateProcess`, this.ruleForm)
             .then(res => {
+              console.log(res.data)
               if (res.data.code == 10000) {
                 this.$message({
                   message: '操作成功',
@@ -138,11 +143,6 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    axios
-      .post(base + '/commodity/getAllSpType').then((res) => {
-        console.log(res.data)
-        this.type_list = res.data
-      })
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {

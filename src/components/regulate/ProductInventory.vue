@@ -122,7 +122,8 @@ export default {
       //   console.log(forData[i]);
       // }
 
-      let nok = [{        repertoryId: this.good.repertoryId,
+      let nok = [{
+        repertoryId: this.good.repertoryId,
         subNum: this.good.number2,
         nowDate: this.date_s
       }]
