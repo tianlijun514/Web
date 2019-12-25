@@ -741,6 +741,13 @@ export default new Router({
           }
         },
         {
+          path: '/Antrag',
+          component: () => import('../components/approval/Antrag.vue'),
+          meta: {
+            title: '会员资料修改申请'
+          }
+        },
+        {
           path: '/approval1',
           component: () => import('../components/approval/FirstTrial.vue'),
           meta: {

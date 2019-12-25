@@ -3,13 +3,15 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="私教合同号" label-width='82px'>
+      <el-form-item label="私教合同号" label-width='82px' v-show="Aufgeld=='2'">
         <el-input v-model="input" class="kuang"></el-input>
       </el-form-item>
 
       <div class="conment">
+        <el-form-item label="合同编号" label-width='82px'>
+          <el-input v-model="input" class="kuang" disabled></el-input>
+        </el-form-item>
         <div class="shenfen">
-
           <el-form-item label="销售日期">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
@@ -62,7 +64,7 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
-             <div class="shenfen">
+        <div class="shenfen">
           <el-form-item label="核销课时">
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
@@ -70,9 +72,25 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
+        <div class="shenfen" v-show="Aufgeld=='1'">
+          <el-form-item label="原剩余课时" label-width="82px">
+            <el-input v-model="input" disabled style="margin-left: -1px;"></el-input>
+          </el-form-item>
+          <el-form-item label-width='82px' label="核销课时数">
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+        </div>
+        <div class="shenfen" v-show="Aufgeld=='1'">
+          <el-form-item label="核销日期" label-width="82px">
+            <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang" style="margin-left: -3px;"></el-input>
+          </el-form-item>
+          <el-form-item label-width='82px' label="核销教练">
+            <el-input v-model="input" disabled></el-input>
+          </el-form-item>
+        </div>
       </div>
 
-      <div class="shenfen">
+      <div class="shenfen" v-show="Aufgeld=='2'">
         <el-form-item label="核销课时数" label-width="82px">
           <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
         </el-form-item>
@@ -82,17 +100,20 @@
           </el-date-picker>
         </el-form-item>
       </div>
-            <el-form-item label="核销教练">
+      <el-form-item label="核销教练" v-show="Aufgeld=='2'">
         <el-select v-model="regions" class='whinth'>
           <el-option label="B01171 - 伍一 - 一星级" value="01"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item label="申请原因">
+      <el-form-item label="申请原因" v-show="Aufgeld=='2'">
         <el-input type="textarea" v-model="form.desc" class='whinth'></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-show="Aufgeld=='2'">
         <el-button type="primary" @click="onSubmit">保存申请</el-button>
+      </el-form-item>
+      <el-form-item v-show="Aufgeld=='1'">
+        <el-button type="primary" @click="onSubmit">审批历史</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -114,7 +135,8 @@ export default {
   data () {
     // 这里存放数据
     return {
-      regions:'',
+      Aufgeld: '',
+      regions: '',
       input: '',
       input1: '',
       value1: '',
@@ -154,7 +176,19 @@ export default {
   updated () { }, // 生命周期 - 更新之后
   beforeDestroy () { }, // 生命周期 - 销毁之前
   destroyed () { }, // 生命周期 - 销毁完成
-  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated () { }, // 如果页面有keep-alive缓存功能，这个函数会触发
+  beforeRouteEnter (to, from, next) {
+    console.log(from)
+    let title
+    if (from.meta.title == '我的申请') {
+      title = '1'
+    } else {
+      title = '2'
+    }
+    next(vm => {
+      vm.Aufgeld = title
+    });
+  }
 }
 </script>
 <style scoped>

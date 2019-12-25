@@ -143,8 +143,37 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    sversicherungen(){
+    sversicherungen () {
       this.$router.push('./newApplication')
+
+    },
+    handleClick (row) {
+
+      // this.$router.push('./Antrag') 
+      // 定金延期申请
+      //  this.$router.push('./Dingjinyanqin')
+      // 取消核销申请
+      //  this.$router.push('./quxiaohexiao')
+      // 次卡次数调整
+      // this.$router.push('./Maloft')
+      // 更改会籍开始和结束时间
+      // this.$router.push('./genggaiday')
+      //更改会籍类型申请
+      // this.$router.push('./huijitype')
+      //修改通店申请
+      // this.$router.push('./xiugaitongdian')
+      //批量核销课时申请
+      // this.$router.push('./pilianghexiao')
+      //更改定金合同付款方式申请
+      // this.$router.push('./DingHefukuang')
+      //更改黑名单申请
+      // this.$router.push('./gengheimingdan')
+      //增送储值卡
+      // this.$router.push('./zengchuzhika')
+      //会籍合同退款申请
+      this.$router.push('./hetongtuikuang')
+
+      // this.$router.push({path:'./Hjtuikuansheng',query:{id:1}})
     },
     onSubmit () {
       console.log('submit!');
@@ -155,10 +184,6 @@ export default {
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`);
     },
-    handleClick (row) {
-      console.log(row);
-    }
-
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
