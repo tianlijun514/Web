@@ -145,9 +145,6 @@ export default {
             this.num.date1 = String(date.getTime());
             this.num.date2 = String(date2.getTime());
         },
-        handleLook(e) {
-            console.log(e);
-        },
         handleSizeChange(val) {
             this.num.size = val;
             this.postMembersSales(this.num);

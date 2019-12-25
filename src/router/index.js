@@ -69,7 +69,6 @@ export default new Router({
           path: '/box0',
           component: () => import('../components/huibox/MembershipSalesFlow.vue'),
           meta: {
-
             title: '会籍销售流水查询'
           }
         },
@@ -142,6 +141,34 @@ export default new Router({
           component: () => import('../components/huibox/StoredCardInquiry.vue'),
           meta: {
             title: '储值卡查询'
+          }
+        },
+        {
+          path: '/box12',
+          component: () => import('../components/huibox/phone.vue'),
+          meta: {
+            title: '拍照'
+          }
+        },
+        {
+          path: '/box13',
+          component: () => import('../components/huibox/qianming.vue'),
+          meta: {
+            title: '签名'
+          }
+        },
+        {
+          path: '/box14',
+          component: () => import('../components/huibox/erweima.vue'),
+          meta: {
+            title: '二维码'
+          }
+        },
+        {
+          path: '/box15',
+          component: () => import('../components/huibox/huihua.vue'),
+          meta: {
+            title: '二维码'
           }
         },
         // 会籍业务
