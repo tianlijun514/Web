@@ -3,11 +3,14 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="合同编号" label-width='82px'>
+      <el-form-item label="合同编号" label-width='82px'  v-show="Aufgeld=='2'">
         <el-input v-model="input" class="kuang"></el-input>
       </el-form-item>
 
       <div class="conment">
+        <el-form-item label="合同编号" label-width='82px'  v-show="Aufgeld=='1'">
+          <el-input v-model="input" class="kuang" disabled></el-input>
+        </el-form-item>
         <div class="shenfen">
           <el-form-item label="销售日期">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled style="width: 185px;"></el-input>
@@ -59,9 +62,16 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
+        <el-form-item label="原会籍类型" label-width="82px"  v-show="Aufgeld=='1'">
+          <el-input v-model="input" disabled style="width: 460px;margin-left: -2px;"></el-input>
+        </el-form-item>
+        <el-form-item label="新会籍类型" label-width="82px"  v-show="Aufgeld=='1'">
+          <el-input v-model="input" disabled style="width: 458px;margin-left: -2px;"></el-input>
+        </el-form-item>
+
       </div>
 
-      <el-form-item label="新会籍类型" label-width="82px">
+      <el-form-item label="新会籍类型" label-width="82px"  v-show="Aufgeld=='2'">
         <el-select v-model="form.region" style="width: 458px;">
           <el-option label="A00006 - 红牌楼店" value="A00006"></el-option>
           <el-option label="A00007 - 花郡店" value="A00007"></el-option>
@@ -85,11 +95,14 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="申请原因">
+      <el-form-item label="申请原因" v-show="Aufgeld=='2'">
         <el-input type="textarea" v-model="form.desc" style="width: 459px;"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item  v-show="Aufgeld=='2'">
         <el-button type="primary" @click="onSubmit">保存申请</el-button>
+      </el-form-item>
+      <el-form-item  v-show="Aufgeld=='1'">
+        <el-button type="primary" @click="onSubmit">审批历史</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -111,6 +124,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      Aufgeld: '',
       input: '',
       input1: '',
       value1: '',
@@ -150,7 +164,19 @@ export default {
   updated () { }, // 生命周期 - 更新之后
   beforeDestroy () { }, // 生命周期 - 销毁之前
   destroyed () { }, // 生命周期 - 销毁完成
-  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated () { },// 如果页面有keep-alive缓存功能，这个函数会触发
+  beforeRouteEnter (to, from, next) {
+    console.log(from)
+    let title
+    if (from.meta.title == '我的申请') {
+      title = '1'
+    } else {
+      title = '2'
+    }
+    next(vm => {
+      vm.Aufgeld = title
+    });
+  }
 }
 </script>
 <style scoped>
@@ -175,7 +201,7 @@ export default {
     display: flex;
 }
 
-.kuang{
-  width: 187px;
+.kuang {
+    width: 187px;
 }
 </style>

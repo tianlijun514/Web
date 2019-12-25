@@ -3,13 +3,16 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="合同编号" label-width='82px'>
+      <el-form-item label="合同编号" label-width='82px' v-show="Aufgeld=='2'">
         <el-input @blur="changeCount" v-model="form.bianhao" class="kuang"></el-input>
       </el-form-item>
 
       <div class="conment">
-        <div class="shenfen">
+        <el-form-item label="合同编号" label-width='82px' v-show="Aufgeld=='1'">
+          <el-input v-model="form.bianhao" class="kuang" disabled></el-input>
+        </el-form-item>
 
+        <div class="shenfen">
           <el-form-item label="销售日期">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
@@ -59,8 +62,11 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
+        <el-form-item label-width='82px' label="新加通店" v-show="Aufgeld=='1'">
+          <span>1111111111111111111111</span>
+        </el-form-item>
       </div>
-      <div class="chebox">
+      <div class="chebox" v-show="Aufgeld=='2'">
         <p class="tong">现有通店</p>
         <p class="xuan">*减少通店直接取消勾选，保存即可</p>
       </div>
@@ -73,7 +79,7 @@
       </div>
 
       <div class="shenfen">
-        <el-form-item label="新加通店" label-width="82px">
+        <el-form-item label="新加通店" label-width="82px" v-show="Aufgeld=='2'">
           <el-select v-model="form.region" style="width: 380px;">
             <el-option label="A00006 - 红牌楼店" value="A00006"></el-option>
             <el-option label="A00007 - 花郡店" value="A00007"></el-option>
@@ -96,15 +102,18 @@
             <el-option label="test - 培训测试店" value="0001"></el-option>
           </el-select>
         </el-form-item>
-        <el-button type="primary" @click="onSubmit" style="height: 33px">添加门店</el-button>
+        <el-button type="primary" @click="onSubmit" style="height: 33px" v-show="Aufgeld=='2'">添加门店</el-button>
 
       </div>
 
-      <el-form-item label="申请原因">
+      <el-form-item label="申请原因" v-show="Aufgeld=='2'">
         <el-input type="textarea" v-model="form.desc" class='whinth'></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-show="Aufgeld=='2'">
         <el-button type="primary" @click="onSubmit">保存申请</el-button>
+      </el-form-item>
+      <el-form-item v-show="Aufgeld=='1'">
+        <el-button type="primary" @click="onSubmit">审批历史</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -128,6 +137,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      Aufgeld:'',
       checkboxing: false,
       checkAll: false,
       checkedCities: [],
@@ -168,7 +178,7 @@ export default {
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
     },
     changeCount () {
-      if (this.bianhao!='') {
+      if (this.bianhao != '') {
         this.checkboxing = true
       } else {
         this.checkboxing = false
@@ -190,7 +200,19 @@ export default {
   updated () { }, // 生命周期 - 更新之后
   beforeDestroy () { }, // 生命周期 - 销毁之前
   destroyed () { }, // 生命周期 - 销毁完成
-  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated () { }, // 如果页面有keep-alive缓存功能，这个函数会触发
+  beforeRouteEnter (to, from, next) {
+    console.log(from)
+    let title
+    if (from.meta.title == '我的申请') {
+      title = '1'
+    } else {
+      title = '2'
+    }
+    next(vm => {
+      vm.Aufgeld = title
+    });
+  }
 }
 </script>
 <style scoped>

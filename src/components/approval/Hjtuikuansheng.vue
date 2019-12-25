@@ -3,12 +3,12 @@
   <div class='pact'>
     <el-form ref="form" :model="form" label-width="80px" class="formbox">
 
-      <el-form-item label="私教合同号" label-width='82px'>
+      <el-form-item label="私教合同号" label-width='82px' v-show="hui=='2'">
         <el-input v-model="input" class="kuang"></el-input>
       </el-form-item>
 
       <div class="conment">
-        <el-form-item label="合同编号" label-width='82px'>
+        <el-form-item label="合同编号" label-width='82px' v-show="hui=='1'">
           <el-input v-model="input" class="kuang" disabled></el-input>
         </el-form-item>
         <div class="shenfen">
@@ -73,12 +73,12 @@
             <el-input v-model="input" disabled></el-input>
           </el-form-item>
         </div>
-           <div class="shenfen">
-          <el-form-item label="原结束日期" label-width="82px" style="margin-left: -1px">
+        <div class="shenfen">
+          <el-form-item label="原结束日期" label-width="82px" style="margin-left: -1px" v-show="hui=='1'">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
 
-          <el-form-item label="延期结束日" label-width="82px">
+          <el-form-item label="延期结束日" label-width="82px" v-show="hui=='1'">
             <el-input suffix-icon="el-icon-date" v-model="input1" disabled class="kuang"></el-input>
           </el-form-item>
         </div>
@@ -86,19 +86,19 @@
 
       <div class="shenfen">
 
-        <el-form-item label="延期结束日" label-width="82px" style="margin-left:4px;">
+        <el-form-item label="延期结束日" label-width="82px" style="margin-left:4px;" v-show="hui=='2'">
           <el-date-picker v-model="value1" type="date" class="kuang">
           </el-date-picker>
         </el-form-item>
       </div>
 
-      <el-form-item label="申请原因">
+      <el-form-item label="申请原因" v-show="hui=='2'">
         <el-input type="textarea" v-model="form.desc" class='whinth'></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-show="hui=='2'">
         <el-button type="primary" @click="onSubmit">保存申请</el-button>
       </el-form-item>
-         <el-form-item>
+      <el-form-item v-show="hui=='1'">
         <el-button type="primary" @click="onSubmit">审批历史</el-button>
       </el-form-item>
     </el-form>
@@ -121,6 +121,7 @@ export default {
   data () {
     // 这里存放数据
     return {
+      hui: '',
       input: '',
       input1: '',
       value1: '',
@@ -149,6 +150,9 @@ export default {
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
 
+    // console.log(this.$route.query.id)
+    // this.hui=this.$route.query.id
+
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
@@ -160,8 +164,21 @@ export default {
   updated () { }, // 生命周期 - 更新之后
   beforeDestroy () { }, // 生命周期 - 销毁之前
   destroyed () { }, // 生命周期 - 销毁完成
-  activated () { } // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated () { },// 如果页面有keep-alive缓存功能，这个函数会触发
+  beforeRouteEnter (to, from, next) {
+    console.log(from)
+    let title
+    if (from.meta.title == '我的申请') {
+      title = '1'
+    } else {
+      title = '2'
+    }
+    next(vm => {
+      vm.hui = title
+    });
+  } 
 }
+
 </script>
 <style scoped>
 .conment {
