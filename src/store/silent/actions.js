@@ -1109,7 +1109,6 @@ const actions = {
                 end,
                 status,
             })
-            console.log(data)
             commit('updateDeliveryCardsSearch', data.data)
     },
 }
