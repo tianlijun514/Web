@@ -168,7 +168,7 @@ export default new Router({
           path: '/box15',
           component: () => import('../components/huibox/huihua.vue'),
           meta: {
-            title: '二维码'
+            title: '绘画'
           }
         },
         // 会籍业务
