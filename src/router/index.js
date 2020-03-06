@@ -783,8 +783,8 @@ export default new Router({
           }
         },
         {
-          path: '/newApplication',
-          component: () => import('../components/approval/newApplication.vue'),
+          path: '/NewApplication',
+          component: () => import('../components/approval/NewApplication.vue'),
 
           meta: {
             title: '新申请'
